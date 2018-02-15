@@ -1,0 +1,34 @@
+.auth-btn {
+  padding: 3px 8px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset -1px -1px 4px -1px rgba(0, 0, 0, 0.5);
+  background-color: #faffbd;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.auth-btn:focus {
+  outline: 0;
+}
+.auth-btn:hover .svg-icon-auth{
+  fill: #a30020;
+}
+.auth-btn:hover span {
+  color: darkblue;
+}
+.auth-btn:active {
+  opacity: 0.5;
+  box-shadow: none;
+}
+.svg-icon-auth {
+  /*display: inline-block;*/
+  width: 35px;
+  /*height: 25px;*/
+}
