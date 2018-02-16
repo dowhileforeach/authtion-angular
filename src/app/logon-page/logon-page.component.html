@@ -2,17 +2,17 @@
   <div class="slider">
 
       <div class="slider-controls">
-        <label class="radio-log-in" [ngClass]="{'radio-checked': translate===0}" (click)="changeSlide(0)">Log in</label>
-        <label class="radio-create-account" [ngClass]="{'radio-checked': translate===-295}" (click)="changeSlide(-295)">Create account</label>
+        <label class="radio-log-in" [ngClass]="{'radio-checked': isLogin}" (click)="changeSlide(0)">Log in</label>
+        <label class="radio-create-account" [ngClass]="{'radio-checked': isCreateAccount}" (click)="changeSlide(-295)">Create account</label>
       </div>
 
       <div class="slider-inner">
-        <div class="slider-slides" [ngClass]="{'translate0': translate===0, 'translate-295': translate===-295}">
+        <div class="slider-slides" [ngClass]="{'translate0': isLogin, 'translate-295': isCreateAccount}">
 
           <form class="log-in">
 
             <div class="form-group" spellcheck="false">
-              <input type="email" name="email" required tabindex="1" [(ngModel)]="email" [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
+              <input type="email" name="email" autofocus required tabindex="1" [(ngModel)]="email" [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
               <label>Email Address</label>
             </div>
 
@@ -31,7 +31,6 @@
               </svg>
               Log in
             </button>
-
           </form>
 
           <form class="create-account">
@@ -51,7 +50,6 @@
               </svg>
               Create account
             </button>
-
           </form>
 
         </div>

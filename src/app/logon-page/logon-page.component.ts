@@ -6,9 +6,11 @@ import {Component} from '@angular/core';
   styleUrls: ['./logon-page.component.css']
 })
 export class LogonPageComponent {
+
   email = '';
   password = '';
-  translate = 0;
+  isLogin = true;
+  isCreateAccount = false;
 
   trimmedStrIsEmpty(value): boolean {
     let result = true;
@@ -19,8 +21,7 @@ export class LogonPageComponent {
   }
 
   changeSlide(translate) {
-    this.translate = translate;
-    console.log('translate=' + this.translate);
-    console.log('------------');
+    this.isLogin = translate === 0;
+    this.isCreateAccount = translate === -295;
   }
 }
