@@ -2,15 +2,15 @@ body {
   font-family: "Helvetica", sans-serif;
 }
 
-section.log-in,
-section.create-account {
+form.log-in,
+form.create-account {
   margin: 20px auto;
 
   display: flex;
   flex-direction: column;
 }
 
-.slider-inner .form-group {
+form .form-group {
   background-color: transparent;
   position: relative;
   width: 100%;
@@ -18,7 +18,7 @@ section.create-account {
   margin-bottom: 12px;
 }
 
-.slider-inner input {
+form input {
   background-color: transparent;
   box-sizing: border-box;
   width: 100%;
@@ -30,7 +30,7 @@ section.create-account {
   box-shadow: 0 3px 5px -5px black;
 }
 
-.slider-inner label {
+form label {
   position: absolute;
   top: 18px;
   left: 11px;
@@ -40,22 +40,22 @@ section.create-account {
   pointer-events: none;
 }
 
-.slider-inner input:hover {
+form input:hover {
   border-color: #aaaaaa;
 }
 
-.slider-inner input:focus {
+form input:focus {
   border-color: #6ba8e5;
 }
 
-.slider-inner input:focus,
-.slider-inner .input_filled {
+form input:focus,
+form .input_filled {
   background-color: rgb(250, 255, 189);
   outline: 0;
 }
 
-.slider-inner input:focus + label,
-.slider-inner .input_filled + label {
+form input:focus + label,
+form .input_filled + label {
   font-size: 14px;
   color: darkblue;
   font-weight: bolder;
@@ -63,7 +63,7 @@ section.create-account {
   transform: translateY(-11px);
 }
 
-.slider-inner .restore-password {
+form .restore-password {
   display: inline-block;
   text-decoration: none;
   float: right;
@@ -74,12 +74,12 @@ section.create-account {
   transition: all 0.15s ease;
   outline: 0;
 }
-.slider-inner .restore-password:hover {
+form .restore-password:hover {
   color: red;
   border-color: red;
   cursor: pointer;
 }
-.slider-inner .restore-password:active {
+form .restore-password:active {
   opacity: 0.5;
 }
 
@@ -193,10 +193,6 @@ section.logon-page {
   position: relative;
 }
 
-.slider input[type=radio] {
-    display: none;
-}
-
 .slider-inner {
   overflow: hidden;
   margin: 0;
@@ -217,7 +213,6 @@ section.logon-page {
 
 .slider-controls label{
   display: inline-block;
-  cursor: pointer;
   transition: all 0.5s ease;
   box-sizing: border-box;
 }
@@ -226,44 +221,46 @@ section.logon-page {
   margin-left: 30px;
 }
 
-.slider-controls label[for="radio-log-in"]{
+.radio-log-in {
   color: #2d83db;
   border-bottom: 2px solid rgba(57, 139, 222, 0.4);
+  cursor: pointer;
 }
 
-.slider-controls label[for="radio-log-in"]:hover {
+.radio-log-in:hover {
   border-bottom-color: #398bde;
 }
 
-.slider-controls label[for="radio-create-account"] {
+.radio-create-account {
   color: green;
   border-bottom: 2px solid rgba(0, 128, 0, 0.4);
+  cursor: pointer;
 }
 
-.slider-controls label[for="radio-create-account"]:hover {
+.radio-create-account:hover {
   border-bottom-color: green;
 }
 
-.slider-controls label[for="radio-log-in"]:active,
-.slider-controls label[for="radio-create-account"]:active {
+.radio-log-in:active,
+.radio-create-account:active {
   opacity: 0.6;
 }
 
-.slider-slides section {
+.slider-slides form {
   float: left;
   width: 295px;
 }
 
-#radio-log-in:checked ~ .slider-inner .slider-slides {
+.translate0 {
   transform: translate(0);
 }
 
-#radio-create-account:checked ~ .slider-inner .slider-slides {
+.translate-295 {
   transform: translate(-295px);
 }
 
-#radio-log-in:checked ~ .slider-controls label[for="radio-log-in"],
-#radio-create-account:checked ~ .slider-controls label[for="radio-create-account"] {
+.radio-checked,
+.radio-checked:hover {
   border-color: transparent;
   cursor: default;
   opacity: 0.6;

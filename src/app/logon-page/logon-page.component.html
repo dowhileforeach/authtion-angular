@@ -1,19 +1,15 @@
 <section class="logon-page">
   <div class="slider">
 
-    <form>
-      <input type="radio" id="radio-log-in" name="group1" checked>
-      <input type="radio" id="radio-create-account" name="group1">
-
       <div class="slider-controls">
-        <label for="radio-log-in">Log in</label>
-        <label for="radio-create-account">Create account</label>
+        <label class="radio-log-in" [ngClass]="{'radio-checked': translate===0}" (click)="changeSlide(0)">Log in</label>
+        <label class="radio-create-account" [ngClass]="{'radio-checked': translate===-295}" (click)="changeSlide(-295)">Create account</label>
       </div>
 
       <div class="slider-inner">
-        <div class="slider-slides">
+        <div class="slider-slides" [ngClass]="{'translate0': translate===0, 'translate-295': translate===-295}">
 
-          <section class="log-in">
+          <form class="log-in">
 
             <div class="form-group" spellcheck="false">
               <input type="email" name="email" required tabindex="1" [(ngModel)]="email" [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
@@ -36,9 +32,9 @@
               Log in
             </button>
 
-          </section>
+          </form>
 
-          <section class="create-account">
+          <form class="create-account">
 
             <div class="form-group" spellcheck="false">
               <input type="email" name="email" required tabindex="-1" [(ngModel)]="email" [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
@@ -56,11 +52,11 @@
               Create account
             </button>
 
-          </section>
+          </form>
 
         </div>
       </div>
-    </form>
+
   </div>
 
 </section>
