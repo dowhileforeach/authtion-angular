@@ -5,13 +5,9 @@ import {AppComponent} from './app.component';
 import {AuthButtonComponent} from './auth-button/auth-button.component';
 import {LogonPageComponent} from './logon-page/logon-page.component';
 import {FormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import { HomePageComponent } from './main-page/home-page.component';
+import {HomePageComponent} from './main-page/home-page.component';
+import {AppRoutingModule} from './app-routing.module';
 
-const appRoutes: Routes = [
-  {path: 'logon', component: LogonPageComponent},
-  {path: '', component: HomePageComponent}
-];
 
 @NgModule({
   declarations: [
@@ -23,7 +19,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
