@@ -15,20 +15,26 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+
+  .svg-icon-auth {
+    width: 35px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    .svg-icon-auth {
+      fill: #a30020;
+    }
+    span {
+      color: darkblue;
+    }
+  }
+  &:active {
+    opacity: 0.5;
+    box-shadow: none;
+  }
 }
-.auth-btn:focus {
-  outline: 0;
-}
-.auth-btn:hover .svg-icon-auth{
-  fill: #a30020;
-}
-.auth-btn:hover span {
-  color: darkblue;
-}
-.auth-btn:active {
-  opacity: 0.5;
-  box-shadow: none;
-}
-.svg-icon-auth {
-  width: 35px;
-}
+
+

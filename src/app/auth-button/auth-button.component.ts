@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-auth-button',
   templateUrl: './auth-button.component.html',
-  styleUrls: ['./auth-button.component.css']
+  styleUrls: ['./auth-button.component.scss']
 })
 export class AuthButtonComponent {
 
