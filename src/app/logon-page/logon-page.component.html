@@ -1,13 +1,13 @@
 <section class="logon-page">
   <div class="slider">
 
-      <div class="slider-controls">
+      <div class="controls">
         <label class="radio-log-in" [ngClass]="{'radio-checked': isLogin}" (click)="changeSlide(0)">Log in</label>
         <label class="radio-create-account" [ngClass]="{'radio-checked': isCreateAccount}" (click)="changeSlide(-295)">Create account</label>
       </div>
 
-      <div class="slider-inner">
-        <div class="slider-slides" [ngClass]="{'translate0': isLogin, 'translate-295': isCreateAccount}">
+      <div class="inner">
+        <div class="slides" [ngClass]="{'translate0': isLogin, 'translate-295': isCreateAccount}">
 
           <form class="authtion log-in">
 

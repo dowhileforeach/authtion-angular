@@ -1,8 +1,10 @@
+
 body {
   font-family: "Helvetica", sans-serif;
 }
 
 form.authtion {
+
   &.log-in, &.create-account {
     margin: 20px auto;
 
@@ -11,32 +13,30 @@ form.authtion {
   }
 
   .form-group {
-    background-color: transparent;
     position: relative;
     width: 100%;
     margin: 0 auto;
     margin-bottom: 12px;
+    background-color: transparent;
   }
   .form-info {
     display: inline-block;
-    margin: 0;
     margin-top: 2px;
-    padding: 0;
     padding-left: 5px;
     font-size: 15px;
     color: #c3c3c3;
   }
 
   input {
-    background-color: transparent;
     box-sizing: border-box;
     width: 100%;
     padding: 25px 2px 5px 10px;
     font-size: 20px;
-    border-radius: 5px;
     font-weight: bolder;
     border: 1px solid lightgray;
+    border-radius: 5px;
     box-shadow: 0 3px 5px -5px black;
+    background-color: transparent;
     &:focus {
       border-color: #6ba8e5;
     }
@@ -52,8 +52,8 @@ form.authtion {
   input:focus + label,
   .input_filled + label {
     font-size: 14px;
-    color: darkblue;
     font-weight: bolder;
+    color: darkblue;
     opacity: 0.7;
     transform: translateY(-11px);
   }
@@ -64,20 +64,20 @@ form.authtion {
     left: 11px;
     font-size: 22px;
     color: lightgray;
-    transition: all 0.15s ease;
     pointer-events: none;
+    transition: all 0.15s ease;
   }
 
   .restore-password {
-    display: inline-block;
-    text-decoration: none;
     float: right;
+    display: inline-block;
     margin-top: 2px;
-    border-bottom: 1px dashed #c3c3c3;
     font-size: 15px;
     color: #c3c3c3;
-    transition: all 0.15s ease;
+    text-decoration: none;
+    border-bottom: 1px dashed #c3c3c3;
     outline: 0;
+    transition: all 0.15s ease;
     &:hover {
       color: red;
       border-color: red;
@@ -122,22 +122,24 @@ form.authtion {
 }
 
 section.logon-page {
-  width: 295px;
+
+  $form-width: 295px;
+
+  width: $form-width;
   margin: 0 auto;
   padding: 20px 0;
 
   .slider {
-    position: relative;
 
-    .slider-controls {
+    .controls {
       display: flex;
       justify-content: center;
 
       label {
         display: inline-block;
-        transition: all 0.5s ease;
         box-sizing: border-box;
-
+        cursor: pointer;
+        transition: all 0.5s ease;
         &:not(:first-child) {
           margin-left: 30px;
         }
@@ -146,7 +148,6 @@ section.logon-page {
       .radio-log-in {
         color: #2d6fc7;
         border-bottom: 2px solid rgba(57, 139, 222, 0.4);
-        cursor: pointer;
         &:hover {
           border-bottom-color: #398bde;
         }
@@ -155,7 +156,6 @@ section.logon-page {
       .radio-create-account {
         color: green;
         border-bottom: 2px solid rgba(0, 128, 0, 0.4);
-        cursor: pointer;
         &:hover {
           border-bottom-color: green;
         }
@@ -174,20 +174,16 @@ section.logon-page {
       }
     }
 
-    .slider-inner {
+    .inner {
       overflow: hidden;
-      margin: 0;
-      padding: 0;
 
-      .slider-slides {
-        margin: 0;
-        padding: 0;
+      .slides {
         width: 200%;
         transition: transform 0.2s ease;
 
         form {
           float: left;
-          width: 295px;
+          width: $form-width;
         }
 
         &.translate0 {
@@ -195,7 +191,7 @@ section.logon-page {
         }
 
         &.translate-295 {
-          transform: translate(-295px);
+          transform: translate(-$form-width);
         }
       }
     }
@@ -257,7 +253,7 @@ section.logon-page {
 .btn-glossy-whiskey:active,
 .btn-glossy-riptide:active {
   color: yellow;
-  box-shadow: inset 0px 1px 0 #aaaaaa;
+  box-shadow: inset 0 1px 0 #aaaaaa;
   opacity: 0.9;
 }
 
