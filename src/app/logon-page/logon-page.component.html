@@ -2,12 +2,12 @@
   <div class="slider">
 
       <div class="controls">
-        <label class="radio-log-in" [ngClass]="{'radio-checked': isLogin}" (click)="changeSlide(0)">Log in</label>
-        <label class="radio-create-account" [ngClass]="{'radio-checked': isCreateAccount}" (click)="changeSlide(-295)">Create account</label>
+        <label class="log-in" [ngClass]="{'checked': isLogin}" (click)="changeSlide(1)">Log in</label>
+        <label class="create-account" [ngClass]="{'checked': isCreateAccount}" (click)="changeSlide(2)">Create account</label>
       </div>
 
       <div class="inner">
-        <div class="slides" [ngClass]="{'translate0': isLogin, 'translate-295': isCreateAccount}">
+        <div class="slides" [ngClass]="{'go-to-log-in': isLogin, 'go-to-create-account': isCreateAccount}">
 
           <form class="authtion log-in">
 
@@ -19,7 +19,7 @@
             <div class="form-group">
               <input type="password" name="password" required tabindex="2" [(ngModel)]="password" [ngClass]="{ 'input_filled': password }">
               <label>Password</label>
-              <a class="restore-password" href="#" tabindex="-1">Restore password</a>
+              <a class="under-field restore-password" href="#" tabindex="-1">Restore password</a>
             </div>
 
             <button type="button" class="btn-rounded btn-glossy-blue btn-log-in" tabindex="3">
@@ -38,7 +38,7 @@
             <div class="form-group" spellcheck="false">
               <input type="email" name="email" required tabindex="-1" [(ngModel)]="email" [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
               <label>Email Address</label>
-              <p class="form-info">*password will be sent to your email</p>
+              <p class="under-field info">*password will be sent to your email</p>
             </div>
 
             <button type="button" class="btn-rounded btn-glossy-riptide btn-create-account" tabindex="-1">

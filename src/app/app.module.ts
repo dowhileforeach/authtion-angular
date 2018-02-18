@@ -5,7 +5,7 @@ import {AppComponent} from './app.component';
 import {AuthButtonComponent} from './auth-button/auth-button.component';
 import {LogonPageComponent} from './logon-page/logon-page.component';
 import {FormsModule} from '@angular/forms';
-import {HomePageComponent} from './main-page/home-page.component';
+import {HomePageComponent} from './main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
 
 

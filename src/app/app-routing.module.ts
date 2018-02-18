@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {LogonPageComponent} from './logon-page/logon-page.component';
 import {RouterModule, Routes} from '@angular/router';
-import {HomePageComponent} from './main-page/home-page.component';
+import {HomePageComponent} from './main-page/main-page.component';
 
 const appRoutes: Routes = [
   {path: 'logon', component: LogonPageComponent},

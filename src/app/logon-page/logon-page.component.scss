@@ -19,12 +19,30 @@ form.authtion {
     margin-bottom: 12px;
     background-color: transparent;
   }
-  .form-info {
+  .under-field {
     display: inline-block;
-    margin-top: 2px;
-    padding-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 0;
     font-size: 15px;
+    text-decoration: none;
     color: #c3c3c3;
+    outline: 0;
+    &.info {
+      padding-left: 5px;
+    }
+    &.restore-password {
+      float: right;
+      border-bottom: 1px dashed #c3c3c3;
+      transition: all 0.15s ease;
+      &:hover {
+        color: red;
+        border-color: red;
+        cursor: pointer;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+    }
   }
 
   input {
@@ -37,11 +55,11 @@ form.authtion {
     border-radius: 5px;
     box-shadow: 0 3px 5px -5px black;
     background-color: transparent;
-    &:focus {
-      border-color: #6ba8e5;
-    }
     &:hover {
       border-color: #aaaaaa;
+    }
+    &:focus {
+      border-color: #6aa1dd;
     }
   }
   input:focus,
@@ -66,26 +84,6 @@ form.authtion {
     color: lightgray;
     pointer-events: none;
     transition: all 0.15s ease;
-  }
-
-  .restore-password {
-    float: right;
-    display: inline-block;
-    margin-top: 2px;
-    font-size: 15px;
-    color: #c3c3c3;
-    text-decoration: none;
-    border-bottom: 1px dashed #c3c3c3;
-    outline: 0;
-    transition: all 0.15s ease;
-    &:hover {
-      color: red;
-      border-color: red;
-      cursor: pointer;
-    }
-    &:active {
-      opacity: 0.5;
-    }
   }
 
   .svg-icon-log-in {
@@ -123,13 +121,17 @@ form.authtion {
 
 section.logon-page {
 
-  $form-width: 295px;
+  $form-width: 300px;
 
   width: $form-width;
   margin: 0 auto;
   padding: 20px 0;
 
   .slider {
+
+    button {
+      margin: 0 auto;
+    }
 
     .controls {
       display: flex;
@@ -145,7 +147,7 @@ section.logon-page {
         }
       }
 
-      .radio-log-in {
+      .log-in {
         color: #2d6fc7;
         border-bottom: 2px solid rgba(57, 139, 222, 0.4);
         &:hover {
@@ -153,7 +155,7 @@ section.logon-page {
         }
       }
 
-      .radio-create-account {
+      .create-account {
         color: green;
         border-bottom: 2px solid rgba(0, 128, 0, 0.4);
         &:hover {
@@ -161,13 +163,13 @@ section.logon-page {
         }
       }
 
-      .radio-log-in:active,
-      .radio-create-account:active {
+      .log-in:active,
+      .create-account:active {
         opacity: 0.6;
       }
 
-      .radio-checked,
-      .radio-checked:hover {
+      .checked,
+      .checked:hover {
         border-color: transparent;
         cursor: default;
         opacity: 0.6;
@@ -183,14 +185,17 @@ section.logon-page {
 
         form {
           float: left;
-          width: $form-width;
+          width: $form-width - 4;
+          &:not(:first-child) {
+            margin-left: 5px;
+          }
         }
 
-        &.translate0 {
+        &.go-to-log-in {
           transform: translate(0);
         }
 
-        &.translate-295 {
+        &.go-to-create-account {
           transform: translate(-$form-width);
         }
       }
@@ -200,7 +205,7 @@ section.logon-page {
 
 .btn-rounded {
   position: relative;
-  margin: 0 auto;
+  //margin: 0 auto;
   padding: 11px 30px;
   font-size: 20px;
   line-height: 25px;

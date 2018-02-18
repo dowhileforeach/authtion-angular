@@ -21,7 +21,7 @@ export class LogonPageComponent {
   }
 
   changeSlide(translate) {
-    this.isLogin = translate === 0;
-    this.isCreateAccount = translate === -295;
+    this.isLogin = translate === 1;
+    this.isCreateAccount = translate === 2;
   }
 }
