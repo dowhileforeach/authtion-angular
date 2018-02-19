@@ -1,3 +1,5 @@
+$color-93: #939393;
+$color-gray-active: #afb0b3;
 
 body {
   font-family: "Helvetica", sans-serif;
@@ -6,7 +8,8 @@ body {
 form.authtion {
 
   &.log-in, &.create-account {
-    margin: 20px auto;
+    margin: 0 auto;
+    margin-top: 20px;
 
     display: flex;
     flex-direction: column;
@@ -24,15 +27,17 @@ form.authtion {
     margin-top: 3px;
     margin-bottom: 0;
     font-size: 15px;
-    line-height: 18px;
+    line-height: 15px;
+    font-weight: lighter;
     text-decoration: none;
-    color: #c3c3c3;
+    color: $color-gray-active;
     outline: 0;
     &.info {
       margin-left: 10px;
     }
     &.restore-password {
       float: right;
+      margin-right: 5px;
       border-bottom: 1px dashed #c3c3c3;
       transition: all 0.15s ease;
       &:hover {
@@ -52,17 +57,17 @@ form.authtion {
     height: 55px;
     padding: 25px 2px 5px 10px;
     font-size: 20px;
-    font-weight: bolder;
+    font-weight: bold;
     line-height: 22px;
-    border: 1px solid lightgray;
+    border: 1px solid transparent;
     border-radius: 5px;
-    box-shadow: 0 3px 5px -5px black;
-    background-color: transparent;
+    box-shadow: 0 1px 0 0 #cdced1, 0 0 0 1px #d9dade;
+    background-color: white;
     &:hover {
-      border-color: #aaaaaa;
+      box-shadow: 0 1px 0 0 $color-gray-active, 0 0 0 1px #bbbcc0;
     }
     &:focus {
-      border-color: #6aa1dd;
+      box-shadow: 0 1px 0 0 #699bd6, 0 0 0 1px #68a9e3;
     }
   }
   input:focus,
@@ -72,10 +77,9 @@ form.authtion {
   }
   input:focus + label,
   .input_filled + label {
-    font-size: 14px;
-    font-weight: bolder;
+    font-size: 15px;
+    font-weight: lighter;
     color: darkblue;
-    opacity: 0.7;
     transform: translateY(-14px);
   }
 
@@ -87,7 +91,8 @@ form.authtion {
     left: 11px;
     font-size: 22px;
     line-height: 22px;
-    color: lightgray;
+    font-weight: lighter;
+    color: $color-gray-active;
     pointer-events: none;
     transition: all 0.15s ease;
   }
@@ -127,16 +132,23 @@ form.authtion {
 
 section.logon-page {
 
-  $form-width: 300px;
+  $slide-width: 300px;
 
-  width: $form-width;
+  box-sizing: border-box;
+  width: $slide-width + 50px;
   margin: 0 auto;
-  padding: 20px 0;
+  padding: 25px 0;
+  background-color: white;
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+  border-radius: 2px;
 
   .slider {
 
+    width: $slide-width;
+    margin: 0 auto;
+
     button {
-      margin: 0 auto;
+      margin: 2px auto;
     }
 
     .controls {
@@ -146,6 +158,9 @@ section.logon-page {
       label {
         display: inline-block;
         box-sizing: border-box;
+        font-size: 17px;
+        font-weight: lighter;
+        line-height: 17px;
         cursor: pointer;
         transition: all 0.5s ease;
         &:not(:first-child) {
@@ -155,7 +170,7 @@ section.logon-page {
 
       .log-in {
         color: #2d6fc7;
-        border-bottom: 2px solid rgba(57, 139, 222, 0.4);
+        border-bottom: 1px solid rgba(57, 139, 222, 0.35);
         &:hover {
           border-bottom-color: #398bde;
         }
@@ -163,7 +178,7 @@ section.logon-page {
 
       .create-account {
         color: green;
-        border-bottom: 2px solid rgba(0, 128, 0, 0.4);
+        border-bottom: 1px solid rgba(0, 128, 0, 0.35);
         &:hover {
           border-bottom-color: green;
         }
@@ -174,11 +189,12 @@ section.logon-page {
         opacity: 0.6;
       }
 
-      .checked,
-      .checked:hover {
-        border-color: transparent;
-        cursor: default;
-        opacity: 0.6;
+      .checked {
+        &, &:hover {
+          border-color: transparent;
+          cursor: default;
+          opacity: 0.6;
+        }
       }
     }
 
@@ -191,9 +207,10 @@ section.logon-page {
 
         form {
           float: left;
-          width: $form-width - 4;
+          width: $slide-width - 4;
+          margin-left: 2px;
           &:not(:first-child) {
-            margin-left: 5px;
+            margin-left: 4px;
           }
         }
 
@@ -202,7 +219,7 @@ section.logon-page {
         }
 
         &.go-to-create-account {
-          transform: translate(-$form-width);
+          transform: translate(-$slide-width);
         }
       }
     }
@@ -213,12 +230,15 @@ section.logon-page {
   position: relative;
   padding: 11px 30px;
   font-size: 20px;
+  //font-weight: lighter;
   line-height: 25px;
   text-align: center;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top-color: rgba(0, 0, 0, 0.07);
+  border-left-color: rgba(0, 0, 0, 0.07);
   border-radius: 40px;
-  box-shadow: 0 0 3px 0 #aaaaaa;
+  box-shadow: 1px 1px 2px -1px #aaaaaa;
   cursor: pointer;
   &:active {
     color: yellow;
@@ -227,9 +247,7 @@ section.logon-page {
   }
 }
 
-.btn-glossy-blue,
-.btn-glossy-whiskey,
-.btn-glossy-riptide {
+.btn-inactive-white-gray {
   color: white;
   background-image: linear-gradient(
       #ebebeb 0%, #d9d9d9 35%,
@@ -237,30 +255,52 @@ section.logon-page {
       #f2f2f2 100%);
 }
 
-.btn-glossy-blue:hover,
-.btn-glossy-blue:focus {
-  background-image: linear-gradient(
-      #b8e1fc 0%, #90bcea 35%,
-      #90bff0 50%, #6ba8e5 51%,
-      #bdf3fd 100%);
-  outline: 0;
+.btn-glossy-blue {
+  @extend .btn-inactive-white-gray;
+  &:hover,
+  &:focus {
+    background-image: linear-gradient(
+        #b4dcf7 0%, #8bb7e5 35%,
+        #8cbaeb 50%, #6aa4e0 51%,
+        #b9eef8 100%);
+    outline: 0;
+  }
 }
 
-.btn-glossy-whiskey:hover,
-.btn-glossy-whiskey:focus {
-  background-image: linear-gradient(
-      #fcd0b8 0%, #eab390 35%,
-      #f0b590 50%, #e59a6b 51%,
-      #fdcfbd 100%);
-  outline: 0;
+.btn-glossy-whiskey {
+  @extend .btn-inactive-white-gray;
+  &:hover,
+  &:focus {
+    background-image: linear-gradient(
+        #fcd0b8 0%, #eab390 35%,
+        #f0b590 50%, #e59a6b 51%,
+        #fdcfbd 100%);
+    outline: 0;
+  }
 }
 
-.btn-glossy-riptide:hover,
-.btn-glossy-riptide:focus {
-  background-image: linear-gradient(
-      #b8fcd3 0%, #90eabf 35%,
-      #90f0c2 50%, #6be5a8 51%,
-      #bdfdc6 100%);
-  outline: 0;
+.btn-glossy-riptide {
+  @extend .btn-inactive-white-gray;
+  &:hover,
+  &:focus {
+    background-image: linear-gradient(
+        #b8fcd3 0%, #90eabf 35%,
+        #90f0c2 50%, #6be5a8 51%,
+        #bdfdc6 100%);
+    outline: 0;
+  }
 }
+
+.btn-glossy-green {
+  @extend .btn-inactive-white-gray;
+  &:hover,
+  &:focus {
+    background-image: linear-gradient(
+        #b9e3b2 0%, #90d195 35%,
+        #91d797 50%, #6dcc6f 51%,
+        #c4e4bc 100%);
+    outline: 0;
+  }
+}
+
 

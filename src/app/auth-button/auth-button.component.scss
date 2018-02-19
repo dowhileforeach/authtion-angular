@@ -1,3 +1,24 @@
+.auth {
+
+  width: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .svg-icon-auth {
+    width: 100%;
+    fill: white;
+    outline: 0;
+    opacity: 0.85;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+  }
+}
+
 .auth-btn {
   padding: 3px 8px;
   font-size: 18px;
