@@ -1,5 +1,16 @@
 $color-93: #939393;
-$color-gray-active: #afb0b3;
+
+$font-size-x1: 13px;
+$font-size-x2: 15px;
+$font-size-x3: 17px;
+
+$indent-left-right: 7px;
+
+@mixin font-size-height-weight($size, $height: $size, $weight: lighter) {
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
+}
 
 body {
   font-family: "Helvetica", sans-serif;
@@ -24,20 +35,17 @@ form.authtion {
   }
   .under-field {
     display: inline-block;
-    margin-top: 3px;
+    box-sizing: border-box;
+    margin-top: 4px;
     margin-bottom: 0;
-    font-size: 15px;
-    line-height: 15px;
-    font-weight: lighter;
+    @include font-size-height-weight($size: $font-size-x2);
     text-decoration: none;
-    color: $color-gray-active;
+    color: $color-93;
     outline: 0;
-    &.info {
-      margin-left: 10px;
-    }
+
+    float: right;
+    margin-right: $indent-left-right;
     &.restore-password {
-      float: right;
-      margin-right: 5px;
       border-bottom: 1px dashed #c3c3c3;
       transition: all 0.15s ease;
       &:hover {
@@ -54,17 +62,16 @@ form.authtion {
   input {
     box-sizing: border-box;
     width: 100%;
-    height: 55px;
-    padding: 25px 2px 5px 10px;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 22px;
+    height: 50px;
+    padding: 18px $indent-left-right;
+    padding-bottom: 0;
+    @include font-size-height-weight($size: $font-size-x3, $weight: bold);
     border: 1px solid transparent;
-    border-radius: 5px;
-    box-shadow: 0 1px 0 0 #cdced1, 0 0 0 1px #d9dade;
+    border-radius: 2px;
+    box-shadow: 0 1px 0 0 #c3c4c7, 0 0 0 1px #cfd0d4;
     background-color: white;
     &:hover {
-      box-shadow: 0 1px 0 0 $color-gray-active, 0 0 0 1px #bbbcc0;
+      box-shadow: 0 1px 0 0 $color-93, 0 0 0 1px #a0a0a0;
     }
     &:focus {
       box-shadow: 0 1px 0 0 #699bd6, 0 0 0 1px #68a9e3;
@@ -75,57 +82,55 @@ form.authtion {
     background-color: rgb(250, 255, 189);
     outline: 0;
   }
-  input:focus + label,
-  .input_filled + label {
-    font-size: 15px;
-    font-weight: lighter;
-    color: darkblue;
-    transform: translateY(-14px);
-  }
 
   label {
     position: absolute;
     display: inline-block;
     box-sizing: border-box;
-    top: 19px;
-    left: 11px;
-    font-size: 22px;
-    line-height: 22px;
-    font-weight: lighter;
-    color: $color-gray-active;
+    top: 18px;
+    left: $indent-left-right;
+    @include font-size-height-weight($size: $font-size-x3);
+    color: $color-93;
     pointer-events: none;
     transition: all 0.15s ease;
   }
-
-  .svg-icon-log-in {
-    stroke: white;
-    stroke-width: 0;
+  input:focus ~ label,
+  .input_filled ~ label {
+    transform: translateY(-11px);
+    color: darkblue;
+    @include font-size-height-weight($size: $font-size-x2);
   }
 
-  .btn-log-in {
-    padding-right: 55px;
-    svg {
-      position: absolute;
-      top: 11px;
-      right: 26px;
-      width: 23px;
-      fill: white;
+  .svg-icon {
+    stroke: white;
+    stroke-width: 0;
+    fill: white;
+    &.log-in {
+      width: 20px;
+    }
+    &.create-account {
+      width: 24px;
     }
   }
 
-  .svg-icon-create-account {
-    stroke: white;
-    stroke-width: 0;
+  .svg-icon-delete {
+    display: none;
   }
+  .input_filled ~ div .svg-icon-delete {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
 
-  .btn-create-account {
-    padding-right: 60px;
-    svg {
-      position: absolute;
-      top: 10px;
-      right: 25px;
-      width: 25px;
-      fill: white;
+    position: absolute;
+    top: 4px;
+    right: $indent-left-right;
+
+    cursor: pointer;
+    opacity: 0.3;
+    transition: all .15s ease;
+
+    &:hover {
+      opacity: 1;
     }
   }
 }
@@ -155,12 +160,11 @@ section.logon-page {
       display: flex;
       justify-content: center;
 
+      @include font-size-height-weight($size: $font-size-x3);
+
       label {
         display: inline-block;
         box-sizing: border-box;
-        font-size: 17px;
-        font-weight: lighter;
-        line-height: 17px;
         cursor: pointer;
         transition: all 0.5s ease;
         &:not(:first-child) {
@@ -186,14 +190,14 @@ section.logon-page {
 
       .log-in:active,
       .create-account:active {
-        opacity: 0.6;
+        opacity: 0.7;
       }
 
       .checked {
         &, &:hover {
           border-color: transparent;
           cursor: default;
-          opacity: 0.6;
+          opacity: 0.7;
         }
       }
     }
@@ -227,11 +231,15 @@ section.logon-page {
 }
 
 .btn-rounded {
-  position: relative;
-  padding: 11px 30px;
-  font-size: 20px;
-  //font-weight: lighter;
-  line-height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  height: 46px;
+  padding-right: 30px;
+  padding-left: 30px;
+  @include font-size-height-weight($size: $font-size-x3);
   text-align: center;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -244,6 +252,13 @@ section.logon-page {
     color: yellow;
     box-shadow: inset 0 1px 0 #aaaaaa;
     opacity: 0.9;
+  }
+  span, svg {
+    display: inline-block;
+    box-sizing: border-box;
+  }
+  span {
+    margin-left: $indent-left-right;
   }
 }
 
@@ -302,5 +317,3 @@ section.logon-page {
     outline: 0;
   }
 }
-
-

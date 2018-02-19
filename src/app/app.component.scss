@@ -23,12 +23,12 @@ header {
     background-origin: padding-box;
     background-clip: border-box;
     outline: 0;
-    transition: transform 1s linear, filter 1s linear;
+    transition: transform .15s linear, filter .35s linear;
 
     &:hover {
       cursor: pointer;
-      transform: rotate(360deg);
-      filter: hue-rotate(720deg);
+      transform: rotate(120deg);
+      filter: hue-rotate(35deg);
     }
   }
 
