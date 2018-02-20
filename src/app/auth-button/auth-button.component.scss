@@ -10,13 +10,14 @@
 
   .svg-icon-auth {
     width: 100%;
-    fill: white;
+    fill: rgba(32, 32, 32, 0.55);
     outline: 0;
-    filter: brightness(.85);
+    //filter: brightness(.85);
 
     &:hover {
       cursor: pointer;
-      filter: brightness(1);
+      fill: #202020;
+      //filter: brightness(1);
     }
   }
 }
