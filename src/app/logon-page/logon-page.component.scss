@@ -10,6 +10,7 @@ $indent-left-right: 7px;
   font-size: $size;
   line-height: $height;
   font-weight: $weight;
+  white-space: nowrap;
 }
 
 body {
@@ -41,6 +42,7 @@ form.authtion {
     @include font-size-height-weight($size: $font-size-x2);
     text-decoration: none;
     color: $color-93;
+    user-select: none;
     outline: 0;
 
     float: right;
@@ -92,6 +94,7 @@ form.authtion {
     @include font-size-height-weight($size: $font-size-x3);
     color: $color-93;
     pointer-events: none;
+    user-select: none;
     transition: all 0.15s ease;
   }
   input:focus ~ label,
@@ -125,6 +128,7 @@ form.authtion {
     top: 4px;
     right: $indent-left-right;
 
+    user-select: none;
     cursor: pointer;
     opacity: 0.3;
     transition: all .15s ease;
@@ -136,6 +140,11 @@ form.authtion {
 }
 
 section.logon-page {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
 
   $slide-width: 300px;
 
@@ -150,11 +159,7 @@ section.logon-page {
   .slider {
 
     width: $slide-width;
-    margin: 0 auto;
-
-    button {
-      margin: 2px auto;
-    }
+    margin: 5px auto;
 
     .controls {
       display: flex;
@@ -165,6 +170,7 @@ section.logon-page {
       label {
         display: inline-block;
         box-sizing: border-box;
+        user-select: none;
         cursor: pointer;
         transition: all 0.5s ease;
         &:not(:first-child) {
@@ -216,6 +222,10 @@ section.logon-page {
           &:not(:first-child) {
             margin-left: 4px;
           }
+          button {
+            margin: 0 auto;
+            margin-bottom: 5px;
+          }
         }
 
         &.go-to-log-in {
@@ -247,6 +257,7 @@ section.logon-page {
   border-left-color: rgba(0, 0, 0, 0.07);
   border-radius: 40px;
   box-shadow: 1px 1px 2px -1px #aaaaaa;
+  user-select: none;
   cursor: pointer;
   &:active {
     color: yellow;
@@ -317,3 +328,55 @@ section.logon-page {
     outline: 0;
   }
 }
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 96%;
+  height: 46px;
+
+  border: none;
+  border-radius: 2px;
+  outline: 0;
+
+  @include font-size-height-weight($size: $font-size-x3);
+  color: $color-93;
+  text-align: center;
+  vertical-align: middle;
+
+  user-select: none;
+  cursor: pointer;
+
+  background-color: #edeef0;
+
+  transition: all .4s ease-out;
+
+  &.raised {
+    box-shadow:
+      1px 1px 1px -1px rgba(0, 0, 0, .2),
+      1px 1px 1px 0px rgba(0, 0, 0, .15),
+      1px 1px 1px 0px rgba(0, 0, 0, .12),
+      1px 1px 1px 0px rgba(0, 0, 0, .05);
+  ;
+    &:hover, &:focus {
+      outline: 0;
+      box-shadow:
+        1px 1px 1px 0px rgba(0, 0, 0, .2),
+        1px 1px 1px 1px rgba(0, 0, 0, .15),
+        1px 1px 1px 1px rgba(0, 0, 0, .12),
+        1px 1px 1px 1px rgba(0, 0, 0, .05);
+    }
+    &:active {
+      box-shadow: inset -1px -1px 3px 0px rgba(0, 0, 0, .2);
+      opacity: 0.8;
+    }
+
+  }
+}
+
+
+
+
+
+
+

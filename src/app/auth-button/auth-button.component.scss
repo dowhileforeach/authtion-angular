@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
   transition: filter 0.15s ease;
 
   .svg-icon-auth {
