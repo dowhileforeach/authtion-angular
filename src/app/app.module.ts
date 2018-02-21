@@ -7,14 +7,19 @@ import {LogonPageComponent} from './logon-page/logon-page.component';
 import {FormsModule} from '@angular/forms';
 import {HomePageComponent} from './main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
-
+import { BodyFooterComponent } from './body-footer/body-footer.component';
+import { BodyMainComponent } from './body-main/body-main.component';
+import { BodyHeaderComponent } from './body-header/body-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthButtonComponent,
     LogonPageComponent,
-    HomePageComponent
+    HomePageComponent,
+    BodyFooterComponent,
+    BodyMainComponent,
+    BodyHeaderComponent,
   ],
   imports: [
     BrowserModule,
