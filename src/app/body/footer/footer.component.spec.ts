@@ -1,6 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {BodyFooterComponent} from './body-footer.component';
+import {BodyFooterComponent} from './footer.component';
 
 describe('BodyFooterComponent', () => {
   let component: BodyFooterComponent;

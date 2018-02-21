@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-body-main',
-  templateUrl: './body-main.component.html',
-  styleUrls: ['./body-main.component.scss']
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
 export class BodyMainComponent implements OnInit {
 
