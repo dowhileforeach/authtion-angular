@@ -11,18 +11,14 @@
 
   color: rgba(32, 32, 32, 0.55);
   font-size: 17px;
-  font-weight: lighter;
+  //letter-spacing: 0;
+  word-spacing: -4px;
   user-select: none;
-  b {
-    font-weight: bold;
-  }
 
-  opacity: 0.9;
   outline: 0;
   transition: all .35s linear;
 
   &:hover {
-    opacity: 1;
     filter: hue-rotate(35deg);
     cursor: pointer;
   }
@@ -40,10 +36,25 @@
     background-origin: padding-box;
     background-clip: border-box;
 
+    opacity: 0.9;
     transition: transform .15s linear;
   }
   &:hover::before {
     transform: rotate(120deg);
+  }
+  b:not(:last-child){
+    position: relative;
+    margin-right: 6px;
+    &::after{
+      content: "";
+      display: inline-block;
+
+      position: absolute;
+      right: -4px;
+      width: 1px;
+      height: 20px;
+      background-color: #939393;
+    }
   }
 
   //border: 1px solid black;
