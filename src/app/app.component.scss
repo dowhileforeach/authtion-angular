@@ -1,23 +1,18 @@
-$border-1: 0px;
-$border-2: 0px;
-
-$color-93: #939393;
-
-$font-size-x1: 13px;
-
+@import "scss/config";
+@import "scss/mixins";
 
 header,
 main,
 footer {
-  width: 100%;
   flex-shrink: 0;
+  width: 100%;
   box-sizing: border-box;
 
   display: flex; //for selector -> .centerer
 }
 
 .centerer {
-  width: 800px;
+  width: $content-max-width;
   margin: 0 auto;
 
   display: flex; //for selectors -> app-body-header, app-body-main, app-body-footer
@@ -30,15 +25,15 @@ footer {
     display: flex; //for their content
     flex-grow: 1;
 
-    border: $border-2 solid #00b000;
+    border: $debug-border-2 solid #00b000;
   }
-  border: $border-1 dashed blue;
+  border: $debug-border-1 dashed blue;
 }
 
 header {
   height: 50px;
-  background-color: #292c33; //3F648E , 4a76a8, d7d7d7
-  box-shadow: 0 1px 0 0 #c3c4c7;
+  background-color: $color-h;
+  @include std-bottom-border;
 
   .centerer {
     flex-direction: row;
@@ -48,13 +43,13 @@ header {
       align-items: center;
     }
   }
-  border: $border-2 solid magenta;
+  border: $debug-border-2 solid magenta;
 }
 
 main {
+  flex-grow: 1;
   margin-top: 15px;
   margin-bottom: 15px;
-  flex-grow: 1;
 
   .centerer {
     flex-direction: column;
@@ -65,7 +60,7 @@ main {
       align-items: center;
     }
   }
-  border: $border-2 solid red;
+  border: $debug-border-2 solid red;
 }
 
 footer {
@@ -79,12 +74,11 @@ footer {
       align-items: center;
 
       padding: 10px;
-      font-size: $font-size-x1;
       color: $color-93;
-      box-shadow: 0 -1px 0 0 #c3c4c7;
+      @include std-top-border;
     }
   }
-  border: $border-2 solid orange;
+  border: $debug-border-2 solid orange;
 }
 
 

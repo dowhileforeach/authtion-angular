@@ -1,29 +1,30 @@
+@import "app/scss/config";
+
 html, body {
+  width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  /*border: 1px solid blue;*/
-
-  overflow: auto;
-  min-width: 366px;
-
+  min-width: $page-min-width;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: $font-size-x1;
+  color: $color-20;
+  background-color: $color-b;
 
-  background-color: #edeef0;
+  border: $debug-border-1 solid blue;
 }
 
 app-root {
-  /*border: 3px solid magenta;*/
+  width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 
-  min-width: 366px;
-  width: 100%;
-  height: 100%;
+  border: $debug-border-2 solid magenta;
 }

@@ -1,31 +1,33 @@
-.auth {
-  //border: 1px solid black;
+@import "../../scss/config";
+@import "../../scss/mixins";
 
+.auth {
   display: flex;
+  flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 
   padding: 5px;
-  border-radius: 2px;
+  border-radius: $std-border-radius;
 
-  fill: #edeef0; //939393
-  color: #edeef0; //939393
+  fill: $color-b;
+  color: $color-b;
 
   user-select: none;
   outline: 0;
   transition: all 0.15s ease;
 
   &:hover {
-    background-color: #edeef0;
-    box-shadow: 0 1px 0 0 #c3c4c7, 0 0 0 1px #cfd0d4;
+    background-color: $color-b;
+    @include std-full-border;
     cursor: pointer;
     svg,
     span {
-      fill: #202020;
-      color: #202020;
+      fill: $color-h;
+      color: $color-h;
     }
   }
-  &:active{
+  &:active {
     opacity: 0.5;
   }
 
@@ -36,8 +38,10 @@
   }
   span {
     display: inline-block;
-    font-size: 17px;
-    transition: all 0.15s ease;
+    box-sizing: border-box;
     margin-left: 5px;
+    @include font-size-height-weight($size: $font-size-x3);
+    transition: all 0.15s ease;
   }
+  border: $debug-border-1 solid yellow;
 }

@@ -1,0 +1,223 @@
+@import "../scss/config";
+@import "../scss/mixins";
+@import "../scss/lib_buttons";
+
+form.authtion {
+
+  &.log-in, &.create-account {
+    margin: 0 auto;
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 12px;
+    background-color: transparent;
+  }
+  .under-field {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-top: 4px;
+    margin-bottom: 0;
+    padding-bottom: 2px;
+
+    @include font-size-height-weight($size: $font-size-x2);
+    text-decoration: none;
+    color: $color-93;
+
+    user-select: none;
+    outline: 0;
+
+    float: right;
+    margin-right: $indent-left-right;
+    &.restore-password {
+      border-bottom: 1px dashed $color-93;
+      transition: color 0.15s ease, border-color 0.15s ease;
+      &:hover {
+        color: red;
+        border-color: red;
+        cursor: pointer;
+      }
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    padding: 18px $indent-left-right;
+    padding-bottom: 0;
+
+    @include font-size-height-weight($size: $font-size-x3, $weight: bold);
+    color: $color-20;
+    background-color: white;
+
+    border: none;
+    border-radius: $std-border-radius;
+    box-shadow: 0 1px 0 0 #c3c4c7, 0 0 0 1px #cfd0d4;
+    &:hover {
+      box-shadow: 0 1px 0 0 $color-93, 0 0 0 1px #a0a0a0;
+    }
+    &:focus {
+      box-shadow: 0 1px 0 0 #6a92cd, 0 0 0 1px #689bd5;
+    }
+  }
+  input:focus,
+  .input_filled {
+    background-color: $color-filled-input;
+    outline: 0;
+  }
+
+  label {
+    position: absolute;
+    top: 18px;
+    left: $indent-left-right;
+
+    display: inline-block;
+    box-sizing: border-box;
+
+    @include font-size-height-weight($size: $font-size-x3);
+    color: $color-93;
+
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+  input:focus ~ label,
+  .input_filled ~ label {
+    transform: translateY(-11px);
+    color: $color-field-name;
+    @include font-size-height-weight($size: $font-size-x2);
+  }
+
+  .svg-icon-delete {
+    display: none;
+    fill: $color-20;
+  }
+  .input_filled ~ div .svg-icon-delete {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+
+    position: absolute;
+    top: 4px;
+    right: $indent-left-right;
+
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: all .15s ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+section.logon-page {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  $slide-width: 300px;
+
+  box-sizing: border-box;
+  width: $slide-width + 50px;
+  margin: 0 auto;
+  padding: 25px 0;
+  background-color: white;
+  @include std-full-border;
+
+  .slider {
+    width: $slide-width;
+    margin: 5px auto;
+
+    .controls {
+      display: flex;
+      justify-content: center;
+
+      @include font-size-height-weight($size: $font-size-x3);
+
+      label {
+        display: inline-block;
+        box-sizing: border-box;
+        padding-bottom: 2px;
+
+        user-select: none;
+        cursor: pointer;
+        transition: all 0.5s ease;
+
+        &:not(:first-child) {
+          margin-left: 30px;
+        }
+      }
+
+      .log-in {
+        color: $color-field-name;
+        border-bottom: 1px solid rgba($color-field-name, 0.35);
+        &:hover {
+          border-bottom-color: $color-field-name;
+        }
+      }
+
+      .create-account {
+        color: green;
+        border-bottom: 1px solid rgba(green, 0.35);
+        &:hover {
+          border-bottom-color: green;
+        }
+      }
+
+      .log-in:active,
+      .create-account:active {
+        opacity: 0.7;
+      }
+
+      .checked {
+        &, &:hover {
+          border-color: transparent;
+          cursor: default;
+          opacity: 0.7;
+        }
+      }
+    }
+
+    .inner {
+      overflow: hidden;
+
+      .slides {
+        width: 200%;
+        transition: transform 0.2s ease;
+
+        form {
+          float: left;
+          width: $slide-width - 4;
+          margin-left: 2px;
+          &:not(:first-child) {
+            margin-left: 4px;
+          }
+          button {
+            margin: 0 auto;
+            margin-bottom: 5px;
+          }
+        }
+        &.go-to-log-in {
+          transform: translate(0);
+        }
+        &.go-to-create-account {
+          transform: translate(-$slide-width);
+        }
+      }
+    }
+  }
+}
+

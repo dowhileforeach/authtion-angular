@@ -1,4 +1,6 @@
 
+@import "../scss/config";
+
 .logo {
   position: relative;
 
@@ -42,10 +44,10 @@
   &:hover::before {
     transform: rotate(120deg);
   }
-  b:not(:last-child){
+  b:not(:last-child) {
     position: relative;
     margin-right: 6px;
-    &::after{
+    &::after {
       content: "";
       display: inline-block;
 
@@ -56,15 +58,14 @@
       background-color: #939393;
     }
   }
-
-  //border: 1px solid black;
+  border: $debug-border-1 solid aqua;
 }
 
 app-auth-button {
   margin-right: 7px;
   margin-left: auto;
 
-  //border: 1px solid black;
+  border: $debug-border-1 solid cornflowerblue;
 }
 
 

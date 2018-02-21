@@ -1,0 +1,20 @@
+@mixin font-size-height-weight($size, $height: $size, $weight: normal) {
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
+  white-space: nowrap;
+}
+
+@mixin std-full-border {
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+}
+
+@mixin std-top-border {
+  box-shadow: 0 -1px 0 0 #d7d8db;
+}
+
+@mixin std-bottom-border {
+  box-shadow: 0 1px 0 0 #d7d8db;
+}
