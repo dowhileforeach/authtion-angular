@@ -1,4 +1,5 @@
 @import "app/scss/config";
+@import "app/scss/lib_animation";
 
 html, body {
   width: 100%;
@@ -28,3 +29,5 @@ app-root {
 
   border: $debug-border-2 solid magenta;
 }
+
+
