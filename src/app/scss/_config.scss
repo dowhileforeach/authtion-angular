@@ -1,17 +1,16 @@
 
 $color-filled-input: #FAFFBD;
-$color-20: #202020;
-$color-h: #003366; //header bg, e.g. 333333, 292c33, 3F648E , 4a76a8, d7d7d7
+$color-body-font: #202020; //body font
+$color-head: #003366; //header bg, e.g. 333333, 292c33, 3F648E , 4a76a8, d7d7d7
 $color-field-name: darkblue;
 $color-93: #939393;
 $color-d7: #d7d7d7;
-$color-shadow-1line: #d7d8db;
 $color-shadow-all: #e3e4e8;
-$color-b: #edeef0; //body bg
+$color-body-bg: #edeef0; //body bg
 
 $font-size-x1: 13px;
-$font-size-x2: 15px;
-$font-size-x3: 17px;
+$font-size-x2: $font-size-x1 + 2;
+$font-size-x3: $font-size-x2 + 2;
 
 $page-min-width: 366px;
 $content-max-width: 800px;

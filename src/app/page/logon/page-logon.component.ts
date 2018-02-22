@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-logon-page',
-  templateUrl: './logon.component.html',
-  styleUrls: ['./logon.component.scss']
+  templateUrl: './page-logon.component.html',
+  styleUrls: ['./page-logon.component.scss']
 })
 export class PageLogonComponent {
 

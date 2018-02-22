@@ -11,8 +11,8 @@ body {
   min-width: $page-min-width;
   font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, sans-serif;
   font-size: $font-size-x1;
-  color: $color-20;
-  background-color: $color-b;
+  color: $color-body-font;
+  background-color: $color-body-bg;
 
   border: $debug-border-1 solid blue;
 }

@@ -1,5 +1,5 @@
-@import "../scss/config";
-@import "../scss/mixins";
+@import "../../scss/config";
+@import "../../scss/mixins";
 
 .auth {
   display: flex;
@@ -10,21 +10,21 @@
   padding: 5px;
   border-radius: $std-border-radius;
 
-  fill: $color-b;
-  color: $color-b;
+  fill: $color-body-bg;
+  color: $color-body-bg;
 
   user-select: none;
   outline: 0;
   transition: all 0.15s ease;
 
   &:hover {
-    background-color: $color-b;
+    background-color: $color-body-bg;
     @include std-full-border;
     cursor: pointer;
     svg,
     span {
-      fill: $color-h;
-      color: $color-h;
+      fill: $color-head;
+      color: $color-head;
     }
   }
   &:active {

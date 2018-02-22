@@ -25,14 +25,14 @@ footer {
     display: flex; //for their content
     flex-grow: 1;
 
-    border: $debug-border-2 solid #00b000;
+    border: $debug-border-2 solid green;
   }
   border: $debug-border-1 dashed blue;
 }
 
 header {
   height: 50px;
-  background-color: $color-h;
+  background-color: $color-head;
   @include std-bottom-border;
 
   .centerer {
