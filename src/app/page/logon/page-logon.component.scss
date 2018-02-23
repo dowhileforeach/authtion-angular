@@ -1,6 +1,12 @@
 @import "../../scss/config";
 @import "../../scss/mixins";
+
 @import "../../scss/lib_buttons";
+@include btn-papper-gray("form.authtion ");
+
+@import "../../scss/lib_animation";
+@include btn-ripple(300px,".btn-papper-gray","btn-papper-gray");
+
 
 form.authtion {
 
@@ -104,8 +110,8 @@ form.authtion {
   }
   .input_filled ~ div .svg-icon-delete {
     display: inline-block !important;
-    width: 14px;
-    height: 14px;
+    width: 13px;
+    height: 13px;
 
     position: absolute;
     top: 5px;
@@ -139,7 +145,7 @@ section.logon-page {
 
   .slider {
     width: $slide-width;
-    margin: 5px auto;
+    margin: 5px auto 0;
 
     .controls {
       display: flex;
@@ -204,10 +210,6 @@ section.logon-page {
           margin-left: 2px;
           &:not(:first-child) {
             margin-left: 4px;
-          }
-          button {
-            margin: 0 auto;
-            margin-bottom: 5px;
           }
         }
         &.go-to-log-in {

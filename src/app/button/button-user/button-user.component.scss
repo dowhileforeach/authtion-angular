@@ -1,6 +1,10 @@
 @import "../../scss/config";
 @import "../../scss/mixins";
 
+@import "../../scss/lib_animation";
+@include btn-ripple(100px,".auth","auth");
+
+
 .auth {
   display: flex;
   flex-direction: row;
@@ -19,16 +23,12 @@
 
   &:hover {
     background-color: $color-body-bg;
-    @include std-full-border;
     cursor: pointer;
     svg,
     span {
       fill: $color-head;
       color: $color-head;
     }
-  }
-  &:active {
-    opacity: 0.5;
   }
 
   svg {
@@ -43,5 +43,8 @@
     @include font-size-height-weight($size: $font-size-x3);
     transition: all 0.15s ease;
   }
+
   border: $debug-border-1 solid yellow;
 }
+
+
