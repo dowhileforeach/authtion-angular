@@ -2,10 +2,10 @@
 @import "../../scss/mixins";
 
 @import "../../scss/lib_buttons";
-@include btn-papper-gray("form.authtion ");
+@include btn-papper-gray;
 
 @import "../../scss/lib_animation";
-@include btn-ripple(300px,".btn-papper-gray","btn-papper-gray");
+@include btn-ripple(300px);
 
 
 form.authtion {

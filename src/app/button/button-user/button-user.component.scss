@@ -2,7 +2,7 @@
 @import "../../scss/mixins";
 
 @import "../../scss/lib_animation";
-@include btn-ripple(100px,".auth","auth");
+@include btn-ripple(100px);
 
 
 .auth {

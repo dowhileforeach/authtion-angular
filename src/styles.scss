@@ -1,7 +1,7 @@
 @import "app/scss/config";
 
 @import "app/scss/lib_animation";
-@include spinner("app-root ", "app-root-");
+@include spinner;
 
 html, body {
   width: 100%;

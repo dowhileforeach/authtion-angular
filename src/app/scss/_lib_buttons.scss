@@ -1,5 +1,5 @@
-@mixin btn-papper-gray($class-prefix) {
-  #{$class-prefix}.btn-papper-gray {
+@mixin btn-papper-gray() {
+  .btn-papper-gray {
     box-sizing: border-box;
 
     width: 96%;
@@ -44,8 +44,8 @@
   }
 }
 
-@mixin btn-rounded($class-prefix) {
-  #{$class-prefix}.btn-rounded {
+@mixin btn-rounded() {
+  .btn-rounded {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -2,13 +2,13 @@
 //Spinner
 //
 
-@mixin spinner($class-prefix, $frames-prefix) {
+@mixin spinner() {
 
   //Also you can see this:
   //https://hassantariqblog.wordpress.com/2017/03/22/angular2-using-custom-loader-spinner-as-service-in-angular-2-application/
   //https://codepen.io/MattIn4D/pen/LiKFC
 
-  #{$class-prefix}.spinner {
+  .spinner {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -24,7 +24,7 @@
       height: 50px;
       margin-top: 70px;
 
-      animation-name: #{$frames-prefix}spinner;
+      animation-name: spinner;
       animation-duration: 11.5s;
       animation-iteration-count: infinite;
       animation-timing-function: linear;
@@ -34,7 +34,7 @@
     }
   }
 
-  @keyframes #{$frames-prefix}spinner {
+  @keyframes spinner {
     0% {
       transform: rotate(0deg);
     }
@@ -44,7 +44,7 @@
   }
 
   //special for Safari
-  @-webkit-keyframes #{$frames-prefix}spinner {
+  @-webkit-keyframes spinner {
     0% {
       -webkit-transform: rotate(0deg);
     }
@@ -58,9 +58,9 @@
 //Ripple
 //
 
-@mixin btn-ripple($value, $class-prefix, $frames-prefix) {
+@mixin btn-ripple($value) {
 
-  #{$class-prefix}.btn-ripple {
+  .btn-ripple {
     overflow: hidden;
     position: relative;
     &:after {
@@ -78,7 +78,7 @@
       transform: scale(0);
     }
     &:not(:active):after {
-      animation-name: #{$frames-prefix}btn-ripple;
+      animation-name: btn-ripple;
       animation-duration: 0.7s;
       animation-timing-function: ease-out;
     }
@@ -91,7 +91,7 @@
     }
   }
 
-  @keyframes #{$frames-prefix}btn-ripple {
+  @keyframes btn-ripple {
     0% {
       transform: scale(0);
     }
@@ -105,7 +105,7 @@
   }
 
   //special for Safari
-  @-webkit-keyframes #{$frames-prefix}btn-ripple {
+  @-webkit-keyframes btn-ripple {
     0% {
       -webkit-transform: scale(0);
     }
