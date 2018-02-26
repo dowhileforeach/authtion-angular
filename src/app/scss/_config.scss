@@ -1,4 +1,4 @@
-
+$color-attention: red;
 $color-filled-input: #FAFFBD;
 $color-body-font: #202020; //body font
 $color-head: #003366; //header bg, e.g. 333333, 292c33, 3F648E , 4a76a8, d7d7d7
@@ -8,16 +8,26 @@ $color-d7: #d7d7d7;
 $color-shadow-all: #e3e4e8;
 $color-body-bg: #edeef0; //body bg
 
-$font-size-x1: 13px;
+$font-size-base: 13px;
+$px-300: $font-size-base * 23;
+$px-50: $font-size-base * 3.85;
+$px-30: $font-size-base * 2.31;
+$px-20: $font-size-base * 1.54;
+$px-18: $font-size-base * 1.38;
+$px-12: $font-size-base * 0.92;
+$px-07: $font-size-base * 0.54;
+$px-05: $font-size-base * 0.38;
+$px-04: $font-size-base * 0.31;
+$px-02: $font-size-base * 0.15;
+
+$font-size-x1: $font-size-base;
 $font-size-x2: $font-size-x1 + 2;
 $font-size-x3: $font-size-x2 + 2;
 
-$page-min-width: 366px;
-$content-max-width: 800px;
+$std-border-radius: $px-02;
+$indent-left-right: $px-07;
 
-$std-border-radius: 2px;
-$indent-left-right: 7px;
+//@import "debug";
+//@include debug;
 
-@import "debug";
-@include debug(false);
 

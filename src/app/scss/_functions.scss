@@ -1,0 +1,4 @@
+
+@function strip-value($value) {
+  @return $value / (($value * 0) + 1);
+}

@@ -24,23 +24,24 @@
     outline: 0;
     transition: all .4s ease-out;
 
-    &.raised {
-      box-shadow: 1px 1px 1px -1px rgba(black, .2),
+    box-shadow:
+      1px 1px 1px -1px rgba(black, .2),
       1px 1px 1px 0px rgba(black, .15),
       1px 1px 1px 0px rgba(black, .12),
       1px 1px 1px 0px rgba(black, .05);
-      &:hover, &:focus {
-        outline: 0;
-        box-shadow: 1px 1px 1px 0px rgba(black, .2),
-        1px 1px 1px 1px rgba(black, .15),
-        1px 1px 1px 1px rgba(black, .12),
-        1px 1px 1px 1px rgba(black, .05);
-      }
-      &:active {
-        box-shadow: inset -1px -1px 3px 0px rgba(black, .2);
-        opacity: 0.8;
-      }
+    &:hover, &:focus {
+      outline: 0;
+      box-shadow:
+      1px 1px 1px 0px rgba(black, .2),
+      1px 1px 1px 1px rgba(black, .15),
+      1px 1px 1px 1px rgba(black, .12),
+      1px 1px 1px 1px rgba(black, .05);
     }
+    &:active {
+      box-shadow: inset -1px -1px 3px 0px rgba(black, .2);
+      opacity: 0.8;
+    }
+
   }
 }
 
