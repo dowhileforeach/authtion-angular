@@ -106,12 +106,9 @@ form.authtion {
 
   .svg-icon-delete {
     display: none;
-    fill: $color-body-font;
-  }
-  .input_filled ~ div .svg-icon-delete {
-    display: inline-block !important;
     width: 13px;
     height: 13px;
+    fill: $color-body-font;
 
     position: absolute;
     top: 5px;
@@ -120,10 +117,12 @@ form.authtion {
     user-select: none;
     cursor: pointer;
     opacity: 0.35;
-    transition: all .15s ease;
-
+    transition: opacity .15s ease;
+  }
+  .input_filled ~ div .svg-icon-delete {
+    display: inline-block !important;
     &:hover {
-      opacity: 1;
+      opacity: .95;
     }
   }
 }
