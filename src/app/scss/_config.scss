@@ -18,6 +18,6 @@ $content-max-width: 800px;
 $std-border-radius: 2px;
 $indent-left-right: 7px;
 
-$debug-border-1: 0px;
-$debug-border-2: 0px;
+@import "debug";
+@include debug(false);
 

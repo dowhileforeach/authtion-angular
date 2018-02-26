@@ -43,8 +43,6 @@
     @include font-size-height-weight($size: $font-size-x3);
     transition: all 0.15s ease;
   }
-
-  border: $debug-border-1 solid yellow;
 }
 
 

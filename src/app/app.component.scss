@@ -1,84 +1,60 @@
 @import "scss/config";
 @import "scss/mixins";
 
-header,
-main,
-footer {
+header, main, footer,
+app-body-header, app-body-main, app-body-footer {
   flex-shrink: 0;
   width: 100%;
   box-sizing: border-box;
 
-  display: flex; //for selector -> .centerer
+  display: flex;
 }
 
-.centerer {
-  width: $content-max-width;
-  margin: 0 auto;
+header, main, footer {
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+}
 
-  display: flex; //for selectors -> app-header, app-main, app-footer
+app-body-header {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
-  app-body-header,
-  app-body-main,
-  app-body-footer {
-    width: 100%;
-    box-sizing: border-box;
-    display: flex; //for their content
-    flex-grow: 1;
+app-body-main {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-    border: $debug-border-2 solid green;
-  }
-  border: $debug-border-1 dashed blue;
+app-body-footer {
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.row {
+  height: 100%;
 }
 
 header {
   height: 50px;
   background-color: $color-head;
   @include std-bottom-border;
-
-  .centerer {
-    flex-direction: row;
-    align-items: center;
-    app-body-header {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-  border: $debug-border-2 solid magenta;
 }
 
 main {
   flex-grow: 1;
   margin-top: 15px;
   margin-bottom: 15px;
-
-  .centerer {
-    flex-direction: column;
-    justify-content: flex-start;
-    app-body-main {
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-    }
-  }
-  border: $debug-border-2 solid red;
 }
 
 footer {
   margin-top: auto;
   @include std-top-border;
 
-  .centerer {
-    flex-direction: row;
-    align-items: center;
-    app-body-footer {
-      flex-direction: row;
-      align-items: center;
-
-      padding: 10px;
-      color: $color-93;
-    }
-  }
-  border: $debug-border-2 solid orange;
+  padding: 10px;
 }
 
 

@@ -1,5 +1,4 @@
 @import "app/scss/config";
-
 @import "app/scss/lib_animation";
 @include spinner;
 
@@ -12,12 +11,9 @@ html, body {
 
 body {
   min-width: $page-min-width;
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, sans-serif;
   font-size: $font-size-x1;
   color: $color-body-font;
   background-color: $color-body-bg;
-
-  border: $debug-border-1 solid blue;
 }
 
 app-root {
@@ -28,8 +24,6 @@ app-root {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
-  border: $debug-border-2 solid magenta;
 }
 
 
