@@ -1,17 +1,19 @@
 @import "../../scss/config";
 
 .logo {
+  $logo-height: $header-height/1.43;
+
   position: relative;
 
   display: flex;
   align-items: center;
 
-  height: 35px;
-  margin-left: 7px;
-  padding-left: 40px;
+  height: $logo-height;
+  margin-left: $indent-left-right;
+  padding-left: $header-height/1.25;
 
   font-size: $font-size-x3;
-  word-spacing: -4px;
+  word-spacing: -$px-04;
   user-select: none;
 
   outline: 0;
@@ -23,8 +25,8 @@
   }
   &::before {
     content: "";
-    width: 35px;
-    height: 35px;
+    width: $logo-height;
+    height: $logo-height;
 
     position: absolute;
     top: -1px;
@@ -43,22 +45,38 @@
   }
   b:not(:last-child) {
     position: relative;
-    margin-right: 6px;
+    margin-right: $px-06;
     &::after {
       content: "";
       display: inline-block;
 
       position: absolute;
-      right: -4px;
+      right: -$px-04;
       width: 1px;
-      height: 20px;
+      height: $px-20;
       background-color: $color-93;
     }
   }
 }
 
+.do {
+  color: $color-do;
+}
+
+.while {
+  color: $color-while;
+}
+
+.for {
+  color: $color-for;
+}
+
+.each {
+  color: $color-each;
+}
+
 app-auth-button {
-  margin-right: 7px;
+  margin-right: $indent-left-right;
   margin-left: auto;
 }
 

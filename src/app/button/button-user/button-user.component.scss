@@ -1,9 +1,10 @@
 @import "../../scss/config";
 @import "../../scss/mixins";
 
-@import "../../scss/lib_animation";
-@include btn-ripple(100px);
+$base-height: $px-30;
 
+@import "../../scss/lib_animation";
+@include btn-ripple($base-height/0.3);
 
 .auth {
   display: flex;
@@ -11,8 +12,8 @@
   justify-content: flex-end;
   align-items: center;
 
-  padding: 5px;
-  border-radius: $std-border-radius;
+  padding: $px-05;
+  border-radius: $border-radius;
 
   fill: $color-body-bg;
   color: $color-body-bg;
@@ -32,14 +33,15 @@
   }
 
   svg {
-    width: 30px;
+    width: $base-height;
+    height: $base-height;
     outline: 0;
     transition: all 0.15s ease;
   }
   span {
     display: inline-block;
     box-sizing: border-box;
-    margin-left: 5px;
+    margin-left: $px-05;
     @include font-size-height-weight($size: $font-size-x3);
     transition: all 0.15s ease;
   }

@@ -7,16 +7,16 @@
   white-space: nowrap;
 }
 
-@mixin std-full-border {
+@mixin full-border {
   border: none;
-  border-radius: $std-border-radius;
+  border-radius: $border-radius;
   box-shadow: 0 1px 0 0 $color-d7, 0 0 0 1px $color-shadow-all;
 }
 
-@mixin std-top-border {
+@mixin top-border {
   box-shadow: 0 -1px 0 0 $color-d7;
 }
 
-@mixin std-bottom-border {
+@mixin bottom-border {
   box-shadow: 0 1px 0 0 $color-d7;
 }

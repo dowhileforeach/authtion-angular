@@ -33,7 +33,7 @@ app-body-footer {
   justify-content: flex-start;
   align-items: center;
 
-  padding: 10px;
+  padding: $px-10;
 }
 
 .row {
@@ -41,20 +41,20 @@ app-body-footer {
 }
 
 header {
-  height: 50px;
+  height: $header-height;
   background-color: $color-head;
-  @include std-bottom-border;
+  @include bottom-border;
 }
 
 main {
   flex-grow: 1;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: $blocks-gap;
+  margin-bottom: $blocks-gap;
 }
 
 footer {
   margin-top: auto;
-  @include std-top-border;
+  @include top-border;
 }
 
 
