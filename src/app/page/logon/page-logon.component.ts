@@ -12,7 +12,7 @@ export class PageLogonComponent {
   isLogin = true;
   isCreateAccount = false;
 
-  trimmedStrIsEmpty(value): boolean {
+  isEmpty(value): boolean {
     let result = true;
     if (value) {
       result = value.trim().length === 0;

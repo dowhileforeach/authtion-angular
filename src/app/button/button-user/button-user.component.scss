@@ -12,9 +12,7 @@ $base-height: $px-30;
   justify-content: flex-end;
   align-items: center;
 
-  padding: $px-05;
-  padding-left: $px-10;
-  padding-right: $px-10;
+  padding: $px-05 $px-12;
 
   fill: $color--body-font;
   color: $color--body-font;
@@ -46,7 +44,7 @@ $base-height: $px-30;
   }
   span {
     display: inline-block;
-    margin-left: $px-05;
+    margin-left: 0;
     @include font__weight-style_size-height($size: $font-size--x3, $height: 'same', $weight: 300);
     //transition: all 0.15s ease;
   }

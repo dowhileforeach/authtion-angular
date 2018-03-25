@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
+import { AutofocusDirective } from './autofocus.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {MatButtonModule} from '@angular/material';
     PageLogonComponent,
     PageHomeComponent,
     ButtonUserComponent,
+    AutofocusDirective,
   ],
   imports: [
     BrowserModule,

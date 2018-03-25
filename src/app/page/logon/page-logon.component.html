@@ -17,12 +17,12 @@
                                               'slider__inner--create-account': isCreateAccount }">
         <form class="form" spellcheck="false">
           <p class="form__group">
-            <input [ngClass]="{ 'filled': !trimmedStrIsEmpty(email) }" type="email" name="email" [(ngModel)]="email" id="form__input-email--login" autofocus>
+            <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--login" appAutofocus>
             <label for="form__input-email--login">Email Address</label>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email=''">
           </p>
           <p class="form__group">
-            <input [ngClass]="{ 'filled': password }" type="password" name="password" [(ngModel)]="password" id="form__input-password">
+            <input [ngClass]="{ 'filled': password }" [(ngModel)]="password" type="password" name="password" id="form__input-password">
             <label for="form__input-password">Password</label>
             <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="password=''">
@@ -33,7 +33,7 @@
 
         <form class="form">
           <p class="form__group">
-            <input [ngClass]="{ 'filled': !trimmedStrIsEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--create-account" tabindex="-1">
+            <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--create-account" tabindex="-1">
             <label for="form__input-email--create-account">Email Address</label>
             <span class="form__under-field">*Password will be sent to your email</span>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email='';">
