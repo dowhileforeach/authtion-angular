@@ -13,36 +13,37 @@ $base-height: $px-30;
   align-items: center;
 
   padding: $px-05;
+
+  fill: $color--body-bg;
+  color: $color--body-bg;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
   border-radius: $border-radius;
 
-  fill: $color-body-bg;
-  color: $color-body-bg;
-
   user-select: none;
-  outline: 0;
   transition: all 0.15s ease;
 
-  &:hover {
-    background-color: $color-body-bg;
+  &:hover, &:focus {
+    outline: 0;
+    background-color: $color--body-bg;
     cursor: pointer;
     svg,
     span {
-      fill: $color-head;
-      color: $color-head;
+      fill: $color--page-header;
+      color: $color--page-header;
     }
   }
 
   svg {
     width: $base-height;
     height: $base-height;
-    outline: 0;
     transition: all 0.15s ease;
   }
   span {
     display: inline-block;
-    box-sizing: border-box;
     margin-left: $px-05;
-    @include font-size-height-weight($size: $font-size-x3);
+    @include font__weight-style_size-height($size: $font-size--x3, $height: 'same', $weight: 300);
     transition: all 0.15s ease;
   }
 }

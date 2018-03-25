@@ -1,38 +1,33 @@
 @mixin btn-papper-gray() {
   .btn-papper-gray {
-    box-sizing: border-box;
-
     width: 96%;
     height: 46px;
-    margin: 0 auto;
-    margin-bottom: 5px;
+    margin: 0 auto 5px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    @include font-size-height-weight($size: $font-size-x3);
+    @include font__weight-style_size-height($size: $font-size--x3);
     text-align: center;
     vertical-align: middle;
-    color: $color-body-font;
-    background-color: $color-d7;
+    color: $color--body-font;
+
     border: none;
     border-radius: $border-radius;
+    background-color: $color--d7;
 
     user-select: none;
     cursor: pointer;
-    outline: 0;
     transition: all .4s ease-out;
 
-    box-shadow:
-      1px 1px 1px -1px rgba(black, .2),
-      1px 1px 1px 0px rgba(black, .15),
-      1px 1px 1px 0px rgba(black, .12),
-      1px 1px 1px 0px rgba(black, .05);
+    box-shadow: 1px 1px 1px -1px rgba(black, .2),
+    1px 1px 1px 0px rgba(black, .15),
+    1px 1px 1px 0px rgba(black, .12),
+    1px 1px 1px 0px rgba(black, .05);
     &:hover, &:focus {
       outline: 0;
-      box-shadow:
-      1px 1px 1px 0px rgba(black, .2),
+      box-shadow: 1px 1px 1px 0px rgba(black, .2),
       1px 1px 1px 1px rgba(black, .15),
       1px 1px 1px 1px rgba(black, .12),
       1px 1px 1px 1px rgba(black, .05);
@@ -51,11 +46,10 @@
     justify-content: center;
     align-items: center;
 
-    box-sizing: border-box;
     height: 46px;
     padding-right: 30px;
     padding-left: 30px;
-    @include font-size-height-weight($size: $font-size-x3);
+    @include font__weight-style_size-height($size: $font-size--x3);
     text-align: center;
     text-shadow: 0 -1px 1px rgba(black, 0.4);
     border: 1px solid rgba(black, 0.2);
@@ -72,7 +66,6 @@
     }
     span, svg {
       display: inline-block;
-      box-sizing: border-box;
     }
     span {
       margin-left: $indent-left-right;
@@ -90,11 +83,11 @@
       @extend .btn-inactive-white-gray;
       &:hover,
       &:focus {
+        outline: 0;
         background-image: linear-gradient(
             #b4dcf7 0%, #8bb7e5 35%,
             #8cbaeb 50%, #6aa4e0 51%,
             #b9eef8 100%);
-        outline: 0;
       }
     }
 
@@ -102,11 +95,11 @@
       @extend .btn-inactive-white-gray;
       &:hover,
       &:focus {
+        outline: 0;
         background-image: linear-gradient(
             #fcd0b8 0%, #eab390 35%,
             #f0b590 50%, #e59a6b 51%,
             #fdcfbd 100%);
-        outline: 0;
       }
     }
 
@@ -114,11 +107,12 @@
       @extend .btn-inactive-white-gray;
       &:hover,
       &:focus {
+        outline: 0;
         background-image: linear-gradient(
             #b8fcd3 0%, #90eabf 35%,
             #90f0c2 50%, #6be5a8 51%,
             #bdfdc6 100%);
-        outline: 0;
+
       }
     }
 
@@ -126,11 +120,12 @@
       @extend .btn-inactive-white-gray;
       &:hover,
       &:focus {
+        outline: 0;
         background-image: linear-gradient(
             #b9e3b2 0%, #90d195 35%,
             #91d797 50%, #6dcc6f 51%,
             #c4e4bc 100%);
-        outline: 0;
+
       }
     }
   }

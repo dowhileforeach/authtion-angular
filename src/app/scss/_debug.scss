@@ -1,30 +1,30 @@
 @mixin debug {
 
-  $border-0: 0px;
-  $border-1: 1px;
-  $border-2: $border-1 * 2;
-  $border-3: $border-1 * 3;
+  $border--0: 0px;
+  $border--1: 1px;
+  $border--2: $border--1 * 2;
+  $border--3: $border--1 * 3;
 
   app-root {
     > header, > main, > footer {
-      border: $border-1 dashed red;
+      border: $border--1 dashed red;
     }
   }
 
   .container, .container-fluid {
-    border: $border-2 dashed orange;
+    border: $border--2 dashed orange;
   }
 
   .row {
-    border: $border-2 solid green;
+    border: $border--2 solid green;
   }
 
   .logo {
-    border: $border-1 solid aqua;
+    border: $border--1 solid aqua;
   }
 
   .auth {
-    border: $border-1 solid deepskyblue;
+    border: $border--1 solid deepskyblue;
   }
 
 }

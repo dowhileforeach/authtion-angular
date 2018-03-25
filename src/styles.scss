@@ -1,7 +1,5 @@
 @import "app/scss/config";
-
-@import "app/scss/lib_animation";
-@include spinner;
+@import "app/scss/mixins";
 
 html, body {
   width: 100%;
@@ -11,10 +9,10 @@ html, body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: $font-size-x1;
-  color: $color-body-font;
-  background-color: $color-body-bg;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  @include font__weight-style_size-height($size: $font-size--x1);
+  color: $color--body-font;
+  background-color: $color--body-bg;
 }
 
 app-root {
@@ -25,6 +23,25 @@ app-root {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+@import "app/scss/lib_animation";
+@include spinner;
+
+.visually-hidden { /* https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden */
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 

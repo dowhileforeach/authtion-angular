@@ -1,53 +1,43 @@
-<section class="logon-page">
+<section class="login-register">
+  <h2 class="visually-hidden">Login or Create account</h2>
 
   <div class="slider">
 
-    <div class="controls">
-      <label class="log-in" [ngClass]="{'checked': isLogin}" (click)="changeSlide(1)">Login</label>
-      <label class="create-account" [ngClass]="{'checked': isCreateAccount}" (click)="changeSlide(2)">Create
-        account</label>
+    <div class="slider__controls">
+      <button class="control control--log-in" [ngClass]="{ 'control--checked': isLogin }" (click)="changeSlide(1)">
+        Login
+      </button>
+      <button class="control control--create-account" [ngClass]="{ 'control--checked': isCreateAccount }" (click)="changeSlide(2)">
+        Create account
+      </button>
     </div>
 
-    <div class="inner">
-      <div class="slides" [ngClass]="{'go-to-log-in': isLogin, 'go-to-create-account': isCreateAccount}">
-
-        <form class="authtion log-in">
-
-          <div class="form-group" spellcheck="false">
-            <input type="email" name="email" autofocus required tabindex="1" [(ngModel)]="email"
-                   [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
-            <label>Email Address</label>
-            <div (click)="email='';">
-              <img src="assets/img/svg-icon-delete.svg" alt="" class="svg-icon-delete">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <input type="password" name="password" required tabindex="2" [(ngModel)]="password"
-                   [ngClass]="{ 'input_filled': password }">
-            <label>Password</label>
-            <a class="under-field restore-password" href="#" tabindex="-1">Restore password</a>
-            <div (click)="password='';">
-              <img src="assets/img/svg-icon-delete.svg" alt="" class="svg-icon-delete">
-            </div>
-          </div>
-
-          <div class="btn-papper-gray btn-ripple" tabindex="3">OK</div>
+    <div class="slider__wrap">
+      <div class="slider__inner" [ngClass]="{ 'slider__inner--login': isLogin,
+                                              'slider__inner--create-account': isCreateAccount }">
+        <form class="form" spellcheck="false">
+          <p class="form__group">
+            <input [ngClass]="{ 'filled': !trimmedStrIsEmpty(email) }" type="email" name="email" [(ngModel)]="email" id="form__input-email--login" autofocus>
+            <label for="form__input-email--login">Email Address</label>
+            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email=''">
+          </p>
+          <p class="form__group">
+            <input [ngClass]="{ 'filled': password }" type="password" name="password" [(ngModel)]="password" id="form__input-password">
+            <label for="form__input-password">Password</label>
+            <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
+            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="password=''">
+          </p>
+          <button class="btn-papper-gray btn-ripple">OK</button>
         </form>
 
-        <form class="authtion create-account">
-
-          <div class="form-group" spellcheck="false">
-            <input type="email" name="email" required tabindex="-1" [(ngModel)]="email"
-                   [ngClass]="{ 'input_filled': !trimmedStrIsEmpty(email) }">
-            <label>Email Address</label>
-            <p class="under-field info"><span style="color: #606060;">*</span>Password will be sent to your email</p>
-            <div (click)="email='';">
-              <img src="assets/img/svg-icon-delete.svg" alt="" class="svg-icon-delete">
-            </div>
-          </div>
-
-          <div class="btn-papper-gray btn-ripple" tabindex="-1">OK</div>
+        <form class="form">
+          <p class="form__group">
+            <input [ngClass]="{ 'filled': !trimmedStrIsEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--create-account" tabindex="-1">
+            <label for="form__input-email--create-account">Email Address</label>
+            <span class="form__under-field">*Password will be sent to your email</span>
+            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email='';">
+          </p>
+          <button class="btn-papper-gray btn-ripple" tabindex="-1">OK</button>
         </form>
 
       </div>

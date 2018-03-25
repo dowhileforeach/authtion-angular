@@ -1,16 +1,20 @@
 @import "scss/config";
 @import "scss/mixins";
 
-header, main, footer,
-app-body-header, app-body-main, app-body-footer {
+.page-header,
+.page-main,
+.page-footer,
+app-body-header,
+app-body-main,
+app-body-footer {
   flex-shrink: 0;
   width: 100%;
-  box-sizing: border-box;
-
   display: flex;
 }
 
-header, main, footer {
+.page-header,
+.page-main,
+.page-footer {
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
@@ -40,19 +44,19 @@ app-body-footer {
   height: 100%;
 }
 
-header {
-  height: $header-height;
-  background-color: $color-head;
+.page-header {
+  height: $height--page-header;
+  background-color: $color--page-header;
   @include bottom-border;
 }
 
-main {
+.page-main {
   flex-grow: 1;
   margin-top: $blocks-gap;
   margin-bottom: $blocks-gap;
 }
 
-footer {
+.page-footer {
   margin-top: auto;
   @include top-border;
 }

@@ -1,25 +1,25 @@
 @import "../../scss/config";
 
 .logo {
-  $logo-height: $header-height/1.43;
+  display: flex;
+  align-items: center;
+  $logo-height: $height--page-header/1.43;
+  height: $logo-height;
+  margin-left: $indent-left-right;
+  padding-left: $height--page-header/1.25;
+
+  font-size: $font-size--x3;
+  word-spacing: -$px-04;
+  text-decoration: none;
 
   position: relative;
 
-  display: flex;
-  align-items: center;
-
-  height: $logo-height;
-  margin-left: $indent-left-right;
-  padding-left: $header-height/1.25;
-
-  font-size: $font-size-x3;
-  word-spacing: -$px-04;
   user-select: none;
-
-  outline: 0;
   transition: all .35s linear;
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
     filter: hue-rotate(35deg);
     cursor: pointer;
   }
@@ -40,7 +40,9 @@
     opacity: 0.9;
     transition: transform .15s linear;
   }
-  &:hover::before {
+  &:hover::before,
+  &:focus::before {
+    outline: none;
     transform: rotate(120deg);
   }
   b:not(:last-child) {
@@ -54,25 +56,25 @@
       right: -$px-04;
       width: 1px;
       height: $px-20;
-      background-color: $color-93;
+      background-color: $color--93;
     }
   }
 }
 
 .do {
-  color: $color-do;
+  color: $color--do;
 }
 
 .while {
-  color: $color-while;
+  color: $color--while;
 }
 
 .for {
-  color: $color-for;
+  color: $color--for;
 }
 
 .each {
-  color: $color-each;
+  color: $color--each;
 }
 
 app-auth-button {

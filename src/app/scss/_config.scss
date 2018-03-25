@@ -1,37 +1,41 @@
-$color-do: white;
-$color-attention: red;
-$color-while: #FC6781;
-$color-for: #FEF982;
-$color-filled-input: #FAFFBD;
-$color-each: #56DC6E;
-$color-body-font: #202020; //body font
-$color-head: #003366; //header bg, e.g. 333333, 292c33, 3F648E , 4a76a8, d7d7d7
-$color-field-name: darkblue;
-$color-93: #939393;
-$color-d7: #d7d7d7;
-$color-shadow-all: #e3e4e8;
-$color-body-bg: #edeef0; //body bg
+$color--do: #fff;
+$color--attention: red;
+$color--while: #FC6781;
+$color--for: #FEF982;
+$color--filled-input: #FAFFBD;
+$color--each: #56DC6E;
+$color--body-font: #202020;
+$color--page-header: #003366; //attempts: 333333, 292c33, 3F648E , 4a76a8, d7d7d7
+$color--field-name: darkblue;
+$color--93: #939393;
+$color--d7: #d7d7d7;
+$color--all-shadows: #e3e4e8;
+$color--body-bg: #edeef0;
 
-$font-size-base: 13px;
-$px-300: $font-size-base * 23.08;
-$px-50: $font-size-base * 3.85;
-$px-30: $font-size-base * 2.31;
-$px-20: $font-size-base * 1.54;
-$px-18: $font-size-base * 1.38;
-$px-15: $font-size-base * 1.15;
-$px-12: $font-size-base * 0.92;
-$px-10: $font-size-base * 0.77;
-$px-07: $font-size-base * 0.54;
-$px-06: $font-size-base * 0.46;
-$px-05: $font-size-base * 0.38;
-$px-04: $font-size-base * 0.31;
-$px-02: $font-size-base * 0.15;
+$font-size--base: 13px;
+$font-size--x1: $font-size--base;
+$font-size--x2: $font-size--x1 + 2;
+$font-size--x3: $font-size--x2 + 2;
 
-$font-size-x1: $font-size-base;
-$font-size-x2: $font-size-x1 + 2;
-$font-size-x3: $font-size-x2 + 2;
+$px-300: $font-size--base * 23.08;
+$px-115: $font-size--base * 8.85;
+$px-50: $font-size--base * 3.85;
+$px-45: $font-size--base * 3.46;
+$px-30: $font-size--base * 2.31;
+$px-20: $font-size--base * 1.54;
+$px-18: $font-size--base * 1.38;
+$px-17: $font-size--base * 1.31;
+$px-15: $font-size--base * 1.15;
+$px-12: $font-size--base * 0.92;
+$px-10: $font-size--base * 0.77;
+$px-07: $font-size--base * 0.54;
+$px-06: $font-size--base * 0.46;
+$px-05: $font-size--base * 0.38;
+$px-04: $font-size--base * 0.31;
+$px-03: $font-size--base * 0.23;
+$px-02: $font-size--base * 0.15;
 
-$header-height: $px-50;
+$height--page-header: $px-50;
 
 $blocks-gap: $px-15;
 $indent-left-right: $px-07;

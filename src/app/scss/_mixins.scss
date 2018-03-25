@@ -1,22 +1,32 @@
 @import "config";
 
-@mixin font-size-height-weight($size, $height: $size, $weight: normal) {
-  font-size: $size;
-  line-height: $height;
+@mixin font__weight-style_size-height(
+  $weight: 400,
+  $style: normal,
+  $size: $font-size--x1,
+  $height: normal) {
+
   font-weight: $weight;
-  white-space: nowrap;
+  font-style: $style;
+  font-size: $size;
+
+  @if $height =='same' {
+    line-height: $size;
+  } @else {
+    line-height: $height;
+  }
 }
 
 @mixin full-border {
   border: none;
   border-radius: $border-radius;
-  box-shadow: 0 1px 0 0 $color-d7, 0 0 0 1px $color-shadow-all;
+  box-shadow: 0 1px 0 0 $color--d7, 0 0 0 1px $color--all-shadows;
 }
 
 @mixin top-border {
-  box-shadow: 0 -1px 0 0 $color-d7;
+  box-shadow: 0 -1px 0 0 $color--d7;
 }
 
 @mixin bottom-border {
-  box-shadow: 0 1px 0 0 $color-d7;
+  box-shadow: 0 1px 0 0 $color--d7;
 }

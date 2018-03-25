@@ -1,221 +1,222 @@
 @import "../../scss/config";
 @import "../../scss/mixins";
-
 @import "../../scss/lib_buttons";
+@import "../../scss/lib_animation";
+
 @include btn-papper-gray;
 
-@import "../../scss/lib_animation";
-@include btn-ripple($px-300);
+$slide--width: $px-300;
+@include btn-ripple($slide--width);
+$field-text--margin-top: $px-04;
 
-$fild-text-margin-top: $px-05;
-
-form.authtion {
-
-  &.log-in, &.create-account {
-    margin: $px-20 auto 0;
-
-    display: flex;
-    flex-direction: column;
-  }
-
-  .form-group {
-    position: relative;
-    width: 100%;
-    margin: 0 auto $px-12;
-    background-color: transparent;
-  }
-  .under-field {
-    display: inline-block;
-    box-sizing: border-box;
-    margin-top: $fild-text-margin-top;
-    margin-bottom: 0;
-    padding-bottom: $px-02;
-
-    @include font-size-height-weight($size: $font-size-x2);
-    text-decoration: none;
-    color: $color-93;
-
-    user-select: none;
-    outline: 0;
-
-    float: right;
-    margin-right: $indent-left-right;
-    &.restore-password {
-      border-bottom: 1px dashed $color-93;
-      transition: color 0.15s ease, border-color 0.15s ease;
-      &:hover {
-        color: $color-attention;
-        border-color: $color-attention;
-        cursor: pointer;
-      }
-      &:active {
-        opacity: 0.5;
-      }
-    }
-  }
-
-  input {
-    box-sizing: border-box;
-    width: 100%;
-    height: $px-50;
-    padding: $px-20 $indent-left-right 0;
-
-    @include font-size-height-weight($size: $font-size-x3, $weight: bold);
-    color: $color-body-font;
-    background-color: white;
-
-    border: none;
-    border-radius: $border-radius;
-    box-shadow: 0 1px 0 0 rgba($color-93, 0.45), 0 0 0 1px rgba($color-93, 0.43); //#c3c4c7 ⏤ #cfd0d4
-    &:hover {
-      box-shadow: 0 1px 0 0 $color-93, 0 0 0 1px rgba($color-93, 0.8); //$color-93 ⏤ #a0a0a0
-    }
-    &:focus {
-      box-shadow: 0 1px 0 0 #6a92cd, 0 0 0 1px #689bd5;
-    }
-  }
-  input:focus,
-  .input_filled {
-    background-color: $color-filled-input;
-    outline: 0;
-  }
-
-  label {
-    position: absolute;
-    top: $px-18; //18px
-    left: $indent-left-right;
-
-    display: inline-block;
-    box-sizing: border-box;
-
-    @include font-size-height-weight($size: $font-size-x3);
-    color: $color-93;
-
-    pointer-events: none;
-    user-select: none;
-    transition: all 0.15s ease;
-  }
-  input:focus ~ label,
-  .input_filled ~ label {
-    top: $fild-text-margin-top;
-    color: $color-field-name;
-    @include font-size-height-weight($size: $font-size-x2);
-  }
-
-  .svg-icon-delete {
-    display: none;
-    width: $font-size-base;
-    height: $font-size-base;
-    fill: $color-body-font;
-
-    position: absolute;
-    top: $fild-text-margin-top;
-    right: $indent-left-right;
-
-    user-select: none;
-    cursor: pointer;
-    opacity: 0.35;
-    transition: opacity .15s ease;
-  }
-  .input_filled ~ div .svg-icon-delete {
-    display: inline-block !important;
-    &:hover {
-      opacity: .95;
-    }
-  }
-}
-
-
-
-section.logon-page {
+.login-register {
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 
-  $slide-w: $px-300;
-
-  box-sizing: border-box;
-  width: $slide-w + $px-50;
+  width: $slide--width + $px-50;
   margin: 0 auto;
   padding: ($px-50/2) 0;
   background-color: white;
   @include full-border;
 
   .slider {
-    width: $slide-w;
+    width: $slide--width;
     margin: $px-05 auto 0;
+  }
 
-    .controls {
-      display: flex;
-      justify-content: center;
+  .slider__controls {
+    display: flex;
+    justify-content: center;
 
-      @include font-size-height-weight($size: $font-size-x3);
+    @include font__weight-style_size-height($size: $font-size--x3, $weight: 300);
 
-      label {
-        display: inline-block;
-        box-sizing: border-box;
-        padding-bottom: $px-02;
+    .control {
+      padding: 0 0 $px-02;
 
-        user-select: none;
-        cursor: pointer;
-        transition: all 0.5s ease;
+      border: none;
+      background-color: transparent;
+      user-select: none;
+      cursor: pointer;
+      transition: all 0.5s ease;
 
-        &:not(:first-child) {
-          margin-left: $px-30; //30px
+      &:active {
+        opacity: 0.7;
+      }
+
+      &.control--log-in {
+        width: $px-45;
+        color: $color--field-name;
+        border-bottom: 1px solid rgba($color--field-name, 0.35);
+        &:hover,
+        &:focus {
+          outline: none;
+          border-bottom-color: $color--field-name;
         }
       }
 
-      .log-in {
-        color: $color-field-name;
-        border-bottom: 1px solid rgba($color-field-name, 0.35);
-        &:hover {
-          border-bottom-color: $color-field-name;
-        }
-      }
-
-      .create-account {
+      &.control--create-account {
+        width: $px-115;
         color: green;
         border-bottom: 1px solid rgba(green, 0.35);
-        &:hover {
+        &:hover,
+        &:focus {
+          outline: none;
           border-bottom-color: green;
         }
       }
 
-      .log-in:active,
-      .create-account:active {
-        opacity: 0.7;
-      }
-
-      .checked {
-        &, &:hover {
+      &.control--checked {
+        &,
+        &:hover,
+        &:focus {
+          font-weight: 400;
+          outline: none;
           border-color: transparent;
           cursor: default;
-          opacity: 0.7;
         }
+      }
+
+      &:not(:first-child) {
+        margin-left: $px-30;
       }
     }
 
-    .inner {
-      overflow: hidden;
+  }
 
-      .slides {
-        width: 200%;
-        transition: transform 0.2s ease;
+  .slider__wrap {
+    overflow: hidden;
+  }
 
-        form {
-          float: left;
-          width: $slide-w - $px-04;
-          margin-left: $px-02;
-          &:not(:first-child) {
-            margin-left: $px-04;
-          }
+  .slider__inner {
+    width: 200%;
+    display: flex;
+    justify-content: flex-start;
+    transition: transform 0.2s ease;
+
+    &.slider__inner--login {
+      transform: translate(0);
+    }
+    &.slider__inner--create-account {
+      transform: translate(-$slide--width);
+    }
+  }
+
+  .form {
+    width: $slide--width - $px-04;
+    margin: $px-20 auto 0;
+
+    display: flex;
+    flex-direction: column;
+
+    .form__group {
+      width: 100%;
+      margin: 0 auto $px-12;
+      padding: 0;
+
+      background-color: transparent;
+
+      display: flex;
+      flex-direction: column;
+
+      position: relative;
+      z-index: 1;
+    }
+
+    input {
+      width: 100%;
+      height: $px-50;
+      padding: $px-20 $indent-left-right 0;
+
+      @include font__weight-style_size-height($size: $font-size--x3, $weight: bold);
+      color: $color--body-font;
+
+      background-color: #fff;
+      border-radius: $px-03;
+      border: 0.75px solid rgba($color--93, 0.43);
+      box-shadow: 0 0.5px 0 0 rgba($color--93, 0.2);
+      &:hover {
+        border-color: rgba($color--93, 0.8);
+        box-shadow: 0 0.5px 0 0 rgba(147, 147, 147, 0.6);
+      }
+      &:focus {
+        outline: 0;
+        border-color: #689bd5;
+        box-shadow: 0 0.5px 0 0 rgba(104, 155, 213, 0.6);
+      }
+      &:focus,
+      &.filled {
+        background-color: $color--filled-input;
+      }
+      &:focus ~ label,
+      &.filled ~ label {
+        top: $field-text--margin-top;
+        @include font__weight-style_size-height($size: $font-size--x2, $weight: 400);
+        color: $color--field-name;
+      }
+      &.filled ~ .icon-clear-field {
+        display: inline-block;
+        &:hover {
+          opacity: 0.95;
         }
-        &.go-to-log-in {
-          transform: translate(0);
+      }
+      &::-ms-clear,
+      &::-ms-reveal {
+        display: none;
+      }
+    }
+
+    label {
+      position: absolute;
+      top: $px-18;
+      left: $indent-left-right;
+
+      @include font__weight-style_size-height($size: $font-size--x3, $weight: 300);
+      color: $color--93;
+
+      pointer-events: none;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .icon-clear-field {
+      display: none;
+      width: $font-size--base;
+      height: $font-size--base;
+      fill: $color--body-font;
+
+      position: absolute;
+      top: $field-text--margin-top;
+      right: $indent-left-right;
+
+      user-select: none;
+      cursor: pointer;
+      opacity: 0.35;
+      transition: opacity .15s ease;
+    }
+
+    .form__under-field {
+      margin: $field-text--margin-top $indent-left-right 0 auto;
+
+      @include font__weight-style_size-height($size: $font-size--x2, $height: 'same', $weight: 300);
+      color: $color--93;
+      text-decoration: none;
+
+      user-select: none;
+
+      &.form__under-field--restore-password {
+        border-bottom: 1px dashed $color--93;
+        transition: color 0.15s ease, border-color 0.15s ease;
+        &:hover,
+        &:focus {
+          outline: none;
+          color: $color--attention;
+          border-color: $color--attention;
+          cursor: pointer;
         }
-        &.go-to-create-account {
-          transform: translate(-$slide-w);
+        &:active {
+          opacity: 0.5;
         }
       }
     }
