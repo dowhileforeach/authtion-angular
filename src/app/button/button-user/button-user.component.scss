@@ -13,38 +13,46 @@ $base-height: $px-30;
   align-items: center;
 
   padding: $px-05;
+  padding-left: $px-10;
+  padding-right: $px-10;
 
-  fill: $color--body-bg;
-  color: $color--body-bg;
+  fill: $color--body-font;
+  color: $color--body-font;
   text-decoration: none;
-  background-color: transparent;
+  //background-color: transparent;
   border: none;
   border-radius: $border-radius;
 
   user-select: none;
   transition: all 0.15s ease;
 
-  &:hover, &:focus {
-    outline: 0;
-    background-color: $color--body-bg;
-    cursor: pointer;
-    svg,
-    span {
-      fill: $color--page-header;
-      color: $color--page-header;
-    }
-  }
+//&:hover,
+//&:focus {
+//  outline: 0;
+//  background-color: $color--body-bg;
+//  //background-color: $color--page-header-bg;
+//  cursor: pointer;
+//  svg,
+//  span {
+//    fill: $color--page-header-bg;
+//    color: $color--page-header-bg;
+//  }
+//}
 
   svg {
     width: $base-height;
     height: $base-height;
-    transition: all 0.15s ease;
+    //transition: all 0.15s ease;
   }
   span {
     display: inline-block;
     margin-left: $px-05;
     @include font__weight-style_size-height($size: $font-size--x3, $height: 'same', $weight: 300);
-    transition: all 0.15s ease;
+    //transition: all 0.15s ease;
+  }
+
+  &[disabled]{
+    opacity: 0.6;
   }
 }
 

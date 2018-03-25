@@ -27,7 +27,8 @@
             <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="password=''">
           </p>
-          <button class="btn-papper-gray btn-ripple">OK</button>
+          <button disabled mat-raised-button class="form__btn">OK</button>
+          <!--<button class="btn-papper-gray btn-ripple">OK</button>-->
         </form>
 
         <form class="form">
@@ -37,7 +38,7 @@
             <span class="form__under-field">*Password will be sent to your email</span>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email='';">
           </p>
-          <button class="btn-papper-gray btn-ripple" tabindex="-1">OK</button>
+          <button mat-raised-button class="form__btn" tabindex="-1">OK</button>
         </form>
 
       </div>

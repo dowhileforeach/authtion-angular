@@ -20,7 +20,6 @@
       "prefix": "app",
       "styles": [
         "assets/css/normalize.css",
-        "assets/css/bootstrap-grid.min.css",
         "styles.scss"
       ],
       "scripts": [],

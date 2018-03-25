@@ -197,7 +197,8 @@ $field-text--margin-top: $px-04;
     }
 
     .form__under-field {
-      margin: $field-text--margin-top $indent-left-right 0 auto;
+      align-self: flex-end;
+      margin: $field-text--margin-top $indent-left-right 0;
 
       @include font__weight-style_size-height($size: $font-size--x2, $height: 'same', $weight: 300);
       color: $color--93;
@@ -212,12 +213,26 @@ $field-text--margin-top: $px-04;
         &:focus {
           outline: none;
           color: $color--attention;
-          border-color: $color--attention;
+          border-bottom-color: $color--attention;
           cursor: pointer;
         }
         &:active {
           opacity: 0.5;
         }
+      }
+    }
+
+    .form__btn {
+      width: 94%;
+      margin: 0 auto $px-15;
+      padding: $px-10 0;
+
+      @include font__weight-style_size-height($size: $font-size--x3);
+      color: $color--body-font;
+      background-color: #b0bec5;
+      outline: none;
+      &[disabled]{
+        opacity: 0.6;
       }
     }
   }

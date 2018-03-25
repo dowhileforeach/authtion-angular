@@ -12,53 +12,51 @@ app-body-footer {
   display: flex;
 }
 
-.page-header,
-.page-main,
-.page-footer {
+.page-header {
+  height: $height--page-header;
+
+  background-color: $color--page-header-bg;
+  @include bottom-border;
+
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
-}
 
-app-body-header {
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-app-body-main {
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-app-body-footer {
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-
-  padding: $px-10;
-}
-
-.row {
-  height: 100%;
-}
-
-.page-header {
-  height: $height--page-header;
-  background-color: $color--page-header;
-  @include bottom-border;
+  app-body-header {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 .page-main {
   flex-grow: 1;
   margin-top: $blocks-gap;
   margin-bottom: $blocks-gap;
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+
+  app-body-main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 .page-footer {
   margin-top: auto;
-  @include top-border;
-}
+  border-top: 0.5px solid $color--d7;
 
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+
+  app-body-footer {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
 
