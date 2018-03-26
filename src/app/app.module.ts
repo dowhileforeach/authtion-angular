@@ -12,7 +12,9 @@ import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule} from '@angular/material';
-import { AutofocusDirective } from './autofocus.directive';
+import {AutofocusDirective} from './autofocus.directive';
+import {RecaptchaModule} from 'ng-recaptcha';
+import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
 
 @NgModule({
   declarations: [
@@ -23,14 +25,16 @@ import { AutofocusDirective } from './autofocus.directive';
     PageLogonComponent,
     PageHomeComponent,
     ButtonUserComponent,
-    AutofocusDirective,
+    AutofocusDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    RecaptchaModule.forRoot(),
+    RecaptchaFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

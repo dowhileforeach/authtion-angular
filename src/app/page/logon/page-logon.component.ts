@@ -1,4 +1,9 @@
 import {Component} from '@angular/core';
+import {NgForm} from '@angular/forms';
+
+export interface FormModel {
+  captcha?: string;
+}
 
 @Component({
   selector: 'app-logon-page',
@@ -7,10 +12,12 @@ import {Component} from '@angular/core';
 })
 export class PageLogonComponent {
 
+  public formModel: FormModel = {};
+
   email = '';
   password = '';
-  isLogin = true;
-  isCreateAccount = false;
+  isLoginSlideActive = true;
+  isCreateAccountSlideActive = false;
 
   isEmpty(value): boolean {
     let result = true;
@@ -21,7 +28,8 @@ export class PageLogonComponent {
   }
 
   changeSlide(translate) {
-    this.isLogin = translate === 1;
-    this.isCreateAccount = translate === 2;
+    this.isLoginSlideActive = translate === 1;
+    this.isCreateAccountSlideActive = translate === 2;
   }
+
 }
