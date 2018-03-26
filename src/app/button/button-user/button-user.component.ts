@@ -11,7 +11,7 @@ export class ButtonUserComponent {
   constructor(private router: Router) {
   }
 
-  openLogonPage() {
-    this.router.navigate(['/logon']);
+  openLoginPage() {
+    this.router.navigate(['/login']);
   }
 }

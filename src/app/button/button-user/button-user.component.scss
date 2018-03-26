@@ -6,7 +6,7 @@ $base-height: $px-30;
 @import "../../scss/lib_animation";
 @include btn-ripple($base-height/0.3);
 
-.auth {
+.btn-login {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;

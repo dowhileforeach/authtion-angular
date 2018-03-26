@@ -1,5 +1,5 @@
 <section class="login-register">
-  <h2 class="visually-hidden">Login or Create account</h2>
+  <h2 class="visually-hidden">Login or Create new account</h2>
 
   <div class="slider">
 
@@ -27,7 +27,7 @@
             <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="password=''">
           </p>
-          <button mat-raised-button class="form__btn">OK</button>
+          <button mat-raised-button class="form__btn" aria-label="Submit login form">OK</button>
           <!--<button [disabled]="!captchaProtectedForm.form.valid && !captchaControl.valid" mat-raised-button class="form__btn">OK</button>-->
           <!--<re-captcha [hidden]="captchaProtectedForm.form.valid && captchaControl.valid" siteKey="6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi" [(ngModel)]="formModel.captcha" #captchaControl="ngModel" name="captcha" required></re-captcha>-->
         </form>
@@ -39,7 +39,7 @@
             <span class="form__under-field">*Password will be sent to your email</span>
             <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email='';">
           </p>
-          <button mat-raised-button class="form__btn" tabindex="-1">OK</button>
+          <button mat-raised-button class="form__btn" tabindex="-1" aria-label="Submit create new account form">OK</button>
         </form>
 
       </div>

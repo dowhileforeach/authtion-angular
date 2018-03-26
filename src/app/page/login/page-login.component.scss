@@ -11,7 +11,7 @@ $field-text--margin-top: $px-04;
   margin: 0 auto;
   padding: ($px-50/2) 0;
 
-  background-color: white;
+  background-color: $color__content-bg;
   @include full-content-border;
 
   display: flex;
@@ -146,7 +146,7 @@ $field-text--margin-top: $px-04;
 
       @include font__weight-style_size-height($size: $font-size__x3, $weight: 700);
       color: $color__body-font;
-      background-color: #fff;
+      background-color: $color__content-bg;
 
       border: 0.75px solid rgba($color__93, 0.43);
       box-shadow: 0 0.5px 0 0 rgba($color__93, 0.25);
@@ -223,7 +223,7 @@ $field-text--margin-top: $px-04;
       user-select: none;
 
       &.form__under-field--restore-password {
-        border-bottom: 0.75px dashed $color__93;
+        border-bottom: 0.5px dashed $color__93;
         transition: color 0.15s ease, border-color 0.15s ease;
         &:hover,
         &:focus {

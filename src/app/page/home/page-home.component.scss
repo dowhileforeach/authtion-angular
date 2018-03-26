@@ -2,6 +2,6 @@
 
 .wrapper {
   padding: 1px 20px;
-  background-color: white;
+  background-color: $color__content-bg;
   @include full-content-border;
 }

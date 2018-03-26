@@ -6,11 +6,11 @@ export interface FormModel {
 }
 
 @Component({
-  selector: 'app-logon-page',
-  templateUrl: './page-logon.component.html',
-  styleUrls: ['./page-logon.component.scss']
+  selector: 'app-login-page',
+  templateUrl: './page-login.component.html',
+  styleUrls: ['./page-login.component.scss']
 })
-export class PageLogonComponent {
+export class PageLoginComponent {
 
   public formModel: FormModel = {};
 
