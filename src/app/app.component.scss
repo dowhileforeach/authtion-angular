@@ -13,10 +13,10 @@ app-body-footer {
 }
 
 .page-header {
-  height: $height--page-header;
+  height: $page-header-height;
 
-  background-color: $color--page-header-bg;
-  @include bottom-border;
+  background-color: $color__page-header-bg;
+  box-shadow: 0 1.5px 0 0 $color__d7;
 
   flex-direction: row;
   justify-content: center;
@@ -47,7 +47,7 @@ app-body-footer {
 
 .page-footer {
   margin-top: auto;
-  border-top: 0.5px solid $color--d7;
+  border-top: 0.5px solid $color__d7;
 
   flex-direction: row;
   justify-content: center;

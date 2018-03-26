@@ -14,8 +14,8 @@ $base-height: $px-30;
 
   padding: $px-05 $px-12;
 
-  fill: $color--body-font;
-  color: $color--body-font;
+  fill: $color__body-font;
+  color: $color__body-font;
   text-decoration: none;
   //background-color: transparent;
   border: none;
@@ -45,7 +45,7 @@ $base-height: $px-30;
   span {
     display: inline-block;
     margin-left: 0;
-    @include font__weight-style_size-height($size: $font-size--x3, $height: 'same', $weight: 300);
+    @include font__weight-style_size-height($size: $font-size__x3, $height: 'same', $weight: 300);
     //transition: all 0.15s ease;
   }
 

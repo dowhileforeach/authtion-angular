@@ -3,23 +3,20 @@
 @import "../../scss/lib_buttons";
 @import "../../scss/lib_animation";
 
-@include btn-papper-gray;
-
 $slide--width: $px-310;
-@include btn-ripple($slide--width);
 $field-text--margin-top: $px-04;
 
 .login-register {
+  width: $slide--width + $px-50;
+  margin: 0 auto;
+  padding: ($px-50/2) 0;
+
+  background-color: white;
+  @include full-content-border;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
-  width: $slide--width + $px-50;
-  margin: 0 auto;
-  padding: ($px-50/2) 0;
-  background-color: white;
-  @include full-border;
 
   .slider {
     width: $slide--width;
@@ -27,14 +24,12 @@ $field-text--margin-top: $px-04;
   }
 
   .slider__controls {
+    @include font__weight-style_size-height($size: $font-size__x3, $weight: 300);
     display: flex;
     justify-content: center;
 
-    @include font__weight-style_size-height($size: $font-size--x3, $weight: 300);
-
     .control {
       padding: 0;
-
       border: none;
       background-color: transparent;
 
@@ -46,38 +41,36 @@ $field-text--margin-top: $px-04;
       &:active span {
         opacity: 0.7;
       }
-
       span {
         display: inline-block;
         vertical-align: bottom;
-        padding: 0 0 $px-02;
         margin-bottom: 1px; /* special for Safari*/
-        transition: all 0.5s ease;
-
+        padding: 0 0 $px-02;
         border-bottom: 1px solid;
+        transition: all 0.5s ease;
       }
 
       &.control--log-in {
         width: $px-55;
       }
       &.control--log-in span {
-        color: $color--field-name;
-        border-bottom-color: rgba($color--field-name, 0.35);
+        color: $color__label--for-active-field;
+        border-bottom-color: rgba($color__label--for-active-field, 0.35);
       }
       &.control--log-in:hover span,
       &.control--log-in:focus span {
-        border-bottom-color: $color--field-name;
+        border-bottom-color: $color__label--for-active-field;
       }
 
-      &.control--create-acc {
+      &.control--create-account {
         width: $px-125;
       }
-      &.control--create-acc span {
+      &.control--create-account span {
         color: green;
         border-bottom-color: rgba(green, 0.35);
       }
-      &.control--create-acc:hover span,
-      &.control--create-acc:focus span {
+      &.control--create-account:hover span,
+      &.control--create-account:focus span {
         border-bottom-color: green;
       }
 
@@ -151,31 +144,32 @@ $field-text--margin-top: $px-04;
       height: $px-50;
       padding: $px-20 $indent-left-right 0;
 
-      @include font__weight-style_size-height($size: $font-size--x3, $weight: bold);
-      color: $color--body-font;
-
+      @include font__weight-style_size-height($size: $font-size__x3, $weight: 700);
+      color: $color__body-font;
       background-color: #fff;
+
+      border: 0.75px solid rgba($color__93, 0.43);
+      box-shadow: 0 0.5px 0 0 rgba($color__93, 0.25);
       border-radius: $px-03;
-      border: 0.75px solid rgba($color--93, 0.43);
-      box-shadow: 0 0.5px 0 0 rgba($color--93, 0.2);
+
       &:hover {
-        border-color: rgba($color--93, 0.8);
-        box-shadow: 0 0.5px 0 0 rgba(147, 147, 147, 0.6);
+        border-color: rgba($color__93, 0.8);
+        box-shadow: 0 0.5px 0 0 rgba($color__93, 0.6);
       }
       &:focus {
         outline: 0;
-        border-color: #689bd5;
-        box-shadow: 0 0.5px 0 0 rgba(104, 155, 213, 0.6);
+        border-color: $color__input--focused;
+        box-shadow: 0 0.5px 0 0 rgba($color__input--focused, 0.6);
       }
       &:focus,
       &.filled {
-        background-color: $color--filled-input;
+        background-color: $color__input--filled;
       }
       &:focus ~ label,
       &.filled ~ label {
         top: $field-text--margin-top;
-        @include font__weight-style_size-height($size: $font-size--x2, $weight: 400);
-        color: $color--field-name;
+        @include font__weight-style_size-height($size: $font-size__x2, $weight: 400);
+        color: $color__label--for-active-field;
       }
       &.filled ~ .icon-clear-field {
         display: inline-block;
@@ -190,12 +184,12 @@ $field-text--margin-top: $px-04;
     }
 
     label {
+      @include font__weight-style_size-height($size: $font-size__x3, $weight: 300);
+      color: $color__93;
+
       position: absolute;
       top: $px-18;
       left: $indent-left-right;
-
-      @include font__weight-style_size-height($size: $font-size--x3, $weight: 300);
-      color: $color--93;
 
       pointer-events: none;
       user-select: none;
@@ -204,9 +198,9 @@ $field-text--margin-top: $px-04;
 
     .icon-clear-field {
       display: none;
-      width: $font-size--base;
-      height: $font-size--base;
-      fill: $color--body-font;
+      width: $font-size__base;
+      height: $font-size__base;
+      fill: $color__body-font;
 
       position: absolute;
       top: $field-text--margin-top;
@@ -215,27 +209,27 @@ $field-text--margin-top: $px-04;
       user-select: none;
       cursor: pointer;
       opacity: 0.35;
-      transition: opacity .15s ease;
+      transition: opacity 0.15s ease;
     }
 
     .form__under-field {
       align-self: flex-end;
       margin: $field-text--margin-top $indent-left-right 0;
 
-      @include font__weight-style_size-height($size: $font-size--x2, $height: 'same', $weight: 300);
-      color: $color--93;
+      @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
+      color: $color__93;
       text-decoration: none;
 
       user-select: none;
 
       &.form__under-field--restore-password {
-        border-bottom: 1px dashed $color--93;
+        border-bottom: 0.75px dashed $color__93;
         transition: color 0.15s ease, border-color 0.15s ease;
         &:hover,
         &:focus {
           outline: none;
-          color: $color--attention;
-          border-bottom-color: $color--attention;
+          color: $color__attention;
+          border-bottom-color: $color__attention;
           cursor: pointer;
         }
         &:active {
@@ -249,9 +243,9 @@ $field-text--margin-top: $px-04;
       margin: 0 auto $px-15;
       padding: $px-10 0;
 
-      @include font__weight-style_size-height($size: $font-size--x3);
-      color: $color--body-font;
-      background-color: #b0bec5;
+      @include font__weight-style_size-height($size: $font-size__x3);
+      color: $color__body-font;
+      background-color: $color__btn--usual;
       outline: none;
       &[disabled] {
         opacity: 0.6;

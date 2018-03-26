@@ -8,14 +8,14 @@
     justify-content: center;
     align-items: center;
 
-    @include font__weight-style_size-height($size: $font-size--x3);
+    @include font__weight-style_size-height($size: $font-size__x3);
     text-align: center;
     vertical-align: middle;
-    color: $color--body-font;
+    color: $color__body-font;
 
     border: none;
     border-radius: $border-radius;
-    background-color: $color--d7;
+    background-color: $color__d7;
 
     user-select: none;
     cursor: pointer;
@@ -49,7 +49,7 @@
     height: 46px;
     padding-right: 30px;
     padding-left: 30px;
-    @include font__weight-style_size-height($size: $font-size--x3);
+    @include font__weight-style_size-height($size: $font-size__x3);
     text-align: center;
     text-shadow: 0 -1px 1px rgba(black, 0.4);
     border: 1px solid rgba(black, 0.2);

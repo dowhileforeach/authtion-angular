@@ -3,7 +3,7 @@
 @mixin font__weight-style_size-height(
   $weight: 400,
   $style: normal,
-  $size: $font-size--x1,
+  $size: $font-size__x1,
   $height: 1.2) {
 
   font-weight: $weight;
@@ -17,16 +17,8 @@
   }
 }
 
-@mixin full-border {
+@mixin full-content-border {
   border: none;
   border-radius: $border-radius;
-  box-shadow: 0 1px 0 0 $color--d7, 0 0 0 1px $color--all-shadows;
-}
-
-@mixin top-border {
-  box-shadow: 0 -1px 0 0 $color--d7;
-}
-
-@mixin bottom-border {
-  box-shadow: 0 1px 0 0 $color--d7;
+  box-shadow: 0 1px 0 0 $color__d7, 0 0 0 1px $color__box-shadow--normal;
 }

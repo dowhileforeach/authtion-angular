@@ -1,45 +1,47 @@
 
-$color--attention: red;
-$color--while: #FC6781;
-$color--for: #f3f100;
-$color--filled-input: #FAFFBD;
-$color--each: #56DC6E;
-$color--body-font: #202020;
-$color--page-header-bg: #fafafb; //attempts: 3f51b5, 333333, 292c33, 3F648E , 4a76a8, d7d7d7
-$color--field-name: darkblue;
-$color--do: blue;
-$color--93: #939393;
-$color--d7: #d7d7d7;
-$color--all-shadows: #e3e4e8;
-$color--body-bg: #edeef0;
+$color__attention: red;
+$color__while: #FC6781;
+$color__for: #f3f100;
+$color__input--filled: #FAFFBD;
+$color__each: #56DC6E;
+$color__body-font: #202020;
+$color__page-header-bg: #fafafb; //attempts: 3f51b5, 333333, 292c33, 3F648E , 4a76a8, d7d7d7
+$color__label--for-active-field: darkblue;
+$color__do: blue;
+$color__input--focused: #689bd5;
+$color__btn--usual: #b0bec5;
+$color__93: #939393;
+$color__d7: #d7d7d7;
+$color__box-shadow--normal: #e3e4e8;
+$color__body-bg: #edeef0;
 
-$font-size--base: 13px;
-$font-size--x1: $font-size--base;
-$font-size--x2: $font-size--x1 + 2;
-$font-size--x3: $font-size--x2 + 2;
+$font-size__base: 13px;
+$font-size__x1: $font-size__base;
+$font-size__x2: $font-size__x1 + 2;
+$font-size__x3: $font-size__x2 + 2;
 
-$px-310: $font-size--base * 23.85;
-$px-300: $font-size--base * 23.08;
-$px-125: $font-size--base * 9.62;
-$px-115: $font-size--base * 8.85;
-$px-55: $font-size--base * 4.23;
-$px-50: $font-size--base * 3.85;
-$px-45: $font-size--base * 3.46;
-$px-30: $font-size--base * 2.31;
-$px-20: $font-size--base * 1.54;
-$px-18: $font-size--base * 1.38;
-$px-17: $font-size--base * 1.31;
-$px-15: $font-size--base * 1.15;
-$px-12: $font-size--base * 0.92;
-$px-10: $font-size--base * 0.77;
-$px-07: $font-size--base * 0.54;
-$px-06: $font-size--base * 0.46;
-$px-05: $font-size--base * 0.38;
-$px-04: $font-size--base * 0.31;
-$px-03: $font-size--base * 0.23;
-$px-02: $font-size--base * 0.15;
+$px-310: $font-size__base * 23.85;
+$px-300: $font-size__base * 23.08;
+$px-125: $font-size__base * 9.62;
+$px-115: $font-size__base * 8.85;
+$px-55: $font-size__base * 4.23;
+$px-50: $font-size__base * 3.85;
+$px-45: $font-size__base * 3.46;
+$px-30: $font-size__base * 2.31;
+$px-20: $font-size__base * 1.54;
+$px-18: $font-size__base * 1.38;
+$px-17: $font-size__base * 1.31;
+$px-15: $font-size__base * 1.15;
+$px-12: $font-size__base * 0.92;
+$px-10: $font-size__base * 0.77;
+$px-07: $font-size__base * 0.54;
+$px-06: $font-size__base * 0.46;
+$px-05: $font-size__base * 0.38;
+$px-04: $font-size__base * 0.31;
+$px-03: $font-size__base * 0.23;
+$px-02: $font-size__base * 0.15;
 
-$height--page-header: $px-50;
+$page-header-height: $px-50;
 
 $blocks-gap: $px-15;
 $indent-left-right: $px-07;

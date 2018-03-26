@@ -7,15 +7,15 @@
   align-items: center;
 }
 
-$logo-height: $height--page-header/1.43;
+$logo-height: $page-header-height/1.43;
 
 .logo {
   height: $logo-height;
   margin-left: $indent-left-right;
-  padding-left: $height--page-header/1.25;
+  padding-left: $page-header-height/1.25;
 
   //font-size: $font-size--x3;
-  font: normal normal normal $font-size--x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  font: normal normal normal $font-size__x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   word-spacing: -$px-04;
   text-decoration: none;
 
@@ -66,26 +66,26 @@ $logo-height: $height--page-header/1.43;
       right: -$px-04;
       width: 1px;
       height: $px-20;
-      background-color: $color--d7;
+      background-color: $color__d7;
       transform: rotate(10deg);
     }
   }
 }
 
 .do {
-  color: $color--do;
+  color: $color__do;
 }
 
 .while {
-  color: $color--while;
+  color: $color__while;
 }
 
 .for {
-  color: $color--for;
+  color: $color__for;
 }
 
 .each {
-  color: $color--each;
+  color: $color__each;
 }
 
 app-auth-button {
