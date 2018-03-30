@@ -19,13 +19,17 @@
           <p class="form__group">
             <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--login" appAutofocus>
             <label for="form__input-email--login">Email Address</label>
-            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email=''">
+            <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
+              <use xlink:href="#icon-x-in-circle"></use>
+            </svg>
           </p>
           <p class="form__group">
             <input [ngClass]="{ 'filled': password }" [(ngModel)]="password" type="password" name="password" id="form__input-password">
             <label for="form__input-password">Password</label>
             <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
-            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="password=''">
+            <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="password=''">
+              <use xlink:href="#icon-x-in-circle"></use>
+            </svg>
           </p>
           <button mat-raised-button class="form__btn" aria-label="Submit login form">OK</button>
           <!--<button [disabled]="!captchaProtectedForm.form.valid && !captchaControl.valid" mat-raised-button class="form__btn">OK</button>-->
@@ -37,7 +41,9 @@
             <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--create-account" tabindex="-1">
             <label for="form__input-email--create-account">Email Address</label>
             <span class="form__under-field">*Password will be sent to your email</span>
-            <img class="icon-clear-field" src="assets/img/icon-x-in-circle.svg" alt="Clear field" (click)="email='';">
+            <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
+              <use xlink:href="#icon-x-in-circle"></use>
+            </svg>
           </p>
           <button mat-raised-button class="form__btn" tabindex="-1" aria-label="Submit create new account form">OK</button>
         </form>
@@ -48,3 +54,10 @@
   </div>
 
 </section>
+
+
+<svg xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="icon-x-in-circle" d="M 12 2 C 6.5 2 2 6.5 2 12 C 2 17.5 6.5 22 12 22 C 17.5 22 22 17.5 22 12 C 22 6.5 17.5 2 12 2 Z M 16.898438 15.5 L 15.5 16.898438 L 12 13.398438 L 8.5 16.898438 L 7.101563 15.5 L 10.601563 12 L 7.101563 8.5 L 8.5 7.101563 L 12 10.601563 L 15.5 7.101563 L 16.898438 8.5 L 13.398438 12 Z "></path>
+  </defs>
+</svg>
