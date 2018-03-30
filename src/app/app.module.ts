@@ -7,7 +7,7 @@ import {BodyMainComponent} from './body/main/main.component';
 import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageLoginComponent} from './page/login/page-login.component';
 import {PageHomeComponent} from './page/home/page-home.component';
-import {ButtonUserComponent} from './button/button-user/button-user.component';
+import {ButtonAuthtionComponent} from './button/button-authtion/button-authtion.component';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -24,7 +24,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     BodyFooterComponent,
     PageLoginComponent,
     PageHomeComponent,
-    ButtonUserComponent,
+    ButtonAuthtionComponent,
     AutofocusDirective
   ],
   imports: [

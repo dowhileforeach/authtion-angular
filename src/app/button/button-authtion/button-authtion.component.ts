@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-auth-button',
-  templateUrl: './button-user.component.html',
-  styleUrls: ['./button-user.component.scss']
+  selector: 'app-button-authtion',
+  templateUrl: './button-authtion.component.html',
+  styleUrls: ['./button-authtion.component.scss']
 })
-export class ButtonUserComponent {
+export class ButtonAuthtionComponent {
 
   constructor(private router: Router) {
   }
