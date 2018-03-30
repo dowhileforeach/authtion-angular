@@ -10,11 +10,10 @@
 $logo-height: $page-header-height/1.43;
 
 .logo {
+  flex-shrink: 0;
   height: $logo-height;
   margin-left: $indent-left-right;
-  padding-left: $page-header-height/1.25;
 
-  //font-size: $font-size--x3;
   font: normal normal normal $font-size__x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   word-spacing: -$px-04;
   text-decoration: none;
@@ -33,25 +32,16 @@ $logo-height: $page-header-height/1.43;
     filter: hue-rotate(35deg);
     cursor: pointer;
   }
-  &::before {
-    content: "";
+  img {
     width: $logo-height;
     height: $logo-height;
-
-    position: absolute;
-    top: -1px;
-    left: -1px;
-
-    background: url("../../../assets/img/logo.svg") no-repeat 50% 50% scroll;
-    background-size: contain;
-    background-origin: padding-box;
-    background-clip: border-box;
+    margin-right: $px-07;
 
     opacity: 0.9;
     transition: transform .15s linear;
   }
-  &:hover::before,
-  &:focus::before {
+  &:hover img,
+  &:focus img {
     outline: none;
     transform: rotate(120deg);
   }

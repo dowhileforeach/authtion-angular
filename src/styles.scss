@@ -10,9 +10,12 @@ html, body {
 }
 
 body {
+  min-width: $body-min-width;
+
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   @include font__weight-style_size-height($size: $font-size__x1);
   color: $color__body-font;
+
   background-color: $color__body-bg;
 }
 
