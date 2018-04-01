@@ -1,17 +1,22 @@
-import {Component} from '@angular/core';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {AuthtionService} from '../../authtion.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-button-authtion',
   templateUrl: './button-authtion.component.html',
   styleUrls: ['./button-authtion.component.scss']
 })
-export class ButtonAuthtionComponent {
+export class ButtonAuthtionComponent implements OnInit {
 
-  constructor(private router: Router) {
+  isLoggedIn: Observable<boolean>;
+
+  constructor(private authtionService: AuthtionService) {
   }
 
-  openLoginPage() {
-    this.router.navigate(['/login']);
+  ngOnInit(): void {
+    this.isLoggedIn = this.authtionService.isLoggedIn();
   }
+
+
 }

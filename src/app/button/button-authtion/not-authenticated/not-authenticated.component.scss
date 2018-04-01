@@ -1,0 +1,57 @@
+@import "../../../scss/config";
+@import "../../../scss/mixins";
+
+$base-height: $px-30;
+
+@import "../../../scss/lib_animation";
+@include btn-ripple($base-height/0.3);
+
+.btn-login {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  padding: $px-05 $px-12;
+
+  fill: $color__body-font;
+  color: $color__body-font;
+  text-decoration: none;
+  //background-color: transparent;
+  border: none;
+  border-radius: $border-radius;
+
+  user-select: none;
+  transition: all 0.15s ease;
+
+  //&:hover,
+  //&:focus {
+  //  outline: 0;
+  //  background-color: $color--body-bg;
+  //  //background-color: $color--page-header-bg;
+  //  cursor: pointer;
+  //  svg,
+  //  span {
+  //    fill: $color--page-header-bg;
+  //    color: $color--page-header-bg;
+  //  }
+  //}
+
+  svg {
+    width: $base-height;
+    height: $base-height;
+    //transition: all 0.15s ease;
+  }
+  span {
+    display: inline-block;
+    margin-left: 0;
+    @include font__weight-style_size-height($size: $font-size__x3, $height: 'same', $weight: 300);
+    //transition: all 0.15s ease;
+  }
+
+  &[disabled]{
+    opacity: 0.6;
+  }
+}
+
+

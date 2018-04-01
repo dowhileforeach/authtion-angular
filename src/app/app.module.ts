@@ -15,6 +15,9 @@ import {MatButtonModule} from '@angular/material';
 import {AutofocusDirective} from './autofocus.directive';
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
+import {AuthtionService} from './authtion.service';
+import { NotAuthenticatedComponent } from './button/button-authtion/not-authenticated/not-authenticated.component';
+import { LoggedInComponent } from './button/button-authtion/logged-in/logged-in.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     PageLoginComponent,
     PageHomeComponent,
     ButtonAuthtionComponent,
-    AutofocusDirective
+    AutofocusDirective,
+    NotAuthenticatedComponent,
+    LoggedInComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule
   ],
-  providers: [],
+  providers: [AuthtionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
