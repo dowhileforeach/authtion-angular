@@ -11,8 +11,7 @@ import {ButtonAuthtionComponent} from './button/button-authtion/button-authtion.
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material';
-import {AutofocusDirective} from './autofocus.directive';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
 import {AuthtionService} from './authtion.service';
@@ -28,7 +27,6 @@ import {ButtonLoggedInComponent} from './button/button-authtion/button-logged-in
     PageLoginComponent,
     PageHomeComponent,
     ButtonAuthtionComponent,
-    AutofocusDirective,
     ButtonNotAuthenticatedComponent,
     ButtonLoggedInComponent
   ],
@@ -38,6 +36,7 @@ import {ButtonLoggedInComponent} from './button/button-authtion/button-logged-in
     FormsModule,
     AppRoutingModule,
     MatButtonModule,
+    MatDialogModule,
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule
   ],

@@ -17,7 +17,7 @@
                                               'slider__inner--create-account': isCreateAccountSlideActive }">
         <form class="form" spellcheck="false">
           <p class="form__group">
-            <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--login" appAutofocus>
+            <input [ngClass]="{ 'filled': !isEmpty(email) }" [(ngModel)]="email" type="email" name="email" id="form__input-email--login" cdkFocusInitial>
             <label for="form__input-email--login">Email Address</label>
             <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
               <use xlink:href="#icon-x-in-circle"></use>

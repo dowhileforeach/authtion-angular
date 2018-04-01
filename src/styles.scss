@@ -69,6 +69,11 @@ html {
   box-sizing: inherit;
 }
 
+.login-register-overlay-overriding {
+  min-width: $body-min-width;
+  width: $body-min-width + 200;
+}
+
 @import "app/scss/lib_animation";
 @include spinner;
 

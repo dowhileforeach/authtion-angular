@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {MatDialog} from '@angular/material';
+import {PageLoginComponent} from '../../../page/login/page-login.component';
 
 @Component({
   selector: 'app-button-not-authenticated',
@@ -6,4 +8,14 @@ import {Component} from '@angular/core';
   styleUrls: ['./button-not-authenticated.component.scss']
 })
 export class ButtonNotAuthenticatedComponent {
+
+  constructor(public dialog: MatDialog) {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PageLoginComponent, {
+      autoFocus: true,
+      panelClass: 'login-register-overlay-overriding'
+    });
+  }
 }
