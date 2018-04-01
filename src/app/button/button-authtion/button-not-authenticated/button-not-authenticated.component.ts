@@ -14,8 +14,8 @@ export class ButtonNotAuthenticatedComponent {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(PageLoginComponent, {
-      autoFocus: true,
-      panelClass: 'login-register-overlay-overriding'
+      autoFocus: true, // focused on field with attribute 'cdkFocusInitial'
+      panelClass: 'login-register-dialog-panel-overriding'
     });
   }
 }
