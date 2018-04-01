@@ -8,7 +8,7 @@ export class AuthtionService {
   private loginSubject = new BehaviorSubject<boolean>(false);
 
   isLoggedIn(): Observable<boolean> {
-    // setTimeout(() => this.setLoggedIn(true), 5000);
+    // setTimeout(() => this.setLoggedIn(true), 3000);
     return this.loginSubject.asObservable();
   }
 
