@@ -17,6 +17,4 @@ export class ButtonAuthtionComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.authtionService.isLoggedIn();
   }
-
-
 }

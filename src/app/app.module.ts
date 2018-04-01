@@ -16,8 +16,8 @@ import {AutofocusDirective} from './autofocus.directive';
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
 import {AuthtionService} from './authtion.service';
-import { NotAuthenticatedComponent } from './button/button-authtion/not-authenticated/not-authenticated.component';
-import { LoggedInComponent } from './button/button-authtion/logged-in/logged-in.component';
+import {ButtonNotAuthenticatedComponent} from './button/button-authtion/button-not-authenticated/button-not-authenticated.component';
+import {ButtonLoggedInComponent} from './button/button-authtion/button-logged-in/button-logged-in.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { LoggedInComponent } from './button/button-authtion/logged-in/logged-in.
     PageHomeComponent,
     ButtonAuthtionComponent,
     AutofocusDirective,
-    NotAuthenticatedComponent,
-    LoggedInComponent
+    ButtonNotAuthenticatedComponent,
+    ButtonLoggedInComponent
   ],
   imports: [
     BrowserModule,
