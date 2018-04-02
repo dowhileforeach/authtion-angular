@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
-import {PageLoginComponent} from '../../../pages/login/page-login.component';
+import {PageAuthtionLoginComponent} from '../../../pages/page-authtion-login/page-authtion-login.component';
 
 @Component({
   selector: 'app-button-not-authenticated',
@@ -13,7 +13,7 @@ export class ButtonNotAuthenticatedComponent {
   }
 
   openDialog(): void {
-    this.dialog.open(PageLoginComponent, {
+    this.dialog.open(PageAuthtionLoginComponent, {
       autoFocus: true, // focused on field with attribute 'cdkFocusInitial'
       panelClass: 'cdk-overlay-pane--login-register-dialog-overriding',
       position: {top: '50px'}

@@ -241,6 +241,15 @@ $field-text--margin-top: 4px;
       }
     }
 
+    .error-list {
+      list-style: none;
+      margin: 5px 0;
+      padding: 0 $indent-left-right;
+
+      @include font__weight-style_size-height($size: $font-size__x1, $height: 'same', $weight: 300);
+      color: $color__attention;
+    }
+
     .form__btn {
       width: 94%;
       margin: 0 auto 15px;
@@ -252,6 +261,7 @@ $field-text--margin-top: 4px;
       outline: none;
       &[disabled] {
         opacity: 0.6;
+        cursor: not-allowed;
       }
     }
   }

@@ -1,22 +1,24 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatDialogModule} from '@angular/material';
 
 import {AppComponent} from './app.component';
 import {BodyHeaderComponent} from './body/header/header.component';
 import {BodyMainComponent} from './body/main/main.component';
 import {BodyFooterComponent} from './body/footer/footer.component';
-import {PageLoginComponent} from './pages/login/page-login.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
-import {ButtonAuthtionComponent} from './buttons/button-authtion/button-authtion.component';
-import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatDialogModule} from '@angular/material';
-import {RecaptchaModule} from 'ng-recaptcha';
-import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
+
 import {AuthtionService} from './authtion.service';
+import {ButtonAuthtionComponent} from './buttons/button-authtion/button-authtion.component';
 import {ButtonNotAuthenticatedComponent} from './buttons/button-authtion/button-not-authenticated/button-not-authenticated.component';
 import {ButtonLoggedInComponent} from './buttons/button-authtion/button-logged-in/button-logged-in.component';
+import {PageAuthtionLoginComponent} from './pages/page-authtion-login/page-authtion-login.component';
+
+import {RecaptchaModule} from 'ng-recaptcha';
+import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
 
 @NgModule({
   declarations: [
@@ -24,24 +26,25 @@ import {ButtonLoggedInComponent} from './buttons/button-authtion/button-logged-i
     BodyHeaderComponent,
     BodyMainComponent,
     BodyFooterComponent,
-    PageLoginComponent,
     PageHomeComponent,
     ButtonAuthtionComponent,
     ButtonNotAuthenticatedComponent,
-    ButtonLoggedInComponent
+    ButtonLoggedInComponent,
+    PageAuthtionLoginComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatButtonModule,
     MatDialogModule,
     RecaptchaModule.forRoot(),
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
   ],
   entryComponents: [
-    PageLoginComponent
+    PageAuthtionLoginComponent
   ],
   providers: [
     AuthtionService
