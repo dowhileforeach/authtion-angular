@@ -38,6 +38,11 @@ export class PageAuthtionLoginComponent implements OnInit {
     ;
   }
 
+  changeSlide(translate) {
+    this.isLoginSlideActive = translate === 1;
+    this.isCreateAccountSlideActive = translate === 2;
+  }
+
   isEmpty(value): boolean {
     if (value) {
       return value.trim().length === 0;
@@ -45,9 +50,14 @@ export class PageAuthtionLoginComponent implements OnInit {
     return true;
   }
 
-  changeSlide(translate) {
-    this.isLoginSlideActive = translate === 1;
-    this.isCreateAccountSlideActive = translate === 2;
+  isControlWrong(form: FormGroup, controlName: string, errorName: string) {
+    const control = form.get(controlName);
+    if ((control.dirty || control.touched)
+      && control.errors !== null
+      && control.errors.hasOwnProperty(errorName)) {
+      return control.errors[errorName];
+    }
+    return false;
   }
 
   emailAddressValidator(control: FormControl) {
@@ -67,15 +77,5 @@ export class PageAuthtionLoginComponent implements OnInit {
       };
     }
     return null;
-  }
-
-  isControlWrong(form: FormGroup, controlName: string, errorName: string) {
-    const control = form.get(controlName);
-    if ((control.dirty || control.touched)
-      && control.errors !== null
-      && control.errors.hasOwnProperty(errorName)) {
-      return control.errors[errorName];
-    }
-    return false;
   }
 }
