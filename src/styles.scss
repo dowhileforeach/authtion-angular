@@ -37,6 +37,7 @@ app-root {
 
 @media (min-width: 576px) {
   .container {
+    min-width: $body-min-width;
     max-width: 540px;
   }
 }
@@ -59,23 +60,22 @@ app-root {
   }
 }
 
-html {
-  box-sizing: border-box;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-.login-register-dialog-panel-overriding {
-  min-width: $body-min-width;
-  width: $body-min-width +$px-100;
-}
-
 @import "app/scss/lib_animation";
 @include spinner;
+
+/* Matirial Dialog */
+
+.cdk-overlay-pane--login-register-dialog-overriding {
+
+  min-width: $mat-dialog-min-width;
+  width: $body-min-width + 100px;
+
+  .mat-dialog-container {
+    max-height: calc(100vh - 50px); /* for content scrolling if it not fit on the screen */
+  }
+}
+
+/* UTIL */
 
 .visually-hidden { /* https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden */
   position: absolute;

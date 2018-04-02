@@ -16,7 +16,7 @@ html {
 
 *,
 *::before,
-*::after {
+*::after { /* CUSTOM ADDED */
   box-sizing: inherit;
 }
 

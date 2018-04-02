@@ -15,7 +15,7 @@ $logo-height: $page-header-height/1.43;
   margin-left: $indent-left-right;
 
   font: normal normal normal $font-size__x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-  word-spacing: -$px-04;
+  word-spacing: -4px;
   text-decoration: none;
 
   position: relative;
@@ -35,7 +35,7 @@ $logo-height: $page-header-height/1.43;
   img {
     width: $logo-height;
     height: $logo-height;
-    margin-right: $px-07;
+    margin-right: 7px;
 
     opacity: 0.9;
     transition: transform .15s linear;
@@ -47,15 +47,15 @@ $logo-height: $page-header-height/1.43;
   }
   b:not(:last-child) {
     position: relative;
-    margin-right: $px-06;
+    margin-right: 6px;
     &::after {
       content: "";
       display: inline-block;
 
       position: absolute;
-      right: -$px-04;
+      right: -4px;
       width: 1px;
-      height: $px-20;
+      height: 20px;
       background-color: $color__d7;
       transform: rotate(10deg);
     }
