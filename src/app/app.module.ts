@@ -40,8 +40,15 @@ import {ButtonLoggedInComponent} from './button/button-authtion/button-logged-in
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule
   ],
-  providers: [AuthtionService],
-  bootstrap: [AppComponent]
+  entryComponents: [
+    PageLoginComponent
+  ],
+  providers: [
+    AuthtionService
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule {
 }
