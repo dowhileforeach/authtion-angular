@@ -75,6 +75,108 @@ app-root {
   }
 }
 
+/* FORM */
+
+.form__group {
+  width: 100%;
+  margin: 0 auto 12px;
+  padding: 0;
+
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  z-index: 1;
+
+  input {
+    width: 100%;
+    height: 50px;
+    padding: 20px $indent-left-right 0;
+
+    @include font__weight-style_size-height($size: $font-size__x3, $weight: 700);
+    color: $color__body-font;
+    background-color: $color__content-bg;
+
+    border: 0.75px solid rgba($color__93, 0.43);
+    box-shadow: 0 0.5px 0 0 rgba($color__93, 0.25);
+    border-radius: 3px;
+
+    &:hover {
+      border-color: rgba($color__93, 0.8);
+      box-shadow: 0 0.5px 0 0 rgba($color__93, 0.6);
+    }
+    &:focus {
+      outline: 0;
+      border-color: $color__input--focused;
+      box-shadow: 0 0.5px 0 0 rgba($color__input--focused, 0.6);
+    }
+    &:focus,
+    &.filled {
+      background-color: $color__input--filled;
+    }
+    &:focus ~ label,
+    &.filled ~ label {
+      top: $field-text--margin-top;
+      @include font__weight-style_size-height($size: $font-size__x2, $weight: 400);
+      color: $color__label--for-active-field;
+    }
+    &.filled ~ .icon-clear-field {
+      display: inline-block;
+      &:hover {
+        opacity: 0.95;
+      }
+    }
+    &::-ms-clear,
+    &::-ms-reveal {
+      display: none;
+    }
+  }
+
+  label {
+    @include font__weight-style_size-height($size: $font-size__x3, $weight: 300);
+    color: $color__93;
+
+    position: absolute;
+    top: 18px;
+    left: $indent-left-right;
+
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+
+  .icon-clear-field {
+    display: none;
+    width: $font-size__x1;
+    height: $font-size__x1;
+    fill: $color__body-font;
+
+    position: absolute;
+    top: $field-text--margin-top;
+    right: $indent-left-right;
+
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.15s ease;
+  }
+
+  .error-list {
+    list-style: none;
+    margin: 0 0;
+    padding: 0 $indent-left-right;
+
+    @include font__weight-style_size-height($size: $font-size__x1, $height: 'same', $weight: 300);
+    color: $color__attention;
+
+    li{
+      margin-top: $field-text--margin-top;
+    }
+  }
+}
+
 /* UTIL */
 
 .visually-hidden { /* https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden */

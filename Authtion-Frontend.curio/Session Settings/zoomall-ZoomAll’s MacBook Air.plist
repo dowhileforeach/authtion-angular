@@ -9,19 +9,44 @@
 		<key>Zoom Factor</key>
 		<real>1</real>
 	</dict>
+	<key>Bottombar Visible</key>
+	<false/>
+	<key>E177AEA6-3717-43C3-AF11-5AA1BDCCF62D</key>
+	<dict>
+		<key>Visible Rect</key>
+		<string>{{0, 0}, {1195, 660}}</string>
+		<key>Zoom Factor</key>
+		<real>1</real>
+	</dict>
 	<key>Expanded Ideaspaces For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
 	<array/>
 	<key>Expanded Sections</key>
 	<array/>
 	<key>Last Viewed Ideaspaces For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
-	<array/>
+	<array>
+		<string>E177AEA6-3717-43C3-AF11-5AA1BDCCF62D</string>
+	</array>
 	<key>Last Viewed Section</key>
 	<array>
 		<string>CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</string>
 	</array>
+	<key>Normal Window Layout</key>
+	<string>{{0, 0}, {1366, 745}}</string>
+	<key>Organizer Visible</key>
+	<true/>
+	<key>Organizer Width</key>
+	<integer>170</integer>
+	<key>Primary Asset UUID Last Viewed</key>
+	<string>E177AEA6-3717-43C3-AF11-5AA1BDCCF62D</string>
 	<key>Scroll Position For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
 	<string>{0, 0}</string>
+	<key>Secondary View Vertical</key>
+	<true/>
+	<key>Secondary View Visible</key>
+	<false/>
 	<key>Sections Visible</key>
 	<false/>
+	<key>Toolbar Visible</key>
+	<true/>
 </dict>
 </plist>

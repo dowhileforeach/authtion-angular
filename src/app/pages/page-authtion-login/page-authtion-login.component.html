@@ -16,91 +16,24 @@
 
       <div class="slider__wrap">
         <div class="slider__inner" [ngClass]="{ 'slider__inner--login': isLoginSlideActive,
-                                              'slider__inner--create-account': isCreateAccountSlideActive }">
-          <form class="form" spellcheck="false" [formGroup]="formLogin">
-            <div class="form__group">
-              <input
-                [ngClass]="{ 'filled': !isEmpty(email) }"
-                [(ngModel)]="email"
-                [formControlName]="'email'"
-                cdkFocusInitial
-                type="email"
-                name="email"
-                id="form__input-email--login"
-              >
-              <label for="form__input-email--login">Email</label>
-              <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
-                <use xlink:href="#icon-x-in-circle"></use>
-              </svg>
-              <ul class="error-list">
-                <li *ngIf="isWrong(formLogin,'email','required')">
-                  Email is <b>required</b>
-                </li>
-                <li *ngIf="!isWrong(formLogin,'email','required') && isWrong(formLogin,'email','isNotEmail')">
-                  Please enter a valid email
-                </li>
-                <li *ngIf="!isWrong(formLogin,'email','required') && !isWrong(formLogin,'email','isNotEmail') && isWrong(formLogin,'email','emailLength')">
-                  Email length must be <= {{emailMaxLength}}
-                </li>
-              </ul>
-            </div>
-            <div class="form__group">
-              <input
-                [ngClass]="{ 'filled': password }"
-                [(ngModel)]="password"
-                [formControlName]="'password'"
-                type="password"
-                name="password"
-                id="form__input-password"
-              >
-              <label for="form__input-password">Password</label>
-              <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
-              <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="password=''">
-                <use xlink:href="#icon-x-in-circle"></use>
-              </svg>
-              <ul class="error-list">
-                <li *ngIf="isWrong(formLogin,'password','required')">
-                  Password is <b>required</b>
-                </li>
-                <li *ngIf="!isWrong(formLogin,'password','required') && isWrong(formLogin,'password','passwordLength')">
-                  Password length must be >= {{passwordMinLength}} and <= {{passwordMaxLength}}
-                </li>
-              </ul>
-            </div>
-            <button class="form__btn" mat-raised-button [disabled]="formLogin.invalid" aria-label="Submit login form">OK</button>
+                                                'slider__inner--create-account': isCreateAccountSlideActive }">
+          <form class="form" spellcheck="false">
+
+            <app-input-email-authtion (takeEmailGroup)="gLoginEmail=$event"></app-input-email-authtion>
+
+            <app-input-password-authtion (takePasswordGroup)="gLoginPassword=$event"></app-input-password-authtion>
+
+            <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
+
+            <button class="form__btn" mat-raised-button [disabled]="gLoginEmail.invalid || gLoginPassword.invalid" aria-label="Submit login form">OK</button>
             <!--<button [disabled]="!captchaProtectedForm.form.valid && !captchaControl.valid" mat-raised-button class="form__btn">OK</button>-->
             <!--<re-captcha [hidden]="captchaProtectedForm.form.valid && captchaControl.valid" siteKey="6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi" [(ngModel)]="formModel.captcha" #captchaControl="ngModel" name="captcha" required></re-captcha>-->
           </form>
 
-          <form class="form" spellcheck="false" [formGroup]="formCreateAccount">
-            <div class="form__group">
-              <input
-                [ngClass]="{ 'filled': !isEmpty(email) }"
-                [(ngModel)]="email"
-                [formControlName]="'email'"
-                type="email"
-                name="email"
-                id="form__input-email--create-account"
-                tabindex="-1"
-              >
-              <label for="form__input-email--create-account">Email</label>
-              <span class="form__under-field">*Password will be sent to your email</span>
-              <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
-                <use xlink:href="#icon-x-in-circle"></use>
-              </svg>
-              <ul class="error-list">
-                <li *ngIf="isWrong(formCreateAccount,'email','required')">
-                  Email is <b>required</b>
-                </li>
-                <li *ngIf="!isWrong(formCreateAccount,'email','required') && isWrong(formCreateAccount,'email','isNotEmail')">
-                  Please enter a valid email
-                </li>
-                <li *ngIf="!isWrong(formCreateAccount,'email','required') && !isWrong(formCreateAccount,'email','isNotEmail') && isWrong(formCreateAccount,'email','emailLength')">
-                  Email length must be <= {{emailMaxLength}}
-                </li>
-              </ul>
-            </div>
-            <button class="form__btn" mat-raised-button [disabled]="formCreateAccount.invalid" tabindex="-1" aria-label="Submit create new account form">OK</button>
+          <form class="form" spellcheck="false">
+            <app-input-email-authtion (takeEmailGroup)="gCreateAccountEmail=$event"></app-input-email-authtion>
+            <span class="form__under-field">*Password will be sent to your email</span>
+            <button class="form__btn" mat-raised-button [disabled]="gCreateAccountEmail.invalid" tabindex="-1" aria-label="Submit create new account form">OK</button>
           </form>
 
         </div>

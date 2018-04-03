@@ -21,6 +21,9 @@ import {PageAuthtionLoginComponent} from './pages/page-authtion-login/page-autht
 
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
+import { InputEmailAuthtionComponent } from './inputs/input-email-authtion/input-email-authtion.component';
+import {UtilsService} from './utils.service';
+import { InputPasswordAuthtionComponent } from './inputs/input-password-authtion/input-password-authtion.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     ButtonNotAuthenticatedComponent,
     ButtonLoggedInComponent,
     PageAuthtionLoginComponent,
+    InputEmailAuthtionComponent,
+    InputPasswordAuthtionComponent,
   ],
   imports: [
     FormsModule,
@@ -50,7 +55,8 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     PageAuthtionLoginComponent
   ],
   providers: [
-    AuthtionService
+    AuthtionService,
+    UtilsService,
   ],
   bootstrap: [
     AppComponent

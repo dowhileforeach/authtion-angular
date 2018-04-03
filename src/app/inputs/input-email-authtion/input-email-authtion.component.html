@@ -1,0 +1,39 @@
+<div class="form__group" [formGroup]="group">
+  <input
+    [ngClass]="{ 'filled': !utl.isEmpty(group.get('email').value) }"
+    [formControlName]="'email'"
+    cdkFocusInitial
+    type="email"
+    name="email"
+  >
+  <label>Email</label>
+
+  <ul class="error-list">
+
+    <li *ngIf="utl.isWrongControl(group,'email','required')">
+      Email is <b>required</b>
+    </li>
+
+    <li *ngIf="!utl.isWrongControl(group,'email','required')
+            && utl.isWrongControl(group,'email','isNotEmail')">
+      Please enter a valid email
+    </li>
+
+    <li *ngIf="!utl.isWrongControl(group,'email','required')
+            && !utl.isWrongControl(group,'email','isNotEmail')
+            && utl.isWrongControl(group,'email','emailLength')">
+      Email length must be <= {{emailMaxLength}}
+    </li>
+
+  </ul>
+
+  <svg
+    class="icon-clear-field"
+    (click)="this.group.get('email').setValue('')"
+
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="2 2 20 20">
+    <use xlink:href="#icon-x-in-circle"></use>
+  </svg>
+
+</div>
