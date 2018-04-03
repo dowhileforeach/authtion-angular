@@ -1,6 +1,6 @@
-<div class="form__group" [formGroup]="group">
+<div class="form-group-authtion" [formGroup]="group">
   <input
-    [ngClass]="{ 'filled': !utl.isEmpty(group.get('email').value) }"
+    [ngClass]="{ 'filled': !isEmpty(group.get('email').value) }"
     [formControlName]="'email'"
     cdkFocusInitial
     type="email"
@@ -10,19 +10,19 @@
 
   <ul class="error-list">
 
-    <li *ngIf="utl.isWrongControl(group,'email','required')">
+    <li *ngIf="isWrongControl(group,'email','required')">
       Email is <b>required</b>
     </li>
 
-    <li *ngIf="!utl.isWrongControl(group,'email','required')
-            && utl.isWrongControl(group,'email','isNotEmail')">
+    <li *ngIf="!isWrongControl(group,'email','required')
+            && isWrongControl(group,'email','isNotEmail')">
       Please enter a valid email
     </li>
 
-    <li *ngIf="!utl.isWrongControl(group,'email','required')
-            && !utl.isWrongControl(group,'email','isNotEmail')
-            && utl.isWrongControl(group,'email','emailLength')">
-      Email length must be <= {{emailMaxLength}}
+    <li *ngIf="!isWrongControl(group,'email','required')
+            && !isWrongControl(group,'email','isNotEmail')
+            && isWrongControl(group,'email','emailLength')">
+      Email length must be <= {{maxLength}}
     </li>
 
   </ul>
@@ -33,7 +33,7 @@
 
     xmlns="http://www.w3.org/2000/svg"
     viewBox="2 2 20 20">
-    <use xlink:href="#icon-x-in-circle"></use>
+    <path d="M 12 2 C 6.5 2 2 6.5 2 12 C 2 17.5 6.5 22 12 22 C 17.5 22 22 17.5 22 12 C 22 6.5 17.5 2 12 2 Z M 16.898438 15.5 L 15.5 16.898438 L 12 13.398438 L 8.5 16.898438 L 7.101563 15.5 L 10.601563 12 L 7.101563 8.5 L 8.5 7.101563 L 12 10.601563 L 15.5 7.101563 L 16.898438 8.5 L 13.398438 12 Z "></path>
   </svg>
 
 </div>

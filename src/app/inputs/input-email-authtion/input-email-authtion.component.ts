@@ -5,35 +5,33 @@ import {UtilsService} from '../../utils.service';
 @Component({
   selector: 'app-input-email-authtion',
   templateUrl: './input-email-authtion.component.html',
-  styleUrls: ['./input-email-authtion.component.scss']
+  styles: ['']
 })
 export class InputEmailAuthtionComponent implements OnInit {
 
-  group: FormGroup;
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
-
+  group: FormGroup;
   // http://emailregex.com/
-  EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  emailMaxLength = 50;
-
-  constructor(public utl: UtilsService) {
-  }
+  PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  maxLength = 50;
+  isEmpty = UtilsService.isEmpty;
+  isWrongControl = UtilsService.isWrongControl;
 
   ngOnInit() {
 
     this.group = new FormGroup({
       'email': new FormControl('', [
         Validators.required,
-        this.emailRegexpValidator.bind(this),
-        this.emailLengthValidator.bind(this),
+        this.regexpValidator.bind(this),
+        this.lengthValidator.bind(this),
       ])
     });
 
     this.takeEmailGroup.emit(this.group);
   }
 
-  emailRegexpValidator(control: FormControl) {
-    if (!this.EMAIL_PATTERN.test(control.value)) {
+  regexpValidator(control: FormControl) {
+    if (!this.PATTERN.test(control.value)) {
       return {
         'isNotEmail': true
       };
@@ -41,9 +39,8 @@ export class InputEmailAuthtionComponent implements OnInit {
     return null;
   }
 
-  emailLengthValidator(control: FormControl) {
-    const emailLength = control.value.length;
-    if (emailLength > this.emailMaxLength) {
+  lengthValidator(control: FormControl) {
+    if (control.value.length > this.maxLength) {
       return {
         'emailLength': true
       };

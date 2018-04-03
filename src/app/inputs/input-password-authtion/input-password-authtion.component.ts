@@ -5,34 +5,31 @@ import {UtilsService} from '../../utils.service';
 @Component({
   selector: 'app-input-password-authtion',
   templateUrl: './input-password-authtion.component.html',
-  styleUrls: ['./input-password-authtion.component.scss']
+  styles: ['']
 })
 export class InputPasswordAuthtionComponent implements OnInit {
 
-  group: FormGroup;
   @Output() takePasswordGroup = new EventEmitter<FormGroup>();
-
-  passwordMinLength = 6;
-  passwordMaxLength = 55;
-
-  constructor(public utl: UtilsService) {
-  }
+  group: FormGroup;
+  minLength = 6;
+  maxLength = 55;
+  isWrongControl = UtilsService.isWrongControl;
 
   ngOnInit() {
 
     this.group = new FormGroup({
       'password': new FormControl('', [
         Validators.required,
-        this.passwordLengthValidator.bind(this),
+        this.lengthValidator.bind(this),
       ])
     });
 
     this.takePasswordGroup.emit(this.group);
   }
 
-  passwordLengthValidator(control: FormControl) {
-    const passwordLength = control.value.length;
-    if (passwordLength < this.passwordMinLength || passwordLength > this.passwordMaxLength) {
+  lengthValidator(control: FormControl) {
+    const length = control.value.length;
+    if (length < this.minLength || length > this.maxLength) {
       return {
         'passwordLength': true
       };
