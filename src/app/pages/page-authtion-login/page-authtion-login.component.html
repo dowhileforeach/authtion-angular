@@ -28,16 +28,19 @@
                 name="email"
                 id="form__input-email--login"
               >
-              <label for="form__input-email--login">Email Address</label>
+              <label for="form__input-email--login">Email</label>
               <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
                 <use xlink:href="#icon-x-in-circle"></use>
               </svg>
               <ul class="error-list">
-                <li *ngIf="isControlWrong(formLogin,'email','required')">
+                <li *ngIf="isWrong(formLogin,'email','required')">
                   Email is <b>required</b>
                 </li>
-                <li *ngIf="!isControlWrong(formLogin,'email','required') && isControlWrong(formLogin,'email','isNotEmail')">
+                <li *ngIf="!isWrong(formLogin,'email','required') && isWrong(formLogin,'email','isNotEmail')">
                   Please enter a valid email
+                </li>
+                <li *ngIf="!isWrong(formLogin,'email','required') && !isWrong(formLogin,'email','isNotEmail') && isWrong(formLogin,'email','emailLength')">
+                  Email length must be <= {{emailMaxLength}}
                 </li>
               </ul>
             </div>
@@ -56,11 +59,11 @@
                 <use xlink:href="#icon-x-in-circle"></use>
               </svg>
               <ul class="error-list">
-                <li *ngIf="isControlWrong(formLogin,'password','required')">
+                <li *ngIf="isWrong(formLogin,'password','required')">
                   Password is <b>required</b>
                 </li>
-                <li *ngIf="!isControlWrong(formLogin,'password','required') && isControlWrong(formLogin,'password','passwordLenght')">
-                  Password length must be >= {{passwordMinLenght}} and <= {{passwordMaxLenght}}
+                <li *ngIf="!isWrong(formLogin,'password','required') && isWrong(formLogin,'password','passwordLength')">
+                  Password length must be >= {{passwordMinLength}} and <= {{passwordMaxLength}}
                 </li>
               </ul>
             </div>
@@ -80,17 +83,20 @@
                 id="form__input-email--create-account"
                 tabindex="-1"
               >
-              <label for="form__input-email--create-account">Email Address</label>
+              <label for="form__input-email--create-account">Email</label>
               <span class="form__under-field">*Password will be sent to your email</span>
               <svg class="icon-clear-field" xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20" (click)="email=''">
                 <use xlink:href="#icon-x-in-circle"></use>
               </svg>
               <ul class="error-list">
-                <li *ngIf="isControlWrong(formCreateAccount,'email','required')">
+                <li *ngIf="isWrong(formCreateAccount,'email','required')">
                   Email is <b>required</b>
                 </li>
-                <li *ngIf="!isControlWrong(formCreateAccount,'email','required') && isControlWrong(formCreateAccount,'email','isNotEmail')">
+                <li *ngIf="!isWrong(formCreateAccount,'email','required') && isWrong(formCreateAccount,'email','isNotEmail')">
                   Please enter a valid email
+                </li>
+                <li *ngIf="!isWrong(formCreateAccount,'email','required') && !isWrong(formCreateAccount,'email','isNotEmail') && isWrong(formCreateAccount,'email','emailLength')">
+                  Email length must be <= {{emailMaxLength}}
                 </li>
               </ul>
             </div>

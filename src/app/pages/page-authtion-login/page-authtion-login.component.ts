@@ -21,21 +21,32 @@ export class PageAuthtionLoginComponent implements OnInit {
   formCreateAccount: FormGroup;
 
   // http://emailregex.com/
-  emailregex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  passwordMinLenght = 6;
-  passwordMaxLenght = 55;
+  EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  emailMaxLength = 50;
+  passwordMinLength = 6;
+  passwordMaxLength = 55;
 
   ngOnInit(): void {
 
     this.formLogin = new FormGroup({
-      'email': new FormControl('', [Validators.required, this.emailAddressValidator.bind(this)]),
-      'password': new FormControl('', [Validators.required, this.passwordLenghtValidator.bind(this)])
+      'email': new FormControl('', [
+        Validators.required,
+        this.emailRegexpValidator.bind(this),
+        this.emailLengthValidator.bind(this),
+      ]),
+      'password': new FormControl('', [
+        Validators.required,
+        this.passwordLengthValidator.bind(this),
+      ])
     });
 
     this.formCreateAccount = new FormGroup({
-      'email': new FormControl('', [Validators.required, this.emailAddressValidator.bind(this)])
-    })
-    ;
+      'email': new FormControl('', [
+        Validators.required,
+        this.emailRegexpValidator.bind(this),
+        this.emailLengthValidator.bind(this),
+      ])
+    });
   }
 
   changeSlide(translate) {
@@ -50,7 +61,7 @@ export class PageAuthtionLoginComponent implements OnInit {
     return true;
   }
 
-  isControlWrong(form: FormGroup, controlName: string, errorName: string) {
+  isWrong(form: FormGroup, controlName: string, errorName: string) {
     const control = form.get(controlName);
     if ((control.dirty || control.touched)
       && control.errors !== null
@@ -60,8 +71,8 @@ export class PageAuthtionLoginComponent implements OnInit {
     return false;
   }
 
-  emailAddressValidator(control: FormControl) {
-    if (!this.emailregex.test(control.value)) {
+  emailRegexpValidator(control: FormControl) {
+    if (!this.EMAIL_PATTERN.test(control.value)) {
       return {
         'isNotEmail': true
       };
@@ -69,11 +80,21 @@ export class PageAuthtionLoginComponent implements OnInit {
     return null;
   }
 
-  passwordLenghtValidator(control: FormControl) {
-    const password_lenght = control.value.length;
-    if (password_lenght < this.passwordMinLenght || password_lenght > this.passwordMaxLenght) {
+  emailLengthValidator(control: FormControl) {
+    const emailLength = control.value.length;
+    if (emailLength > this.emailMaxLength) {
       return {
-        'passwordLenght': true
+        'emailLength': true
+      };
+    }
+    return null;
+  }
+
+  passwordLengthValidator(control: FormControl) {
+    const passwordLength = control.value.length;
+    if (passwordLength < this.passwordMinLength || passwordLength > this.passwordMaxLength) {
+      return {
+        'passwordLength': true
       };
     }
     return null;

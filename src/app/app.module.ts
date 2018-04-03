@@ -1,8 +1,10 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
+
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {BodyHeaderComponent} from './body/header/header.component';
@@ -33,8 +35,6 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     PageAuthtionLoginComponent,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
@@ -42,6 +42,9 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     MatDialogModule,
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
   ],
   entryComponents: [
     PageAuthtionLoginComponent

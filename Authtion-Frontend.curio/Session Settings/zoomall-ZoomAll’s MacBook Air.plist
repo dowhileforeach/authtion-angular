@@ -2,12 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>87F4B8AD-F1A5-461A-80ED-510709F43E09</key>
+	<dict>
+		<key>Visible Rect</key>
+		<string>{{0, 0}, {1195, 660}}</string>
+		<key>Zoom Factor</key>
+		<real>1</real>
+	</dict>
+	<key>Expanded Ideaspaces For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
+	<array/>
 	<key>Expanded Sections</key>
+	<array/>
+	<key>Last Viewed Ideaspaces For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
 	<array/>
 	<key>Last Viewed Section</key>
 	<array>
 		<string>CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</string>
 	</array>
+	<key>Scroll Position For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
+	<string>{0, 0}</string>
 	<key>Sections Visible</key>
 	<false/>
 </dict>
