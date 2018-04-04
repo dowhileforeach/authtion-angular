@@ -1,9 +1,7 @@
 @import "../../scss/config";
 @import "../../scss/mixins";
-@import "../../scss/lib_buttons";
-@import "../../scss/lib_animation";
 
-.login-register {
+.page-authtion__login-register {
   $slide--width: 310px;
 
   width: $slide--width + 50px;
@@ -18,7 +16,7 @@
 
   position: relative;
 
-  .form-authtion {
+  .form-authtion { // overriding
     width: 306px;
   }
 
@@ -171,7 +169,7 @@
 }
 
 @media (max-width: 585px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: -35px;
     }
@@ -179,7 +177,7 @@
 }
 
 @media (max-width: 545px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: -25px;
     }
@@ -187,7 +185,7 @@
 }
 
 @media (max-width: 420px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: -15px;
     }
@@ -195,7 +193,7 @@
 }
 
 @media (max-width: 400px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: 0;
     }
@@ -203,7 +201,7 @@
 }
 
 @media (max-width: 370px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: 15px;
     }
@@ -211,21 +209,9 @@
 }
 
 @media (max-width: 340px) {
-  .login-register {
+  .page-authtion__login-register {
     .btn-close {
       right: 30px;
     }
   }
 }
-
-//@media (max-width: $mat-dialog-min-width - (50 + 30)) {
-//  .btn-close {
-//    right: -20px;
-//  }
-//}
-//
-//@media (max-width: $mat-dialog-min-width - 100) {
-//  .btn-close {
-//    right: -5px;
-//  }
-//}
