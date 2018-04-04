@@ -19,6 +19,7 @@ export class InputAuthtionEmailComponent implements OnInit {
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
   isEmpty = AuthtionUtilsService.isEmpty;
   controlHasError = AuthtionUtilsService.controlHasError;
+  errorMessage = '';
 
   ngOnInit() {
 
@@ -51,5 +52,19 @@ export class InputAuthtionEmailComponent implements OnInit {
       };
     }
     return null;
+  }
+
+  hasError(): boolean {
+    if (this.controlHasError(this.emailControl, 'required')) {
+      this.errorMessage = 'Required';
+      return true;
+    } else if (this.controlHasError(this.emailControl, 'isNotEmail')) {
+      this.errorMessage = 'Please enter a valid email';
+      return true;
+    } else if (this.controlHasError(this.emailControl, 'emailLength')) {
+      this.errorMessage = `Length must be <= ${this.maxLength}`;
+      return true;
+    }
+    return false;
   }
 }

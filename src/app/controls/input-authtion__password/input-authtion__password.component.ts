@@ -16,6 +16,7 @@ export class InputAuthtionPasswordComponent implements OnInit {
   group: FormGroup;
   @Output() takePasswordGroup = new EventEmitter<FormGroup>();
   controlHasError = AuthtionUtilsService.controlHasError;
+  errorMessage = '';
 
   ngOnInit() {
 
@@ -41,4 +42,14 @@ export class InputAuthtionPasswordComponent implements OnInit {
     return null;
   }
 
+  hasError(): boolean {
+    if (this.controlHasError(this.passwordControl, 'required')) {
+      this.errorMessage = 'Required';
+      return true;
+    } else if (this.controlHasError(this.passwordControl, 'passwordLength')) {
+      this.errorMessage = `Length must be >= ${this.minLength} and <= ${this.maxLength}`;
+      return true;
+    }
+    return false;
+  }
 }

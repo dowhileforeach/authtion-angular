@@ -10,30 +10,13 @@
   >
   <label [for]="emailControlID">Email</label>
 
-  <ul class="error-list">
-
-    <li *ngIf="controlHasError(emailControl,'required')">
-      <b>Required</b>
-    </li>
-
-    <li *ngIf="!controlHasError(emailControl,'required')
-            && controlHasError(emailControl,'isNotEmail')"
-    >
-      Please enter a valid email
-    </li>
-
-    <li *ngIf="!controlHasError(emailControl,'required')
-            && !controlHasError(emailControl,'isNotEmail')
-            && controlHasError(emailControl,'emailLength')"
-    >
-      Length must be <= {{maxLength}}
-    </li>
-
-  </ul>
+  <p class="has-error" *ngIf="hasError()">
+    {{errorMessage}}
+  </p>
 
   <svg
     class="icon-clear-field"
-    (click)="emailControl.setValue('')"
+    (click)="emailControl.setValue('');"
 
     xmlns="http://www.w3.org/2000/svg"
     viewBox="2 2 20 20">

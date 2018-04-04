@@ -258,17 +258,14 @@ app-root {
     transition: opacity 0.15s ease;
   }
 
-  .error-list {
-    list-style: none;
-    margin: 0 0;
+  .has-error {
+    margin: $field-text--margin-top 0 0;
     padding: 0 $indent-left-right;
 
-    @include font__weight-style_size-height($size: $font-size__x1, $height: 'same', $weight: 300);
+    @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
     color: $color__attention;
 
-    li {
-      margin-top: $field-text--margin-top;
-    }
+    user-select: none;
   }
 }
 
