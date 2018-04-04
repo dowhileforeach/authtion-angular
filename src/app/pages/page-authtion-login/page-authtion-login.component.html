@@ -19,9 +19,9 @@
                                                 'slider__inner--create-account': isCreateAccountSlideActive }">
           <form class="form" spellcheck="false">
 
-            <app-input-email-authtion (takeEmailGroup)="gLoginEmail=$event"></app-input-email-authtion>
+            <app-input-authtion-email (takeEmailGroup)="gLoginEmail=$event"></app-input-authtion-email>
 
-            <app-input-password-authtion (takePasswordGroup)="gLoginPassword=$event"></app-input-password-authtion>
+            <app-input-authtion-password (takePasswordGroup)="gLoginPassword=$event"></app-input-authtion-password>
 
             <a class="form__under-field form__under-field--restore-password" href="#">Restore password</a>
 
@@ -29,7 +29,7 @@
           </form>
 
           <form class="form" spellcheck="false">
-            <app-input-email-authtion (takeEmailGroup)="gCreateAccountEmail=$event"></app-input-email-authtion>
+            <app-input-authtion-email (takeEmailGroup)="gCreateAccountEmail=$event"></app-input-authtion-email>
             <span class="form__under-field">*Password will be sent to your email</span>
             <button class="form__btn" mat-raised-button [disabled]="gCreateAccountEmail.invalid" tabindex="-1" aria-label="Submit create new account form">OK</button>
           </form>

@@ -63,7 +63,10 @@ app-root {
 @import "app/scss/lib_animation";
 @include spinner;
 
-/* Matirial Dialog */
+/*
+ * Angular Material
+ * https://material.angular.io/
+*/
 
 .cdk-overlay-pane--login-register-dialog-overriding {
 
@@ -75,7 +78,38 @@ app-root {
   }
 }
 
-/* FORM */
+/* Authtion */
+
+.btn-authtion__user {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+
+  fill: $color__body-font;
+  color: $color__body-font;
+  text-decoration: none;
+
+  border: none;
+  border-radius: $border-radius;
+
+  user-select: none;
+  transition: all 0.15s ease;
+
+  svg {
+    width: 30px;
+    height: 30px;
+  }
+  span {
+    display: inline-block;
+    margin-left: 0;
+    @include font__weight-style_size-height($size: $font-size__x3, $height: 'same', $weight: 300);
+  }
+
+  &[disabled] {
+    opacity: 0.6;
+  }
+}
 
 .form-group-authtion {
   width: 100%;
@@ -171,7 +205,7 @@ app-root {
     @include font__weight-style_size-height($size: $font-size__x1, $height: 'same', $weight: 300);
     color: $color__attention;
 
-    li{
+    li {
       margin-top: $field-text--margin-top;
     }
   }

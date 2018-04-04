@@ -1,30 +1,35 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UtilsService} from '../../utils.service';
+import {AuthtionUtilsService} from '../../authtion-utils.service';
 
 @Component({
-  selector: 'app-input-email-authtion',
-  templateUrl: './input-email-authtion.component.html',
+  selector: 'app-input-authtion-email',
+  templateUrl: './input-authtion__email.component.html',
   styles: ['']
 })
-export class InputEmailAuthtionComponent implements OnInit {
+export class InputAuthtionEmailComponent implements OnInit {
 
-  @Output() takeEmailGroup = new EventEmitter<FormGroup>();
-  group: FormGroup;
   // http://emailregex.com/
   PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   maxLength = 50;
-  isEmpty = UtilsService.isEmpty;
-  isWrongControl = UtilsService.isWrongControl;
+
+  emailControl: FormControl;
+  emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
+  group: FormGroup;
+  @Output() takeEmailGroup = new EventEmitter<FormGroup>();
+  isEmpty = AuthtionUtilsService.isEmpty;
+  controlHasError = AuthtionUtilsService.controlHasError;
 
   ngOnInit() {
 
+    this.emailControl = new FormControl('', [
+      Validators.required,
+      this.regexpValidator.bind(this),
+      this.lengthValidator.bind(this),
+    ]);
+
     this.group = new FormGroup({
-      'email': new FormControl('', [
-        Validators.required,
-        this.regexpValidator.bind(this),
-        this.lengthValidator.bind(this),
-      ])
+      'email': this.emailControl
     });
 
     this.takeEmailGroup.emit(this.group);

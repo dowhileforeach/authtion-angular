@@ -1,35 +1,38 @@
 <div class="form-group-authtion" [formGroup]="group">
   <input
-    [ngClass]="{ 'filled': !isEmpty(group.get('email').value) }"
+    [ngClass]="{ 'filled': !isEmpty(emailControl.value) }"
     [formControlName]="'email'"
     cdkFocusInitial
     type="email"
     name="email"
+    [id]="emailControlID"
   >
-  <label>Email</label>
+  <label [for]="emailControlID">Email</label>
 
   <ul class="error-list">
 
-    <li *ngIf="isWrongControl(group,'email','required')">
-      Email is <b>required</b>
+    <li *ngIf="controlHasError(emailControl,'required')">
+      <b>Required</b>
     </li>
 
-    <li *ngIf="!isWrongControl(group,'email','required')
-            && isWrongControl(group,'email','isNotEmail')">
+    <li *ngIf="!controlHasError(emailControl,'required')
+            && controlHasError(emailControl,'isNotEmail')"
+    >
       Please enter a valid email
     </li>
 
-    <li *ngIf="!isWrongControl(group,'email','required')
-            && !isWrongControl(group,'email','isNotEmail')
-            && isWrongControl(group,'email','emailLength')">
-      Email length must be <= {{maxLength}}
+    <li *ngIf="!controlHasError(emailControl,'required')
+            && !controlHasError(emailControl,'isNotEmail')
+            && controlHasError(emailControl,'emailLength')"
+    >
+      Length must be <= {{maxLength}}
     </li>
 
   </ul>
 
   <svg
     class="icon-clear-field"
-    (click)="this.group.get('email').setValue('')"
+    (click)="emailControl.setValue('')"
 
     xmlns="http://www.w3.org/2000/svg"
     viewBox="2 2 20 20">

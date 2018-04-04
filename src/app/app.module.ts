@@ -14,16 +14,16 @@ import {PageHomeComponent} from './pages/home/page-home.component';
 import {AppRoutingModule} from './app-routing.module';
 
 import {AuthtionService} from './authtion.service';
-import {ButtonAuthtionComponent} from './buttons/button-authtion/button-authtion.component';
-import {ButtonNotAuthenticatedComponent} from './buttons/button-authtion/button-not-authenticated/button-not-authenticated.component';
-import {ButtonLoggedInComponent} from './buttons/button-authtion/button-logged-in/button-logged-in.component';
+import {AuthtionUtilsService} from './authtion-utils.service';
+import {BtnAuthtionUserComponent} from './buttons/btn-authtion__user/btn-authtion__user.component';
+import {BtnAuthtionUserNotAuthenticatedComponent} from './buttons/btn-authtion__user/btn-authtion__user--not-authenticated/btn-authtion__user--not-authenticated.component';
+import {BtnAuthtionUserLoggedInComponent} from './buttons/btn-authtion__user/btn-authtion__user--logged-in/btn-authtion__user--logged-in.component';
+import {InputAuthtionEmailComponent} from './inputs/input-authtion__email/input-authtion__email.component';
+import {InputAuthtionPasswordComponent} from './inputs/input-authtion__password/input-authtion__password.component';
 import {PageAuthtionLoginComponent} from './pages/page-authtion-login/page-authtion-login.component';
 
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
-import { InputEmailAuthtionComponent } from './inputs/input-email-authtion/input-email-authtion.component';
-import {UtilsService} from './utils.service';
-import { InputPasswordAuthtionComponent } from './inputs/input-password-authtion/input-password-authtion.component';
 
 @NgModule({
   declarations: [
@@ -32,12 +32,12 @@ import { InputPasswordAuthtionComponent } from './inputs/input-password-authtion
     BodyMainComponent,
     BodyFooterComponent,
     PageHomeComponent,
-    ButtonAuthtionComponent,
-    ButtonNotAuthenticatedComponent,
-    ButtonLoggedInComponent,
+    BtnAuthtionUserComponent,
+    BtnAuthtionUserNotAuthenticatedComponent,
+    BtnAuthtionUserLoggedInComponent,
+    InputAuthtionEmailComponent,
+    InputAuthtionPasswordComponent,
     PageAuthtionLoginComponent,
-    InputEmailAuthtionComponent,
-    InputPasswordAuthtionComponent,
   ],
   imports: [
     FormsModule,
@@ -56,7 +56,7 @@ import { InputPasswordAuthtionComponent } from './inputs/input-password-authtion
   ],
   providers: [
     AuthtionService,
-    UtilsService,
+    AuthtionUtilsService,
   ],
   bootstrap: [
     AppComponent

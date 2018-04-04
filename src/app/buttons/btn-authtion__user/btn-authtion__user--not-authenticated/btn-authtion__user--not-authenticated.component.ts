@@ -3,11 +3,11 @@ import {MatDialog} from '@angular/material';
 import {PageAuthtionLoginComponent} from '../../../pages/page-authtion-login/page-authtion-login.component';
 
 @Component({
-  selector: 'app-button-not-authenticated',
-  templateUrl: './button-not-authenticated.component.html',
-  styles: ['.button-authtion--not-authenticated {padding: 5px 12px;}']
+  selector: 'app-btn-authtion-user-not-authenticated',
+  templateUrl: './btn-authtion__user--not-authenticated.component.html',
+  styles: ['.btn-authtion__user--not-authenticated {padding: 5px 12px;}']
 })
-export class ButtonNotAuthenticatedComponent {
+export class BtnAuthtionUserNotAuthenticatedComponent {
 
   constructor(public dialog: MatDialog) {
   }
