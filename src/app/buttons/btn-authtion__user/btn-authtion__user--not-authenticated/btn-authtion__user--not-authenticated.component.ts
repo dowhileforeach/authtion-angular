@@ -5,7 +5,6 @@ import {PageAuthtionLoginComponent} from '../../../pages/page-authtion-login/pag
 @Component({
   selector: 'app-btn-authtion-user-not-authenticated',
   templateUrl: './btn-authtion__user--not-authenticated.component.html',
-  styles: ['.btn-authtion__user--not-authenticated {padding: 5px 12px;}']
 })
 export class BtnAuthtionUserNotAuthenticatedComponent {
 

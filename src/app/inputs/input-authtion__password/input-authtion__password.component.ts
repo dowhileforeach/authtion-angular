@@ -5,7 +5,6 @@ import {AuthtionUtilsService} from '../../authtion-utils.service';
 @Component({
   selector: 'app-input-authtion-password',
   templateUrl: './input-authtion__password.component.html',
-  styles: ['']
 })
 export class InputAuthtionPasswordComponent implements OnInit {
 

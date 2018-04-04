@@ -109,6 +109,14 @@ app-root {
   &[disabled] {
     opacity: 0.6;
   }
+
+  &.btn-authtion__user--logged-in {
+    padding: 5px 10px 5px 18px;
+  }
+
+  &.btn-authtion__user--not-authenticated {
+    padding: 5px 12px;
+  }
 }
 
 .form-group-authtion {

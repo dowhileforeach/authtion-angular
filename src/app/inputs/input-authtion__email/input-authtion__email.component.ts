@@ -5,7 +5,6 @@ import {AuthtionUtilsService} from '../../authtion-utils.service';
 @Component({
   selector: 'app-input-authtion-email',
   templateUrl: './input-authtion__email.component.html',
-  styles: ['']
 })
 export class InputAuthtionEmailComponent implements OnInit {
 

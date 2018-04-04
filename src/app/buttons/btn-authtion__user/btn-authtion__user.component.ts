@@ -5,7 +5,6 @@ import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-btn-authtion-user',
   templateUrl: './btn-authtion__user.component.html',
-  styles: ['']
 })
 export class BtnAuthtionUserComponent implements OnInit {
 
