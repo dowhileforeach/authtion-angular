@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthtionUtilsService} from '../../authtion-utils.service';
 
@@ -15,6 +15,7 @@ export class InputAuthtionEmailComponent implements OnInit {
   emailControl: FormControl;
   emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
   group: FormGroup;
+  @Input() tabIndexValue: number;
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
   isEmpty = AuthtionUtilsService.isEmpty;
   controlHasError = AuthtionUtilsService.controlHasError;

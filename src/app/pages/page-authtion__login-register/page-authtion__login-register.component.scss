@@ -3,13 +3,9 @@
 @import "../../scss/lib_buttons";
 @import "../../scss/lib_animation";
 
-$slide--width: 310px;
-
-.wrap {
-  position: relative;
-}
-
 .login-register {
+  $slide--width: 310px;
+
   width: $slide--width + 50px;
   margin: 0 auto;
   padding: (50px/2) 0;
@@ -19,6 +15,12 @@ $slide--width: 310px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  position: relative;
+
+  .form-authtion {
+    width: 306px;
+  }
 
   .slider {
     width: $slide--width;
@@ -120,123 +122,110 @@ $slide--width: 310px;
     }
   }
 
-  .form {
-    width: $slide--width - 4px;
-    margin: 20px auto 0;
-
-    display: flex;
-    flex-direction: column;
-
-    .form__under-field {
-      align-self: flex-end;
-      margin: $field-text--margin-top $indent-left-right 0;
-
-      @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
-      color: $color__93;
-      text-decoration: none;
-
-      user-select: none;
-
-      &.form__under-field--restore-password {
-        border-bottom: 0.5px dashed $color__93;
-        transition: color 0.15s ease, border-color 0.15s ease;
-        &:hover,
-        &:focus {
-          outline: none;
-          color: $color__attention;
-          border-bottom-color: $color__attention;
-          cursor: pointer;
-        }
-        &:active {
-          opacity: 0.5;
-        }
-      }
-    }
-
-    .form__btn {
-      width: 94%;
-      margin: 0 auto 15px;
-      padding: 10px 0;
-
-      @include font__weight-style_size-height($size: $font-size__x3);
-      color: $color__body-font;
-      background-color: $color__btn--usual;
-      outline: none;
-      &[disabled] {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-    }
-  }
-}
-
-.btn-close {
-  position: absolute;
-  top: -15px;
-  right: -5px;
-
-  font-size: 0;
-  color: #fff;
-
-  box-shadow: 0 2px 0.5px -2px rgba(0, 0, 0, .2),
-  0 1px 1px 0 rgba(0, 0, 0, .14),
-  0 0.5px 2.5px 0 rgba(0, 0, 0, .12);
-
-  background-color: #fff;
-
-  &::before,
-  &::after {
-    content: "";
+  .btn-close {
     position: absolute;
-    top: 20px;
-    left: 10px;
-    display: block;
-    width: 20px;
-    height: 1px;
-    background-color: $color__93;
-  }
+    top: -15px;
+    right: -50px;
 
-  &::before {
-    transform: rotate(45deg);
-  }
+    font-size: 0;
+    color: #fff;
 
-  &::after {
-    transform: rotate(-45deg);
-  }
+    box-shadow: 0 2px 0.5px -2px rgba(0, 0, 0, .2),
+    0 1px 1px 0 rgba(0, 0, 0, .14),
+    0 0.5px 2.5px 0 rgba(0, 0, 0, .12);
 
-  &:hover,
-  &:focus {
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
-    0 2px 2px 0 rgba(0, 0, 0, .14),
-    0 1px 5px 0 rgba(0, 0, 0, .12);
-  }
+    background-color: #fff;
 
-  &:hover::before,
-  &:hover::after {
-    background-color: $color__body-font;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 20px;
+      left: 10px;
+      display: block;
+      width: 20px;
+      height: 1px;
+      background-color: $color__93;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
+      0 2px 2px 0 rgba(0, 0, 0, .14),
+      0 1px 5px 0 rgba(0, 0, 0, .12);
+    }
+
+    &:hover::before,
+    &:hover::after {
+      background-color: $color__body-font;
+    }
   }
 }
 
-@media (max-width: $mat-dialog-min-width) {
-  .btn-close {
-    right: 5px;
+@media (max-width: 585px) {
+  .login-register {
+    .btn-close {
+      right: -35px;
+    }
   }
 }
 
-@media (max-width: $mat-dialog-min-width - 50) {
-  .btn-close {
-    right: 15px;
+@media (max-width: 545px) {
+  .login-register {
+    .btn-close {
+      right: -25px;
+    }
   }
 }
 
-@media (max-width: $mat-dialog-min-width - (50 + 30)) {
-  .btn-close {
-    right: 25px;
+@media (max-width: 420px) {
+  .login-register {
+    .btn-close {
+      right: -15px;
+    }
   }
 }
 
-@media (max-width: $mat-dialog-min-width - 100) {
-  .btn-close {
-    right: 45px;
+@media (max-width: 400px) {
+  .login-register {
+    .btn-close {
+      right: 0;
+    }
   }
 }
+
+@media (max-width: 370px) {
+  .login-register {
+    .btn-close {
+      right: 15px;
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  .login-register {
+    .btn-close {
+      right: 30px;
+    }
+  }
+}
+
+//@media (max-width: $mat-dialog-min-width - (50 + 30)) {
+//  .btn-close {
+//    right: -20px;
+//  }
+//}
+//
+//@media (max-width: $mat-dialog-min-width - 100) {
+//  .btn-close {
+//    right: -5px;
+//  }
+//}

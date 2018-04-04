@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
 @Component({
-  selector: 'app-login-page',
-  templateUrl: './page-authtion-login.component.html',
-  styleUrls: ['./page-authtion-login.component.scss']
+  selector: 'app-page-authtion-login-register',
+  templateUrl: './page-authtion__login-register.component.html',
+  styleUrls: ['./page-authtion__login-register.component.scss']
 })
-export class PageAuthtionLoginComponent {
+export class PageAuthtionLoginRegisterComponent {
 
   isLoginSlideActive = true;
   isCreateAccountSlideActive = false;

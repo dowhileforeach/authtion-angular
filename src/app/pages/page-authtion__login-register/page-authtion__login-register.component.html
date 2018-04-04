@@ -1,0 +1,65 @@
+<section class="login-register">
+  <h2 class="visually-hidden">Login or Create new account</h2>
+
+  <div class="slider">
+
+    <div class="slider__controls">
+
+      <button class="control control--log-in"
+              [ngClass]="{ 'control--checked': isLoginSlideActive }"
+              (click)="changeSlide(1)">
+        <span>Login</span>
+      </button>
+
+      <button class="control control--create-account"
+              [ngClass]="{ 'control--checked': isCreateAccountSlideActive }"
+              (click)="changeSlide(2)">
+        <span>Create account</span>
+      </button>
+
+    </div>
+
+    <div class="slider__wrap">
+      <div class="slider__inner"
+           [ngClass]="{ 'slider__inner--login': isLoginSlideActive,
+                          'slider__inner--create-account': isCreateAccountSlideActive }">
+
+        <form class="form-authtion" spellcheck="false">
+          <app-input-authtion-email class="form-authtion__item" (takeEmailGroup)="gLoginEmail=$event" [tabIndexValue]="0"></app-input-authtion-email>
+          <app-input-authtion-password class="form-authtion__item" (takePasswordGroup)="gLoginPassword=$event"></app-input-authtion-password>
+          <a class="form-authtion__under-field form__under-field--restore-password" href="#">Restore password</a>
+          <button class="form-authtion__btn"
+                  mat-raised-button
+                  [disabled]="gLoginEmail.invalid || gLoginPassword.invalid"
+                  aria-label="Submit login form">
+            OK
+          </button>
+        </form>
+
+        <form class="form-authtion" spellcheck="false">
+          <app-input-authtion-email class="form-authtion__item" (takeEmailGroup)="gCreateAccountEmail=$event" [tabIndexValue]="-1"></app-input-authtion-email>
+          <span class="form-authtion__under-field">*Password will be sent to your email</span>
+          <button class="form-authtion__btn"
+                  mat-raised-button
+                  [disabled]="gCreateAccountEmail.invalid"
+                  aria-label="Submit create new account form"
+                  tabindex="-1">
+            OK
+          </button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <button class="btn-close"
+          mat-mini-fab
+          mat-dialog-close
+          aria-label="Close">
+    X
+  </button>
+
+</section>
+
+

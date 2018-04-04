@@ -119,9 +119,62 @@ app-root {
   }
 }
 
+.form-authtion {
+  width: 300px;
+  margin: 20px auto 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-authtion__item {
+  margin-bottom: 15px;
+}
+
+.form-authtion__under-field {
+  align-self: flex-end;
+  margin: -10px $indent-left-right 15px;
+
+  @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
+  color: $color__93;
+  text-decoration: none;
+
+  user-select: none;
+
+  &.form__under-field--restore-password {
+    border-bottom: 0.5px dashed $color__93;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    &:hover,
+    &:focus {
+      outline: none;
+      color: $color__attention;
+      border-bottom-color: $color__attention;
+      cursor: pointer;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}
+
+.form-authtion__btn,
+.form-authtion__btn.mat-raised-button {
+  width: 94%;
+  margin: 0 auto 15px;
+  padding: 10px 0;
+
+  @include font__weight-style_size-height($size: $font-size__x3);
+  color: $color__body-font;
+  background-color: $color__btn--usual;
+  outline: none;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
 .form-group-authtion {
   width: 100%;
-  margin: 0 auto 12px;
+  margin: 0 auto;
   padding: 0;
 
   background-color: transparent;

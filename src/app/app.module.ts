@@ -15,12 +15,12 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AuthtionService} from './authtion.service';
 import {AuthtionUtilsService} from './authtion-utils.service';
-import {BtnAuthtionUserComponent} from './buttons/btn-authtion__user/btn-authtion__user.component';
-import {BtnAuthtionUserNotAuthenticatedComponent} from './buttons/btn-authtion__user/btn-authtion__user--not-authenticated/btn-authtion__user--not-authenticated.component';
-import {BtnAuthtionUserLoggedInComponent} from './buttons/btn-authtion__user/btn-authtion__user--logged-in/btn-authtion__user--logged-in.component';
-import {InputAuthtionEmailComponent} from './inputs/input-authtion__email/input-authtion__email.component';
-import {InputAuthtionPasswordComponent} from './inputs/input-authtion__password/input-authtion__password.component';
-import {PageAuthtionLoginComponent} from './pages/page-authtion-login/page-authtion-login.component';
+import {BtnAuthtionUserComponent} from './controls/btn-authtion__user/btn-authtion__user.component';
+import {BtnAuthtionUserNotAuthenticatedComponent} from './controls/btn-authtion__user/btn-authtion__user--not-authenticated/btn-authtion__user--not-authenticated.component';
+import {BtnAuthtionUserLoggedInComponent} from './controls/btn-authtion__user/btn-authtion__user--logged-in/btn-authtion__user--logged-in.component';
+import {InputAuthtionEmailComponent} from './controls/input-authtion__email/input-authtion__email.component';
+import {InputAuthtionPasswordComponent} from './controls/input-authtion__password/input-authtion__password.component';
+import {PageAuthtionLoginRegisterComponent} from './pages/page-authtion__login-register/page-authtion__login-register.component';
 
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
@@ -37,7 +37,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     BtnAuthtionUserLoggedInComponent,
     InputAuthtionEmailComponent,
     InputAuthtionPasswordComponent,
-    PageAuthtionLoginComponent,
+    PageAuthtionLoginRegisterComponent,
   ],
   imports: [
     FormsModule,
@@ -52,7 +52,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     HttpClientModule,
   ],
   entryComponents: [
-    PageAuthtionLoginComponent
+    PageAuthtionLoginRegisterComponent
   ],
   providers: [
     AuthtionService,
