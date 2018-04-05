@@ -10,12 +10,13 @@ export class AuthtionUtilsService {
   }
 
   public static controlHasError(control: AbstractControl, errorName: string) {
-    if ((control.dirty || control.touched)
+    return (control.dirty || control.touched)
       && control.errors !== null
-      && control.errors.hasOwnProperty(errorName)) {
-      return control.errors[errorName];
-    }
-    return false;
+      && control.errors.hasOwnProperty(errorName);
+  }
+
+  public static getErrorOfControl(control: AbstractControl, errorName: string) {
+    return control.errors[errorName];
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript

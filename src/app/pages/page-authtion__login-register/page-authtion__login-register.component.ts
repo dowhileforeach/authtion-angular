@@ -67,6 +67,10 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
   performFocus(elementRef: ElementRef) {
     elementRef.nativeElement.querySelector('.form-group-authtion input').focus();
   }
+
+  print() {
+    console.log(this.controlLoginEmail);
+  }
 }
 
 

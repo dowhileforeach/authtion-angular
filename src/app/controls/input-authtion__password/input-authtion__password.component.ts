@@ -23,7 +23,8 @@ export class InputAuthtionPasswordComponent implements OnInit {
 
     this.passwordControl = new FormControl('', [
       Validators.required,
-      this.lengthValidator.bind(this),
+      Validators.minLength(this.minLength),
+      Validators.maxLength(this.maxLength),
     ]);
 
     this.group = new FormGroup({
@@ -33,22 +34,15 @@ export class InputAuthtionPasswordComponent implements OnInit {
     this.takePasswordGroup.emit(this.group);
   }
 
-  lengthValidator(control: FormControl) {
-    const length = control.value.length;
-    if (length < this.minLength || length > this.maxLength) {
-      return {
-        'passwordLength': true
-      };
-    }
-    return null;
-  }
-
   hasError(): boolean {
     if (this.controlHasError(this.passwordControl, 'required')) {
       this.errorMessage = 'Required';
       return true;
-    } else if (this.controlHasError(this.passwordControl, 'passwordLength')) {
-      this.errorMessage = `Length must be >= ${this.minLength} and <= ${this.maxLength}`;
+    } else if (this.controlHasError(this.passwordControl, 'minlength')) {
+      this.errorMessage = `Length must be >= ${this.minLength}`;
+      return true;
+    } else if (this.controlHasError(this.passwordControl, 'maxlength')) {
+      this.errorMessage = `Length must be <= ${this.maxLength}`;
       return true;
     }
     this.errorMessage = '';
