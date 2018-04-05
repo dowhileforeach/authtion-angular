@@ -1,9 +1,10 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthtionUtilsService} from '../../authtion-utils.service';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import {_throw} from 'rxjs/observable/throw';
+import {AuthtionExchangeService} from '../../authtion-exchange.service';
 
 @Component({
   selector: 'app-input-authtion-email',
@@ -21,12 +22,15 @@ export class InputAuthtionEmailComponent implements OnInit {
   group: FormGroup;
   @Input() tabIndexValue: number;
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
+
   isEmpty = AuthtionUtilsService.isEmpty;
   controlHasError = AuthtionUtilsService.controlHasError;
   getErrorOfControl = AuthtionUtilsService.getErrorOfControl;
+  objToStr = AuthtionUtilsService.objToStr;
+
   errorMessage = '';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private exchServ: AuthtionExchangeService) {
   }
 
   ngOnInit() {
@@ -47,33 +51,25 @@ export class InputAuthtionEmailComponent implements OnInit {
   }
 
   backendValidator() {
-    const body = `{"email": "${this.emailControl.value}"}`;
-
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json; charset=utf-8');
 
     return new Promise(resolve => {
 
-      this.http.post('http://localhost:8080/v1/check-consumer-email', body, {headers})
+      this.http.post(
+        this.exchServ.url_checkConsumerEmail,
+        this.exchServ.body_checkConsumerEmail(this.emailControl.value),
+        this.exchServ.opt_JsonReq())
 
         .catch(error => _throw(
           resolve({'http': error.message})
         ))
 
-        .subscribe(result => {
-            if (result['success']) {
-              resolve(null);
-            } else {
-              let message = '';
-              for (const prop of Object.keys(result.details)) {
-                message += `${prop} ${result.details[prop]}\n`;
-              }
-              resolve({
-                'backend': message
-              });
-            }
+        .subscribe(answer => {
+          if (answer['success']) {
+            resolve(null);
+          } else {
+            resolve({'backend': this.objToStr(answer.details)});
           }
-        );
+        });
     });
 
   }

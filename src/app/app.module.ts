@@ -15,6 +15,7 @@ import {AppRoutingModule} from './app-routing.module';
 
 import {AuthtionService} from './authtion.service';
 import {AuthtionUtilsService} from './authtion-utils.service';
+import {AuthtionExchangeService} from './authtion-exchange.service';
 import {BtnAuthtionUserComponent} from './controls/btn-authtion__user/btn-authtion__user.component';
 import {BtnAuthtionUserNotAuthenticatedComponent} from './controls/btn-authtion__user/btn-authtion__user--not-authenticated/btn-authtion__user--not-authenticated.component';
 import {BtnAuthtionUserLoggedInComponent} from './controls/btn-authtion__user/btn-authtion__user--logged-in/btn-authtion__user--logged-in.component';
@@ -57,6 +58,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
   providers: [
     AuthtionService,
     AuthtionUtilsService,
+    AuthtionExchangeService,
   ],
   bootstrap: [
     AppComponent

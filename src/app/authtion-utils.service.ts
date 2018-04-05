@@ -30,4 +30,12 @@ export class AuthtionUtilsService {
     }
     return prefix + result + postfix;
   }
+
+  public static objToStr(obj, eachStrOnNewLine = true): string {
+    let result = '';
+    for (const prop of Object.keys(obj)) {
+      result += `${prop} ${obj[prop]}${eachStrOnNewLine ? '' : ''}`;
+    }
+    return result;
+  }
 }

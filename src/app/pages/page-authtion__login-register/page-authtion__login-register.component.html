@@ -43,7 +43,7 @@
 
           <button class="form-authtion__btn"
                   mat-raised-button
-                  [disabled]="groupLoginEmail.invalid || groupLoginPassword.invalid"
+                  [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid)"
                   aria-label="Submit login form">
             OK
           </button>
@@ -69,7 +69,7 @@
 
           <button class="form-authtion__btn"
                   mat-raised-button
-                  [disabled]="groupCreateAccountEmail.invalid"
+                  [disabled]="!groupCreateAccountEmail.valid"
                   aria-label="Submit create new account form"
                   tabindex="-1">
             OK
