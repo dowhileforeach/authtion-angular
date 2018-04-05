@@ -21,6 +21,7 @@ export class InputAuthtionEmailComponent implements OnInit {
   @ViewChild('refEmail') refEmail: ElementRef;
   group: FormGroup;
   @Input() tabIndexValue: number;
+  @Input() reverseHandleResp: boolean;
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
 
   isEmpty = AuthtionUtilsService.isEmpty;
@@ -52,26 +53,29 @@ export class InputAuthtionEmailComponent implements OnInit {
 
   backendValidator() {
 
-    return new Promise(resolve => {
-
-      this.http.post(
-        this.exchServ.url_checkConsumerEmail,
-        this.exchServ.body_checkConsumerEmail(this.emailControl.value),
-        this.exchServ.opt_JsonReq())
-
-        .catch(error => _throw(
-          resolve({'http': error.message})
-        ))
-
-        .subscribe(answer => {
-          if (answer['success']) {
-            resolve(null);
-          } else {
-            resolve({'backend': this.objToStr(answer.details)});
-          }
-        });
-    });
-
+    return this.reverseHandleResp ?
+      new Promise(resolve => {
+        this.exchServ.post_checkConsumerEmail(this.emailControl.value)
+          .catch(error => _throw(
+            resolve({'http': error.message})
+          ))
+          .subscribe(answer =>
+            answer['success'] ?
+              resolve({'backend': 'Not found in our database'})
+              : resolve(null)
+          );
+      })
+      : new Promise(resolve => {
+        this.exchServ.post_checkConsumerEmail(this.emailControl.value)
+          .catch(error => _throw(
+            resolve({'http': error.message})
+          ))
+          .subscribe(answer =>
+            answer['success'] ?
+              resolve(null)
+              : resolve({'backend': this.objToStr(answer.details)})
+          );
+      });
   }
 
   hasError(): boolean {
