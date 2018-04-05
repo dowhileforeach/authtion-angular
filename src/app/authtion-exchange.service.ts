@@ -43,6 +43,10 @@ export class AuthtionExchangeService {
   }
 
 
+  /*
+   * RESPONSE OBSERVABLES
+   */
+
   public post_checkConsumerEmail(email: string): Observable<Object> {
     return this.http.post(
       this.url_checkConsumerEmail,
