@@ -13,7 +13,7 @@ export class BtnAuthtionUserNotAuthenticatedComponent {
 
   openDialog(): void {
     this.dialog.open(PageAuthtionLoginRegisterComponent, {
-      autoFocus: true, // focused on field with attribute 'cdkFocusInitial'
+      autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
       panelClass: 'cdk-overlay-pane--login-register-dialog-overriding',
       position: {top: '50px'}
     });

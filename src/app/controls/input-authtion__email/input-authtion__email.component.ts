@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthtionUtilsService} from '../../authtion-utils.service';
 
@@ -14,6 +14,7 @@ export class InputAuthtionEmailComponent implements OnInit {
 
   emailControl: FormControl;
   emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
+  @ViewChild('refEmail') refEmail: ElementRef;
   group: FormGroup;
   @Input() tabIndexValue: number;
   @Output() takeEmailGroup = new EventEmitter<FormGroup>();
@@ -65,6 +66,12 @@ export class InputAuthtionEmailComponent implements OnInit {
       this.errorMessage = `Length must be <= ${this.maxLength}`;
       return true;
     }
+    this.errorMessage = '';
     return false;
+  }
+
+  clearEmail() {
+    this.emailControl.setValue('');
+    this.refEmail.nativeElement.focus();
   }
 }

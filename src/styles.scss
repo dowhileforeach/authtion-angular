@@ -134,6 +134,7 @@ app-root {
 .form-authtion__under-field {
   align-self: flex-end;
   margin: -10px $indent-left-right 15px;
+  padding: 0;
 
   @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
   color: $color__93;

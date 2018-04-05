@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthtionUtilsService} from '../../authtion-utils.service';
 
@@ -13,6 +13,7 @@ export class InputAuthtionPasswordComponent implements OnInit {
 
   passwordControl: FormControl;
   passwordControlID = AuthtionUtilsService.randomStr('form-group-authtion__password-'); // for a11y
+  @ViewChild('refPassword') refPassword: ElementRef;
   group: FormGroup;
   @Output() takePasswordGroup = new EventEmitter<FormGroup>();
   controlHasError = AuthtionUtilsService.controlHasError;
@@ -50,6 +51,12 @@ export class InputAuthtionPasswordComponent implements OnInit {
       this.errorMessage = `Length must be >= ${this.minLength} and <= ${this.maxLength}`;
       return true;
     }
+    this.errorMessage = '';
     return false;
+  }
+
+  clearPassword() {
+    this.passwordControl.setValue('');
+    this.refPassword.nativeElement.focus();
   }
 }

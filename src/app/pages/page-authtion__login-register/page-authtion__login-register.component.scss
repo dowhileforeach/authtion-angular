@@ -110,7 +110,7 @@
     width: 200%;
     display: flex;
     justify-content: flex-start;
-    transition: transform 0.2s ease;
+    transition: transform 200ms ease;
 
     &.slider__inner--login {
       transform: translate(0);
