@@ -31,6 +31,7 @@
           <app-input-authtion-email class="form-authtion__item"
                                     [reverseHandleResp]="true"
                                     (takeEmailGroup)="groupLoginEmail=$event"
+                                    [isDirtyTouchedCheckMode]="true"
                                     [tabIndexValue]="0"
                                     #refLoginEmail>
           </app-input-authtion-email>
@@ -49,13 +50,6 @@
             OK
           </button>
 
-          <button class="form-authtion__btn"
-                  mat-raised-button
-                  (click)="print()"
-                  >
-            PRINT
-          </button>
-
         </form>
 
         <form class="form-authtion" spellcheck="false">
@@ -63,6 +57,7 @@
           <app-input-authtion-email class="form-authtion__item"
                                     [reverseHandleResp]="false"
                                     (takeEmailGroup)="groupCreateAccountEmail=$event"
+                                    [isDirtyTouchedCheckMode]="false"
                                     [tabIndexValue]="-1"
                                     #refCreateAccountEmail>
           </app-input-authtion-email>

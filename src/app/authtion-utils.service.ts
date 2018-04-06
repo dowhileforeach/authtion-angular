@@ -9,9 +9,13 @@ export class AuthtionUtilsService {
     return true;
   }
 
-  public static controlHasError(control: AbstractControl, errorName: string) {
-    return (control.dirty || control.touched)
-      && control.errors !== null
+  public static controlHasError(control: AbstractControl, errorName: string, isDirtyTouchedCheckMode = true) {
+
+    if (isDirtyTouchedCheckMode && !(control.dirty || control.touched)) {
+      return false;
+    }
+
+    return control.errors !== null
       && control.errors.hasOwnProperty(errorName);
   }
 
