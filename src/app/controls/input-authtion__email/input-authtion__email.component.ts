@@ -31,7 +31,7 @@ export class InputAuthtionEmailComponent implements OnInit {
 
   errorMessage = '';
 
-  constructor(private http: HttpClient, private exchServ: AuthtionExchangeService) {
+  constructor(private http: HttpClient, private exchangeService: AuthtionExchangeService) {
   }
 
   ngOnInit() {
@@ -52,26 +52,22 @@ export class InputAuthtionEmailComponent implements OnInit {
   }
 
   backendValidator() {
-
+    const observable = this.exchangeService.post_checkConsumerEmail(this.emailControl.value);
     return this.reverseHandleResp ?
       new Promise(resolve => { // for 'Login'
-        this.exchServ.post_checkConsumerEmail(this.emailControl.value)
-          .pipe(retry(3))
-          .subscribe(
-            data => data['success'] ? resolve({'backend': 'Not found in our database'}) : resolve(null),
-            error => resolve({'http': error.message})
-          );
+        observable.pipe(retry(3)).subscribe(
+          data => data['success'] ? resolve({'backend': 'Not found in our database'}) : resolve(null),
+          error => resolve({'http': error.message})
+        );
       })
       : new Promise(resolve => { // for 'Create account'
-        this.exchServ.post_checkConsumerEmail(this.emailControl.value)
-          .pipe(retry(3))
-          .subscribe(
-            data => {
-              data['success'] ? resolve(null) : resolve({'backend': this.objToStr(data['details'])});
-              this.emailControl.markAsTouched();
-            },
-            error => resolve({'http': error.message})
-          );
+        observable.pipe(retry(3)).subscribe(
+          data => {
+            data['success'] ? resolve(null) : resolve({'backend': this.objToStr(data['details'])});
+            this.emailControl.markAsTouched();
+          },
+          error => resolve({'http': error.message})
+        );
       });
   }
 
