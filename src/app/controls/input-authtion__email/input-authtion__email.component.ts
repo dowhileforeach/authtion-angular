@@ -1,10 +1,10 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthtionUtilsService} from '../../authtion-utils.service';
 import {HttpClient} from '@angular/common/http';
-import 'rxjs/add/operator/catch';
-import {_throw} from 'rxjs/observable/throw';
+import {AuthtionUtilsService} from '../../authtion-utils.service';
 import {AuthtionExchangeService} from '../../authtion-exchange.service';
+import {retry} from 'rxjs/operators';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-input-authtion-email',
@@ -54,26 +54,23 @@ export class InputAuthtionEmailComponent implements OnInit {
   backendValidator() {
 
     return this.reverseHandleResp ?
-      new Promise(resolve => {
+      new Promise(resolve => { // for 'Login'
         this.exchServ.post_checkConsumerEmail(this.emailControl.value)
-          .catch(error => _throw(
-            resolve({'http': error.message})
-          ))
-          .subscribe(answer =>
-            answer['success'] ?
-              resolve({'backend': 'Not found in our database'})
-              : resolve(null)
+          .pipe(retry(3))
+          .subscribe(
+            data => data['success'] ? resolve({'backend': 'Not found in our database'}) : resolve(null),
+            error => resolve({'http': error.message})
           );
       })
-      : new Promise(resolve => {
+      : new Promise(resolve => { // for 'Create account'
         this.exchServ.post_checkConsumerEmail(this.emailControl.value)
-          .catch(error => _throw(
-            resolve({'http': error.message})
-          ))
-          .subscribe(answer =>
-            answer['success'] ?
-              resolve(null)
-              : resolve({'backend': this.objToStr(answer.details)})
+          .pipe(retry(3))
+          .subscribe(
+            data => {
+              data['success'] ? resolve(null) : resolve({'backend': this.objToStr(data['details'])});
+              this.emailControl.markAsTouched();
+            },
+            error => resolve({'http': error.message})
           );
       });
   }

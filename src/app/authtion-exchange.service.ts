@@ -31,12 +31,21 @@ export class AuthtionExchangeService {
     return this.PROTOCOL_DOMEN_PORT_VERSION + '/check-consumer-email';
   }
 
+  public get url_createConsumer(): string {
+    return this.PROTOCOL_DOMEN_PORT_VERSION + '/create-consumer';
+  }
 
   /*
    * REQUEST BODIES
    */
 
   public body_checkConsumerEmail(email: string): string {
+    return `{
+              "email": "${email}"
+            }`;
+  }
+
+  public body_createConsumer(email: string): string {
     return `{
               "email": "${email}"
             }`;
@@ -51,6 +60,13 @@ export class AuthtionExchangeService {
     return this.http.post(
       this.url_checkConsumerEmail,
       this.body_checkConsumerEmail(email),
+      this.opt_JsonReq());
+  }
+
+  public post_createConsumer(email: string): Observable<Object> {
+    return this.http.post(
+      this.url_createConsumer,
+      this.body_createConsumer(email),
       this.opt_JsonReq());
   }
 
