@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 
+import {AuthtionService} from '../../authtion.service';
+
 @Component({
   selector: 'app-page-authtion-login-register',
   templateUrl: './page-authtion__login-register.component.html',
@@ -21,6 +23,9 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
   @ViewChild('refLoginEmail', {read: ElementRef}) refLoginEmail: ElementRef;
   @ViewChild('refLoginPassword', {read: ElementRef}) refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) refCreateAccountEmail: ElementRef;
+
+  constructor(private authtionService: AuthtionService) {
+  }
 
   ngAfterViewInit(): void {
     this.controlLoginEmail = this.groupLoginEmail.get('email');
@@ -66,6 +71,18 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
 
   performFocus(elementRef: ElementRef) {
     elementRef.nativeElement.querySelector('.form-group-authtion input').focus();
+  }
+
+  performLogin() {
+    // взять логин/пароль
+    // отдать логин/пароль сервису
+    // ждать ответа сервиса
+    this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
+    // отреагировать на ответ сервиса
+  }
+
+  performCreateAccount() {
+
   }
 }
 

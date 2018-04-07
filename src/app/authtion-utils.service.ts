@@ -35,10 +35,11 @@ export class AuthtionUtilsService {
     return prefix + result + postfix;
   }
 
-  public static objToStr(obj, eachStrOnNewLine = true): string {
+  public static objToStr(obj, separator = ','): string {
     let result = '';
-    for (const prop of Object.keys(obj)) {
-      result += `${prop} ${obj[prop]}${eachStrOnNewLine ? '' : ''}`;
+    const keys = Object.keys(obj);
+    for (let i = 0; i < keys.length; i++) {
+      result += `${keys[i]} ${obj[keys[i]]}${i === (keys.length - 1) ? '' : separator}`;
     }
     return result;
   }

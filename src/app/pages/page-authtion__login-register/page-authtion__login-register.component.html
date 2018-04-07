@@ -45,8 +45,9 @@
 
           <button class="form-authtion__btn"
                   mat-raised-button
+                  (click)="performLogin()"
                   [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid)"
-                  aria-label="Submit login form">
+                  aria-label="Perform 'Login'">
             OK
           </button>
 
@@ -66,8 +67,9 @@
 
           <button class="form-authtion__btn"
                   mat-raised-button
+                  (click)="performCreateAccount()"
                   [disabled]="!groupCreateAccountEmail.valid"
-                  aria-label="Submit create new account form"
+                  aria-label="Perform 'Create account'"
                   tabindex="-1">
             OK
           </button>
