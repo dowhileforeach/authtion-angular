@@ -27,6 +27,7 @@ import {SpinnerSharkFinCircleComponent} from './spinners/spinner-shark-fin-circl
 
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
+import {SpinnerDottedHorizontalComponent} from './spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
     PageAuthtionLoginRegisterComponent,
     SpinnerDottedCircleComponent,
     SpinnerSharkFinCircleComponent,
+    SpinnerDottedHorizontalComponent,
   ],
   imports: [
     FormsModule,
