@@ -1,6 +1,7 @@
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "app/scss/config";
 @import "app/scss/mixins";
+@import "app/spinners/spinner-dotted-circle/spinner-dotted-circle.component";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
 html, body {
   width: 100%;
@@ -59,9 +60,6 @@ app-root {
     max-width: 1140px;
   }
 }
-
-@import "app/scss/lib_animation";
-@include spinner;
 
 /*
  * Angular Material
@@ -289,5 +287,3 @@ app-root {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-
-
