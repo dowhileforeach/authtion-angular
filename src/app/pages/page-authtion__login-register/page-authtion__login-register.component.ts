@@ -1,14 +1,15 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 
 import {AuthtionService} from '../../authtion.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-page-authtion-login-register',
   templateUrl: './page-authtion__login-register.component.html',
   styleUrls: ['./page-authtion__login-register.component.scss']
 })
-export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
+export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDestroy {
 
   isLoginSlide = true;
 
@@ -23,6 +24,8 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
   @ViewChild('refLoginEmail', {read: ElementRef}) refLoginEmail: ElementRef;
   @ViewChild('refLoginPassword', {read: ElementRef}) refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) refCreateAccountEmail: ElementRef;
+
+  subscriptionIsLoggedIn: Subscription;
 
   constructor(private authtionService: AuthtionService) {
   }
@@ -74,15 +77,35 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit {
   }
 
   performLogin() {
-    // взять логин/пароль
     // отдать логин/пароль сервису
-    // ждать ответа сервиса
     this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
+
+    // ждать ответа сервиса
+    // - верхние контролы становятся недоступными
+    // - вся форма Login становится недоступной
+    // - спиннер
+
     // отреагировать на ответ сервиса
+    this.subscriptionIsLoggedIn = this.authtionService
+      .isLoggedIn().subscribe(result => {
+          if (result) {
+            // действия в случае успешного логина
+            // - закрыть диалог
+          } else {
+            // действия в случае неудачного логина
+            // - разблокировать верхние контролы и форму Login
+            // - отобразить ошибку: this.authtionService.getReasonForFailedLogin()
+          }
+        }
+      );
   }
 
   performCreateAccount() {
 
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptionIsLoggedIn.unsubscribe();
   }
 }
 
