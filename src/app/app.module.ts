@@ -23,11 +23,11 @@ import {InputAuthtionEmailComponent} from './controls/input-authtion__email/inpu
 import {InputAuthtionPasswordComponent} from './controls/input-authtion__password/input-authtion__password.component';
 import {PageAuthtionLoginRegisterComponent} from './pages/page-authtion__login-register/page-authtion__login-register.component';
 import {SpinnerDottedCircleComponent} from './spinners/spinner-dotted-circle/spinner-dotted-circle.component';
+import {SpinnerDottedHorizontalComponent} from './spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleComponent} from './spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 
 import {RecaptchaModule} from 'ng-recaptcha';
 import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
-import {SpinnerDottedHorizontalComponent} from './spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 
 @NgModule({
   declarations: [

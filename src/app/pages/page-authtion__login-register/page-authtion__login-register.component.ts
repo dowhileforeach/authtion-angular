@@ -77,7 +77,7 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   performLogin() {
-    // отдать логин/пароль authtion-сервису
+    // signIn выполняет authtion-сервис, отдать ему логин/пароль
     this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
 
     // ждать ответа сервиса
@@ -86,15 +86,13 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
     // - спиннер
 
     // обработать ответ сервиса
-    this.subscriptionToResultOfPerformLogin = this.authtionService.resultOfPerformLogin().subscribe(result => {
+    this.subscriptionToResultOfPerformLogin = this.authtionService.getResultOfPerformLogin().subscribe(result => {
         if (result.value) {
           // действия в случае успешного логина
           // - закрыть диалог
-          console.log(`page--success Login=${result.reasonOfFailure}`);
         } else {
           // действия в случае неудачного логина
           // - разблокировать верхние контролы и форму Login, выключить спиннер
-          console.log(`page--failed Login=${result.reasonOfFailure}`);
         }
         this.subscriptionToResultOfPerformLogin.unsubscribe(); // Important. Otherwise, the subscriptions will be as much as times the button is pressed
       }

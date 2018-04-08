@@ -11,12 +11,15 @@ export class AuthtionExchangeService {
     'id': 'Trusted',
     'password': 'YWPV#YGiGLW4Whnr3Q5vuz!d8i'
   };
+  private clientCredentialsTrustedBase64Encoded =
+    'Basic ' + btoa(this.clientCredentialsTrusted.id + ':' + this.clientCredentialsTrusted.password);
+
   private clientCredentialsUntrusted = { // the token is issued for a very short time, e.g. 3 minutes
     'id': 'Untrusted',
     'password': '4rZi5(yEhcv5Jb*3jSzGPfFFDK'
   };
-  private clientCredentialsTrustedBase64Encoded = 'Basic ' + btoa(this.clientCredentialsTrusted.id + ':' + this.clientCredentialsTrusted.password);
-  private clientCredentialsUntrustedBase64Encoded = 'Basic ' + btoa(this.clientCredentialsUntrusted.id + ':' + this.clientCredentialsUntrusted.password);
+  private clientCredentialsUntrustedBase64Encoded =
+    'Basic ' + btoa(this.clientCredentialsUntrusted.id + ':' + this.clientCredentialsUntrusted.password);
 
   constructor(private http: HttpClient) {
   }
@@ -26,7 +29,7 @@ export class AuthtionExchangeService {
    * REQUEST OPTIONS
    */
 
-  public opt_AuthtionReq() {
+  public get opt_AuthtionReq() {
     return {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -34,7 +37,7 @@ export class AuthtionExchangeService {
     };
   }
 
-  public opt_JsonReq() {
+  public get opt_JsonReq() {
     return {
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -92,20 +95,20 @@ export class AuthtionExchangeService {
     return this.http.post(
       this.url_signIn,
       this.body_signIn(email, password),
-      this.opt_AuthtionReq());
+      this.opt_AuthtionReq);
   }
 
   public post_checkConsumerEmail(email: string): Observable<Object> {
     return this.http.post(
       this.url_checkConsumerEmail,
       this.body_checkConsumerEmail(email),
-      this.opt_JsonReq());
+      this.opt_JsonReq);
   }
 
   public post_createConsumer(email: string): Observable<Object> {
     return this.http.post(
       this.url_createConsumer,
       this.body_createConsumer(email),
-      this.opt_JsonReq());
+      this.opt_JsonReq);
   }
 }
