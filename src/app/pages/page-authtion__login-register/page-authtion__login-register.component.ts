@@ -26,6 +26,7 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) refCreateAccountEmail: ElementRef;
 
   subscriptionIsLoggedIn: Subscription;
+  subscriptionReasonForFailedLogin: Subscription;
 
   constructor(private authtionService: AuthtionService) {
   }
@@ -86,18 +87,31 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
     // - спиннер
 
     // отреагировать на ответ сервиса
-    this.subscriptionIsLoggedIn = this.authtionService
-      .isLoggedIn().subscribe(result => {
+    let isPrevious = true;
+    this.subscriptionIsLoggedIn = this.authtionService.isLoggedIn().subscribe(result => {
+        if (isPrevious) { // workaround, here the previous value is not needed
+          isPrevious = false;
+          console.log('page--get previos');
+        } else {
           if (result) {
             // действия в случае успешного логина
             // - закрыть диалог
+            console.log('page--success Login');
           } else {
             // действия в случае неудачного логина
-            // - разблокировать верхние контролы и форму Login
-            // - отобразить ошибку: this.authtionService.getReasonForFailedLogin()
+            // - разблокировать верхние контролы и форму Login, выключить спиннер
+            console.log('page--failed Login');
           }
+          this.subscriptionIsLoggedIn.unsubscribe(); // Important. Otherwise, the subscriptions will be as much as times the button is pressed
         }
-      );
+      }
+    );
+    this.subscriptionReasonForFailedLogin = this.authtionService.getReasonForFailedLogin().subscribe(reason => {
+        // отобразить ошибку
+        console.log(`page--came the reason for the failure -->> ${reason}`);
+        this.subscriptionReasonForFailedLogin.unsubscribe(); // Important. Otherwise, the subscriptions will be as much as times the button is pressed
+      }
+    );
   }
 
   performCreateAccount() {
@@ -106,6 +120,7 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
 
   ngOnDestroy(): void {
     this.subscriptionIsLoggedIn.unsubscribe();
+    this.subscriptionReasonForFailedLogin.unsubscribe();
   }
 }
 
