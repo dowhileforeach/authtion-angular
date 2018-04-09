@@ -1,9 +1,6 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {AuthtionUtilsService} from '../../authtion-utils.service';
-import {AuthtionExchangeService} from '../../authtion-exchange.service';
-
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/retry';
@@ -11,33 +8,37 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
+import {AuthtionExchangeService} from '../../authtion-exchange.service';
+import {AuthtionUtilsService} from '../../authtion-utils.service';
+
 @Component({
   selector: 'app-input-authtion-email',
   templateUrl: './input-authtion__email.component.html',
+  styleUrls: ['./input-authtion__email.component.scss']
 })
 export class InputAuthtionEmailComponent implements OnInit {
 
   // http://emailregex.com/
-  PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  maxLength = 50;
+  private PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  private maxLength = 50;
 
-  emailControl: FormControl;
-  emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
-  @ViewChild('refEmail') refEmail: ElementRef;
+  private emailControl: FormControl;
+  private emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
+  @ViewChild('refEmail') private refEmail: ElementRef;
 
-  group: FormGroup;
-  @Output() takeEmailGroup = new EventEmitter<FormGroup>();
+  private group: FormGroup;
+  @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
 
-  @Input() reverseHandleResp: boolean;
-  @Input() isDirtyTouchedCheckMode: boolean;
-  errorMessage = '';
+  @Input() private reverseHandleResp: boolean;
+  @Input() private isDirtyTouchedCheckMode: boolean;
+  private errorMessage = '';
 
-  @Input() tabIndexValue: number;
+  @Input() private tabIndexValue: number;
 
-  isEmpty = AuthtionUtilsService.isEmpty;
-  controlHasError = AuthtionUtilsService.controlHasError;
-  getErrorOfControl = AuthtionUtilsService.getErrorOfControl;
-  objToStr = AuthtionUtilsService.objToStr;
+  private isEmpty = AuthtionUtilsService.isEmpty;
+  private controlHasError = AuthtionUtilsService.controlHasError;
+  private getErrorOfControl = AuthtionUtilsService.getErrorOfControl;
+  private objToStr = AuthtionUtilsService.objToStr;
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
@@ -63,8 +64,7 @@ export class InputAuthtionEmailComponent implements OnInit {
    * Don't send request to the backend on keyup. Only the last value for the interval.
    * Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
    */
-  backendValidator() {
-
+  private backendValidator() {
     const observable = this.exchangeService.post_checkConsumerEmail(this.emailControl.value).retry(3);
     const debounceTime = 500; // ms
 
@@ -74,9 +74,10 @@ export class InputAuthtionEmailComponent implements OnInit {
         data => {
           if (data['success']) {
             return {'backend': 'Not found in our database'};
-          } else {
-            return null;
+          } else if (data['details']['email'] !== 'is already present in our database') {
+            return {'backend': this.objToStr(data['details'])};
           }
+          return null;
         }).take(1);
 
     } else { // for 'Create account'
@@ -109,7 +110,7 @@ export class InputAuthtionEmailComponent implements OnInit {
     //   });
   }
 
-  hasError(): boolean {
+  private get hasError(): boolean {
     if (this.controlHasError(this.emailControl, 'required', this.isDirtyTouchedCheckMode)) {
       this.errorMessage = 'Required';
       return true;
@@ -128,7 +129,7 @@ export class InputAuthtionEmailComponent implements OnInit {
     return false;
   }
 
-  clearEmail() {
+  private clearEmail() {
     this.emailControl.setValue('');
     this.refEmail.nativeElement.focus();
   }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
+
 import {PageAuthtionLoginRegisterComponent} from '../../../pages/page-authtion__login-register/page-authtion__login-register.component';
 
 @Component({
@@ -8,10 +9,10 @@ import {PageAuthtionLoginRegisterComponent} from '../../../pages/page-authtion__
 })
 export class BtnAuthtionUserNotAuthenticatedComponent {
 
-  constructor(public dialog: MatDialog) {
+  constructor(private dialog: MatDialog) {
   }
 
-  openDialog(): void {
+  private openDialog(): void {
     this.dialog.open(PageAuthtionLoginRegisterComponent, {
       autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
       panelClass: 'cdk-overlay-pane--login-register-dialog-overriding',

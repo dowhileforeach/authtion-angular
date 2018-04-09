@@ -1,0 +1,14 @@
+@import "../../../app/scss/config";
+@import "../../../app/scss/mixins";
+
+.underfield-spinner {
+  margin: $field-text--margin-vertical 0 0;
+  padding: 0 $indent-left-right;
+
+  user-select: none;
+}
+
+app-alert {
+  margin-top: $field-text--margin-vertical;
+  margin-bottom: 0;
+}

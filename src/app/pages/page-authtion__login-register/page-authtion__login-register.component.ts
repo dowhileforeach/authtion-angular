@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+import {MatDialogRef} from '@angular/material';
+
+import {Subscription} from 'rxjs/Subscription';
 
 import {AuthtionService} from '../../authtion.service';
-import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-page-authtion-login-register',
@@ -11,23 +13,29 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDestroy {
 
-  isLoginSlide = true;
+  private isLoginSlide = true;
 
-  groupLoginEmail = new FormGroup({});
-  groupLoginPassword = new FormGroup({});
-  groupCreateAccountEmail = new FormGroup({});
+  private groupLoginEmail = new FormGroup({});
+  private groupLoginPassword = new FormGroup({});
+  private groupCreateAccountEmail = new FormGroup({});
 
-  controlLoginEmail: AbstractControl;
-  controlLoginPassword: AbstractControl;
-  controlCreateAccountEmail: AbstractControl;
+  private controlLoginEmail: AbstractControl;
+  private controlLoginPassword: AbstractControl;
+  private controlCreateAccountEmail: AbstractControl;
 
-  @ViewChild('refLoginEmail', {read: ElementRef}) refLoginEmail: ElementRef;
-  @ViewChild('refLoginPassword', {read: ElementRef}) refLoginPassword: ElementRef;
-  @ViewChild('refCreateAccountEmail', {read: ElementRef}) refCreateAccountEmail: ElementRef;
+  @ViewChild('refLoginEmail', {read: ElementRef}) private refLoginEmail: ElementRef;
+  @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
+  @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
-  subscriptionToResultOfPerformLogin: Subscription;
+  private subscriptionToResultOfPerformLogin: Subscription;
 
-  constructor(private authtionService: AuthtionService) {
+  private isLocked = false;
+  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
+  private errorMessageOfProcessLogin = '';
+  private errorMessageOfProcessCreateAccount = '';
+
+  constructor(private authtionService: AuthtionService,
+              private dialogRef: MatDialogRef<PageAuthtionLoginRegisterComponent>) {
   }
 
   ngAfterViewInit(): void {
@@ -35,76 +43,118 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
     this.controlLoginPassword = this.groupLoginPassword.get('password');
     this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
 
-    this.performFocus(this.refLoginEmail);
+    this.focusOnAuthtionInput(this.refLoginEmail);
   }
 
-  changeSlide() {
+  ngOnDestroy(): void {
+    if (this.subscriptionToResultOfPerformLogin) {
+      this.subscriptionToResultOfPerformLogin.unsubscribe();
+    }
+  }
+
+  private changeSlide() {
     this.isLoginSlide = !this.isLoginSlide;
     this.afterChangeSlideActions();
   }
 
-  afterChangeSlideActions() {
+  private afterChangeSlideActions() {
 
     this.exchangeEmail();
 
-    setTimeout(() => this.setFocusedField()
+    setTimeout(() => this.focusOnInput()
       , 210 // becouse: .slider__inner {... transition: transform 200ms ease; ...}
     );
   }
 
-  exchangeEmail() {
+  private exchangeEmail() {
     this.isLoginSlide ?
       this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value)
       : this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
   }
 
-  setFocusedField() {
+  private focusOnInput() {
     if (this.isLoginSlide) {
       if (this.controlLoginEmail.invalid) {
-        this.performFocus(this.refLoginEmail);
+        this.focusOnAuthtionInput(this.refLoginEmail);
       } else if (this.controlLoginPassword.invalid) {
-        this.performFocus(this.refLoginPassword);
+        this.focusOnAuthtionInput(this.refLoginPassword);
       }
     } else {
       if (this.controlCreateAccountEmail.invalid) {
-        this.performFocus(this.refCreateAccountEmail);
+        this.focusOnAuthtionInput(this.refCreateAccountEmail);
       }
     }
   }
 
-  performFocus(elementRef: ElementRef) {
+  private focusOnAuthtionInput(elementRef: ElementRef) {
     elementRef.nativeElement.querySelector('.form-group-authtion input').focus();
   }
 
-  performLogin() {
-    // signIn выполняет authtion-сервис, отдать ему логин/пароль
+  private setLocked(value: boolean): void {
+
+    this.isLocked = value;
+
+    if (value) {
+      this.refPendingOverlayWrap.nativeElement.focus();
+    } else {
+      this.focusOnInput();
+    }
+  }
+
+  private performLogin() {
+
+    // signIn performs authtion-service, give it a login/password
     this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
 
-    // ждать ответа сервиса
-    // - верхние контролы становятся недоступными
-    // - вся форма Login становится недоступной
-    // - спиннер
+    // wait for service response
+    this.setLocked(true);
 
-    // обработать ответ сервиса
+    // process service response
     this.subscriptionToResultOfPerformLogin = this.authtionService.getResultOfPerformLogin().subscribe(result => {
-        if (result.value) {
-          // действия в случае успешного логина
-          // - закрыть диалог
+        if (result.value) { // actions on success Login
+          this.dialogRef.close();
         } else {
-          // действия в случае неудачного логина
-          // - разблокировать верхние контролы и форму Login, выключить спиннер
+          this.setLocked(false);
+          this.errorMessageOfProcessLogin = result.reasonOfFailure;
         }
         this.subscriptionToResultOfPerformLogin.unsubscribe(); // Important. Otherwise, the subscriptions will be as much as times the button is pressed
       }
     );
   }
 
-  performCreateAccount() {
+  private performCreateAccount() {
 
   }
 
-  ngOnDestroy(): void {
-    this.subscriptionToResultOfPerformLogin.unsubscribe();
+  private get showErrorOfProcessLogin(): boolean {
+
+    if (!this.isLoginSlide) {
+      return false;
+    }
+
+    const result = !(this.errorMessageOfProcessLogin === '')
+      && this.groupLoginEmail.valid
+      && this.groupLoginPassword.valid;
+
+    if (!result) {
+      this.errorMessageOfProcessLogin = '';
+    }
+    return result;
+  }
+
+  private get showErrorOfProcessCreateAccount(): boolean {
+
+    if (this.isLoginSlide) {
+      return false;
+    }
+
+    const result = !(this.errorMessageOfProcessCreateAccount === '')
+      && this.groupCreateAccountEmail.valid;
+
+    if (!result) {
+      this.errorMessageOfProcessCreateAccount = '';
+    }
+    return result;
   }
 }
 

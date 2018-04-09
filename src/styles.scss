@@ -78,45 +78,6 @@ app-root {
 
 /* Authtion */
 
-.btn-authtion__user {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-
-  fill: $color__body-font;
-  color: $color__body-font;
-  text-decoration: none;
-
-  border: none;
-  border-radius: $border-radius;
-
-  user-select: none;
-  transition: all 0.15s ease;
-
-  svg {
-    width: 30px;
-    height: 30px;
-  }
-  span {
-    display: inline-block;
-    margin-left: 0;
-    @include font__weight-style_size-height($size: $font-size__x3, $height: 'same', $weight: 300);
-  }
-
-  &[disabled] {
-    opacity: 0.6;
-  }
-
-  &.btn-authtion__user--logged-in {
-    padding: 5px 10px 5px 18px;
-  }
-
-  &.btn-authtion__user--not-authenticated {
-    padding: 5px 12px;
-  }
-}
-
 .form-authtion {
   width: 300px;
   margin: 20px auto 0;
@@ -212,7 +173,7 @@ app-root {
     }
     &:focus ~ label,
     &.filled ~ label {
-      top: $field-text--margin-top;
+      top: $field-text--margin-vertical;
       @include font__weight-style_size-height($size: $font-size__x2, $weight: 400);
       color: $color__label--for-active-field;
     }
@@ -248,25 +209,13 @@ app-root {
     fill: $color__body-font;
 
     position: absolute;
-    top: $field-text--margin-top;
+    top: $field-text--margin-vertical;
     right: $indent-left-right;
 
     user-select: none;
     cursor: pointer;
     opacity: 0.35;
     transition: opacity 0.15s ease;
-  }
-
-  .info {
-    margin: $field-text--margin-top 0 0;
-    padding: 0 $indent-left-right;
-
-    user-select: none;
-
-    &.info--has-error {
-      @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
-      color: $color__attention;
-    }
   }
 }
 

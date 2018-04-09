@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+
 import {PageHomeComponent} from './pages/home/page-home.component';
 
 const appRoutes: Routes = [
@@ -13,5 +14,4 @@ const appRoutes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule {
-
 }

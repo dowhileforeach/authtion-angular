@@ -1,5 +1,9 @@
+$color__danger-text: #721c24;
+$color__danger-border: #f5c6cb;
+$color__danger-bg: #f8d7da;
 $color__attention: red;
 $color__while: #FC6781;
+
 $color__for: #f3f100;
 $color__input--filled: #FAFFBD;
 $color__each: #56DC6E;
@@ -26,7 +30,7 @@ $page-header-height: 50px;
 $blocks-gap: 15px;
 $indent-left-right: 7px;
 $border-radius: 2px;
-$field-text--margin-top: 5px;
+$field-text--margin-vertical: 5px;
 
 //@import "debug";
 //@include debug;

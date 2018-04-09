@@ -1,0 +1,21 @@
+@import "../scss/config";
+@import "../scss/mixins";
+
+// Examples of the styles can be found here:
+//  https://getbootstrap.com/docs/4.0/components/alerts/
+
+.alert {
+  margin: 0;
+  padding: $indent-left-right;
+
+  @include font__weight-style_size-height($size: $font-size__x2, $weight: 300);
+
+  border: 1px solid;
+  border-radius: $border-radius;
+
+  &.alert--error {
+    color: $color__danger-text;
+    background-color: $color__danger-bg;
+    border-color: $color__danger-border;
+  }
+}

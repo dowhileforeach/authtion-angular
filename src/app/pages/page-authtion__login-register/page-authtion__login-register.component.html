@@ -1,20 +1,20 @@
 <section class="page-authtion__login-register">
   <h2 class="visually-hidden">Login or Create new account</h2>
 
-  <div class="slider">
+  <div class="slider" #refSlider>
 
     <div class="slider__controls">
 
       <button class="control control--log-in"
               [ngClass]="{ 'control--pushed': isLoginSlide }"
-              [disabled]="isLoginSlide"
+              [disabled]="isLoginSlide || isLocked"
               (click)="changeSlide()">
         <span>Login</span>
       </button>
 
       <button class="control control--create-account"
               [ngClass]="{ 'control--pushed': !isLoginSlide }"
-              [disabled]="!isLoginSlide"
+              [disabled]="!isLoginSlide || isLocked"
               (click)="changeSlide()">
         <span>Create account</span>
       </button>
@@ -43,10 +43,16 @@
 
           <a class="form-authtion__under-field form__under-field--restore-password" href="#">Restore password</a>
 
+          <app-alert class="alert-over-button"
+                     [alertType]="'error'"
+                     [message]="errorMessageOfProcessLogin"
+                     *ngIf="showErrorOfProcessLogin">
+          </app-alert>
+
           <button class="form-authtion__btn"
                   mat-raised-button
                   (click)="performLogin()"
-                  [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid)"
+                  [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
                   aria-label="Perform 'Login'">
             OK
           </button>
@@ -65,10 +71,16 @@
 
           <p class="form-authtion__under-field">*Password will be sent to your email</p>
 
+          <app-alert class="alert-over-button"
+                     [alertType]="'error'"
+                     [message]="errorMessageOfProcessCreateAccount"
+                     *ngIf="showErrorOfProcessCreateAccount">
+          </app-alert>
+
           <button class="form-authtion__btn"
                   mat-raised-button
                   (click)="performCreateAccount()"
-                  [disabled]="!groupCreateAccountEmail.valid"
+                  [disabled]="!groupCreateAccountEmail.valid || isLocked"
                   aria-label="Perform 'Create account'"
                   tabindex="-1">
             OK
@@ -76,6 +88,12 @@
 
         </form>
 
+      </div>
+    </div>
+
+    <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
+      <div class="pending-overlay" *ngIf="isLocked">
+        <app-spinner-shark-fin-circle></app-spinner-shark-fin-circle>
       </div>
     </div>
 

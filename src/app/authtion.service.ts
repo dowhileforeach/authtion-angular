@@ -1,28 +1,26 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
 
 import {AuthtionExchangeService} from './authtion-exchange.service';
 import {AuthtionUtilsService} from './authtion-utils.service';
-import {Observable} from 'rxjs/Observable';
-
 
 @Injectable()
 export class AuthtionService {
 
-  // Logging
   private subjectLoggedIn = new BehaviorSubject<boolean>(false);
   private resultOfPerformLogin = new Subject<ReasonOfFailure>();
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
 
-  getLoggedIn(): Observable<boolean> {
+  public getLoggedIn(): Observable<boolean> {
     return this.subjectLoggedIn.asObservable();
   }
 
-  getResultOfPerformLogin(): Observable<ReasonOfFailure> {
+  public getResultOfPerformLogin(): Observable<ReasonOfFailure> {
     return this.resultOfPerformLogin.asObservable();
   }
 
@@ -33,7 +31,7 @@ export class AuthtionService {
     this.resultOfPerformLogin.next(ReasonOfFailure.of(loggedIn, reason));
   }
 
-  performLogin(email: string, password: string): void {
+  public performLogin(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
       data => {
         const access_token = data['access_token'];
@@ -47,21 +45,23 @@ export class AuthtionService {
         this.setLoggedIn(true);
       },
       error => {
-        const reason = `error url=${error.url}, error=${AuthtionUtilsService.objToStr(error.error)}`;
+        const reason = `${AuthtionUtilsService.getReadableHttpError(error)}`;
         this.setLoggedIn(false, reason);
       }
     );
   }
+
 }
 
 export class ReasonOfFailure {
 
   private _value: boolean;
+  private _reasonOfFailure: string;
+
   get value(): boolean {
     return this._value;
   }
 
-  private _reasonOfFailure: string;
   get reasonOfFailure(): string {
     return this._reasonOfFailure;
   }

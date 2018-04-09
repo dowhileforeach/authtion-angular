@@ -1,23 +1,27 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 import {AuthtionUtilsService} from '../../authtion-utils.service';
 
 @Component({
   selector: 'app-input-authtion-password',
   templateUrl: './input-authtion__password.component.html',
+  styleUrls: ['./input-authtion__password.component.scss']
 })
 export class InputAuthtionPasswordComponent implements OnInit {
 
-  minLength = 6;
-  maxLength = 55;
+  private minLength = 6;
+  private maxLength = 55;
 
-  passwordControl: FormControl;
-  passwordControlID = AuthtionUtilsService.randomStr('form-group-authtion__password-'); // for a11y
-  @ViewChild('refPassword') refPassword: ElementRef;
-  group: FormGroup;
-  @Output() takePasswordGroup = new EventEmitter<FormGroup>();
-  controlHasError = AuthtionUtilsService.controlHasError;
-  errorMessage = '';
+  private passwordControl: FormControl;
+  private passwordControlID = AuthtionUtilsService.randomStr('form-group-authtion__password-'); // for a11y
+  @ViewChild('refPassword') private refPassword: ElementRef;
+
+  private group: FormGroup;
+  @Output() private takePasswordGroup = new EventEmitter<FormGroup>();
+
+  private controlHasError = AuthtionUtilsService.controlHasError;
+  private errorMessage = '';
 
   ngOnInit() {
 
@@ -34,7 +38,7 @@ export class InputAuthtionPasswordComponent implements OnInit {
     this.takePasswordGroup.emit(this.group);
   }
 
-  hasError(): boolean {
+  private get hasError(): boolean {
     if (this.controlHasError(this.passwordControl, 'required')) {
       this.errorMessage = 'Required';
       return true;
@@ -49,7 +53,7 @@ export class InputAuthtionPasswordComponent implements OnInit {
     return false;
   }
 
-  clearPassword() {
+  private clearPassword() {
     this.passwordControl.setValue('');
     this.refPassword.nativeElement.focus();
   }

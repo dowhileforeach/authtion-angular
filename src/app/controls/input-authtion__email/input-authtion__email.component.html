@@ -6,13 +6,13 @@
     [id]="emailControlID"
     type="email"
     name="email"
-    [tabindex]="tabIndexValue"
-  >
+    [tabindex]="tabIndexValue">
+
   <label [for]="emailControlID">Email</label>
 
-  <p class="info info--has-error" *ngIf="hasError()">{{errorMessage}}</p>
+  <app-alert [message]="errorMessage" [alertType]="'error'" *ngIf="hasError"></app-alert>
 
-  <p class="info info--pending-status" *ngIf="emailControl.pending">
+  <p class="underfield-spinner" *ngIf="emailControl.pending">
     <app-spinner-dotted-horizontal></app-spinner-dotted-horizontal>
   </p>
 
