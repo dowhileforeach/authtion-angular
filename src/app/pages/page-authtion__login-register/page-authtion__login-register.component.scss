@@ -8,7 +8,7 @@
   margin: 0 auto;
   padding: (50px/2) 0;
 
-  background-color: $color__content-bg;
+  background-color: $color-white;
 
   display: flex;
   flex-direction: column;
@@ -28,7 +28,7 @@
   }
 
   .slider__controls {
-    @include font__weight-style_size-height($size: $font-size__x3, $weight: 300);
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-black);
     display: flex;
     justify-content: center;
 
@@ -58,12 +58,12 @@
         width: 55px;
       }
       &.control--log-in span {
-        color: $color__label--for-active-field;
-        border-bottom-color: rgba($color__label--for-active-field, 0.35);
+        color: $color-navy-blue;
+        border-bottom-color: rgba($color-navy-blue, 0.35);
       }
       &.control--log-in:hover span,
       &.control--log-in:focus span {
-        border-bottom-color: $color__label--for-active-field;
+        border-bottom-color: $color-navy-blue;
       }
 
       &.control--create-account {
@@ -157,7 +157,7 @@
       display: block;
       width: 20px;
       height: 1px;
-      background-color: $color__93;
+      background-color: $color-gray;
     }
 
     &::before {
@@ -177,7 +177,7 @@
 
     &:hover::before,
     &:hover::after {
-      background-color: $color__body-font;
+      background-color: $color-mine-shaft;
     }
   }
 }

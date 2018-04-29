@@ -3,7 +3,8 @@
 @import "app/spinners/spinner-dotted-circle/spinner-dotted-circle.component";
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -11,13 +12,12 @@ html, body {
 }
 
 body {
-  min-width: $body-min-width;
+  min-width: $grid-breakpoint-mobile;
 
   font-family: Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-  @include font__weight-style_size-height($size: $font-size__x1);
-  color: $color__body-font;
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
 
-  background-color: $color__body-bg;
+  background-color: $color-bg-body;
 }
 
 app-root {
@@ -95,20 +95,19 @@ app-root {
   margin: -10px $indent-left-right 15px;
   padding: 0;
 
-  @include font__weight-style_size-height($size: $font-size__x2, $height: 'same', $weight: 300);
-  color: $color__93;
+  @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-gray);
   text-decoration: none;
 
   user-select: none;
 
   &.form__under-field--restore-password {
-    border-bottom: 0.5px dashed $color__93;
+    border-bottom: 0.5px dashed $color-gray;
     transition: color 0.15s ease, border-color 0.15s ease;
     &:hover,
     &:focus {
       outline: none;
-      color: $color__attention;
-      border-bottom-color: $color__attention;
+      color: $color-danger;
+      border-bottom-color: $color-danger;
       cursor: pointer;
     }
     &:active {
@@ -123,9 +122,8 @@ app-root {
   margin: 0 auto 15px;
   padding: 10px 0;
 
-  @include font__weight-style_size-height($size: $font-size__x3);
-  color: $color__body-font;
-  background-color: $color__btn--usual;
+  @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
+  background-color: $color-tower-gray;
   outline: none;
   &[disabled] {
     cursor: not-allowed;
@@ -150,32 +148,30 @@ app-root {
     height: 50px;
     padding: 20px $indent-left-right 0;
 
-    @include font__weight-style_size-height($size: $font-size__x3, $weight: 700);
-    color: $color__body-font;
-    background-color: $color__content-bg;
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-bold, normal, $color-mine-shaft);
+    background-color: $color-white;
 
-    border: 0.75px solid rgba($color__93, 0.43);
-    box-shadow: 0 0.5px 0 0 rgba($color__93, 0.25);
+    border: 0.75px solid rgba($color-gray, 0.43);
+    box-shadow: 0 0.5px 0 0 rgba($color-gray, 0.25);
     border-radius: 3px;
 
     &:hover {
-      border-color: rgba($color__93, 0.8);
-      box-shadow: 0 0.5px 0 0 rgba($color__93, 0.6);
+      border-color: rgba($color-gray, 0.8);
+      box-shadow: 0 0.5px 0 0 rgba($color-gray, 0.6);
     }
     &:focus {
       outline: 0;
-      border-color: $color__input--focused;
-      box-shadow: 0 0.5px 0 0 rgba($color__input--focused, 0.6);
+      border-color: $color-danube;
+      box-shadow: 0 0.5px 0 0 rgba($color-danube, 0.6);
     }
     &:focus,
     &.filled {
-      background-color: $color__input--filled;
+      background-color: $color-shalimar;
     }
     &:focus ~ label,
     &.filled ~ label {
       top: $field-text--margin-vertical;
-      @include font__weight-style_size-height($size: $font-size__x2, $weight: 400);
-      color: $color__label--for-active-field;
+      @include fonts($font-size-x2, $font-height-normal, $font-weight-normal, normal, $color-navy-blue);
     }
     &.filled ~ .icon-clear-field {
       display: inline-block;
@@ -190,8 +186,7 @@ app-root {
   }
 
   label {
-    @include font__weight-style_size-height($size: $font-size__x3, $weight: 300);
-    color: $color__93;
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-gray);
 
     position: absolute;
     top: 18px;
@@ -204,9 +199,9 @@ app-root {
 
   .icon-clear-field {
     display: none;
-    width: $font-size__x1;
-    height: $font-size__x1;
-    fill: $color__body-font;
+    width: $font-size-x1;
+    height: $font-size-x1;
+    fill: $color-mine-shaft;
 
     position: absolute;
     top: $field-text--margin-vertical;

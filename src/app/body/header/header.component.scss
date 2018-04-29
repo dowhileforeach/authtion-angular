@@ -14,7 +14,7 @@ $logo-height: $page-header-height/1.43;
   height: $logo-height;
   margin-left: $indent-left-right;
 
-  font: normal normal normal $font-size__x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
+  font: normal normal normal $font-size-x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   word-spacing: -4px;
   text-decoration: none;
 
@@ -56,26 +56,26 @@ $logo-height: $page-header-height/1.43;
       right: -4px;
       width: 1px;
       height: 20px;
-      background-color: $color__d7;
+      background-color: $color-alto;
       transform: rotate(10deg);
     }
   }
 }
 
 .do {
-  color: $color__do;
+  color: $color-blue;
 }
 
 .while {
-  color: $color__while;
+  color: $color-brink-pink;
 }
 
 .for {
-  color: $color__for;
+  color: $color-turbo;
 }
 
 .each {
-  color: $color__each;
+  color: $color-pastel-green;
 }
 
 app-btn-authtion-user {

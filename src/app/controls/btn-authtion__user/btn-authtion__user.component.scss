@@ -7,8 +7,8 @@
   justify-content: flex-end;
   align-items: center;
 
-  fill: $color__body-font;
-  color: $color__body-font;
+  fill: $color-mine-shaft;
+  color: $color-mine-shaft;
   text-decoration: none;
 
   border: none;
@@ -24,7 +24,7 @@
   span {
     display: inline-block;
     margin-left: 0;
-    @include font__weight-style_size-height($size: $font-size__x3, $height: 'same', $weight: 300);
+    @include fonts($font-size-x3, $font-size-x3, $font-weight-light, normal, $color-mine-shaft);
   }
 
   &[disabled] {

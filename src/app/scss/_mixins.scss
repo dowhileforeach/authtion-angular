@@ -3,7 +3,7 @@
 @mixin font__weight-style_size-height(
   $weight: 400,
   $style: normal,
-  $size: $font-size__x1,
+  $size: $font-size-x1,
   $height: 1.2) {
 
   font-weight: $weight;
@@ -17,8 +17,16 @@
   }
 }
 
+@mixin fonts($size, $height, $weight, $style, $color) {
+  font-size: $size;
+  line-height: $height;
+  font-weight: $weight;
+  font-style: $style;
+  color: $color;
+}
+
 @mixin full-content-border {
   border: none;
   border-radius: $border-radius;
-  box-shadow: 0 1px 0 0 $color__d7, 0 0 0 1px $color__box-shadow--normal;
+  box-shadow: 0 1px 0 0 $color-alto, 0 0 0 1px $color-athens-gray;
 }

@@ -1,28 +1,3 @@
-$color__danger-text: #721c24;
-$color__danger-border: #f5c6cb;
-$color__danger-bg: #f8d7da;
-$color__attention: red;
-$color__while: #FC6781;
-
-$color__for: #f3f100;
-$color__input--filled: #FAFFBD;
-$color__each: #56DC6E;
-$color__body-font: #202020;
-$color__page-header-bg: #fafafb; //attempts: 3f51b5, 333333, 292c33, 3F648E , 4a76a8, d7d7d7
-$color__content-bg: #fff;
-$color__label--for-active-field: darkblue;
-$color__do: blue;
-$color__input--focused: #689bd5;
-$color__btn--usual: #b0bec5;
-$color__93: #939393;
-$color__d7: #d7d7d7;
-$color__box-shadow--normal: #e3e4e8;
-$color__body-bg: #edeef0;
-
-$font-size__x1: 13px;
-$font-size__x2: $font-size__x1 + 2;
-$font-size__x3: $font-size__x2 + 2;
-
 $body-min-width: 400px;
 $mat-dialog-min-width: $body-min-width + 48px; // mat-dialog-padding: 24px
 $page-header-height: 50px;
@@ -34,5 +9,57 @@ $field-text--margin-vertical: 5px;
 
 //@import "debug";
 //@include debug;
+
+//
+// FONTS
+//
+$font-size-x1: 13px;
+$font-size-x2: $font-size-x1 + 2;
+$font-size-x3: $font-size-x2 + 2;
+$font-height-normal: 1.2;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+//
+// COLORS,
+// http://chir.ag/projects/name-that-color
+//
+$color-bg-body: #eef0f3;
+$color-bg-page-header: #fafafb; //attempts: 3f51b5, 333333, 292c33, 3F648E , 4a76a8, d7d7d7
+
+$color-warning: #721c24;
+$color-border-warning: #f5c6cb;
+$color-bg-warning: #f8d7da;
+$color-danger: #ff0000;
+
+$color-black: #000000;
+$color-mine-shaft: #202020;
+$color-gray: #939393;
+$color-tower-gray: #b0bec5;
+$color-alto: #d7d7d7;
+$color-athens-gray: #e3e4e8;
+$color-white: #ffffff;
+$color-brink-pink: #fc6781;
+$color-turbo: #f3f100;
+$color-shalimar: #faffbd;
+$color-pastel-green: #56dc6e;
+$color-navy-blue: #00008b;
+$color-blue: #0000ff;
+$color-danube: #689bd5;
+
+//
+// ADAPTIVE
+//
+$grid-breakpoint-mobile: 370px;
+$grid-breakpoint-tablet: 768px;
+$grid-breakpoint-desktop: 1150px;
+
+$indent-mobile: 30px;
+$indent-tablet: 50px;
+
+$content-width-mobile: 310px;
+$content-width-tablet: 668px;
+$content-width-desktop: 1050px;
 
 

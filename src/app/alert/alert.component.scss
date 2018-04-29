@@ -8,14 +8,14 @@
   margin: 0;
   padding: $indent-left-right;
 
-  @include font__weight-style_size-height($size: $font-size__x2, $weight: 300);
+  @include fonts($font-size-x2, $font-height-normal, $font-weight-light, normal, $color-black);
 
   border: 1px solid;
   border-radius: $border-radius;
 
   &.alert--error {
-    color: $color__danger-text;
-    background-color: $color__danger-bg;
-    border-color: $color__danger-border;
+    color: $color-warning;
+    background-color: $color-bg-warning;
+    border-color: $color-border-warning;
   }
 }

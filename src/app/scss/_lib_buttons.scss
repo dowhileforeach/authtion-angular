@@ -8,14 +8,13 @@
     justify-content: center;
     align-items: center;
 
-    @include font__weight-style_size-height($size: $font-size__x3);
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
     text-align: center;
     vertical-align: middle;
-    color: $color__body-font;
 
     border: none;
     border-radius: $border-radius;
-    background-color: $color__d7;
+    background-color: $color-alto;
 
     user-select: none;
     cursor: pointer;
@@ -49,7 +48,7 @@
     height: 46px;
     padding-right: 30px;
     padding-left: 30px;
-    @include font__weight-style_size-height($size: $font-size__x3);
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-white);
     text-align: center;
     text-shadow: 0 -1px 1px rgba(black, 0.4);
     border: 1px solid rgba(black, 0.2);
@@ -72,7 +71,7 @@
     }
 
     .btn-inactive-white-gray {
-      color: $color__content-bg;
+      color: $color-white;
       background-image: linear-gradient(
           #ebebeb 0%, #d9d9d9 35%,
           #d9d9d9 50%, #cccccc 51%,
