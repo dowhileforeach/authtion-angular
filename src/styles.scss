@@ -47,7 +47,7 @@ body {
   }
 }
 
-.grid-container--center {
+.grid-container--content-center {
   justify-content: center;
 }
 
@@ -65,6 +65,10 @@ body {
     padding-right: $indent-tablet;
     padding-left: $indent-tablet;
   }
+}
+
+.grid-row--content-center {
+  align-items: center;
 }
 
 /*
