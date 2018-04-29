@@ -8,15 +8,15 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import {AuthtionExchangeService} from '../../authtion-exchange.service';
-import {AuthtionUtilsService} from '../../authtion-utils.service';
+import {AuthtionExchangeService} from '../services/authtion-exchange.service';
+import {AuthtionUtilsService} from '../services/authtion-utils.service';
 
 @Component({
-  selector: 'app-input-authtion-email',
-  templateUrl: './input-authtion__email.component.html',
-  styleUrls: ['./input-authtion__email.component.scss']
+  selector: 'app-authtion-input-email',
+  templateUrl: './input-email.component.html',
+  styleUrls: ['./input-email.component.scss']
 })
-export class InputAuthtionEmailComponent implements OnInit {
+export class AuthtionInputEmailComponent implements OnInit {
 
   // http://emailregex.com/
   private PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

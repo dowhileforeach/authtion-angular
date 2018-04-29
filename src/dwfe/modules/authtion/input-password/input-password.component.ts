@@ -1,14 +1,14 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {AuthtionUtilsService} from '../../authtion-utils.service';
+import {AuthtionUtilsService} from '../services/authtion-utils.service';
 
 @Component({
-  selector: 'app-input-authtion-password',
-  templateUrl: './input-authtion__password.component.html',
-  styleUrls: ['./input-authtion__password.component.scss']
+  selector: 'app-authtion-input-password',
+  templateUrl: './input-password.component.html',
+  styleUrls: ['./input-password.component.scss']
 })
-export class InputAuthtionPasswordComponent implements OnInit {
+export class AuthtionInputPasswordComponent implements OnInit {
 
   private minLength = 6;
   private maxLength = 55;

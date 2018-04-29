@@ -28,18 +28,18 @@
 
         <form class="form-authtion" spellcheck="false">
 
-          <app-input-authtion-email class="form-authtion__item"
+          <app-authtion-input-email class="form-authtion__item"
                                     [reverseHandleResp]="true"
                                     (takeEmailGroup)="groupLoginEmail=$event"
                                     [isDirtyTouchedCheckMode]="true"
                                     [tabIndexValue]="0"
                                     #refLoginEmail>
-          </app-input-authtion-email>
+          </app-authtion-input-email>
 
-          <app-input-authtion-password class="form-authtion__item"
+          <app-authtion-input-password class="form-authtion__item"
                                        (takePasswordGroup)="groupLoginPassword=$event"
                                        #refLoginPassword>
-          </app-input-authtion-password>
+          </app-authtion-input-password>
 
           <a class="form-authtion__under-field form__under-field--restore-password" href="#">Restore password</a>
 
@@ -61,13 +61,13 @@
 
         <form class="form-authtion" spellcheck="false">
 
-          <app-input-authtion-email class="form-authtion__item"
+          <app-authtion-input-email class="form-authtion__item"
                                     [reverseHandleResp]="false"
                                     (takeEmailGroup)="groupCreateAccountEmail=$event"
                                     [isDirtyTouchedCheckMode]="false"
                                     [tabIndexValue]="-1"
                                     #refCreateAccountEmail>
-          </app-input-authtion-email>
+          </app-authtion-input-email>
 
           <p class="form-authtion__under-field">*Password will be sent to your email</p>
 

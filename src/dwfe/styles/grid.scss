@@ -1,0 +1,54 @@
+@import "config";
+
+//
+// ADAPTIVE
+//
+.grid-container { // with indent + fixed max-width
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  @include media-mobile {
+    max-width: $grid-breakpoint-mobile;
+  }
+
+  @include media-tablet {
+    max-width: $grid-breakpoint-tablet;
+  }
+
+  @include media-desktop {
+    max-width: $grid-breakpoint-desktop;
+  }
+}
+
+.grid-container--content-center {
+  justify-content: center;
+}
+
+.grid-row {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.grid-row--with-indent {
+  padding-right: $indent-mobile;
+  padding-left: $indent-mobile;
+
+  @include media-tablet {
+    padding-right: $indent-tablet;
+    padding-left: $indent-tablet;
+  }
+}
+
+.grid-row--content-center {
+  align-items: center;
+}

@@ -2,15 +2,16 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {Observable} from 'rxjs/Observable';
 
-import {AuthtionService} from '../../authtion.service';
+import {AuthtionService} from '../services/authtion.service';
+import {AuthtionBtnUserLoggedInComponent} from './btn-user--logged-in/btn-user--logged-in.component';
 
 @Component({
-  selector: 'app-btn-authtion-user',
-  templateUrl: './btn-authtion__user.component.html',
-  styleUrls: ['./btn-authtion__user.component.scss'],
+  selector: 'app-authtion-btn-user',
+  templateUrl: './btn-user.component.html',
+  styleUrls: ['./btn-user.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class BtnAuthtionUserComponent implements OnInit {
+export class AuthtionBtnUserComponent implements OnInit {
 
   private isLoggedIn: Observable<boolean>;
 

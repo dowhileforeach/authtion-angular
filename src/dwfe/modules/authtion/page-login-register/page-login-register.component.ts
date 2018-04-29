@@ -4,14 +4,14 @@ import {MatDialogRef} from '@angular/material';
 
 import {Subscription} from 'rxjs/Subscription';
 
-import {AuthtionService} from '../../authtion.service';
+import {AuthtionService} from '../services/authtion.service';
 
 @Component({
-  selector: 'app-page-authtion-login-register',
-  templateUrl: './page-authtion__login-register.component.html',
-  styleUrls: ['./page-authtion__login-register.component.scss']
+  selector: 'app-authtion-page-login-register',
+  templateUrl: './page-login-register.component.html',
+  styleUrls: ['./page-login-register.component.scss']
 })
-export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDestroy {
+export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy {
 
   private isLoginSlide = true;
 
@@ -35,7 +35,7 @@ export class PageAuthtionLoginRegisterComponent implements AfterViewInit, OnDest
   private errorMessageOfProcessCreateAccount = '';
 
   constructor(private authtionService: AuthtionService,
-              private dialogRef: MatDialogRef<PageAuthtionLoginRegisterComponent>) {
+              private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>) {
   }
 
   ngAfterViewInit(): void {

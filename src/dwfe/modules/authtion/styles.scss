@@ -1,0 +1,162 @@
+
+//
+// Angular Material
+// https://material.angular.io/
+//
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.cdk-overlay-pane--login-register {
+  min-width: $grid-breakpoint-mobile;
+
+  .mat-dialog-container {
+    max-height: calc(100vh - 50px); /* for content scrolling if it not fit on the screen */
+    padding-left: 5px;
+    padding-right: 5px;
+
+    @include media-tablet {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+}
+
+
+//
+// Authtion
+//
+
+.form-authtion {
+  width: 300px;
+  margin: 20px auto 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-authtion__item {
+  margin-bottom: 15px;
+}
+
+.form-authtion__under-field {
+  align-self: flex-end;
+  margin: -10px $indent-left-right 15px;
+  padding: 0;
+
+  @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-gray);
+  text-decoration: none;
+
+  user-select: none;
+
+  &.form__under-field--restore-password {
+    border-bottom: 0.5px dashed $color-gray;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    &:hover,
+    &:focus {
+      outline: none;
+      color: $color-danger;
+      border-bottom-color: $color-danger;
+      cursor: pointer;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+}
+
+.form-authtion__btn,
+.form-authtion__btn.mat-raised-button {
+  width: 94%;
+  margin: 0 auto 15px;
+  padding: 10px 0;
+
+  @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
+  background-color: $color-tower-gray;
+  outline: none;
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.form-group-authtion {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+
+  background-color: transparent;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  z-index: 1;
+
+  input {
+    width: 100%;
+    height: 50px;
+    padding: 20px $indent-left-right 0;
+
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-bold, normal, $color-mine-shaft);
+    background-color: $color-white;
+
+    border: 0.75px solid rgba($color-gray, 0.43);
+    box-shadow: 0 0.5px 0 0 rgba($color-gray, 0.25);
+    border-radius: 3px;
+
+    &:hover {
+      border-color: rgba($color-gray, 0.8);
+      box-shadow: 0 0.5px 0 0 rgba($color-gray, 0.6);
+    }
+    &:focus {
+      outline: 0;
+      border-color: $color-danube;
+      box-shadow: 0 0.5px 0 0 rgba($color-danube, 0.6);
+    }
+    &:focus,
+    &.filled {
+      background-color: $color-shalimar;
+    }
+    &:focus ~ label,
+    &.filled ~ label {
+      top: $field-text--margin-vertical;
+      @include fonts($font-size-x2, $font-height-normal, $font-weight-normal, normal, $color-navy-blue);
+    }
+    &.filled ~ .icon-clear-field {
+      display: inline-block;
+      &:hover {
+        opacity: 0.95;
+      }
+    }
+    &::-ms-clear,
+    &::-ms-reveal {
+      display: none;
+    }
+  }
+
+  label {
+    @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-gray);
+
+    position: absolute;
+    top: 18px;
+    left: $indent-left-right;
+
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.15s ease;
+  }
+
+  .icon-clear-field {
+    display: none;
+    width: $font-size-x1;
+    height: $font-size-x1;
+    fill: $color-mine-shaft;
+
+    position: absolute;
+    top: $field-text--margin-vertical;
+    right: $indent-left-right;
+
+    user-select: none;
+    cursor: pointer;
+    opacity: 0.35;
+    transition: opacity 0.15s ease;
+  }
+}
