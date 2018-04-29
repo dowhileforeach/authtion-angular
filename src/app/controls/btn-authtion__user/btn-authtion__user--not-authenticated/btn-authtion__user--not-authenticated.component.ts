@@ -13,10 +13,11 @@ export class BtnAuthtionUserNotAuthenticatedComponent {
   }
 
   private openDialog(): void {
-    this.dialog.open(PageAuthtionLoginRegisterComponent, {
-      autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
-      panelClass: 'cdk-overlay-pane--login-register-dialog-overriding',
-      position: {top: '50px'}
-    });
+    this.dialog.open( // https://material.angular.io/components/dialog/api
+      PageAuthtionLoginRegisterComponent, {
+        autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
+        panelClass: 'cdk-overlay-pane--login-register',
+        position: {top: '50px'}
+      });
   }
 }

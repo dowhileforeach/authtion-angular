@@ -3,10 +3,11 @@
 
 .page-authtion__login-register {
   $slide--width: 310px;
+  $indent: 25px;
 
-  width: $slide--width + 50px;
+  width: $slide--width + $indent * 2;
   margin: 0 auto;
-  padding: (50px/2) 0;
+  padding: $indent 0;
 
   background-color: $color-white;
 
@@ -137,7 +138,7 @@
   .btn-close {
     position: absolute;
     top: -15px;
-    right: -50px;
+    right: 5px;
 
     font-size: 0;
     color: #fff;
@@ -186,50 +187,13 @@
   margin-bottom: $field-text--margin-vertical;
 }
 
-@media (max-width: 585px) {
-  .page-authtion__login-register {
-    .btn-close {
-      right: -35px;
-    }
-  }
-}
-
-@media (max-width: 545px) {
-  .page-authtion__login-register {
-    .btn-close {
-      right: -25px;
-    }
-  }
-}
-
-@media (max-width: 420px) {
+//
+// ADAPTIVE
+//
+@include media-tablet {
   .page-authtion__login-register {
     .btn-close {
       right: -15px;
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .page-authtion__login-register {
-    .btn-close {
-      right: 0;
-    }
-  }
-}
-
-@media (max-width: 370px) {
-  .page-authtion__login-register {
-    .btn-close {
-      right: 15px;
-    }
-  }
-}
-
-@media (max-width: 340px) {
-  .page-authtion__login-register {
-    .btn-close {
-      right: 30px;
     }
   }
 }

@@ -20,10 +20,9 @@ body {
   background-color: $color-bg-body;
 }
 
-/*
- * ADAPTIVE
-*/
-
+//
+// ADAPTIVE
+//
 .grid-container { // with indent + fixed max-width
   width: 100%;
   margin-right: auto;
@@ -53,13 +52,16 @@ body {
 
 .grid-row {
   width: 100%;
-  padding-right: $indent-mobile;
-  padding-left: $indent-mobile;
 
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.grid-row--with-indent {
+  padding-right: $indent-mobile;
+  padding-left: $indent-mobile;
 
   @include media-tablet {
     padding-right: $indent-tablet;
@@ -71,23 +73,30 @@ body {
   align-items: center;
 }
 
-/*
- * Angular Material
- * https://material.angular.io/
-*/
+//
+// Angular Material
+// https://material.angular.io/
+//
+.cdk-overlay-pane--login-register {
 
-.cdk-overlay-pane--login-register-dialog-overriding {
-
-  min-width: $mat-dialog-min-width;
-  width: $body-min-width + 100px;
+  min-width: $grid-breakpoint-mobile;
+  //width: $body-min-width + 100px;
 
   .mat-dialog-container {
     max-height: calc(100vh - 50px); /* for content scrolling if it not fit on the screen */
+    padding-left: 5px;
+    padding-right: 5px;
+
+    @include media-tablet {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
   }
 }
 
-/* Authtion */
-
+//
+// Authtion
+//
 .form-authtion {
   width: 300px;
   margin: 20px auto 0;
@@ -224,8 +233,9 @@ body {
   }
 }
 
-/* UTIL */
-
+//
+// UTIL
+//
 .visually-hidden { /* https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden */
   position: absolute;
 
