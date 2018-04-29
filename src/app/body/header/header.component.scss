@@ -1,9 +1,6 @@
 @import "../../scss/config";
 
-.row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+.grid-row {
   align-items: center;
 }
 
@@ -12,7 +9,6 @@ $logo-height: $page-header-height/1.43;
 .logo {
   flex-shrink: 0;
   height: $logo-height;
-  margin-left: $indent-left-right;
 
   font: normal normal normal $font-size-x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   word-spacing: -4px;
@@ -79,7 +75,6 @@ $logo-height: $page-header-height/1.43;
 }
 
 app-btn-authtion-user {
-  margin-right: $indent-left-right;
   margin-left: auto;
 }
 

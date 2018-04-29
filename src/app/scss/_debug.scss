@@ -7,15 +7,15 @@
 
   app-root {
     > header, > main, > footer {
-      border: $border--1 dashed red;
+      border: $border--1 dashed black;
     }
   }
 
-  .container, .container-fluid {
-    border: $border--2 dashed orange;
+  .grid-container {
+    border: $border--1 dashed orange;
   }
 
-  .row {
+  .grid-row {
     border: $border--2 solid green;
   }
 

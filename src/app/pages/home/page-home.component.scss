@@ -1,7 +1,6 @@
 @import "../../scss/mixins";
 
-.wrapper {
-  padding: 1px 20px;
+.grid-row {
   background-color: $color-white;
   @include full-content-border;
 }
