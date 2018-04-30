@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 
 import {RecaptchaModule} from 'ng-recaptcha';
@@ -13,6 +14,9 @@ import {AuthtionInputEmailComponent} from './input-email/input-email.component';
 import {AuthtionInputPasswordComponent} from './input-password/input-password.component';
 
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
+
+import {AuthtionUtilsService} from './services/authtion-utils.service';
+import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
 import {AlertComponent} from '../../alert/alert.component';
 
@@ -28,17 +32,22 @@ import {SpinnerSharkFinCircleComponent} from '../../spinners/spinner-shark-fin-c
     AuthtionInputPasswordComponent,
     AuthtionPageLoginRegisterComponent,
     AlertComponent,
-    SpinnerSharkFinCircleComponent,
     SpinnerDottedHorizontalComponent,
+    SpinnerSharkFinCircleComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatButtonModule,
     MatDialogModule,
     RecaptchaModule.forRoot(),
     RecaptchaFormsModule,
+  ],
+  providers: [
+    AuthtionUtilsService,
+    AuthtionExchangeService,
   ],
   exports: [
     AuthtionBtnUserComponent,

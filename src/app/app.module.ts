@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClientModule} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -11,10 +10,7 @@ import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
 
 import {AuthtionModule} from '../dwfe/modules/authtion/authtion.module';
-
 import {AuthtionService} from '../dwfe/modules/authtion/services/authtion.service';
-import {AuthtionUtilsService} from '../dwfe/modules/authtion/services/authtion-utils.service';
-import {AuthtionExchangeService} from '../dwfe/modules/authtion/services/authtion-exchange.service';
 
 @NgModule({
   declarations: [
@@ -25,16 +21,13 @@ import {AuthtionExchangeService} from '../dwfe/modules/authtion/services/authtio
     PageHomeComponent,
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    AuthtionModule
+    AuthtionModule,
+    AppRoutingModule,
   ],
   providers: [
     AuthtionService,
-    AuthtionUtilsService,
-    AuthtionExchangeService,
   ],
   bootstrap: [
     AppComponent
