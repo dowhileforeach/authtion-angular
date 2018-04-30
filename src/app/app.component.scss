@@ -1,5 +1,5 @@
 @import "../dwfe/styles/config";
-@import "../dwfe/styles/mixins";
+@import "styles/config";
 
 .page-header,
 .page-main,
@@ -13,7 +13,7 @@ app-body-footer {
 }
 
 .page-header {
-  height: $page-header-height;
+  height: 50px;
 
   background-color: $color-bg-page-header;
   box-shadow: 0 1.5px 0 0 $color-alto;

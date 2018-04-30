@@ -1,33 +1,4 @@
-@import "../../styles/config";
-@import "../../styles/mixins";
-
-//
-// Angular Material
-// https://material.angular.io/
-//
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-
-.cdk-overlay-pane--login-register {
-  min-width: $grid-breakpoint-mobile;
-
-  .mat-dialog-container {
-    max-height: calc(100vh - 50px); /* for content scrolling if it not fit on the screen */
-    padding-left: 5px;
-    padding-right: 5px;
-
-    @include media-tablet {
-      padding-left: 25px;
-      padding-right: 25px;
-    }
-  }
-}
-
-
-//
-// Authtion
-//
-
-.form-authtion {
+.form-dwfe {
   width: 300px;
   margin: 20px auto 0;
 
@@ -35,11 +6,11 @@
   flex-direction: column;
 }
 
-.form-authtion__item {
+.form-dwfe__item {
   margin-bottom: 15px;
 }
 
-.form-authtion__under-field {
+.form-dwfe__under-field {
   align-self: flex-end;
   margin: -10px $indent-left-right 15px;
   padding: 0;
@@ -65,8 +36,8 @@
   }
 }
 
-.form-authtion__btn,
-.form-authtion__btn.mat-raised-button {
+.form-dwfe__btn,
+.form-dwfe__btn.mat-raised-button {
   width: 94%;
   margin: 0 auto 15px;
   padding: 10px 0;

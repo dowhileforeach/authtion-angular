@@ -26,9 +26,9 @@
            [ngClass]="{ 'slider__inner--login': isLoginSlide,
                         'slider__inner--create-account': !isLoginSlide }">
 
-        <form class="form-authtion" spellcheck="false">
+        <form class="form-dwfe" spellcheck="false">
 
-          <app-authtion-input-email class="form-authtion__item"
+          <app-authtion-input-email class="form-dwfe__item"
                                     [reverseHandleResp]="true"
                                     (takeEmailGroup)="groupLoginEmail=$event"
                                     [isDirtyTouchedCheckMode]="true"
@@ -36,12 +36,12 @@
                                     #refLoginEmail>
           </app-authtion-input-email>
 
-          <app-authtion-input-password class="form-authtion__item"
+          <app-authtion-input-password class="form-dwfe__item"
                                        (takePasswordGroup)="groupLoginPassword=$event"
                                        #refLoginPassword>
           </app-authtion-input-password>
 
-          <a class="form-authtion__under-field form__under-field--restore-password" href="#">Restore password</a>
+          <a class="form-dwfe__under-field form__under-field--restore-password" href="#">Restore password</a>
 
           <app-alert class="alert-over-button"
                      [alertType]="'error'"
@@ -49,7 +49,7 @@
                      *ngIf="showErrorOfProcessLogin">
           </app-alert>
 
-          <button class="form-authtion__btn"
+          <button class="form-dwfe__btn"
                   mat-raised-button
                   (click)="performLogin()"
                   [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
@@ -59,9 +59,9 @@
 
         </form>
 
-        <form class="form-authtion" spellcheck="false">
+        <form class="form-dwfe" spellcheck="false">
 
-          <app-authtion-input-email class="form-authtion__item"
+          <app-authtion-input-email class="form-dwfe__item"
                                     [reverseHandleResp]="false"
                                     (takeEmailGroup)="groupCreateAccountEmail=$event"
                                     [isDirtyTouchedCheckMode]="false"
@@ -69,7 +69,7 @@
                                     #refCreateAccountEmail>
           </app-authtion-input-email>
 
-          <p class="form-authtion__under-field">*Password will be sent to your email</p>
+          <p class="form-dwfe__under-field">*Password will be sent to your email</p>
 
           <app-alert class="alert-over-button"
                      [alertType]="'error'"
@@ -77,7 +77,7 @@
                      *ngIf="showErrorOfProcessCreateAccount">
           </app-alert>
 
-          <button class="form-authtion__btn"
+          <button class="form-dwfe__btn"
                   mat-raised-button
                   (click)="performCreateAccount()"
                   [disabled]="!groupCreateAccountEmail.valid || isLocked"
