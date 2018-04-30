@@ -18,7 +18,7 @@ import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-log
 import {AuthtionUtilsService} from './services/authtion-utils.service';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
-import {AlertComponent} from '../../alert/alert.component';
+import {AlertDwfeComponent} from '../../alert/alert.component';
 
 import {SpinnerDottedHorizontalComponent} from '../../spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleComponent} from '../../spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
@@ -31,7 +31,7 @@ import {SpinnerSharkFinCircleComponent} from '../../spinners/spinner-shark-fin-c
     AuthtionInputEmailComponent,
     AuthtionInputPasswordComponent,
     AuthtionPageLoginRegisterComponent,
-    AlertComponent,
+    AlertDwfeComponent,
     SpinnerDottedHorizontalComponent,
     SpinnerSharkFinCircleComponent,
   ],

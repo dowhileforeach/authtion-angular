@@ -3,60 +3,30 @@
 
 .page-header,
 .page-main,
-.page-footer,
-app-body-header,
-app-body-main,
-app-body-footer {
-  flex-shrink: 0;
+.page-footer {
+  flex-shrink: 0; //important, so that the blocks are correctly extended in height
   width: 100%;
+
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .page-header {
   height: 50px;
-
   background-color: $color-bg-page-header;
-  box-shadow: 0 1.5px 0 0 $color-alto;
-
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-
-  app-body-header {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-  }
+  box-shadow: 0 1.2px 0 0 $color-alto;
 }
 
 .page-main {
   flex-grow: 1;
   margin-top: $blocks-gap;
   margin-bottom: $blocks-gap;
-
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-
-  app-body-main {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
 }
 
 .page-footer {
   margin-top: auto;
   border-top: 0.5px solid $color-alto;
-
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-
-  app-body-footer {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: stretch;
-  }
 }
 

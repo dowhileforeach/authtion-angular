@@ -43,11 +43,11 @@
 
           <a class="form-dwfe__under-field form-dwfe__under-field--restore-password" href="#">Restore password</a>
 
-          <app-alert class="alert-over-button"
-                     [alertType]="'error'"
-                     [message]="errorMessageOfProcessLogin"
-                     *ngIf="showErrorOfProcessLogin">
-          </app-alert>
+          <app-alert-dwfe class="alert-over-button"
+                          [alertType]="'error'"
+                          [message]="errorMessageOfProcessLogin"
+                          *ngIf="showErrorOfProcessLogin">
+          </app-alert-dwfe>
 
           <button class="form-dwfe__btn"
                   mat-raised-button
@@ -71,11 +71,11 @@
 
           <p class="form-dwfe__under-field">*Password will be sent to your email</p>
 
-          <app-alert class="alert-over-button"
-                     [alertType]="'error'"
-                     [message]="errorMessageOfProcessCreateAccount"
-                     *ngIf="showErrorOfProcessCreateAccount">
-          </app-alert>
+          <app-alert-dwfe class="alert-over-button"
+                          [alertType]="'error'"
+                          [message]="errorMessageOfProcessCreateAccount"
+                          *ngIf="showErrorOfProcessCreateAccount">
+          </app-alert-dwfe>
 
           <button class="form-dwfe__btn"
                   mat-raised-button
