@@ -6,7 +6,7 @@
 
 .alert {
   margin: 0;
-  padding: $indent-left-right;
+  padding: $indent-horizontal;
 
   @include fonts($font-size-x2, $font-height-normal, $font-weight-light, normal, $color-black);
 

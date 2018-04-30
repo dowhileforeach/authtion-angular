@@ -2,10 +2,15 @@
 @import "../../../styles/mixins";
 
 .page-authtion__login-register {
-  $slide--width: 310px;
+
+  .form-dwfe {
+    width: 306px;
+  }
+
+  $slide-width: 310px;
   $indent: 25px;
 
-  width: $slide--width + $indent * 2;
+  width: $slide-width + $indent * 2;
   margin: 0 auto;
   padding: $indent 0;
 
@@ -17,12 +22,8 @@
 
   position: relative;
 
-  .form-dwfe { // overriding
-    width: 306px;
-  }
-
   .slider {
-    width: $slide--width;
+    width: $slide-width;
     margin: 5px auto 0;
 
     position: relative;
@@ -40,7 +41,7 @@
 
       user-select: none;
       cursor: pointer;
-      outline: none;
+      outline-width: 0;
 
       &:active,
       &:active span {
@@ -84,7 +85,7 @@
         &:hover,
         &:focus {
           font-weight: 400;
-          outline: none;
+          outline-width: 0;
           cursor: default;
         }
         &:active,
@@ -119,7 +120,7 @@
       transform: translate(0);
     }
     &.slider__inner--create-account {
-      transform: translate(-$slide--width);
+      transform: translate(-$slide-width);
     }
   }
 
@@ -184,7 +185,7 @@
 }
 
 .alert-over-button {
-  margin-bottom: $field-text--margin-vertical;
+  margin-bottom: $indent-vertical;
 }
 
 //

@@ -2,13 +2,13 @@
 @import "../../../styles/mixins";
 
 .underfield-spinner {
-  margin: $field-text--margin-vertical 0 0;
-  padding: 0 $indent-left-right;
+  margin: $indent-vertical 0 0;
+  padding: 0 $indent-horizontal;
 
   user-select: none;
 }
 
 app-alert {
-  margin-top: $field-text--margin-vertical;
+  margin-top: $indent-vertical;
   margin-bottom: 0;
 }

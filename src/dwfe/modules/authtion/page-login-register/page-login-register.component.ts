@@ -87,7 +87,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   private focusOnAuthtionInput(elementRef: ElementRef) {
-    elementRef.nativeElement.querySelector('.form-group-authtion input').focus();
+    elementRef.nativeElement.querySelector('.form-group-dwfe input').focus();
   }
 
   private setLocked(value: boolean): void {

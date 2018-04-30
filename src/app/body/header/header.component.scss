@@ -21,7 +21,7 @@ $logo-height: 36px;
 
   &:hover,
   &:focus {
-    outline: none;
+    outline-width: 0;
     filter: hue-rotate(35deg);
     cursor: pointer;
   }
@@ -37,7 +37,7 @@ $logo-height: 36px;
   }
   &:hover img,
   &:focus img {
-    outline: none;
+    outline-width: 0;
     transform: rotate(120deg);
   }
   b:not(:last-child) {

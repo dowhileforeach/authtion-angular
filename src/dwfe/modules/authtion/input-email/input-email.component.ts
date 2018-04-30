@@ -23,7 +23,7 @@ export class AuthtionInputEmailComponent implements OnInit {
   private maxLength = 50;
 
   private emailControl: FormControl;
-  private emailControlID = AuthtionUtilsService.randomStr('form-group-authtion__email-'); // for a11y
+  private emailControlID = AuthtionUtilsService.randomStr('form-group-dwfe__email-'); // for a11y
   @ViewChild('refEmail') private refEmail: ElementRef;
 
   private group: FormGroup;

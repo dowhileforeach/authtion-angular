@@ -3,7 +3,6 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionBtnUserLoggedInComponent} from './btn-user--logged-in/btn-user--logged-in.component';
 
 @Component({
   selector: 'app-authtion-btn-user',
