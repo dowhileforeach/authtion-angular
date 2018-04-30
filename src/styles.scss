@@ -1,7 +1,4 @@
-@import "dwfe/styles/config";
-@import "dwfe/styles/mixins";
-@import "dwfe/styles/grid";
-@import "dwfe/modules/authtion/styles";
+@import "dwfe/styles/styles";
 @import "dwfe/spinners/spinner-dotted-circle/spinner-dotted-circle.component";
 
 html,
@@ -19,23 +16,4 @@ body {
   @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
 
   background-color: $color-bg-body;
-}
-
-//
-// UTIL
-//
-.visually-hidden { /* https://allyjs.io/tutorials/hiding-elements.html#2017-edition-of-visuallyhidden */
-  position: absolute;
-
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  border: 0;
-  padding: 0;
-
-  white-space: nowrap;
-
-  clip-path: inset(100%);
-  clip: rect(0 0 0 0);
-  overflow: hidden;
 }
