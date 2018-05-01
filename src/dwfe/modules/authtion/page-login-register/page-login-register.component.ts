@@ -5,6 +5,7 @@ import {MatDialogRef} from '@angular/material';
 import {Subscription} from 'rxjs/Subscription';
 
 import {AuthtionService} from '../services/authtion.service';
+import {AuthtionExchangeService} from '../services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -35,6 +36,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private errorMessageOfProcessCreateAccount = '';
 
   constructor(private authtionService: AuthtionService,
+              public exchangeService: AuthtionExchangeService,
               private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>) {
   }
 

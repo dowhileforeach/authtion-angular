@@ -3,8 +3,11 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 
+import {UtilsDwfeService} from '../../../services/utils.service';
+
 @Injectable()
 export class AuthtionExchangeService {
+
 
   private API_VERSION = '/v1';
 
@@ -25,9 +28,10 @@ export class AuthtionExchangeService {
   constructor(private http: HttpClient) {
   }
 
-  /*
-   * REQUEST OPTIONS
-   */
+
+  //
+  // REQUEST OPTIONS
+  //
 
   public get opt_AuthtionReq() {
     return {
@@ -46,9 +50,9 @@ export class AuthtionExchangeService {
   }
 
 
-  /*
-   * REQUEST URLS
-   */
+  //
+  // REQUEST URLS
+  //
 
   public get url_signIn(): string {
     return this.API_VERSION + '/sign-in';
@@ -63,9 +67,9 @@ export class AuthtionExchangeService {
   }
 
 
-  /*
-   * REQUEST BODIES
-   */
+  //
+  // REQUEST BODIES
+  //
 
   public body_signIn(email: string, password: string): HttpParams {
     return new HttpParams()
@@ -87,9 +91,9 @@ export class AuthtionExchangeService {
   }
 
 
-  /*
-   * EXCHANGERS
-   */
+  //
+  // EXCHANGERS
+  //
 
   public post_signIn(email: string, password: string): Observable<Object> {
     return this.http.post(
@@ -110,5 +114,59 @@ export class AuthtionExchangeService {
       this.url_createConsumer,
       this.body_createConsumer(email),
       this.opt_JsonReq);
+  }
+
+
+  //
+  // BACKEND VALIDATORS
+  //
+
+  public backendValidatorEmail(email, reverseHandleResp) {
+    const observable = this.post_checkConsumerEmail(email).retry(3);
+
+    // Don't send request to the backend on keyup. Only the last value for the interval.
+    // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
+    const debounceTime = 500; // ms
+
+    if (reverseHandleResp) { // for 'Login'
+
+      return Observable.timer(debounceTime).switchMapTo(observable).map(
+        data => {
+          if (data['success']) {
+            return {'backendHttp': 'Not found in our database'};
+          } else if (data['details']['email'] !== 'is already present in our database') {
+            return {'backendHttp': UtilsDwfeService.objToStr(data['details'])};
+          }
+          return null;
+        }).take(1);
+
+    } else { // for 'Create account'
+
+      return Observable.timer(debounceTime).switchMapTo(observable).map(
+        data => {
+          if (data['success']) {
+            return null;
+          } else {
+            return {'backendHttp': UtilsDwfeService.objToStr(data['details'])};
+          }
+        }).take(1);
+    }
+
+    // return this.reverseHandleResp ?
+    //   new Promise(resolve => { // for 'Login'
+    //     this.connect.pipe(retry(3)).subscribe(
+    //       data => data['success'] ? resolve({'backendHttp': 'Not found in our database'}) : resolve(null),
+    //       error => resolve({'http': error.message})
+    //     );
+    //   })
+    //   : new Promise(resolve => { // for 'Create account'
+    //     this.connect.pipe(retry(3)).subscribe(
+    //       data => {
+    //         data['success'] ? resolve(null) : resolve({'backendHttp': this.objToStr(data['details'])});
+    //         this.emailControl.markAsTouched();
+    //       },
+    //       error => resolve({'http': error.message})
+    //     );
+    //   });
   }
 }

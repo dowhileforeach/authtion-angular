@@ -1,6 +1,6 @@
 import {AbstractControl} from '@angular/forms';
 
-export class AuthtionUtilsService {
+export class UtilsDwfeService {
 
   public static isEmpty(value: string): boolean {
     if (value) {
@@ -9,7 +9,7 @@ export class AuthtionUtilsService {
     return true;
   }
 
-  public static controlHasError(control: AbstractControl, errorName: string, isDirtyTouchedCheckMode = true) {
+  public static formControlHasError(control: AbstractControl, errorName: string, isDirtyTouchedCheckMode = true) {
 
     if (isDirtyTouchedCheckMode && !(control.dirty || control.touched)) {
       return false;
@@ -19,7 +19,7 @@ export class AuthtionUtilsService {
       && control.errors.hasOwnProperty(errorName);
   }
 
-  public static getErrorOfControl(control: AbstractControl, errorName: string) {
+  public static getErrorOnFormControl(control: AbstractControl, errorName: string) {
     return control.errors[errorName];
   }
 

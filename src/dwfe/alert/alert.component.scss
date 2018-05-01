@@ -3,7 +3,7 @@
 // Examples of the styles can be found here:
 //  https://getbootstrap.com/docs/4.0/components/alerts/
 
-.alert-dwfe {
+.alert {
   margin: 0;
   padding: $indent-horizontal;
 
@@ -12,7 +12,7 @@
   border: 1px solid;
   border-radius: $border-radius;
 
-  &.alert-dwfe--error {
+  &.alert--error {
     color: $color-warning;
     background-color: $color-bg-warning;
     border-color: $color-border-warning;

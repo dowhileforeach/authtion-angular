@@ -28,18 +28,20 @@
 
         <form class="form-dwfe" spellcheck="false">
 
-          <app-authtion-input-email class="form-dwfe__item"
-                                    [reverseHandleResp]="true"
-                                    (takeEmailGroup)="groupLoginEmail=$event"
-                                    [isDirtyTouchedCheckMode]="true"
-                                    [tabIndexValue]="0"
-                                    #refLoginEmail>
-          </app-authtion-input-email>
+          <app-input-email-dwfe class="form-dwfe__item"
+                                [maxLength]="50"
+                                [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
+                                [reverseHandleRespFromBackend]="true"
+                                (takeEmailGroup)="groupLoginEmail=$event"
+                                [isDirtyTouchedCheckMode]="true"
+                                [tabIndexValue]="0"
+                                #refLoginEmail>
+          </app-input-email-dwfe>
 
-          <app-authtion-input-password class="form-dwfe__item"
-                                       (takePasswordGroup)="groupLoginPassword=$event"
-                                       #refLoginPassword>
-          </app-authtion-input-password>
+          <app-input-password-dwfe class="form-dwfe__item"
+                                   (takePasswordGroup)="groupLoginPassword=$event"
+                                   #refLoginPassword>
+          </app-input-password-dwfe>
 
           <a class="form-dwfe__under-field form-dwfe__under-field--restore-password" href="#">Restore password</a>
 
@@ -61,13 +63,15 @@
 
         <form class="form-dwfe" spellcheck="false">
 
-          <app-authtion-input-email class="form-dwfe__item"
-                                    [reverseHandleResp]="false"
-                                    (takeEmailGroup)="groupCreateAccountEmail=$event"
-                                    [isDirtyTouchedCheckMode]="false"
-                                    [tabIndexValue]="-1"
-                                    #refCreateAccountEmail>
-          </app-authtion-input-email>
+          <app-input-email-dwfe class="form-dwfe__item"
+                                [maxLength]="50"
+                                [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
+                                [reverseHandleRespFromBackend]="false"
+                                (takeEmailGroup)="groupCreateAccountEmail=$event"
+                                [isDirtyTouchedCheckMode]="false"
+                                [tabIndexValue]="-1"
+                                #refCreateAccountEmail>
+          </app-input-email-dwfe>
 
           <p class="form-dwfe__under-field">*Password will be sent to your email</p>
 
@@ -93,7 +97,7 @@
 
     <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
       <div class="pending-overlay" *ngIf="isLocked">
-        <app-spinner-shark-fin-circle></app-spinner-shark-fin-circle>
+        <app-spinner-shark-fin-circle-dwfe></app-spinner-shark-fin-circle-dwfe>
       </div>
     </div>
 

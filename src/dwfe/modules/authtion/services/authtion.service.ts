@@ -5,7 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
 import {AuthtionExchangeService} from './authtion-exchange.service';
-import {AuthtionUtilsService} from './authtion-utils.service';
+import {UtilsDwfeService} from '../../../services/utils.service';
 
 @Injectable()
 export class AuthtionService {
@@ -45,7 +45,7 @@ export class AuthtionService {
         this.setLoggedIn(true);
       },
       error => {
-        const reason = `${AuthtionUtilsService.getReadableHttpError(error)}`;
+        const reason = `${UtilsDwfeService.getReadableHttpError(error)}`;
         this.setLoggedIn(false, reason);
       }
     );

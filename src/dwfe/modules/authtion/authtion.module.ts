@@ -10,30 +10,27 @@ import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/btn-user--logged-in/btn-user--logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not-authenticated/btn-user--not-authenticated.component';
-import {AuthtionInputEmailComponent} from './input-email/input-email.component';
-import {AuthtionInputPasswordComponent} from './input-password/input-password.component';
-
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
-
-import {AuthtionUtilsService} from './services/authtion-utils.service';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
 import {AlertDwfeComponent} from '../../alert/alert.component';
-
-import {SpinnerDottedHorizontalComponent} from '../../spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
-import {SpinnerSharkFinCircleComponent} from '../../spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {InputEmailDwfeComponent} from '../../form-controls/input-email/input-email.component';
+import {InputPasswordDwfeComponent} from '../../form-controls/input-password/input-password.component';
+import {UtilsDwfeService} from '../../services/utils.service';
+import {SpinnerDottedHorizontalDwfeComponent} from '../../spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
+import {SpinnerSharkFinCircleDwfeComponent} from '../../spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 
 @NgModule({
   declarations: [
     AuthtionBtnUserComponent,
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
-    AuthtionInputEmailComponent,
-    AuthtionInputPasswordComponent,
     AuthtionPageLoginRegisterComponent,
     AlertDwfeComponent,
-    SpinnerDottedHorizontalComponent,
-    SpinnerSharkFinCircleComponent,
+    InputEmailDwfeComponent,
+    InputPasswordDwfeComponent,
+    SpinnerDottedHorizontalDwfeComponent,
+    SpinnerSharkFinCircleDwfeComponent,
   ],
   imports: [
     CommonModule,
@@ -46,8 +43,8 @@ import {SpinnerSharkFinCircleComponent} from '../../spinners/spinner-shark-fin-c
     RecaptchaFormsModule,
   ],
   providers: [
-    AuthtionUtilsService,
     AuthtionExchangeService,
+    UtilsDwfeService,
   ],
   exports: [
     AuthtionBtnUserComponent,
