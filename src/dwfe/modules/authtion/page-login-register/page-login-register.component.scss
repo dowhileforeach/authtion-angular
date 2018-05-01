@@ -3,10 +3,6 @@
 
 .page-authtion__login-register {
 
-  .form-dwfe {
-    width: 306px;
-  }
-
   $slide-width: 310px;
   $indent: 25px;
 
@@ -27,6 +23,10 @@
     margin: 5px auto 0;
 
     position: relative;
+  }
+
+  .slider__form {
+    width: $slide-width - 4;
   }
 
   .slider__controls {
