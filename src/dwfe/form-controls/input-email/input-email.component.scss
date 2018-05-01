@@ -1,14 +1,12 @@
 @import "../../styles/dwfe-pref";
 @import "../../styles/blocks/form-group-dwfe";
 
-.underfield-spinner {
-  margin: $indent-vertical 0 0;
-  padding: 0 $indent-horizontal;
+app-spinner-dotted-horizontal-dwfe {
+  position: absolute;
+  top: 46px;
+  left: 0;
+
+  width: 100%;
 
   user-select: none;
-}
-
-app-alert-dwfe {
-  margin-top: $indent-vertical;
-  margin-bottom: 0;
 }

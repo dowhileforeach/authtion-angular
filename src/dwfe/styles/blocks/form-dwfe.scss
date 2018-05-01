@@ -1,19 +1,19 @@
 @import "../dwfe-pref";
 
 .form-dwfe {
-  margin: 20px auto 0;
+  margin: 0 auto 0;
 
   display: flex;
   flex-direction: column;
 }
 
 .form-dwfe__item {
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 
 .form-dwfe__under-field {
   align-self: flex-end;
-  margin: -10px $indent-horizontal 15px;
+  margin: -30px $indent-horizontal 25px;
   padding: 0;
 
   @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-gray);
@@ -48,6 +48,18 @@
   outline-width: 0;
   &[disabled] {
     cursor: not-allowed;
+    background-color: rgba($color-black, 0.12);
+    color: rgba($color-black, 0.26);
   }
 }
 
+.form-dwfe__alert-over-button {
+  position: absolute;
+  top: -28px;
+  left: 0;
+
+  width: 100%;
+
+  text-align: left;
+  pointer-events: none;
+}

@@ -122,6 +122,10 @@
     &.slider__inner--create-account {
       transform: translate(-$slide-width);
     }
+
+    form {
+      margin-top: 35px;
+    }
   }
 
   .pending-overlay {
@@ -182,10 +186,6 @@
       background-color: $color-mine-shaft;
     }
   }
-}
-
-.alert-over-button {
-  margin-bottom: $indent-vertical;
 }
 
 //

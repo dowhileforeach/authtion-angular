@@ -1,13 +1,16 @@
 
 .spinner-dotted-horizontal {
+
+  width: 100%;
+
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
   align-content: center;
 
   .dot {
-    width: 5px;
-    height: 5px;
+    width: 3px;
+    height: 3px;
     margin: 0 2px;
 
     background-color: red;

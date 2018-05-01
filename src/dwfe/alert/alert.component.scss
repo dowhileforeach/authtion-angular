@@ -5,9 +5,9 @@
 
 .alert {
   margin: 0;
-  padding: $indent-horizontal;
+  padding: 5px;
 
-  @include fonts($font-size-x2, $font-height-normal, $font-weight-light, normal, $color-black);
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-black);
 
   border: 1px solid;
   border-radius: $border-radius;
