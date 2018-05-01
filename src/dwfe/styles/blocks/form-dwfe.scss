@@ -1,12 +1,12 @@
 @import "../dwfe-pref";
 
 .form-dwfe {
+  z-index: 100;
+
   margin: 0 auto 0;
 
   display: flex;
   flex-direction: column;
-
-  z-index: 10;
 }
 
 .form-dwfe__item {
@@ -14,7 +14,7 @@
 }
 
 .form-dwfe__under-field {
-  z-index: 30;
+  z-index: 300;
 
   align-self: flex-end;
   margin: -30px $indent-horizontal 25px;
@@ -43,7 +43,7 @@
 
 .form-dwfe__btn,
 .form-dwfe__btn.mat-raised-button {
-  z-index: 30;
+  z-index: 300;
 
   width: 94%;
   margin: 0 auto 15px;
@@ -61,12 +61,13 @@
 
 .form-dwfe__alert-over-button {
   position: absolute;
-  z-index: 40;
+  z-index: 400;
   top: -28px;
   left: 0;
 
   width: 100%;
 
   text-align: left;
+  white-space: normal;
   pointer-events: none;
 }
