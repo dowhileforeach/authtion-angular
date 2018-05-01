@@ -14,6 +14,9 @@
   box-shadow: 0 1px 0 0 $color-alto, 0 0 0 1px $color-athens-gray;
 }
 
+//
+// ADAPTIVE
+//
 @mixin media-mobile() {
   @media (min-width: $grid-breakpoint-mobile) {
     @content;
