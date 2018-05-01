@@ -10,13 +10,15 @@
 
   <label [for]="emailControlID">Email</label>
 
+  <app-spinner-dotted-horizontal-dwfe *ngIf="emailControl.pending"
+                                      class="form-group-dwfe__fields-horizontal-spinner">
+  </app-spinner-dotted-horizontal-dwfe>
+
   <app-alert-dwfe *ngIf="hasError"
                   class="form-group-dwfe__alert-under-field"
                   [message]="errorMessage"
                   [alertType]="'error'">
   </app-alert-dwfe>
-
-  <app-spinner-dotted-horizontal-dwfe *ngIf="emailControl.pending"></app-spinner-dotted-horizontal-dwfe>
 
   <svg class="icon-clear-field" (click)="clearEmail()"
        xmlns="http://www.w3.org/2000/svg" viewBox="2 2 20 20">
