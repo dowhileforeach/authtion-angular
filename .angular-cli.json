@@ -19,7 +19,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "assets/css/normalize.css",
+        "dwfe/styles/css/normalize.css",
+        "dwfe/styles/dwfe-all.scss",
         "styles.scss"
       ],
       "scripts": [],

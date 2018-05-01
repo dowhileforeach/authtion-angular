@@ -80,11 +80,11 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
         this.focusOnAuthtionInput(this.refLoginEmail);
       } else if (this.controlLoginPassword.invalid) {
         this.focusOnAuthtionInput(this.refLoginPassword);
+      } else {
+        this.focusOnAuthtionInput(this.refLoginEmail);
       }
     } else {
-      if (this.controlCreateAccountEmail.invalid) {
-        this.focusOnAuthtionInput(this.refCreateAccountEmail);
-      }
+      this.focusOnAuthtionInput(this.refCreateAccountEmail);
     }
   }
 

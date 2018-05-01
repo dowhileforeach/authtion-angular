@@ -1,7 +1,7 @@
 @import "../../../styles/dwfe-pref";
 @import "../../../styles/blocks/form-dwfe";
 
-.page-authtion__login-register {
+.page-authtion-login-register {
 
   $slide-width: 310px;
   $indent: 25px;
@@ -128,18 +128,6 @@
     }
   }
 
-  .pending-overlay {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background-color: rgba(#fff, 0.7);
-  }
-
   .btn-close {
     position: absolute;
     top: -15px;
@@ -186,13 +174,29 @@
       background-color: $color-mine-shaft;
     }
   }
+
+  .pending-overlay__wrap {
+    outline: none;
+  }
+
+  .pending-overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(#fff, 0.7);
+  }
 }
 
 //
 // ADAPTIVE
 //
 @include media-tablet {
-  .page-authtion__login-register {
+  .page-authtion-login-register {
     .btn-close {
       right: -15px;
     }

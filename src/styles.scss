@@ -1,9 +1,9 @@
-@import "dwfe/styles/dwfe-all";
-@import "dwfe/spinners/spinner-dotted-circle/spinner-dotted-circle.component.scss";
+@import "dwfe/styles/dwfe-pref";
 
 html,
 body,
-app-root {
+app-root,
+.app-root__loader {
   width: 100%;
   height: 100%;
 }
@@ -22,4 +22,19 @@ app-root {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.app-root__loader {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  img {
+    margin-top: 70px;
+  }
+
+  span {
+    margin-top: 10px;
+  }
 }
