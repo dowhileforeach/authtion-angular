@@ -11,18 +11,34 @@ import {UtilsDwfeService} from '../../../services/utils.service';
 @Injectable()
 export class AuthtionService {
 
-  private subjectOfLoggedIn = new BehaviorSubject<boolean>(false);
-  private subjectOfPerformLoginResult = new Subject<ResultOfActionWithDescription>();
-
   private authtionData: AuthtionData;
   private authtionDataKey = 'authtionData';
+
+  private subjectOfLoggedIn = new BehaviorSubject<boolean>(this.init());
+  private subjectOfPerformLoginResult = new Subject<ResultOfActionWithDescription>();
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
 
+  init(): boolean {
+    this.authtionData = AuthtionData.fromStorage(this.authtionDataKey);
+    const now = Date.now();
+
+    if (this.authtionData && this.authtionData.expiresIn > now) {
+      const delta = this.authtionData.expiresIn - now;
+      const time1DayInMilliseconds = (60 * 60 * 24) * 1000;
+      if (delta < time1DayInMilliseconds) {
+        this.scheduleTokenUpdate(10 * 1000);
+      }
+      return true;
+    } else {
+      this.clearAuthtionData();
+      return false;
+    }
+  }
+
   public get isLoggedIn(): Observable<boolean> {
-    return this.subjectOfLoggedIn.asObservable()
-      .share(); // for prevent async pipes create multiple subscriptions
+    return this.subjectOfLoggedIn.asObservable();
   }
 
   public get performLoginResult(): Observable<ResultOfActionWithDescription> {
@@ -34,11 +50,13 @@ export class AuthtionService {
   }
 
   private logout(): void {
-    if (this.authtionData) {
-      this.authtionData = null;
-      localStorage.removeItem(this.authtionDataKey);
-    }
+    this.clearAuthtionData();
     this.subjectOfLoggedIn.next(false);
+  }
+
+  private clearAuthtionData() {
+    this.authtionData = null;
+    localStorage.removeItem(this.authtionDataKey);
   }
 
   public performLogin(email: string, password: string): void {
@@ -59,11 +77,15 @@ export class AuthtionService {
         this.handleAuthtionResponse(data);
       },
       error => {
-        const time = this.get90PercentTimeWhenTokenValid();
-        if (time > 1000 * 10) { // if 90% percent time when token valid > 10 seconds
-          this.scheduleTokenUpdate(time);
-        } else {
+        if (UtilsDwfeService.getHttpError(error) === 'invalid_grant') {
           this.logout();
+        } else {
+          const time = this.get90PercentTimeWhenTokenValid();
+          if (time > 1000 * 10) { // if 90% percent time when token valid > 10 seconds
+            this.scheduleTokenUpdate(time);
+          } else {
+            this.logout();
+          }
         }
       }
     );
@@ -143,6 +165,19 @@ class AuthtionData {
     obj._accessToken = accessToken;
     obj._expiresIn = Date.now() + expiresIn * 1000;
     obj._refreshToken = refreshToken;
+    return obj;
+  }
+
+  public static fromStorage(key: string): AuthtionData {
+    const parsed = JSON.parse(localStorage.getItem(key));
+    let obj = null;
+
+    if (parsed) {
+      obj = new AuthtionData();
+      obj._accessToken = parsed._accessToken;
+      obj._expiresIn = +parsed._expiresIn;
+      obj._refreshToken = parsed._refreshToken;
+    }
     return obj;
   }
 }

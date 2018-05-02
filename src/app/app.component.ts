@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthtionService} from '../dwfe/modules/authtion/services/authtion.service';
 
 @Component({
   selector: 'app-root',

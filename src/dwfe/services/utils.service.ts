@@ -61,4 +61,18 @@ export class UtilsDwfeService {
     }
     return result;
   }
+
+  public static getHttpError(obj): string {
+    let result = '';
+
+    if (obj.hasOwnProperty('error')) {
+
+      const error = obj['error'];
+
+      if (error.hasOwnProperty('error')) {
+        result = error['error'];
+      }
+    }
+    return result;
+  }
 }

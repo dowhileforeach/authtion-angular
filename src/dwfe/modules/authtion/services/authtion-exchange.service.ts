@@ -37,8 +37,7 @@ export class AuthtionExchangeService {
     return {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
-        // .set('Authorization', this.clientCredentialsTrustedBase64Encoded)
-        .set('Authorization', this.clientCredentialsUntrustedBase64Encoded)
+        .set('Authorization', this.clientCredentialsTrustedBase64Encoded)
     };
   }
 
