@@ -1,0 +1,9 @@
+<p class="alert"
+   [ngClass]="
+   {
+     'alert--error': alertType === 'error',
+     'alert--blink': alertBlink
+   }"
+>
+  {{message}}
+</p>

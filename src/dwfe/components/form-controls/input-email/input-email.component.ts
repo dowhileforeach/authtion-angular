@@ -6,7 +6,7 @@ import 'rxjs/add/operator/switchMapTo';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
 
-import {UtilsDwfeService} from '../../services/utils.service';
+import {UtilsDwfeService} from '../../../services/utils.service';
 
 @Component({
   selector: 'app-input-email-dwfe',

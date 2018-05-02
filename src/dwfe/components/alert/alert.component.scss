@@ -1,0 +1,46 @@
+@import "../../styles/dwfe-pref";
+
+// Examples of the styles can be found here:
+//  https://getbootstrap.com/docs/4.0/components/alerts/
+
+.alert {
+  margin: 0;
+  padding: 5px;
+
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-black);
+
+  border: 1px solid;
+  border-radius: $border-radius;
+
+  &.alert--error {
+    color: $color-warning;
+    background-color: $color-bg-warning;
+    border-color: $color-border-warning;
+  }
+
+  &.alert--blink{
+    animation-name: outline-blink;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@-webkit-keyframes outline-blink { //special for Safari
+  0%,
+  100% {
+    outline: 5px solid transparent;
+  }
+  50% {
+    outline: 5px solid $color-danger;
+  }
+}
+
+@keyframes outline-blink {
+  0%,
+  100% {
+    outline: 0;
+  }
+  50% {
+    outline: 4px solid $color-danger;
+  }
+}

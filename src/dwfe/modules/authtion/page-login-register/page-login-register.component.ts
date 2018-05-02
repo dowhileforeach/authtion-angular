@@ -29,6 +29,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
   private subscriptionToResultOfPerformLogin: Subscription;
+  private emailChangesLoginResetBackendError: Subscription;
+  private passwordChangesLoginResetBackendError: Subscription;
+  private emailChangesCreateAccountResetBackendError: Subscription;
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
@@ -45,13 +48,28 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.controlLoginPassword = this.groupLoginPassword.get('password');
     this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
 
-    this.focusOnAuthtionInput(this.refLoginEmail);
+    this.focusOnDwfeInput(this.refLoginEmail);
+
+    this.emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', 'errorMessageOfProcessLogin');
+    this.passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', 'errorMessageOfProcessLogin');
+    this.emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', 'errorMessageOfProcessCreateAccount');
   }
 
   ngOnDestroy(): void {
     if (this.subscriptionToResultOfPerformLogin) {
       this.subscriptionToResultOfPerformLogin.unsubscribe();
     }
+    this.emailChangesLoginResetBackendError.unsubscribe();
+    this.passwordChangesLoginResetBackendError.unsubscribe();
+    this.emailChangesCreateAccountResetBackendError.unsubscribe();
+  }
+
+  private resetBackendError(controlFieldName, errorFieldName): Subscription {
+    return this[controlFieldName].valueChanges.subscribe(() => {
+      if (this[errorFieldName] !== '') {
+        this[errorFieldName] = '';
+      }
+    });
   }
 
   private changeSlide() {
@@ -77,18 +95,18 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private focusOnInput() {
     if (this.isLoginSlide) {
       if (this.controlLoginEmail.invalid) {
-        this.focusOnAuthtionInput(this.refLoginEmail);
+        this.focusOnDwfeInput(this.refLoginEmail);
       } else if (this.controlLoginPassword.invalid) {
-        this.focusOnAuthtionInput(this.refLoginPassword);
+        this.focusOnDwfeInput(this.refLoginPassword);
       } else {
-        this.focusOnAuthtionInput(this.refLoginEmail);
+        this.focusOnDwfeInput(this.refLoginEmail);
       }
     } else {
-      this.focusOnAuthtionInput(this.refCreateAccountEmail);
+      this.focusOnDwfeInput(this.refCreateAccountEmail);
     }
   }
 
-  private focusOnAuthtionInput(elementRef: ElementRef) {
+  private focusOnDwfeInput(elementRef: ElementRef) {
     elementRef.nativeElement.querySelector('.form-group-dwfe input').focus();
   }
 
@@ -104,6 +122,8 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   private performLogin() {
+
+    this.errorMessageOfProcessLogin = '';  // init
 
     // signIn performs authtion-service, give it a login/password
     this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
@@ -125,6 +145,8 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   private performCreateAccount() {
+
+    this.errorMessageOfProcessCreateAccount = ''; // init
 
   }
 

@@ -13,6 +13,8 @@ export class AlertDwfeComponent {
   //    error
   @Input() alertType: string;
 
+  @Input() alertBlink: boolean;
+
   @Input() isDismissable = false;
 
 }

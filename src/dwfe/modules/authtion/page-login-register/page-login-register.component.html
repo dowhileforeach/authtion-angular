@@ -54,6 +54,7 @@
 
             <app-alert-dwfe class="form-dwfe__alert-over-button"
                             [alertType]="'error'"
+                            [alertBlink]="true"
                             [message]="errorMessageOfProcessLogin"
                             *ngIf="showErrorOfProcessLogin">
             </app-alert-dwfe>
@@ -85,6 +86,7 @@
 
             <app-alert-dwfe class="form-dwfe__alert-over-button"
                             [alertType]="'error'"
+                            [alertBlink]="true"
                             [message]="errorMessageOfProcessCreateAccount"
                             *ngIf="showErrorOfProcessCreateAccount">
             </app-alert-dwfe>

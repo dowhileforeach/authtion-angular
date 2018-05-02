@@ -13,12 +13,12 @@ import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
-import {AlertDwfeComponent} from '../../alert/alert.component';
-import {InputEmailDwfeComponent} from '../../form-controls/input-email/input-email.component';
-import {InputPasswordDwfeComponent} from '../../form-controls/input-password/input-password.component';
+import {AlertDwfeComponent} from '../../components/alert/alert.component';
+import {InputEmailDwfeComponent} from '../../components/form-controls/input-email/input-email.component';
+import {InputPasswordDwfeComponent} from '../../components/form-controls/input-password/input-password.component';
 import {UtilsDwfeService} from '../../services/utils.service';
-import {SpinnerDottedHorizontalDwfeComponent} from '../../spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
-import {SpinnerSharkFinCircleDwfeComponent} from '../../spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {SpinnerDottedHorizontalDwfeComponent} from '../../components/spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
+import {SpinnerSharkFinCircleDwfeComponent} from '../../components/spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 
 @NgModule({
   declarations: [
