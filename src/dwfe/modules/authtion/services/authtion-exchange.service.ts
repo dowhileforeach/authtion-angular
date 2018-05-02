@@ -37,7 +37,8 @@ export class AuthtionExchangeService {
     return {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', this.clientCredentialsTrustedBase64Encoded)
+        // .set('Authorization', this.clientCredentialsTrustedBase64Encoded)
+        .set('Authorization', this.clientCredentialsUntrustedBase64Encoded)
     };
   }
 
@@ -55,6 +56,10 @@ export class AuthtionExchangeService {
   //
 
   public get url_signIn(): string {
+    return this.API_VERSION + '/sign-in';
+  }
+
+  public get url_tokenRefresh(): string {
     return this.API_VERSION + '/sign-in';
   }
 
@@ -78,6 +83,12 @@ export class AuthtionExchangeService {
       .set('password', password);
   }
 
+  public body_tokenRefresh(refreshToken: string): HttpParams {
+    return new HttpParams()
+      .set('grant_type', 'refresh_token')
+      .set('refresh_token', refreshToken);
+  }
+
   public body_checkConsumerEmail(email: string): string {
     return `{
               "email": "${email}"
@@ -99,6 +110,13 @@ export class AuthtionExchangeService {
     return this.http.post(
       this.url_signIn,
       this.body_signIn(email, password),
+      this.opt_AuthtionReq);
+  }
+
+  public post_tokenRefresh(refreshToken: string): Observable<Object> {
+    return this.http.post(
+      this.url_tokenRefresh,
+      this.body_tokenRefresh(refreshToken),
       this.opt_AuthtionReq);
   }
 

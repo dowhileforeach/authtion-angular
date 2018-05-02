@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/share';
 
 import {AuthtionExchangeService} from './authtion-exchange.service';
 import {UtilsDwfeService} from '../../../services/utils.service';
@@ -10,43 +11,91 @@ import {UtilsDwfeService} from '../../../services/utils.service';
 @Injectable()
 export class AuthtionService {
 
-  private subjectLoggedIn = new BehaviorSubject<boolean>(false);
-  private resultOfPerformLogin = new Subject<ReasonOfFailure>();
+  private subjectOfLoggedIn = new BehaviorSubject<boolean>(false);
+  private subjectOfPerformLoginResult = new Subject<ReasonOfFailure>();
+
+  private authtionData: AuthtionData;
+  private authtionDataKey = 'authtionData';
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
 
-  public getLoggedIn(): Observable<boolean> {
-    return this.subjectLoggedIn.asObservable();
+  public get isLoggedIn(): Observable<boolean> {
+    return this.subjectOfLoggedIn.asObservable()
+      .share(); // for prevent async pipes create multiple subscriptions
   }
 
-  public getResultOfPerformLogin(): Observable<ReasonOfFailure> {
-    return this.resultOfPerformLogin.asObservable();
+  public get performLoginResult(): Observable<ReasonOfFailure> {
+    return this.subjectOfPerformLoginResult.asObservable();
   }
 
-  private setLoggedIn(loggedIn: boolean, reason = ''): void {
+  private login(): void {
+    this.subjectOfLoggedIn.next(true);
+  }
 
-    this.subjectLoggedIn.next(loggedIn);
-
-    this.resultOfPerformLogin.next(ReasonOfFailure.of(loggedIn, reason));
+  private logout(): void {
+    if (this.authtionData) {
+      this.authtionData = null;
+      localStorage.removeItem(this.authtionDataKey);
+    }
+    this.subjectOfLoggedIn.next(false);
   }
 
   public performLogin(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
       data => {
-        const access_token = data['access_token'];
-        const expires_in = data['expires_in'];
-        const refresh_token = data['refresh_token'];
-
-        // сохранить данные в памяти
-        // сохранить данные на диск: https://netbasal.com/angular-2-persist-your-login-status-with-behaviorsubject-45da9ec43243
-        // запустить регламентное задание на обновление токена
-
-        this.setLoggedIn(true);
+        this.handleAuthtionResponse(data);
+        this.login();
+        this.subjectOfPerformLoginResult.next(ReasonOfFailure.of(true, ''));
       },
       error =>
-        this.setLoggedIn(false, UtilsDwfeService.getReadableHttpError(error))
+        this.subjectOfPerformLoginResult.next(ReasonOfFailure.of(false, UtilsDwfeService.getReadableHttpError(error)))
     );
+  }
+
+  private tokenUpdate() {
+    this.exchangeService.post_tokenRefresh(this.authtionData.refreshToken).subscribe(
+      data => {
+        this.handleAuthtionResponse(data);
+      },
+      error => {
+        const time = this.get90PercentTimeWhenTokenValid();
+        if (time > 1000 * 10) { // if 90% percent time when token valid > 10 seconds
+          this.scheduleTokenUpdate(time);
+        } else {
+          this.logout();
+        }
+      }
+    );
+  }
+
+  private handleAuthtionResponse(data): void {
+    // save in RAM
+    this.authtionData = AuthtionData.of(
+      data['access_token'],
+      data['expires_in'],
+      data['refresh_token']);
+
+    // save in local storage
+    this.saveAuthtionDataInStorage();
+
+    // run schedule for token update
+    this.scheduleTokenUpdate(this.get90PercentTimeWhenTokenValid());
+  }
+
+  private saveAuthtionDataInStorage(): void {
+    localStorage.setItem(this.authtionDataKey, JSON.stringify(this.authtionData));
+  }
+
+  private get90PercentTimeWhenTokenValid(): number {
+    return (this.authtionData.expiresIn - Date.now()) * 0.9;
+  }
+
+  private scheduleTokenUpdate(time: number): void {
+    if (time <= 0) {
+      return;
+    }
+    setTimeout(() => this.tokenUpdate(), time);
   }
 
 }
@@ -68,6 +117,32 @@ export class ReasonOfFailure {
     const obj = new ReasonOfFailure();
     obj._value = value;
     obj._reasonOfFailure = reasonOfFailure;
+    return obj;
+  }
+}
+
+class AuthtionData {
+  private _accessToken: string;
+  private _expiresIn: number;
+  private _refreshToken: string;
+
+  get accessToken(): string {
+    return this._accessToken;
+  }
+
+  get expiresIn(): number {
+    return this._expiresIn;
+  }
+
+  get refreshToken(): string {
+    return this._refreshToken;
+  }
+
+  public static of(accessToken: string, expiresIn: number, refreshToken: string): AuthtionData {
+    const obj = new AuthtionData();
+    obj._accessToken = accessToken;
+    obj._expiresIn = Date.now() + expiresIn * 1000;
+    obj._refreshToken = refreshToken;
     return obj;
   }
 }

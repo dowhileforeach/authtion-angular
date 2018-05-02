@@ -131,7 +131,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.setLocked(true);
 
     // process service response
-    this.subscriptionToResultOfPerformLogin = this.authtionService.getResultOfPerformLogin().subscribe(result => {
+    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(result => {
         if (result.value) { // actions on success Login
           this.dialogRef.close();
         } else {
