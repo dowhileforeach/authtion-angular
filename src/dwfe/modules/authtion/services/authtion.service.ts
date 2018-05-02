@@ -12,7 +12,7 @@ import {UtilsDwfeService} from '../../../services/utils.service';
 export class AuthtionService {
 
   private subjectOfLoggedIn = new BehaviorSubject<boolean>(false);
-  private subjectOfPerformLoginResult = new Subject<ReasonOfFailure>();
+  private subjectOfPerformLoginResult = new Subject<ResultOfActionWithDescription>();
 
   private authtionData: AuthtionData;
   private authtionDataKey = 'authtionData';
@@ -25,7 +25,7 @@ export class AuthtionService {
       .share(); // for prevent async pipes create multiple subscriptions
   }
 
-  public get performLoginResult(): Observable<ReasonOfFailure> {
+  public get performLoginResult(): Observable<ResultOfActionWithDescription> {
     return this.subjectOfPerformLoginResult.asObservable();
   }
 
@@ -46,10 +46,10 @@ export class AuthtionService {
       data => {
         this.handleAuthtionResponse(data);
         this.login();
-        this.subjectOfPerformLoginResult.next(ReasonOfFailure.of(true, ''));
+        this.subjectOfPerformLoginResult.next(ResultOfActionWithDescription.of(true, ''));
       },
       error =>
-        this.subjectOfPerformLoginResult.next(ReasonOfFailure.of(false, UtilsDwfeService.getReadableHttpError(error)))
+        this.subjectOfPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
     );
   }
 
@@ -100,23 +100,23 @@ export class AuthtionService {
 
 }
 
-export class ReasonOfFailure {
+export class ResultOfActionWithDescription {
 
-  private _value: boolean;
-  private _reasonOfFailure: string;
+  private _result: boolean;
+  private _description: string;
 
-  get value(): boolean {
-    return this._value;
+  get result(): boolean {
+    return this._result;
   }
 
-  get reasonOfFailure(): string {
-    return this._reasonOfFailure;
+  get description(): string {
+    return this._description;
   }
 
-  public static of(value: boolean, reasonOfFailure: string): ReasonOfFailure {
-    const obj = new ReasonOfFailure();
-    obj._value = value;
-    obj._reasonOfFailure = reasonOfFailure;
+  public static of(result: boolean, description: string): ResultOfActionWithDescription {
+    const obj = new ResultOfActionWithDescription();
+    obj._result = result;
+    obj._description = description;
     return obj;
   }
 }

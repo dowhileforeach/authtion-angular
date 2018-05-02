@@ -142,7 +142,7 @@ export class AuthtionExchangeService {
   public backendValidatorEmail(email, reverseHandleResp) {
     const observable = this.post_checkConsumerEmail(email).retry(3);
 
-    // Don't send request to the backend on keyup. Only the last value for the interval.
+    // Don't send request to the backend on keyup. Only the last result for the interval.
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
     const debounceTime = 500; // ms
 

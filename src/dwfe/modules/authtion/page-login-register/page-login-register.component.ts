@@ -131,12 +131,13 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.setLocked(true);
 
     // process service response
-    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(result => {
-        if (result.value) { // actions on success Login
+    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(
+      data => {
+        if (data.result) { // actions on success Login
           this.dialogRef.close();
         } else {
           this.setLocked(false);
-          this.errorMessageOfProcessLogin = result.reasonOfFailure;
+          this.errorMessageOfProcessLogin = data.description;
         }
         this.subscriptionToResultOfPerformLogin.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
       }
