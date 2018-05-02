@@ -18,13 +18,13 @@
     border-color: $color-border-warning;
   }
 
-  &.alert--blink-error{
+  &.alert--blink-error {
     animation-name: blink-error;
     animation-duration: 1.5s;
     animation-timing-function: ease-in-out;
   }
 
-  &.alert--no-border{
+  &.alert--no-border {
     border: none;
   }
 }

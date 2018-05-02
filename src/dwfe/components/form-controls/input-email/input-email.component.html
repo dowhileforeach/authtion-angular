@@ -3,9 +3,8 @@
   <input #refEmail [formControlName]="'email'"
          [ngClass]="{ 'filled': !isEmpty(emailControl.value) }"
          type="email"
-         name="email"
-         [id]="emailControlID"
-         [tabindex]="tabIndexValue">
+         [tabindex]="tabIndexValue"
+         [id]="emailControlID">
 
   <label [for]="emailControlID">Email</label>
 

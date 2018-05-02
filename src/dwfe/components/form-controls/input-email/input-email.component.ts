@@ -36,7 +36,6 @@ export class InputEmailDwfeComponent implements OnInit {
 
   private isEmpty = UtilsDwfeService.isEmpty; // used in html template
   private formControlHasError = UtilsDwfeService.formControlHasError;
-  private getErrorOnFormControl = UtilsDwfeService.getErrorOnFormControl;
 
   ngOnInit() {
 
@@ -72,10 +71,9 @@ export class InputEmailDwfeComponent implements OnInit {
       this.errorMessage = `Length must be <= ${this.maxLength}`;
       return true;
     } else if (this.formControlHasError(this.emailControl, 'backendHttp', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = this.getErrorOnFormControl(this.emailControl, 'backendHttp');
+      this.errorMessage = UtilsDwfeService.getErrorOnFormControl(this.emailControl, 'backendHttp');
       return true;
     }
-
     this.errorMessage = '';
     return false;
   }
