@@ -32,9 +32,9 @@
                                 [maxLength]="50"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
-                                (takeEmailGroup)="groupLoginEmail=$event"
                                 [isDirtyTouchedCheckMode]="true"
                                 [tabIndexValue]="0"
+                                (takeEmailGroup)="groupLoginEmail=$event"
                                 #refLoginEmail>
           </app-input-email-dwfe>
 
@@ -52,11 +52,11 @@
                   aria-label="Perform 'Login'">
             OK
 
-            <app-alert-dwfe class="form-dwfe__alert-over-button"
-                            [alertType]="'error'"
-                            [blink]="true"
+            <app-alert-dwfe *ngIf="showErrorOfProcessLogin"
+                            class="form-dwfe__alert-over-button"
                             [message]="errorMessageOfProcessLogin"
-                            *ngIf="showErrorOfProcessLogin">
+                            [alertType]="'error'"
+                            [blink]="true">
             </app-alert-dwfe>
           </button>
 
@@ -68,9 +68,9 @@
                                 [maxLength]="50"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="false"
-                                (takeEmailGroup)="groupCreateAccountEmail=$event"
                                 [isDirtyTouchedCheckMode]="false"
                                 [tabIndexValue]="-1"
+                                (takeEmailGroup)="groupCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
@@ -80,15 +80,15 @@
                   mat-raised-button
                   (click)="performCreateAccount()"
                   [disabled]="!groupCreateAccountEmail.valid || isLocked"
-                  aria-label="Perform 'Create account'"
-                  tabindex="-1">
+                  tabindex="-1"
+                  aria-label="Perform 'Create account'">
             OK
 
-            <app-alert-dwfe class="form-dwfe__alert-over-button"
-                            [alertType]="'error'"
-                            [blink]="true"
+            <app-alert-dwfe *ngIf="showErrorOfProcessCreateAccount"
+                            class="form-dwfe__alert-over-button"
                             [message]="errorMessageOfProcessCreateAccount"
-                            *ngIf="showErrorOfProcessCreateAccount">
+                            [alertType]="'error'"
+                            [blink]="true">
             </app-alert-dwfe>
           </button>
 

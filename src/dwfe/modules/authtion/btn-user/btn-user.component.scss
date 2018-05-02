@@ -9,7 +9,7 @@
   min-width: $grid-breakpoint-mobile;
 
   .mat-dialog-container {
-    max-height: calc(100vh - 50px); /* for content scrolling if it not fit on the screen */
+    max-height: calc(100vh - 50px); // for content scrolling if it not fit on the screen
     padding-left: 5px;
     padding-right: 5px;
 
@@ -23,7 +23,7 @@
 //
 // btn-user
 //
-.btn-authtion__user {
+.btn-user-authtion {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -53,11 +53,11 @@
     opacity: 0.6;
   }
 
-  &.btn-authtion__user--logged-in {
+  &.btn-user-authtion--logged-in {
     padding: 5px 10px 5px 18px;
   }
 
-  &.btn-authtion__user--not-authenticated {
+  &.btn-user-authtion--not-authenticated {
     padding: 5px 12px;
   }
 }
