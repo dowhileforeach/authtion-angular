@@ -16,7 +16,8 @@
   <app-alert-dwfe *ngIf="hasError"
                   class="form-group-dwfe__alert-under-input"
                   [message]="errorMessage"
-                  [alertType]="'error'">
+                  [alertType]="'error'"
+                  [noBorder]="true">
   </app-alert-dwfe>
 
   <svg class="icon-clear-field" (click)="clearEmail()"

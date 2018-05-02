@@ -7,40 +7,44 @@
   margin: 0;
   padding: 5px;
 
-  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-black);
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-black);
 
   border: 1px solid;
   border-radius: $border-radius;
 
   &.alert--error {
-    color: $color-warning;
+    color: $color-danger;
     background-color: $color-bg-warning;
     border-color: $color-border-warning;
   }
 
-  &.alert--blink{
-    animation-name: outline-blink;
+  &.alert--blink-error{
+    animation-name: blink-error;
     animation-duration: 1.5s;
     animation-timing-function: ease-in-out;
   }
-}
 
-@-webkit-keyframes outline-blink { //special for Safari
-  0%,
-  100% {
-    outline: 5px solid transparent;
-  }
-  50% {
-    outline: 5px solid $color-danger;
+  &.alert--no-border{
+    border: none;
   }
 }
 
-@keyframes outline-blink {
+@-webkit-keyframes blink-error { //special for Safari
   0%,
   100% {
-    outline: 0;
+    box-shadow: none;
   }
   50% {
-    outline: 4px solid $color-danger;
+    box-shadow: 0 0 1px 5px $color-danger;
+  }
+}
+
+@keyframes blink-error {
+  0%,
+  100% {
+    box-shadow: none;
+  }
+  50% {
+    box-shadow: 0 0 1px 5px $color-danger;
   }
 }
