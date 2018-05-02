@@ -44,10 +44,8 @@ export class AuthtionService {
 
         this.setLoggedIn(true);
       },
-      error => {
-        const reason = `${UtilsDwfeService.getReadableHttpError(error)}`;
-        this.setLoggedIn(false, reason);
-      }
+      error =>
+        this.setLoggedIn(false, UtilsDwfeService.getReadableHttpError(error))
     );
   }
 

@@ -19,7 +19,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private groupLoginEmail = new FormGroup({});
   private groupLoginPassword = new FormGroup({});
   private groupCreateAccountEmail = new FormGroup({});
-
   private controlLoginEmail: AbstractControl;
   private controlLoginPassword: AbstractControl;
   private controlCreateAccountEmail: AbstractControl;
@@ -82,7 +81,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.exchangeEmail();
 
     setTimeout(() => this.focusOnInput()
-      , 210 // becouse: .slider__inner {... transition: transform 200ms ease; ...}
+      , 210 // becouse: .slider__inner {... transition: transform 200ms ...}
     );
   }
 
@@ -139,7 +138,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
           this.setLocked(false);
           this.errorMessageOfProcessLogin = result.reasonOfFailure;
         }
-        this.subscriptionToResultOfPerformLogin.unsubscribe(); // Important. Otherwise, the subscriptions will be as much as times the button is pressed
+        this.subscriptionToResultOfPerformLogin.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
       }
     );
   }
