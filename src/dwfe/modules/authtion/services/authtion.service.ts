@@ -13,16 +13,20 @@ export class AuthtionService {
   private auth: AuthtionCredentials;
   private authStorageKey = 'authCredentials';
   public user: AuthtionUser;
+  private userStorageKey = 'userData';
 
-  private subjectOfLoggedIn = new BehaviorSubject<boolean>(this.init());
-  private subjectOfPerformLoginResult = new Subject<ResultOfActionWithDescription>();
+  private subjLoggedIn = new BehaviorSubject<boolean>(this.init());
+  private subjPerformLoginResult = new Subject<ResultOfActionWithDescription>();
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
 
   init(): boolean {
     this.auth = AuthtionCredentials.fromStorage(this.authStorageKey);
-    if (this.auth && this.auth.expiresIn > Date.now()) {
+    this.user = AuthtionUser.fromStorage(this.userStorageKey);
+    if (this.auth
+      && this.user
+      && this.auth.expiresIn > Date.now()) {
       const time = this.get90PercentFromTimeWhenTokenValid();
       const time1Day = (60 * 60 * 24) * 1000;
       if (time < time1Day) {
@@ -32,49 +36,67 @@ export class AuthtionService {
       }
       return true;
     } else {
-      this.clearAuthtionData();
+      this.coverUpOnesTraces();
       return false;
     }
   }
 
   public get isLoggedIn(): Observable<boolean> {
-    return this.subjectOfLoggedIn.asObservable();
+    return this.subjLoggedIn.asObservable();
   }
 
   public get performLoginResult(): Observable<ResultOfActionWithDescription> {
-    return this.subjectOfPerformLoginResult.asObservable();
+    return this.subjPerformLoginResult.asObservable();
   }
 
   private login(): void {
-    this.subjectOfLoggedIn.next(true);
+    this.subjLoggedIn.next(true);
   }
 
   public logout(): void {
-    this.clearAuthtionData();
-    this.subjectOfLoggedIn.next(false);
+    this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
+      data => {
+        console.log(data);
+        this.coverUpOnesTraces();
+        this.subjLoggedIn.next(false);
+      },
+      error => {
+      }
+    );
   }
 
-  private clearAuthtionData() {
+  private coverUpOnesTraces() {
     this.auth = null;
     localStorage.removeItem(this.authStorageKey);
+    this.user = null;
+    localStorage.removeItem(this.userStorageKey);
   }
+
 
   public performLogin(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
       data => {
-        this.handleAuthtionResponse(data);
-        this.login();
-        this.subjectOfPerformLoginResult.next(ResultOfActionWithDescription.of(true, ''));
+        this.exchangeService.get_getConsumerData(data['access_token']).subscribe(
+          data2 => {
+            console.log(data2);
+            this.handleAuthResponse(data);
+            this.handleGetUserDataResponse(data2);
+            this.login();
+            this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(true, ''));
+          },
+          error2 => {
+            this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error2)));
+          });
       },
       error =>
-        this.subjectOfPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
+        this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
     );
   }
 
   private tokenUpdate() {
     this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
       data => {
-        this.handleAuthtionResponse(data);
+        this.handleAuthResponse(data);
       },
       error => {
         if (UtilsDwfeService.getHttpError(error) === 'invalid_grant') {
@@ -91,7 +113,7 @@ export class AuthtionService {
     );
   }
 
-  private handleAuthtionResponse(data): void {
+  private handleAuthResponse(data): void {
     // save in RAM
     this.auth = AuthtionCredentials.of(
       data['access_token'],
@@ -99,14 +121,41 @@ export class AuthtionService {
       data['refresh_token']);
 
     // save in local storage
-    this.saveAuthtionDataInStorage();
+    this.saveInStorage(this.authStorageKey, this.auth);
 
     // run schedule for token update
     this.scheduleTokenUpdate(this.get90PercentFromTimeWhenTokenValid());
   }
 
-  private saveAuthtionDataInStorage(): void {
-    localStorage.setItem(this.authStorageKey, JSON.stringify(this.auth));
+  private handleGetUserDataResponse(data2): void {
+    // save in RAM
+    const data = data2['details'];
+    let hasRoleAdmin = false;
+    let hasRoleUser = false;
+    data['authorities'].forEach(next => {
+      if (next === 'ADMIN') {
+        hasRoleAdmin = true;
+      } else if (next === 'USER') {
+        hasRoleUser = true;
+      }
+    });
+    this.user = AuthtionUser.of(
+      data['id'],
+      data['email'],
+      data['nickName'],
+      data['firstName'],
+      data['lastName'],
+      data['emailConfirmed'],
+      hasRoleAdmin,
+      hasRoleUser
+    );
+
+    // save in local storage
+    this.saveInStorage(this.userStorageKey, this.user);
+  }
+
+  private saveInStorage(key: string, obj): void {
+    localStorage.setItem(key, JSON.stringify(obj));
   }
 
   private get90PercentFromTimeWhenTokenValid(): number {
@@ -188,6 +237,8 @@ class AuthtionUser {
   private _firstName: string;
   private _lastName: string;
   private _emailConfirmed: boolean;
+  private _hasRoleAdmin: boolean;
+  private _hasRoleUser: boolean;
 
   get id(): number {
     return this._id;
@@ -213,12 +264,22 @@ class AuthtionUser {
     return this._emailConfirmed;
   }
 
+  get hasRoleAdmin(): boolean {
+    return this._hasRoleAdmin;
+  }
+
+  get hasRoleUser(): boolean {
+    return this._hasRoleUser;
+  }
+
   public static of(id: number,
                    email: string,
                    nickName: string,
                    firstName: string,
                    lastName: string,
-                   emailConfirmed: boolean): AuthtionUser {
+                   emailConfirmed: boolean,
+                   hasRoleAdmin: boolean,
+                   hasRoleUser: boolean): AuthtionUser {
     const obj = new AuthtionUser();
     obj._id = id;
     obj._email = email;
@@ -226,6 +287,25 @@ class AuthtionUser {
     obj._firstName = firstName;
     obj._lastName = lastName;
     obj._emailConfirmed = emailConfirmed;
+    obj._hasRoleAdmin = hasRoleAdmin;
+    obj._hasRoleUser = hasRoleUser;
+    return obj;
+  }
+
+  public static fromStorage(key): AuthtionUser {
+    let obj = null;
+    const parsed = JSON.parse(localStorage.getItem(key));
+    if (parsed) {
+      obj = new AuthtionUser();
+      obj._id = +parsed._id;
+      obj._email = parsed._email;
+      obj._nickName = parsed._nickName;
+      obj._firstName = parsed._firstName;
+      obj._lastName = parsed._lastName;
+      obj._emailConfirmed = parsed._emailConfirmed === 'true';
+      obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
+      obj._hasRoleUser = parsed._hasRoleUser === 'true';
+    }
     return obj;
   }
 }

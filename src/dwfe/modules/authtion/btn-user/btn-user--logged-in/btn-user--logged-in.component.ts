@@ -10,6 +10,7 @@ import {AuthtionService} from '../../services/authtion.service';
 export class AuthtionBtnUserLoggedInComponent {
 
   private isMenuOpen = false;
+  private user = this.authtionService.user;
 
   constructor(private authtionService: AuthtionService) {
   }
@@ -21,7 +22,5 @@ export class AuthtionBtnUserLoggedInComponent {
   logout(): void {
     this.authtionService.logout();
   }
-
-
 }
 

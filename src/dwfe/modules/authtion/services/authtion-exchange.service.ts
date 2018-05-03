@@ -33,7 +33,7 @@ export class AuthtionExchangeService {
   // REQUEST OPTIONS
   //
 
-  public get opt_AuthtionReq() {
+  public get opt_AuthReq() {
     return {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
@@ -41,7 +41,7 @@ export class AuthtionExchangeService {
     };
   }
 
-  public get opt_JsonReq() {
+  public get opt_PostAnonymouseReq() {
     return {
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -49,6 +49,13 @@ export class AuthtionExchangeService {
     };
   }
 
+  public opt_GetAuthReq(accessToken: string) {
+    return {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    };
+  }
 
   //
   // REQUEST URLS
@@ -62,12 +69,22 @@ export class AuthtionExchangeService {
     return this.API_VERSION + '/sign-in';
   }
 
+  public get url_signOut(): string {
+    return this.API_VERSION + '/sign-out';
+  }
+
   public get url_checkConsumerEmail(): string {
     return this.API_VERSION + '/check-consumer-email';
   }
 
   public get url_createConsumer(): string {
     return this.API_VERSION + '/create-consumer';
+  }
+
+  // update-consumer
+
+  public get url_getConsumerData(): string {
+    return this.API_VERSION + '/get-consumer-data';
   }
 
 
@@ -100,6 +117,8 @@ export class AuthtionExchangeService {
             }`;
   }
 
+  // update-consumer
+
 
   //
   // EXCHANGERS
@@ -109,28 +128,44 @@ export class AuthtionExchangeService {
     return this.http.post(
       this.url_signIn,
       this.body_signIn(email, password),
-      this.opt_AuthtionReq);
+      this.opt_AuthReq);
   }
 
   public post_tokenRefresh(refreshToken: string): Observable<Object> {
     return this.http.post(
       this.url_tokenRefresh,
       this.body_tokenRefresh(refreshToken),
-      this.opt_AuthtionReq);
+      this.opt_AuthReq);
+  }
+
+  public get_signOut(accessToken: string): Observable<Object> {
+    return this.http.get(
+      this.url_signOut,
+      this.opt_GetAuthReq(accessToken)
+    );
   }
 
   public post_checkConsumerEmail(email: string): Observable<Object> {
     return this.http.post(
       this.url_checkConsumerEmail,
       this.body_checkConsumerEmail(email),
-      this.opt_JsonReq);
+      this.opt_PostAnonymouseReq);
   }
 
   public post_createConsumer(email: string): Observable<Object> {
     return this.http.post(
       this.url_createConsumer,
       this.body_createConsumer(email),
-      this.opt_JsonReq);
+      this.opt_PostAnonymouseReq);
+  }
+
+  // update-consumer
+
+  public get_getConsumerData(accessToken: string): Observable<Object> {
+    return this.http.get(
+      this.url_getConsumerData,
+      this.opt_GetAuthReq(accessToken)
+    );
   }
 
 
