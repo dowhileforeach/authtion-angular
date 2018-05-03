@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/share';
 
 import {AuthtionExchangeService} from './authtion-exchange.service';
 import {UtilsDwfeService} from '../../../services/utils.service';
@@ -11,8 +10,9 @@ import {UtilsDwfeService} from '../../../services/utils.service';
 @Injectable()
 export class AuthtionService {
 
-  private authtionData: AuthtionData;
-  private authtionDataKey = 'authtionData';
+  private auth: AuthtionCredentials;
+  private authStorageKey = 'authCredentials';
+  public user: AuthtionUser;
 
   private subjectOfLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjectOfPerformLoginResult = new Subject<ResultOfActionWithDescription>();
@@ -21,8 +21,8 @@ export class AuthtionService {
   }
 
   init(): boolean {
-    this.authtionData = AuthtionData.fromStorage(this.authtionDataKey);
-    if (this.authtionData && this.authtionData.expiresIn > Date.now()) {
+    this.auth = AuthtionCredentials.fromStorage(this.authStorageKey);
+    if (this.auth && this.auth.expiresIn > Date.now()) {
       const time = this.get90PercentFromTimeWhenTokenValid();
       const time1Day = (60 * 60 * 24) * 1000;
       if (time < time1Day) {
@@ -55,8 +55,8 @@ export class AuthtionService {
   }
 
   private clearAuthtionData() {
-    this.authtionData = null;
-    localStorage.removeItem(this.authtionDataKey);
+    this.auth = null;
+    localStorage.removeItem(this.authStorageKey);
   }
 
   public performLogin(email: string, password: string): void {
@@ -72,7 +72,7 @@ export class AuthtionService {
   }
 
   private tokenUpdate() {
-    this.exchangeService.post_tokenRefresh(this.authtionData.refreshToken).subscribe(
+    this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
       data => {
         this.handleAuthtionResponse(data);
       },
@@ -93,7 +93,7 @@ export class AuthtionService {
 
   private handleAuthtionResponse(data): void {
     // save in RAM
-    this.authtionData = AuthtionData.of(
+    this.auth = AuthtionCredentials.of(
       data['access_token'],
       data['expires_in'],
       data['refresh_token']);
@@ -106,11 +106,11 @@ export class AuthtionService {
   }
 
   private saveAuthtionDataInStorage(): void {
-    localStorage.setItem(this.authtionDataKey, JSON.stringify(this.authtionData));
+    localStorage.setItem(this.authStorageKey, JSON.stringify(this.auth));
   }
 
   private get90PercentFromTimeWhenTokenValid(): number {
-    return Math.round((this.authtionData.expiresIn - Date.now()) * 0.9);
+    return Math.round((this.auth.expiresIn - Date.now()) * 0.9);
   }
 
   private scheduleTokenUpdate(time: number): void {
@@ -143,7 +143,7 @@ export class ResultOfActionWithDescription {
   }
 }
 
-class AuthtionData {
+class AuthtionCredentials {
   private _accessToken: string;
   private _expiresIn: number;
   private _refreshToken: string;
@@ -160,23 +160,72 @@ class AuthtionData {
     return this._refreshToken;
   }
 
-  public static of(accessToken: string, expiresIn: number, refreshToken: string): AuthtionData {
-    const obj = new AuthtionData();
+  public static of(accessToken: string, expiresIn: number, refreshToken: string): AuthtionCredentials {
+    const obj = new AuthtionCredentials();
     obj._accessToken = accessToken;
     obj._expiresIn = Date.now() + expiresIn * 1000;
     obj._refreshToken = refreshToken;
     return obj;
   }
 
-  public static fromStorage(key: string): AuthtionData {
+  public static fromStorage(key: string): AuthtionCredentials {
     let obj = null;
     const parsed = JSON.parse(localStorage.getItem(key));
     if (parsed) {
-      obj = new AuthtionData();
+      obj = new AuthtionCredentials();
       obj._accessToken = parsed._accessToken;
       obj._expiresIn = +parsed._expiresIn;
       obj._refreshToken = parsed._refreshToken;
     }
+    return obj;
+  }
+}
+
+class AuthtionUser {
+  private _id: number;
+  private _email: string;
+  private _nickName: string;
+  private _firstName: string;
+  private _lastName: string;
+  private _emailConfirmed: boolean;
+
+  get id(): number {
+    return this._id;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  get nickName(): string {
+    return this._nickName;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
+
+  get emailConfirmed(): boolean {
+    return this._emailConfirmed;
+  }
+
+  public static of(id: number,
+                   email: string,
+                   nickName: string,
+                   firstName: string,
+                   lastName: string,
+                   emailConfirmed: boolean): AuthtionUser {
+    const obj = new AuthtionUser();
+    obj._id = id;
+    obj._email = email;
+    obj._nickName = nickName;
+    obj._firstName = firstName;
+    obj._lastName = lastName;
+    obj._emailConfirmed = emailConfirmed;
     return obj;
   }
 }
