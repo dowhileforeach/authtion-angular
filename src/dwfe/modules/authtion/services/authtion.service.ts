@@ -25,10 +25,12 @@ export class AuthtionService {
     const now = Date.now();
 
     if (this.authtionData && this.authtionData.expiresIn > now) {
-      const delta = this.authtionData.expiresIn - now;
-      const time1DayInMilliseconds = (60 * 60 * 24) * 1000;
-      if (delta < time1DayInMilliseconds) {
+      const time = this.get90PercentTimeWhenTokenValid();
+      const time1Day = (60 * 60 * 24) * 1000;
+      if (time < time1Day) {
         this.scheduleTokenUpdate(10 * 1000);
+      } else {
+        this.scheduleTokenUpdate(time);
       }
       return true;
     } else {
@@ -110,7 +112,7 @@ export class AuthtionService {
   }
 
   private get90PercentTimeWhenTokenValid(): number {
-    return (this.authtionData.expiresIn - Date.now()) * 0.9;
+    return Math.round((this.authtionData.expiresIn - Date.now()) * 0.9);
   }
 
   private scheduleTokenUpdate(time: number): void {
@@ -169,9 +171,8 @@ class AuthtionData {
   }
 
   public static fromStorage(key: string): AuthtionData {
-    const parsed = JSON.parse(localStorage.getItem(key));
     let obj = null;
-
+    const parsed = JSON.parse(localStorage.getItem(key));
     if (parsed) {
       obj = new AuthtionData();
       obj._accessToken = parsed._accessToken;
