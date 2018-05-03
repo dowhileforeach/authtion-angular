@@ -1,0 +1,67 @@
+@import "../../../../styles/dwfe-pref";
+
+.auth-nav {
+  position: relative;
+
+  &:hover {
+    .auth-nav__list {
+      display: block;
+    }
+  }
+}
+
+.auth-nav__list {
+  display: none;
+  min-width: 100%;
+
+  @include reset-list();
+  position: absolute;
+  top: 46px;
+  right: -1px;
+
+  background-color: $color-bg-page-header;
+  border: 1px solid $color-athens-gray;
+  border-top: none;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.auth-nav__item {
+  width: 100%;
+  padding: 2px 0 0;
+}
+
+.auth-nav__btn {
+  width: 100%;
+  padding: 8px 10px 8px 18px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  fill: $color-mine-shaft;
+  color: $color-mine-shaft;
+  text-decoration: none;
+
+  border: none;
+  border-radius: $border-radius;
+
+  user-select: none;
+  transition: all 0.15s ease;
+
+  @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+
+  span {
+    flex-grow: 1;
+    margin-right: 15px;
+    text-align: left;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+  }
+}

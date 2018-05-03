@@ -49,7 +49,7 @@ export class AuthtionService {
     this.subjectOfLoggedIn.next(true);
   }
 
-  private logout(): void {
+  public logout(): void {
     this.clearAuthtionData();
     this.subjectOfLoggedIn.next(false);
   }
