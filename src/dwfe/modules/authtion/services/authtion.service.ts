@@ -22,10 +22,8 @@ export class AuthtionService {
 
   init(): boolean {
     this.authtionData = AuthtionData.fromStorage(this.authtionDataKey);
-    const now = Date.now();
-
-    if (this.authtionData && this.authtionData.expiresIn > now) {
-      const time = this.get90PercentTimeWhenTokenValid();
+    if (this.authtionData && this.authtionData.expiresIn > Date.now()) {
+      const time = this.get90PercentFromTimeWhenTokenValid();
       const time1Day = (60 * 60 * 24) * 1000;
       if (time < time1Day) {
         this.scheduleTokenUpdate(10 * 1000);
@@ -82,7 +80,7 @@ export class AuthtionService {
         if (UtilsDwfeService.getHttpError(error) === 'invalid_grant') {
           this.logout();
         } else {
-          const time = this.get90PercentTimeWhenTokenValid();
+          const time = this.get90PercentFromTimeWhenTokenValid();
           if (time > 1000 * 10) { // if 90% percent time when token valid > 10 seconds
             this.scheduleTokenUpdate(time);
           } else {
@@ -104,14 +102,14 @@ export class AuthtionService {
     this.saveAuthtionDataInStorage();
 
     // run schedule for token update
-    this.scheduleTokenUpdate(this.get90PercentTimeWhenTokenValid());
+    this.scheduleTokenUpdate(this.get90PercentFromTimeWhenTokenValid());
   }
 
   private saveAuthtionDataInStorage(): void {
     localStorage.setItem(this.authtionDataKey, JSON.stringify(this.authtionData));
   }
 
-  private get90PercentTimeWhenTokenValid(): number {
+  private get90PercentFromTimeWhenTokenValid(): number {
     return Math.round((this.authtionData.expiresIn - Date.now()) * 0.9);
   }
 
