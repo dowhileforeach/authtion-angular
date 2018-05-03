@@ -2,11 +2,28 @@
 
 .auth-nav {
   position: relative;
+}
 
-  &:hover {
-    .auth-nav__list {
-      display: block;
-    }
+.auth-nav__title-btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border-radius: 0;
+  outline-width: 0;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  &:hover,
+  &:focus {
+    background-color: $color-shalimar;
+  }
+
+  &.auth-nav__title-btn--open {
+    background-color: rgba($color-shalimar, 0.35);
   }
 }
 
@@ -14,54 +31,65 @@
   display: none;
   min-width: 100%;
 
-  @include reset-list();
   position: absolute;
-  top: 46px;
-  right: -1px;
+  top: $page-header-height;
+  right: 0;
 
+  @include reset-list();
   background-color: $color-bg-page-header;
   border: 1px solid $color-athens-gray;
   border-top: none;
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+
+  &.auth-nav__list--open {
+    display: block;
+  }
 }
 
 .auth-nav__item {
   width: 100%;
-  padding: 2px 0 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .auth-nav__btn {
   width: 100%;
-  padding: 8px 10px 8px 18px;
+  padding: 10px 10px;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
 
-  fill: $color-mine-shaft;
-  color: $color-mine-shaft;
-  text-decoration: none;
-
   border: none;
-  border-radius: $border-radius;
+  border-radius: 0;
 
   user-select: none;
   transition: all 0.15s ease;
+}
+
+.auth-nav__text {
+  flex-grow: 1;
+  margin-right: 15px;
 
   @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+  text-align: left;
+}
 
-  span {
-    flex-grow: 1;
-    margin-right: 15px;
-    text-align: left;
-  }
+.auth-nav__pic-wrap {
+  flex-shrink: 0;
 
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+
+  background-color: $color-bg-page-header;
+
+  img,
   svg {
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    margin-left: auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+
+    fill: $color-mine-shaft;
   }
 }

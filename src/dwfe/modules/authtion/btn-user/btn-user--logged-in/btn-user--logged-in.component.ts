@@ -9,11 +9,19 @@ import {AuthtionService} from '../../services/authtion.service';
 })
 export class AuthtionBtnUserLoggedInComponent {
 
+  private isMenuOpen = false;
+
   constructor(private authtionService: AuthtionService) {
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   logout(): void {
     this.authtionService.logout();
   }
+
+
 }
 

@@ -14,7 +14,7 @@
 }
 
 .page-header {
-  height: 50px;
+  height: $page-header-height;
   background-color: $color-bg-page-header;
   box-shadow: 0 1.2px 0 0 $color-alto;
 }

@@ -29,37 +29,56 @@
   justify-content: flex-end;
   align-items: center;
 
-  fill: $color-mine-shaft;
-  color: $color-mine-shaft;
-  text-decoration: none;
-
   border: none;
   border-radius: $border-radius;
 
   user-select: none;
   transition: all 0.15s ease;
 
-  svg {
-    width: 30px;
-    height: 30px;
-  }
-  span {
-    display: inline-block;
-    margin-left: 0;
-    @include fonts($font-size-x3, $font-size-x3, $font-weight-light, normal, $color-mine-shaft);
-  }
-
   &[disabled] {
     opacity: 0.6;
   }
 
   &.btn-user-authtion--logged-in {
-    padding: 5px 10px 5px 18px;
+    padding: 5px 10px;
+    background-color: $color-bg-page-header;
+
+    .btn-user-authtion__text {
+      padding-right: 10px;
+    }
+
+    .btn-user-authtion__pic-wrap {
+      img,
+      svg {
+        border-radius: 50%;
+        background-color: transparent;
+      }
+    }
   }
 
   &.btn-user-authtion--not-authenticated {
     padding: 5px 12px;
   }
+}
+
+.btn-user-authtion__pic-wrap {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+
+  img,
+  svg {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+
+    fill: $color-mine-shaft;
+  }
+}
+
+.btn-user-authtion__text {
+  display: inline-block;
+  @include fonts($font-size-x3, $font-size-x3, $font-weight-light, normal, $color-mine-shaft);
 }
 
 .btn-user-authtion__nav-list {
