@@ -11,22 +11,18 @@ import {UtilsDwfeService} from '../../../services/utils.service';
 export class AuthtionService {
 
   private auth: AuthtionCredentials;
-  private authStorageKey = 'authCredentials';
   public user: AuthtionUser;
-  private userStorageKey = 'userData';
 
   private subjLoggedIn = new BehaviorSubject<boolean>(this.init());
-  private subjPerformLoginResult = new Subject<ResultOfActionWithDescription>();
+  private subjPerformLoginResult = new Subject<ResultWithDescription>();
 
   constructor(private exchangeService: AuthtionExchangeService) {
   }
 
   init(): boolean {
-    this.auth = AuthtionCredentials.fromStorage(this.authStorageKey);
-    this.user = AuthtionUser.fromStorage(this.userStorageKey);
-    if (this.auth
-      && this.user
-      && this.auth.expiresIn > Date.now()) {
+    this.auth = AuthtionCredentials.fromStorage();
+    this.user = AuthtionUser.fromStorage();
+    if (this.auth && this.user && this.auth.expiresIn > Date.now()) {
       const time = this.get90PercentFromTimeWhenTokenValid();
       const time1Day = (60 * 60 * 24) * 1000;
       if (time < time1Day) {
@@ -45,7 +41,7 @@ export class AuthtionService {
     return this.subjLoggedIn.asObservable();
   }
 
-  public get performLoginResult(): Observable<ResultOfActionWithDescription> {
+  public get performLoginResult(): Observable<ResultWithDescription> {
     return this.subjPerformLoginResult.asObservable();
   }
 
@@ -56,6 +52,7 @@ export class AuthtionService {
   public logout(): void {
     this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
       data => {
+        // TODO handle success
         console.log(data);
         this.coverUpOnesTraces();
         this.subjLoggedIn.next(false);
@@ -67,29 +64,29 @@ export class AuthtionService {
 
   private coverUpOnesTraces() {
     this.auth = null;
-    localStorage.removeItem(this.authStorageKey);
     this.user = null;
-    localStorage.removeItem(this.userStorageKey);
+    AuthtionCredentials.removeFromStorage();
+    AuthtionUser.removeFromStorage();
   }
-
 
   public performLogin(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
       data => {
         this.exchangeService.get_getConsumerData(data['access_token']).subscribe(
           data2 => {
+            // TODO handle success
             console.log(data2);
             this.handleAuthResponse(data);
             this.handleGetUserDataResponse(data2);
             this.login();
-            this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(true, ''));
+            this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
           },
           error2 => {
-            this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error2)));
+            this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error2)));
           });
       },
       error =>
-        this.subjPerformLoginResult.next(ResultOfActionWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
+        this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
     );
   }
 
@@ -121,7 +118,7 @@ export class AuthtionService {
       data['refresh_token']);
 
     // save in local storage
-    this.saveInStorage(this.authStorageKey, this.auth);
+    this.auth.saveInStorage();
 
     // run schedule for token update
     this.scheduleTokenUpdate(this.get90PercentFromTimeWhenTokenValid());
@@ -151,11 +148,7 @@ export class AuthtionService {
     );
 
     // save in local storage
-    this.saveInStorage(this.userStorageKey, this.user);
-  }
-
-  private saveInStorage(key: string, obj): void {
-    localStorage.setItem(key, JSON.stringify(obj));
+    this.user.saveInStorage();
   }
 
   private get90PercentFromTimeWhenTokenValid(): number {
@@ -171,7 +164,7 @@ export class AuthtionService {
 
 }
 
-export class ResultOfActionWithDescription {
+export class ResultWithDescription {
 
   private _result: boolean;
   private _description: string;
@@ -184,8 +177,8 @@ export class ResultOfActionWithDescription {
     return this._description;
   }
 
-  public static of(result: boolean, description: string): ResultOfActionWithDescription {
-    const obj = new ResultOfActionWithDescription();
+  public static of(result: boolean, description: string): ResultWithDescription {
+    const obj = new ResultWithDescription();
     obj._result = result;
     obj._description = description;
     return obj;
@@ -196,6 +189,10 @@ class AuthtionCredentials {
   private _accessToken: string;
   private _expiresIn: number;
   private _refreshToken: string;
+
+  static get storageKey(): string {
+    return 'authCredentials';
+  }
 
   get accessToken(): string {
     return this._accessToken;
@@ -217,9 +214,9 @@ class AuthtionCredentials {
     return obj;
   }
 
-  public static fromStorage(key: string): AuthtionCredentials {
+  public static fromStorage(): AuthtionCredentials {
     let obj = null;
-    const parsed = JSON.parse(localStorage.getItem(key));
+    const parsed = JSON.parse(localStorage.getItem(AuthtionCredentials.storageKey));
     if (parsed) {
       obj = new AuthtionCredentials();
       obj._accessToken = parsed._accessToken;
@@ -227,6 +224,14 @@ class AuthtionCredentials {
       obj._refreshToken = parsed._refreshToken;
     }
     return obj;
+  }
+
+  public static removeFromStorage(): void {
+    localStorage.removeItem(AuthtionCredentials.storageKey);
+  }
+
+  public saveInStorage(): void {
+    localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
   }
 }
 
@@ -239,6 +244,10 @@ class AuthtionUser {
   private _emailConfirmed: boolean;
   private _hasRoleAdmin: boolean;
   private _hasRoleUser: boolean;
+
+  static get storageKey(): string {
+    return 'userData';
+  }
 
   get id(): number {
     return this._id;
@@ -292,9 +301,9 @@ class AuthtionUser {
     return obj;
   }
 
-  public static fromStorage(key): AuthtionUser {
+  public static fromStorage(): AuthtionUser {
     let obj = null;
-    const parsed = JSON.parse(localStorage.getItem(key));
+    const parsed = JSON.parse(localStorage.getItem(AuthtionUser.storageKey));
     if (parsed) {
       obj = new AuthtionUser();
       obj._id = +parsed._id;
@@ -307,5 +316,13 @@ class AuthtionUser {
       obj._hasRoleUser = parsed._hasRoleUser === 'true';
     }
     return obj;
+  }
+
+  public static removeFromStorage(): void {
+    localStorage.removeItem(AuthtionUser.storageKey);
+  }
+
+  public saveInStorage(): void {
+    localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
   }
 }
