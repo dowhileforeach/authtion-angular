@@ -9,6 +9,13 @@
 		<key>Zoom Factor</key>
 		<real>1</real>
 	</dict>
+	<key>8E23F943-9347-4AEB-995F-DB1B69C278B8</key>
+	<dict>
+		<key>Visible Rect</key>
+		<string>{{0, 0}, {1195, 660}}</string>
+		<key>Zoom Factor</key>
+		<real>1</real>
+	</dict>
 	<key>Bottombar Visible</key>
 	<false/>
 	<key>E177AEA6-3717-43C3-AF11-5AA1BDCCF62D</key>
@@ -24,7 +31,7 @@
 	<array/>
 	<key>Last Viewed Ideaspaces For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
 	<array>
-		<string>87F4B8AD-F1A5-461A-80ED-510709F43E09</string>
+		<string>8E23F943-9347-4AEB-995F-DB1B69C278B8</string>
 	</array>
 	<key>Last Viewed Section</key>
 	<array>
