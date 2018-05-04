@@ -88,7 +88,7 @@ export class AuthtionService {
         this.auth = AuthtionCredentials.of(this, data);
       },
       error => {
-        if (UtilsDwfeService.getHttpError(error) === 'invalid_grant') {
+        if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
           this.logout();
         } else {
           const time = this.auth.get90PercentFromTimeWhenTokenValid();

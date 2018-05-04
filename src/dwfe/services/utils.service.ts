@@ -75,4 +75,8 @@ export class UtilsDwfeService {
     }
     return result;
   }
+
+  public static isInvalidGrantHttpError(obj): boolean {
+    return UtilsDwfeService.getHttpError(obj) === 'invalid_grant';
+  }
 }
