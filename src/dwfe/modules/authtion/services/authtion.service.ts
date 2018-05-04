@@ -16,20 +16,14 @@ export class AuthtionService {
   private subjLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjPerformLoginResult = new Subject<ResultWithDescription>();
 
-  constructor(private exchangeService: AuthtionExchangeService) {
+  constructor(public exchangeService: AuthtionExchangeService) {
   }
 
   init(): boolean {
-    this.auth = AuthtionCredentials.fromStorage();
+    this.auth = AuthtionCredentials.fromStorage(this);
     this.user = AuthtionUser.fromStorage();
-    if (this.auth && this.user && this.auth.expiresIn > Date.now()) {
-      const time = this.get90PercentFromTimeWhenTokenValid();
-      const time1Day = (60 * 60 * 24) * 1000;
-      if (time < time1Day) {
-        this.scheduleTokenUpdate(10 * 1000);
-      } else {
-        this.scheduleTokenUpdate(time);
-      }
+
+    if (this.auth && this.user) {
       return true;
     } else {
       this.coverUpOnesTraces();
@@ -53,7 +47,6 @@ export class AuthtionService {
     this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
       data => {
         // TODO handle success
-        console.log(data);
         this.coverUpOnesTraces();
         this.subjLoggedIn.next(false);
       },
@@ -75,9 +68,8 @@ export class AuthtionService {
         this.exchangeService.get_getConsumerData(data['access_token']).subscribe(
           data2 => {
             // TODO handle success
-            console.log(data2);
-            this.handleAuthResponse(data);
-            this.handleGetUserDataResponse(data2);
+            this.auth = AuthtionCredentials.of(this, data);
+            this.user = AuthtionUser.of(data2);
             this.login();
             this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
           },
@@ -90,18 +82,18 @@ export class AuthtionService {
     );
   }
 
-  private tokenUpdate() {
+  public tokenUpdate(): void {
     this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
       data => {
-        this.handleAuthResponse(data);
+        this.auth = AuthtionCredentials.of(this, data);
       },
       error => {
         if (UtilsDwfeService.getHttpError(error) === 'invalid_grant') {
           this.logout();
         } else {
-          const time = this.get90PercentFromTimeWhenTokenValid();
-          if (time > 1000 * 10) { // if 90% percent time when token valid > 10 seconds
-            this.scheduleTokenUpdate(time);
+          const time = this.auth.get90PercentFromTimeWhenTokenValid();
+          if (time > 1000 * 10) { // if 90% percent of token valid time > 10 seconds
+            this.auth.scheduleTokenUpdate(this, time);
           } else {
             this.logout();
           }
@@ -109,59 +101,6 @@ export class AuthtionService {
       }
     );
   }
-
-  private handleAuthResponse(data): void {
-    // save in RAM
-    this.auth = AuthtionCredentials.of(
-      data['access_token'],
-      data['expires_in'],
-      data['refresh_token']);
-
-    // save in local storage
-    this.auth.saveInStorage();
-
-    // run schedule for token update
-    this.scheduleTokenUpdate(this.get90PercentFromTimeWhenTokenValid());
-  }
-
-  private handleGetUserDataResponse(data2): void {
-    // save in RAM
-    const data = data2['details'];
-    let hasRoleAdmin = false;
-    let hasRoleUser = false;
-    data['authorities'].forEach(next => {
-      if (next === 'ADMIN') {
-        hasRoleAdmin = true;
-      } else if (next === 'USER') {
-        hasRoleUser = true;
-      }
-    });
-    this.user = AuthtionUser.of(
-      data['id'],
-      data['email'],
-      data['nickName'],
-      data['firstName'],
-      data['lastName'],
-      data['emailConfirmed'],
-      hasRoleAdmin,
-      hasRoleUser
-    );
-
-    // save in local storage
-    this.user.saveInStorage();
-  }
-
-  private get90PercentFromTimeWhenTokenValid(): number {
-    return Math.round((this.auth.expiresIn - Date.now()) * 0.9);
-  }
-
-  private scheduleTokenUpdate(time: number): void {
-    if (time <= 0) {
-      return;
-    }
-    setTimeout(() => this.tokenUpdate(), time);
-  }
-
 }
 
 export class ResultWithDescription {
@@ -206,22 +145,44 @@ class AuthtionCredentials {
     return this._refreshToken;
   }
 
-  public static of(accessToken: string, expiresIn: number, refreshToken: string): AuthtionCredentials {
+  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
+    return AuthtionCredentials.of(
+      authtionService,
+      data['access_token'],
+      data['expires_in'],
+      data['refresh_token']);
+  }
+
+  public static of(authtionService: AuthtionService,
+                   accessToken: string, expiresIn: number, refreshToken: string): AuthtionCredentials {
     const obj = new AuthtionCredentials();
+
     obj._accessToken = accessToken;
     obj._expiresIn = Date.now() + expiresIn * 1000;
     obj._refreshToken = refreshToken;
+
+    obj.saveInStorage();
+    obj.scheduleTokenUpdate(authtionService, obj.get90PercentFromTimeWhenTokenValid());
     return obj;
   }
 
-  public static fromStorage(): AuthtionCredentials {
+  public static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
     let obj = null;
     const parsed = JSON.parse(localStorage.getItem(AuthtionCredentials.storageKey));
-    if (parsed) {
+
+    if (parsed && +parsed._expiresIn > Date.now()) {
       obj = new AuthtionCredentials();
       obj._accessToken = parsed._accessToken;
       obj._expiresIn = +parsed._expiresIn;
       obj._refreshToken = parsed._refreshToken;
+
+      const time = obj.get90PercentFromTimeWhenTokenValid();
+      const time1Day = (60 * 60 * 24) * 1000;
+      if (time < time1Day) {
+        obj.scheduleTokenUpdate(authtionService, 10 * 1000);
+      } else {
+        obj.scheduleTokenUpdate(authtionService, time);
+      }
     }
     return obj;
   }
@@ -232,6 +193,19 @@ class AuthtionCredentials {
 
   public saveInStorage(): void {
     localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
+  }
+
+  public get90PercentFromTimeWhenTokenValid(): number {
+    return Math.round((this.expiresIn - Date.now()) * 0.9);
+  }
+
+  public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
+    if (time < 0) {
+      return;
+    }
+    setTimeout(() => {
+      authtionService.tokenUpdate();
+    }, time);
   }
 }
 
@@ -290,6 +264,7 @@ class AuthtionUser {
                    hasRoleAdmin: boolean,
                    hasRoleUser: boolean): AuthtionUser {
     const obj = new AuthtionUser();
+
     obj._id = id;
     obj._email = email;
     obj._nickName = nickName;
@@ -298,7 +273,32 @@ class AuthtionUser {
     obj._emailConfirmed = emailConfirmed;
     obj._hasRoleAdmin = hasRoleAdmin;
     obj._hasRoleUser = hasRoleUser;
+
+    obj.saveInStorage();
     return obj;
+  }
+
+  public static of(data2): AuthtionUser {
+    const data = data2['details'];
+    let hasRoleAdmin = false;
+    let hasRoleUser = false;
+    data['authorities'].forEach(next => {
+      if (next === 'ADMIN') {
+        hasRoleAdmin = true;
+      } else if (next === 'USER') {
+        hasRoleUser = true;
+      }
+    });
+    return AuthtionUser.of(
+      data['id'],
+      data['email'],
+      data['nickName'],
+      data['firstName'],
+      data['lastName'],
+      data['emailConfirmed'],
+      hasRoleAdmin,
+      hasRoleUser
+    );
   }
 
   public static fromStorage(): AuthtionUser {
