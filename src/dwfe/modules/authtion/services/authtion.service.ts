@@ -145,16 +145,10 @@ class AuthtionCredentials {
     return this._refreshToken;
   }
 
-  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
-    return AuthtionCredentials.of(
-      authtionService,
-      data['access_token'],
-      data['expires_in'],
-      data['refresh_token']);
-  }
-
   public static of(authtionService: AuthtionService,
-                   accessToken: string, expiresIn: number, refreshToken: string): AuthtionCredentials {
+                   accessToken: string,
+                   expiresIn: number,
+                   refreshToken: string): AuthtionCredentials {
     const obj = new AuthtionCredentials();
 
     obj._accessToken = accessToken;
@@ -164,6 +158,14 @@ class AuthtionCredentials {
     obj.saveInStorage();
     obj.scheduleTokenUpdate(authtionService, obj.get90PercentFromTimeWhenTokenValid());
     return obj;
+  }
+
+  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
+    return AuthtionCredentials.of(
+      authtionService,
+      data['access_token'],
+      data['expires_in'],
+      data['refresh_token']);
   }
 
   public static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
@@ -200,12 +202,11 @@ class AuthtionCredentials {
   }
 
   public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
-    if (time < 0) {
-      return;
+    if (time >= 0) {
+      setTimeout(() => {
+        authtionService.tokenUpdate();
+      }, time);
     }
-    setTimeout(() => {
-      authtionService.tokenUpdate();
-    }, time);
   }
 }
 
