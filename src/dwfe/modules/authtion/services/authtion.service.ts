@@ -50,11 +50,11 @@ export class AuthtionService {
           this.coverUpOnesTraces();
           this.subjIsLoggedIn.next(false);
         } else {
-          // I don't know what to do yet.
+          // I don't know what to do here yet.
         }
       },
       error => {
-        // I don't know what to do yet.
+        // I don't know what to do here yet.
       }
     );
   }
