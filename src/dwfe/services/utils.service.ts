@@ -24,8 +24,8 @@ export class UtilsDwfeService {
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  public static randomStr(prefix = '',
-                          requiredStringLength = 5,
+  public static randomStr(requiredStringLength,
+                          prefix = '',
                           postfix = ''): string {
     let result = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';

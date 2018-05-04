@@ -82,24 +82,26 @@ export class AuthtionService {
     );
   }
 
-  public tokenUpdate(): void {
-    this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
-      data => {
-        this.auth = AuthtionCredentials.of(this, data);
-      },
-      error => {
-        if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
-          this.logout();
-        } else {
-          const time = this.auth.get90PercentFromTimeWhenTokenValid();
-          if (time > 1000 * 10) { // if 90% percent of token valid time > 10 seconds
-            this.auth.scheduleTokenUpdate(this, time);
-          } else {
+  public tokenUpdate(authFromThePast: AuthtionCredentials): void {
+    if (authFromThePast.equals(this.auth)) {
+      this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
+        data => {
+          this.auth = AuthtionCredentials.of(this, data);
+        },
+        error => {
+          if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
             this.logout();
+          } else {
+            const time = this.auth.get90PercentFromTimeWhenTokenValid();
+            if (time > 1000 * 10) { // if 90% percent of token valid time > 10 seconds
+              this.auth.scheduleTokenUpdate(this, time);
+            } else {
+              this.logout();
+            }
           }
         }
-      }
-    );
+      );
+    }
   }
 }
 
@@ -125,12 +127,18 @@ export class ResultWithDescription {
 }
 
 class AuthtionCredentials {
+  private _instanceID: string;
+
   private _accessToken: string;
   private _expiresIn: number;
   private _refreshToken: string;
 
   static get storageKey(): string {
     return 'authCredentials';
+  }
+
+  get instanceID(): string {
+    return this._instanceID;
   }
 
   get accessToken(): string {
@@ -150,6 +158,7 @@ class AuthtionCredentials {
                    expiresIn: number,
                    refreshToken: string): AuthtionCredentials {
     const obj = new AuthtionCredentials();
+    obj._instanceID = UtilsDwfeService.randomStr(15);
 
     obj._accessToken = accessToken;
     obj._expiresIn = Date.now() + expiresIn * 1000;
@@ -174,6 +183,8 @@ class AuthtionCredentials {
 
     if (parsed && +parsed._expiresIn > Date.now()) {
       obj = new AuthtionCredentials();
+      obj._instanceID = parsed._instanceID;
+
       obj._accessToken = parsed._accessToken;
       obj._expiresIn = +parsed._expiresIn;
       obj._refreshToken = parsed._refreshToken;
@@ -191,6 +202,10 @@ class AuthtionCredentials {
 
   public static removeFromStorage(): void {
     localStorage.removeItem(AuthtionCredentials.storageKey);
+  }
+
+  public equals(obj): boolean {
+    return this.instanceID === obj.instanceID;
   }
 
   public saveInStorage(): void {

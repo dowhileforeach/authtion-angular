@@ -14,7 +14,7 @@ export class InputPasswordDwfeComponent implements OnInit {
   private maxLength = 55;
 
   private passwordControl: FormControl;
-  private passwordControlID = UtilsDwfeService.randomStr('form-group-dwfe__password-'); // used in html template for a11y
+  private passwordControlID = UtilsDwfeService.randomStr(5, 'form-group-dwfe__password-'); // used in html template for a11y
   @ViewChild('refPassword') private refPassword: ElementRef;
 
   private group: FormGroup;
