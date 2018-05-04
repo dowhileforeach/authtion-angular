@@ -41,6 +41,7 @@ export class AuthtionService {
 
   private login(): void {
     this.subjLoggedIn.next(true);
+    console.log('login()');
   }
 
   public logout(): void {
@@ -49,6 +50,7 @@ export class AuthtionService {
         // TODO handle success
         this.coverUpOnesTraces();
         this.subjLoggedIn.next(false);
+        console.log('logout()');
       },
       error => {
       }
@@ -83,7 +85,11 @@ export class AuthtionService {
   }
 
   public tokenUpdate(authFromThePast: AuthtionCredentials): void {
-    if (authFromThePast.equals(this.auth)) {
+    // Update the token only in case:
+    if (this.auth // 1. Is logged in
+      && authFromThePast.equals(this.auth) // 2. The time has come to update the CURRENT token
+    ) {
+      console.log('tokenUpdate()');
       this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
         data => {
           this.auth = AuthtionCredentials.of(this, data);
@@ -153,10 +159,10 @@ class AuthtionCredentials {
     return this._refreshToken;
   }
 
-  public static of(authtionService: AuthtionService,
-                   accessToken: string,
-                   expiresIn: number,
-                   refreshToken: string): AuthtionCredentials {
+  private static mainOf(authtionService: AuthtionService,
+                        accessToken: string,
+                        expiresIn: number,
+                        refreshToken: string): AuthtionCredentials {
     const obj = new AuthtionCredentials();
     obj._instanceID = UtilsDwfeService.randomStr(15);
 
@@ -170,7 +176,7 @@ class AuthtionCredentials {
   }
 
   public static of(authtionService: AuthtionService, data): AuthtionCredentials {
-    return AuthtionCredentials.of(
+    return AuthtionCredentials.mainOf(
       authtionService,
       data['access_token'],
       data['expires_in'],
@@ -218,6 +224,7 @@ class AuthtionCredentials {
 
   public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
     if (time >= 0) {
+      console.log('scheduleTokenUpdate()');
       setTimeout(() => {
         authtionService.tokenUpdate(this);
       }, time);
@@ -271,14 +278,14 @@ class AuthtionUser {
     return this._hasRoleUser;
   }
 
-  public static of(id: number,
-                   email: string,
-                   nickName: string,
-                   firstName: string,
-                   lastName: string,
-                   emailConfirmed: boolean,
-                   hasRoleAdmin: boolean,
-                   hasRoleUser: boolean): AuthtionUser {
+  private static mainOf(id: number,
+                        email: string,
+                        nickName: string,
+                        firstName: string,
+                        lastName: string,
+                        emailConfirmed: boolean,
+                        hasRoleAdmin: boolean,
+                        hasRoleUser: boolean): AuthtionUser {
     const obj = new AuthtionUser();
 
     obj._id = id;
@@ -305,7 +312,7 @@ class AuthtionUser {
         hasRoleUser = true;
       }
     });
-    return AuthtionUser.of(
+    return AuthtionUser.mainOf(
       data['id'],
       data['email'],
       data['nickName'],
