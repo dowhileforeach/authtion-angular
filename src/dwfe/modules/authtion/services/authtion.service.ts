@@ -219,7 +219,7 @@ class AuthtionCredentials {
   public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
     if (time >= 0) {
       setTimeout(() => {
-        authtionService.tokenUpdate();
+        authtionService.tokenUpdate(this);
       }, time);
     }
   }
