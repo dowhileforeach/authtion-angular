@@ -46,11 +46,15 @@ export class AuthtionService {
   public logout(): void {
     this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
       data => {
-        // TODO handle success
-        this.coverUpOnesTraces();
-        this.subjIsLoggedIn.next(false);
+        if (data['success']) {
+          this.coverUpOnesTraces();
+          this.subjIsLoggedIn.next(false);
+        } else {
+          // I don't know what to do yet.
+        }
       },
       error => {
+        // I don't know what to do yet.
       }
     );
   }
@@ -67,11 +71,14 @@ export class AuthtionService {
       data => {
         this.exchangeService.get_getConsumerData(data['access_token']).subscribe(
           data2 => {
-            // TODO handle success
-            this.auth = AuthtionCredentials.of(this, data);
-            this.user = AuthtionUser.of(data2);
-            this.login();
-            this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
+            if (data2['success']) {
+              this.auth = AuthtionCredentials.of(this, data);
+              this.user = AuthtionUser.of(data2);
+              this.login();
+              this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
+            } else {
+              this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.objToStr(data2['details'])));
+            }
           },
           error2 => {
             this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error2)));
@@ -207,7 +214,7 @@ class AuthtionCredentials {
     localStorage.removeItem(AuthtionCredentials.storageKey);
   }
 
-  public saveInStorage(): void {
+  private saveInStorage(): void {
     localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
   }
 
@@ -341,7 +348,7 @@ class AuthtionUser {
     localStorage.removeItem(AuthtionUser.storageKey);
   }
 
-  public saveInStorage(): void {
+  private saveInStorage(): void {
     localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
   }
 }
