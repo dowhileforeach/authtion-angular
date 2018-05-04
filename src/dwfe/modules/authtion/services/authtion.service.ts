@@ -13,7 +13,7 @@ export class AuthtionService {
   private auth: AuthtionCredentials;
   public user: AuthtionUser;
 
-  private subjLoggedIn = new BehaviorSubject<boolean>(this.init());
+  private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjPerformLoginResult = new Subject<ResultWithDescription>();
 
   constructor(public exchangeService: AuthtionExchangeService) {
@@ -32,7 +32,7 @@ export class AuthtionService {
   }
 
   public get isLoggedIn(): Observable<boolean> {
-    return this.subjLoggedIn.asObservable();
+    return this.subjIsLoggedIn.asObservable();
   }
 
   public get performLoginResult(): Observable<ResultWithDescription> {
@@ -40,8 +40,7 @@ export class AuthtionService {
   }
 
   private login(): void {
-    this.subjLoggedIn.next(true);
-    console.log('login()');
+    this.subjIsLoggedIn.next(true);
   }
 
   public logout(): void {
@@ -49,8 +48,7 @@ export class AuthtionService {
       data => {
         // TODO handle success
         this.coverUpOnesTraces();
-        this.subjLoggedIn.next(false);
-        console.log('logout()');
+        this.subjIsLoggedIn.next(false);
       },
       error => {
       }
@@ -89,7 +87,6 @@ export class AuthtionService {
     if (this.auth // 1. Is logged in
       && authFromThePast.equals(this.auth) // 2. The time has come to update the CURRENT token
     ) {
-      console.log('tokenUpdate()');
       this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
         data => {
           this.auth = AuthtionCredentials.of(this, data);
@@ -99,7 +96,7 @@ export class AuthtionService {
             this.logout();
           } else {
             const time = this.auth.get90PercentFromTimeWhenTokenValid();
-            if (time > 1000 * 10) { // if 90% percent of token valid time > 10 seconds
+            if (time > 10 * 1000) { // if 90% percent of token valid time > 10 seconds
               this.auth.scheduleTokenUpdate(this, time);
             } else {
               this.logout();
@@ -210,12 +207,12 @@ class AuthtionCredentials {
     localStorage.removeItem(AuthtionCredentials.storageKey);
   }
 
-  public equals(obj): boolean {
-    return this.instanceID === obj.instanceID;
-  }
-
   public saveInStorage(): void {
     localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
+  }
+
+  public equals(obj): boolean {
+    return this.instanceID === obj.instanceID;
   }
 
   public get90PercentFromTimeWhenTokenValid(): number {
@@ -224,7 +221,6 @@ class AuthtionCredentials {
 
   public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
     if (time >= 0) {
-      console.log('scheduleTokenUpdate()');
       setTimeout(() => {
         authtionService.tokenUpdate(this);
       }, time);
