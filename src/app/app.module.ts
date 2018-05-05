@@ -10,8 +10,8 @@ import {PageHomeComponent} from './pages/home/page-home.component';
 
 import {AppRoutingModule} from './app-routing.module';
 
-import {AuthtionModule} from '../dwfe/modules/authtion/authtion.module';
-import {AuthtionService} from '../dwfe/modules/authtion/services/authtion.service';
+import {AuthtionModule} from '@dwfe/modules/authtion/authtion.module';
+import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
 
 @NgModule({
   declarations: [

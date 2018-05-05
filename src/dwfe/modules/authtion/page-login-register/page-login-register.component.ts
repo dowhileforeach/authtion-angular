@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService} from '../services/authtion-exchange.service';
+import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -37,6 +38,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private errorMessageOfProcessLogin = '';
   private errorMessageOfProcessCreateAccount = '';
 
+  private isCreateAccountCaptchaValid = false;
+  private errorMessageOfCreateAccountCaptcha = '';
+
   constructor(private authtionService: AuthtionService,
               public exchangeService: AuthtionExchangeService,
               private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>) {
@@ -49,9 +53,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.focusOnDwfeInput(this.refLoginEmail);
 
-    this.emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', 'errorMessageOfProcessLogin');
-    this.passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', 'errorMessageOfProcessLogin');
-    this.emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', 'errorMessageOfProcessCreateAccount');
+    this.emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin']);
+    this.passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin']);
+    this.emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha']);
   }
 
   ngOnDestroy(): void {
@@ -63,11 +67,13 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.emailChangesCreateAccountResetBackendError.unsubscribe();
   }
 
-  private resetBackendError(controlFieldName, errorFieldName): Subscription {
+  private resetBackendError(controlFieldName, fieldsArr): Subscription {
     return this[controlFieldName].valueChanges.subscribe(() => {
-      if (this[errorFieldName] !== '') {
-        this[errorFieldName] = '';
-      }
+      fieldsArr.forEach(errorFieldName => {
+        if (this[errorFieldName] !== '') {
+          this[errorFieldName] = '';
+        }
+      });
     });
   }
 
@@ -77,6 +83,8 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   private afterChangeSlideActions() {
+
+    this.isCreateAccountCaptchaValid = this.isLoginSlide;
 
     this.exchangeEmail();
 
@@ -156,7 +164,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
       return false;
     }
 
-    const result = !(this.errorMessageOfProcessLogin === '')
+    const result = this.errorMessageOfProcessLogin !== ''
       && this.groupLoginEmail.valid
       && this.groupLoginPassword.valid;
 
@@ -172,13 +180,53 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
       return false;
     }
 
-    const result = !(this.errorMessageOfProcessCreateAccount === '')
+    const result = this.errorMessageOfProcessCreateAccount !== ''
       && this.groupCreateAccountEmail.valid;
 
     if (!result) {
       this.errorMessageOfProcessCreateAccount = '';
     }
     return result;
+  }
+
+  private get showErrorOfCreateAccountCaptcha(): boolean {
+
+    if (this.isLoginSlide) {
+      return false;
+    }
+
+    const result = this.errorMessageOfCreateAccountCaptcha !== '';
+
+    if (!result) {
+      this.errorMessageOfCreateAccountCaptcha = '';
+    }
+    return result;
+  }
+
+  public googleCaptchaResolved(googleResponse: string): void {
+    this.errorMessageOfCreateAccountCaptcha = ''; // init
+
+    if (googleResponse === null) {
+      this.isCreateAccountCaptchaValid = false;
+      return;
+    }
+
+    this.isLocked = true;
+
+    this.exchangeService.post_googleCaptchaValidate(googleResponse).subscribe(
+      data => {
+        if (data['success']) {
+          this.isCreateAccountCaptchaValid = true;
+        } else {
+          this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.objToStr(data['details']);
+        }
+        this.isLocked = false;
+      },
+      error => {
+        this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.getHttpError(error);
+        this.isLocked = false;
+      }
+    );
   }
 }
 

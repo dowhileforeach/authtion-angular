@@ -53,7 +53,7 @@
             OK
 
             <app-alert-dwfe *ngIf="showErrorOfProcessLogin"
-                            class="form-dwfe__alert-over-button"
+                            class="form-dwfe__alert-over"
                             [message]="errorMessageOfProcessLogin"
                             [alertType]="'error'"
                             [blink]="true">
@@ -76,20 +76,34 @@
 
           <p class="form-dwfe__under-field">*Password will be sent to your email</p>
 
+          <re-captcha *ngIf="!isLoginSlide"
+                      siteKey="6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi"
+                      (resolved)="googleCaptchaResolved($event)"
+                      class="form-dwfe__item">
+          </re-captcha>
+
           <button class="form-dwfe__btn"
                   mat-raised-button
                   (click)="performCreateAccount()"
-                  [disabled]="!groupCreateAccountEmail.valid || isLocked"
+                  [disabled]="!groupCreateAccountEmail.valid || !isCreateAccountCaptchaValid || isLocked"
                   tabindex="-1"
                   aria-label="Perform 'Create account'">
             OK
 
             <app-alert-dwfe *ngIf="showErrorOfProcessCreateAccount"
-                            class="form-dwfe__alert-over-button"
+                            class="form-dwfe__alert-over"
                             [message]="errorMessageOfProcessCreateAccount"
                             [alertType]="'error'"
                             [blink]="true">
             </app-alert-dwfe>
+
+            <app-alert-dwfe *ngIf="showErrorOfCreateAccountCaptcha"
+                            class="form-dwfe__alert-over"
+                            [message]="errorMessageOfCreateAccountCaptcha"
+                            [alertType]="'error'"
+                            [blink]="true">
+            </app-alert-dwfe>
+
           </button>
 
         </form>

@@ -3,31 +3,42 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {Observable} from 'rxjs/Observable';
 
-import {UtilsDwfeService} from '../../../services/utils.service';
+import {UtilsDwfeService} from '@dwfe/services/utils.service';
+
+const API_VERSION = '/v1';
+
+const endpoints = {
+  signIn: `${API_VERSION}/sign-in`,
+  tokenRefresh: `${API_VERSION}/sign-in`,
+  googleCaptchaValidate: `${API_VERSION}/google-captcha-validate`,
+  signOut: `${API_VERSION}/sign-out`,
+  checkConsumerEmail: `${API_VERSION}/check-consumer-email`,
+  createConsumer: `${API_VERSION}/create-consumer`,
+  updateConsumer: `${API_VERSION}/update-consumer`,
+  getConsumerData: `${API_VERSION}/get-consumer-data`,
+};
+
+const credentials = {
+  trusted: { // issued token is valid for a long time, e.g. 10 days
+    name: 'Trusted',
+    password: 'YWPV#YGiGLW4Whnr3Q5vuz!d8i'
+  },
+  untrusted: { // the token is issued for a very short time, e.g. 3 minutes
+    name: 'Untrusted',
+    password: '4rZi5(yEhcv5Jb*3jSzGPfFFDK'
+  }
+};
+
+const credentialsBase64Encoded = {
+  trusted: 'Basic ' + btoa(credentials.trusted.name + ':' + credentials.trusted.password),
+  untrusted: 'Basic ' + btoa(credentials.untrusted.name + ':' + credentials.untrusted.password)
+};
 
 @Injectable()
 export class AuthtionExchangeService {
 
-
-  private API_VERSION = '/v1';
-
-  private clientCredentialsTrusted = { // issued token is valid for a long time, e.g. 10 days
-    'id': 'Trusted',
-    'password': 'YWPV#YGiGLW4Whnr3Q5vuz!d8i'
-  };
-  private clientCredentialsTrustedBase64Encoded =
-    'Basic ' + btoa(this.clientCredentialsTrusted.id + ':' + this.clientCredentialsTrusted.password);
-
-  private clientCredentialsUntrusted = { // the token is issued for a very short time, e.g. 3 minutes
-    'id': 'Untrusted',
-    'password': '4rZi5(yEhcv5Jb*3jSzGPfFFDK'
-  };
-  private clientCredentialsUntrustedBase64Encoded =
-    'Basic ' + btoa(this.clientCredentialsUntrusted.id + ':' + this.clientCredentialsUntrusted.password);
-
   constructor(private http: HttpClient) {
   }
-
 
   //
   // REQUEST OPTIONS
@@ -37,7 +48,7 @@ export class AuthtionExchangeService {
     return {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', this.clientCredentialsTrustedBase64Encoded)
+        .set('Authorization', credentialsBase64Encoded.trusted)
     };
   }
 
@@ -57,36 +68,6 @@ export class AuthtionExchangeService {
     };
   }
 
-  //
-  // REQUEST URLS
-  //
-
-  public get url_signIn(): string {
-    return this.API_VERSION + '/sign-in';
-  }
-
-  public get url_tokenRefresh(): string {
-    return this.API_VERSION + '/sign-in';
-  }
-
-  public get url_signOut(): string {
-    return this.API_VERSION + '/sign-out';
-  }
-
-  public get url_checkConsumerEmail(): string {
-    return this.API_VERSION + '/check-consumer-email';
-  }
-
-  public get url_createConsumer(): string {
-    return this.API_VERSION + '/create-consumer';
-  }
-
-  // update-consumer
-
-  public get url_getConsumerData(): string {
-    return this.API_VERSION + '/get-consumer-data';
-  }
-
 
   //
   // REQUEST BODIES
@@ -103,6 +84,12 @@ export class AuthtionExchangeService {
     return new HttpParams()
       .set('grant_type', 'refresh_token')
       .set('refresh_token', refreshToken);
+  }
+
+  public body_googleCaptchaValidate(googleResponse: string): string {
+    return `{
+              "googleResponse": "${googleResponse}"
+            }`;
   }
 
   public body_checkConsumerEmail(email: string): string {
@@ -125,36 +112,44 @@ export class AuthtionExchangeService {
   //
 
   public post_signIn(email: string, password: string): Observable<Object> {
+    console.log(endpoints.signIn);
     return this.http.post(
-      this.url_signIn,
+      endpoints.signIn,
       this.body_signIn(email, password),
       this.opt_AuthReq);
   }
 
   public post_tokenRefresh(refreshToken: string): Observable<Object> {
     return this.http.post(
-      this.url_tokenRefresh,
+      endpoints.tokenRefresh,
       this.body_tokenRefresh(refreshToken),
       this.opt_AuthReq);
   }
 
+  public post_googleCaptchaValidate(googleResponse: string): Observable<Object> {
+    return this.http.post(
+      endpoints.googleCaptchaValidate,
+      this.body_googleCaptchaValidate(googleResponse),
+      this.opt_PostAnonymouseReq);
+  }
+
   public get_signOut(accessToken: string): Observable<Object> {
     return this.http.get(
-      this.url_signOut,
+      endpoints.signOut,
       this.opt_GetAuthReq(accessToken)
     );
   }
 
   public post_checkConsumerEmail(email: string): Observable<Object> {
     return this.http.post(
-      this.url_checkConsumerEmail,
+      endpoints.checkConsumerEmail,
       this.body_checkConsumerEmail(email),
       this.opt_PostAnonymouseReq);
   }
 
   public post_createConsumer(email: string): Observable<Object> {
     return this.http.post(
-      this.url_createConsumer,
+      endpoints.createConsumer,
       this.body_createConsumer(email),
       this.opt_PostAnonymouseReq);
   }
@@ -163,7 +158,7 @@ export class AuthtionExchangeService {
 
   public get_getConsumerData(accessToken: string): Observable<Object> {
     return this.http.get(
-      this.url_getConsumerData,
+      endpoints.getConsumerData,
       this.opt_GetAuthReq(accessToken)
     );
   }

@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UtilsDwfeService} from '../../../services/utils.service';
+import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-input-password-dwfe',

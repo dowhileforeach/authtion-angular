@@ -71,6 +71,8 @@ export class UtilsDwfeService {
 
       if (error.hasOwnProperty('error')) {
         result = error['error'];
+      } else if (obj.hasOwnProperty('statusText')) {
+        result = obj['statusText'];
       }
     }
     return result;

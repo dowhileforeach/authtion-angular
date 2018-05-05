@@ -5,7 +5,7 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
 import {AuthtionExchangeService} from './authtion-exchange.service';
-import {UtilsDwfeService} from '../../../services/utils.service';
+import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Injectable()
 export class AuthtionService {
@@ -309,9 +309,9 @@ class AuthtionUser {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
     data['authorities'].forEach(next => {
-      if (next === 'ADMIN') {
+      if (next === AuthtionRoles.ADMIN) {
         hasRoleAdmin = true;
-      } else if (next === 'USER') {
+      } else if (next === AuthtionRoles.USER) {
         hasRoleUser = true;
       }
     });
@@ -351,4 +351,9 @@ class AuthtionUser {
   private saveInStorage(): void {
     localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
   }
+}
+
+const enum AuthtionRoles {
+  ADMIN,
+  USER
 }
