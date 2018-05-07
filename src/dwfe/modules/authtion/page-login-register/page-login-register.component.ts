@@ -218,7 +218,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
         if (data['success']) {
           this.isCreateAccountCaptchaValid = true;
         } else {
-          this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.objToStr(data['details']);
+          this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.getReadableErrorFromDwfeServer(data);
         }
         this.isLocked = false;
       },

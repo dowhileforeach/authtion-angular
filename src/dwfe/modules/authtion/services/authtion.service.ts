@@ -77,7 +77,7 @@ export class AuthtionService {
               this.login();
               this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
             } else {
-              this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.objToStr(data2['details'])));
+              this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableErrorFromDwfeServer(data2)));
             }
           },
           error2 => {
@@ -305,7 +305,7 @@ class AuthtionUser {
   }
 
   public static of(data2): AuthtionUser {
-    const data = data2['details'];
+    const data = data2['data'];
     let hasRoleAdmin = false;
     let hasRoleUser = false;
     data['authorities'].forEach(next => {

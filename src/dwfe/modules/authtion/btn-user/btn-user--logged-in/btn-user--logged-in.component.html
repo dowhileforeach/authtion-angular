@@ -2,10 +2,10 @@
   <button
     class="btn-user-authtion  btn-user-authtion--logged-in  auth-nav__title-btn"
     [ngClass]="{ 'auth-nav__title-btn--open': isMenuOpen }"
-    aria-label="Go to user account OR show user menu"
+    aria-label="Show user menu"
     (click)="toggleMenu()">
 
-    <span class="btn-user-authtion__text">{{user.nickName}}</span>
+    <!--<span class="btn-user-authtion__text">{{user.nickName}}</span>-->
 
     <span class="btn-user-authtion__pic-wrap">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="3 3 24 24">
@@ -17,6 +17,8 @@
 
   <ul class="auth-nav__list  btn-user-authtion__nav-list"
       [ngClass]="{ 'auth-nav__list--open': isMenuOpen }">
+
+    <p class="auth-nav__signed-in-text">Signed in as <b>{{user.nickName}}</b></p>
 
     <li class="auth-nav__item">
       <button

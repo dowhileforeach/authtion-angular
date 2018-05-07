@@ -4,7 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 
-import {RecaptchaModule} from 'ng-recaptcha';
+import {RECAPTCHA_LANGUAGE, RecaptchaModule} from 'ng-recaptcha';
 
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/btn-user--logged-in/btn-user--logged-in.component';
@@ -43,6 +43,10 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   providers: [
     AuthtionExchangeService,
     UtilsDwfeService,
+    {
+      provide: RECAPTCHA_LANGUAGE,
+      useValue: 'en',
+    }
   ],
   exports: [
     AuthtionBtnUserComponent,

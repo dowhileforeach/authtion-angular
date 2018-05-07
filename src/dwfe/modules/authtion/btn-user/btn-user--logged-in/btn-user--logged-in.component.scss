@@ -33,12 +33,13 @@
 
   position: absolute;
   top: $page-header-height;
-  right: 0;
+  right: -1px;
 
   @include reset-list();
   background-color: $color-bg-page-header;
   border: 1px solid $color-athens-gray;
   border-top: none;
+  box-shadow: 1px 1px 0 0 $color-gallery;
 
   &.auth-nav__list--open {
     display: block;
@@ -91,5 +92,19 @@
     height: auto;
 
     fill: $color-mine-shaft;
+  }
+}
+
+.auth-nav__signed-in-text{
+  @include reset-margin-padding();
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+
+  b{
+    font-weight: $font-weight-bold;
   }
 }

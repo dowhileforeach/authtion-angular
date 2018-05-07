@@ -112,7 +112,6 @@ export class AuthtionExchangeService {
   //
 
   public post_signIn(email: string, password: string): Observable<Object> {
-    console.log(endpoints.signIn);
     return this.http.post(
       endpoints.signIn,
       this.body_signIn(email, password),
@@ -180,11 +179,10 @@ export class AuthtionExchangeService {
       return Observable.timer(debounceTime).switchMapTo(observable).map(
         data => {
           if (data['success']) {
-            return {'backendHttp': 'Not found in our database'};
-          } else if (data['details']['email'] !== 'is already present in our database') {
-            return {'backendHttp': UtilsDwfeService.objToStr(data['details'])};
+            return {'backendHttp': 'Not found in database'};
+          } else {
+            return null;
           }
-          return null;
         }).take(1);
 
     } else { // for 'Create account'
@@ -194,7 +192,7 @@ export class AuthtionExchangeService {
           if (data['success']) {
             return null;
           } else {
-            return {'backendHttp': UtilsDwfeService.objToStr(data['details'])};
+            return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(data)};
           }
         }).take(1);
     }
@@ -209,7 +207,7 @@ export class AuthtionExchangeService {
     //   : new Promise(resolve => { // for 'Create account'
     //     this.connect.pipe(retry(3)).subscribe(
     //       data => {
-    //         data['success'] ? resolve(null) : resolve({'backendHttp': this.objToStr(data['details'])});
+    //         data['success'] ? resolve(null) : resolve({'backendHttp': this.getReadableErrorFromDwfeServer(data)});
     //         this.emailControl.markAsTouched();
     //       },
     //       error => resolve({'http': error.message})
