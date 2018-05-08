@@ -131,36 +131,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     }
   }
 
-  private performLogin() {
-
-    this.errorMessageOfProcessLogin = '';  // init
-
-    // signIn performs authtion-service, give it a login/password
-    this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
-
-    // wait for service response
-    this.setLocked(true);
-
-    // process service response
-    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(
-      data => {
-        if (data.result) { // actions on success Login
-          this.dialogRef.close();
-        } else {
-          this.setLocked(false);
-          this.errorMessageOfProcessLogin = data.description;
-        }
-        this.subscriptionToResultOfPerformLogin.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
-      }
-    );
-  }
-
-  private performCreateAccount() {
-
-    this.errorMessageOfProcessCreateAccount = ''; // init
-
-  }
-
   private get showErrorOfProcessLogin(): boolean {
 
     if (!this.isLoginSlide) {
@@ -206,6 +176,30 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     return result;
   }
 
+  private performLogin() {
+
+    this.errorMessageOfProcessLogin = '';  // init
+
+    // signIn performs authtion-service, give it a login/password
+    this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
+
+    // wait for service response
+    this.setLocked(true);
+
+    // process service response
+    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(
+      data => {
+        if (data.result) { // actions on success Login
+          this.dialogRef.close();
+        } else {
+          this.subscriptionToResultOfPerformLogin.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
+          this.setLocked(false);
+          this.errorMessageOfProcessLogin = data.description;
+        }
+      }
+    );
+  }
+
   public googleCaptchaResolved(googleResponse: string): void {
 
     this.errorMessageOfCreateAccountCaptcha = ''; // init
@@ -229,10 +223,16 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
         } else {
           this.errorMessageOfCreateAccountCaptcha = data.description;
         }
-        this.setLocked(false);
         this.subscriptionToResultOfPerformGoogleCaptchaCheck.unsubscribe();
+        this.setLocked(false);
       }
     );
+  }
+
+  private performCreateAccount() {
+
+    this.errorMessageOfProcessCreateAccount = ''; // init
+
   }
 }
 

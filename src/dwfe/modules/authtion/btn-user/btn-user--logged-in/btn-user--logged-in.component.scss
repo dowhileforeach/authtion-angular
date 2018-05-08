@@ -23,7 +23,7 @@
   }
 
   &.auth-nav__title-btn--open {
-    background-color: $color-coconut-cream;
+    background-color: $color-chilean-heath;
   }
 }
 
@@ -36,7 +36,7 @@
   right: -1px;
 
   @include reset-list();
-  background-color: $color-coconut-cream;
+  background: $color-chilean-heath linear-gradient(to bottom, $color-chilean-heath, $color-shalimar);
   border: 1px solid $color-athens-gray;
   border-top: none;
   box-shadow: 2px 2px 0 0 $color-gallery;

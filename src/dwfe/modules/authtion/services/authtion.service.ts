@@ -75,17 +75,17 @@ export class AuthtionService {
               this.auth = AuthtionCredentials.of(this, data);
               this.user = AuthtionUser.of(data2);
               this.login();
-              this.subjPerformLoginResult.next(ResultWithDescription.of(true, ''));
+              this.subjPerformLoginResult.next(ResultWithDescription.of({result: true}));
             } else {
-              this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableErrorFromDwfeServer(data2)));
+              this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(data2)}));
             }
           },
           error2 => {
-            this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error2)));
+            this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error2)}));
           });
       },
       error =>
-        this.subjPerformLoginResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableHttpError(error)))
+        this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}))
     );
   }
 

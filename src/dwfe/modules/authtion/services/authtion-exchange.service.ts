@@ -51,13 +51,13 @@ export class AuthtionExchangeService {
     this.post_googleCaptchaValidate(googleResponse).subscribe(
       data => {
         if (data['success']) {
-          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(true, ''));
+          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({result: true}));
         } else {
-          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableErrorFromDwfeServer(data)));
+          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(data)}));
         }
       },
       error => {
-        this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(false, UtilsDwfeService.getHttpError(error)));
+        this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({description: UtilsDwfeService.getHttpError(error)}));
       }
     );
   }
@@ -239,19 +239,29 @@ export class AuthtionExchangeService {
 export class ResultWithDescription {
 
   private _result: boolean;
+  private _data: any;
   private _description: string;
 
   get result(): boolean {
     return this._result;
   }
 
+  get data(): any {
+    return this._data;
+  }
+
   get description(): string {
     return this._description;
   }
 
-  public static of(result: boolean, description: string): ResultWithDescription {
+  public static of(param): ResultWithDescription {
+    const result = param.result || false;
+    const data = param.data || null;
+    const description = param.description || '';
+
     const obj = new ResultWithDescription();
     obj._result = result;
+    obj._data = data;
     obj._description = description;
     return obj;
   }
