@@ -1,4 +1,4 @@
-@import "../../../../styles/dwfe-pref";
+@import "../../../../styles/common/dwfe-pref";
 
 .auth-nav {
   position: relative;
@@ -23,7 +23,7 @@
   }
 
   &.auth-nav__title-btn--open {
-    background-color: rgba($color-shalimar, 0.35);
+    background-color: $color-coconut-cream;
   }
 }
 
@@ -36,13 +36,14 @@
   right: -1px;
 
   @include reset-list();
-  background-color: $color-bg-page-header;
+  background-color: $color-coconut-cream;
   border: 1px solid $color-athens-gray;
   border-top: none;
-  box-shadow: 1px 1px 0 0 $color-gallery;
+  box-shadow: 2px 2px 0 0 $color-gallery;
 
   &.auth-nav__list--open {
     display: block;
+    transition: transform .5s ease;
   }
 }
 
@@ -66,6 +67,13 @@
 
   user-select: none;
   transition: all 0.15s ease;
+
+  &:hover,
+  &:focus {
+    .auth-nav__pic {
+      fill: $color-dark-blue;
+    }
+  }
 }
 
 .auth-nav__text {
@@ -82,29 +90,27 @@
   width: 30px;
   height: 30px;
   margin-left: auto;
-
-  background-color: $color-bg-page-header;
-
-  img,
-  svg {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-
-    fill: $color-mine-shaft;
-  }
 }
 
-.auth-nav__signed-in-text{
+.auth-nav__pic {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  fill: $color-mine-shaft;
+}
+
+.auth-nav__signed-in-text {
   @include reset-margin-padding();
-  padding-top: 5px;
+  padding-top: 15px;
   padding-right: 10px;
   padding-left: 10px;
   padding-bottom: 5px;
 
   @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+  text-align: center;
 
-  b{
-    font-weight: $font-weight-bold;
+  b {
+    font-weight: $font-weight-medium;
   }
 }

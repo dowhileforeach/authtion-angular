@@ -20,7 +20,7 @@
       "prefix": "app",
       "styles": [
         "dwfe/styles/css/normalize.css",
-        "dwfe/styles/dwfe-all.scss",
+        "dwfe/styles/common/dwfe-all.scss",
         "styles.scss"
       ],
       "scripts": [],

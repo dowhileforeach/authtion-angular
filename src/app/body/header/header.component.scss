@@ -7,70 +7,40 @@ $logo-height: 36px;
   height: $logo-height;
   margin-left: 4px;
 
-  font: normal normal normal $font-size-x3/1 Codystar, Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-  word-spacing: -4px;
-  text-decoration: none;
-
-  position: relative;
-
   display: flex;
   align-items: center;
 
   user-select: none;
-  transition: all .35s linear;
 
   &:hover,
   &:focus {
     outline-width: 0;
     filter: hue-rotate(35deg);
     cursor: pointer;
-  }
-  img {
-    width: $logo-height - 1;
-    height: $logo-height - 1;
-    margin-right: 7px;
 
-    border: 1px solid transparent;
-
-    opacity: 0.9;
-    transition: transform .15s linear;
-  }
-  &:hover img,
-  &:focus img {
-    outline-width: 0;
-    transform: rotate(120deg);
-  }
-  b:not(:last-child) {
-    position: relative;
-    margin-right: 6px;
-    &::after {
-      content: "";
-      display: inline-block;
-
-      position: absolute;
-      right: -4px;
-      width: 1px;
-      height: 20px;
-      background-color: $color-alto;
-      transform: rotate(10deg);
+    .logo__logo {
+      outline-width: 0;
+      transform: rotate(120deg);
     }
   }
 }
 
-.do {
-  color: $color-blue;
+.logo__logo {
+  width: $logo-height - 1;
+  height: $logo-height - 1;
+  margin-right: 7px;
+
+  border: 1px solid transparent;
+
+  opacity: 0.9;
+  transition: transform .15s linear;
 }
 
-.while {
-  color: $color-brink-pink;
-}
+.logo__text {
+  width: 74px;
+  height: 20px;
 
-.for {
-  color: $color-turbo;
-}
-
-.each {
-  color: $color-pastel-green;
+  transition: transform .15s linear;
 }
 
 app-authtion-btn-user {

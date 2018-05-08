@@ -1,4 +1,4 @@
-@import "../../../styles/dwfe-pref";
+@import "../../../styles/common/dwfe-pref";
 //
 // Angular Material
 // https://material.angular.io/
@@ -35,6 +35,13 @@
   user-select: none;
   transition: all 0.15s ease;
 
+  &:hover,
+  &:focus {
+    .btn-user-authtion__pic {
+      fill: $color-navy-blue;
+    }
+  }
+
   &[disabled] {
     opacity: 0.6;
   }
@@ -65,15 +72,14 @@
   display: inline-block;
   width: 30px;
   height: 30px;
+}
 
-  img,
-  svg {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
+.btn-user-authtion__pic {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
 
-    fill: $color-mine-shaft;
-  }
+  fill: $color-mine-shaft;
 }
 
 .btn-user-authtion__text {

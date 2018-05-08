@@ -19,6 +19,9 @@ export class AuthtionBtnUserLoggedInComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  myAccount(): void {
+  }
+
   logout(): void {
     this.authtionService.logout();
   }
