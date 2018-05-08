@@ -7,15 +7,12 @@ import {Component, Input} from '@angular/core';
 })
 export class AlertDwfeComponent {
 
-  @Input() message: string;
+  @Input() message = '';
 
   // Possible values:
   //    error
-  @Input() alertType: string;
+  @Input() alertType = 'error';
 
-  @Input() blink: boolean;
-  @Input() noBorder: boolean;
-
-  @Input() isDismissable = false;
-
+  @Input() blink = false;
+  @Input() noBorder = false;
 }

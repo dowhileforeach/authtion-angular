@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
+import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
@@ -37,7 +38,28 @@ const credentialsBase64Encoded = {
 @Injectable()
 export class AuthtionExchangeService {
 
+  private subjPerformGoogleCaptchaCheckResult = new Subject<ResultWithDescription>();
+
   constructor(private http: HttpClient) {
+  }
+
+  public get performGoogleCaptchaCheckResult(): Observable<ResultWithDescription> {
+    return this.subjPerformGoogleCaptchaCheckResult.asObservable();
+  }
+
+  public performGoogleCaptchaCheck(googleResponse: string): void {
+    this.post_googleCaptchaValidate(googleResponse).subscribe(
+      data => {
+        if (data['success']) {
+          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(true, ''));
+        } else {
+          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(false, UtilsDwfeService.getReadableErrorFromDwfeServer(data)));
+        }
+      },
+      error => {
+        this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of(false, UtilsDwfeService.getHttpError(error)));
+      }
+    );
   }
 
   //
@@ -180,20 +202,18 @@ export class AuthtionExchangeService {
         data => {
           if (data['success']) {
             return {'backendHttp': 'Not found in database'};
-          } else {
-            return null;
           }
+          return null;
         }).take(1);
 
     } else { // for 'Create account'
 
       return Observable.timer(debounceTime).switchMapTo(observable).map(
         data => {
-          if (data['success']) {
-            return null;
-          } else {
+          if (!data['success']) {
             return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(data)};
           }
+          return null;
         }).take(1);
     }
 
@@ -213,5 +233,26 @@ export class AuthtionExchangeService {
     //       error => resolve({'http': error.message})
     //     );
     //   });
+  }
+}
+
+export class ResultWithDescription {
+
+  private _result: boolean;
+  private _description: string;
+
+  get result(): boolean {
+    return this._result;
+  }
+
+  get description(): string {
+    return this._description;
+  }
+
+  public static of(result: boolean, description: string): ResultWithDescription {
+    const obj = new ResultWithDescription();
+    obj._result = result;
+    obj._description = description;
+    return obj;
   }
 }

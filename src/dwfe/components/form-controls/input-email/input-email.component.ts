@@ -17,22 +17,24 @@ export class InputEmailDwfeComponent implements OnInit {
 
   // http://emailregex.com/
   private PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  @Input() private maxLength: number;
+  @Input() private maxLength = 50;
 
   private emailControl: FormControl;
   private emailControlID = UtilsDwfeService.randomStr(5, 'form-group-dwfe__email-'); // used in html template for a11y
   @ViewChild('refEmail') private refEmail: ElementRef;
 
+  @Input() private labelText = 'Email';
+
   private group: FormGroup;
   @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
 
-  @Input() private reverseHandleRespFromBackend: boolean;
-  @Input() private isDirtyTouchedCheckMode: boolean;
+  @Input() private reverseHandleRespFromBackend = false;
+  @Input() private isDirtyTouchedCheckMode = false;
   private errorMessage = '';
 
-  @Input() private tabIndexValue: number;
+  @Input() private tabIndexValue = 0;
 
-  @Input() private externalBackendValidator: any;
+  @Input() private externalBackendValidator = null;
 
   private isEmpty = UtilsDwfeService.isEmpty; // used in html template
   private formControlHasError = UtilsDwfeService.formControlHasError;

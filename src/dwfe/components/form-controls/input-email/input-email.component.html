@@ -6,7 +6,7 @@
          [tabindex]="tabIndexValue"
          [id]="emailControlID">
 
-  <label [for]="emailControlID">Email</label>
+  <label [for]="emailControlID">{{labelText}}</label>
 
   <app-spinner-dotted-horizontal-dwfe *ngIf="emailControl.pending"
                                       class="form-group-dwfe__inputs-horizontal-spinner">
@@ -15,7 +15,6 @@
   <app-alert-dwfe *ngIf="hasError"
                   class="form-group-dwfe__alert-under"
                   [message]="errorMessage"
-                  [alertType]="'error'"
                   [noBorder]="true">
   </app-alert-dwfe>
 

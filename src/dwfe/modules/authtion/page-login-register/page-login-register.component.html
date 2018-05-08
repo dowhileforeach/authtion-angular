@@ -29,11 +29,9 @@
         <form class="form-dwfe  slider__form" spellcheck="false">
 
           <app-input-email-dwfe class="form-dwfe__item"
-                                [maxLength]="50"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
                                 [isDirtyTouchedCheckMode]="true"
-                                [tabIndexValue]="0"
                                 (takeEmailGroup)="groupLoginEmail=$event"
                                 #refLoginEmail>
           </app-input-email-dwfe>
@@ -43,7 +41,7 @@
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
-          <a class="form-dwfe__under-field form-dwfe__under-field--restore-password" href="#">Restore password</a>
+          <a class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password" href="#">Restore password</a>
 
           <button class="form-dwfe__btn"
                   mat-raised-button
@@ -55,7 +53,6 @@
             <app-alert-dwfe *ngIf="showErrorOfProcessLogin"
                             class="form-dwfe__alert-over"
                             [message]="errorMessageOfProcessLogin"
-                            [alertType]="'error'"
                             [blink]="true">
             </app-alert-dwfe>
           </button>
@@ -65,16 +62,13 @@
         <form class="form-dwfe  slider__form" spellcheck="false">
 
           <app-input-email-dwfe class="form-dwfe__item"
-                                [maxLength]="50"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
-                                [reverseHandleRespFromBackend]="false"
-                                [isDirtyTouchedCheckMode]="false"
                                 [tabIndexValue]="-1"
                                 (takeEmailGroup)="groupCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
-          <p class="form-dwfe__under-field">*Password will be sent to your email</p>
+          <p class="form-dwfe__text-under-field">*Password will be sent to your email</p>
 
           <re-captcha *ngIf="!isLoginSlide"
                       siteKey="6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi"
@@ -93,14 +87,12 @@
             <app-alert-dwfe *ngIf="showErrorOfProcessCreateAccount"
                             class="form-dwfe__alert-over"
                             [message]="errorMessageOfProcessCreateAccount"
-                            [alertType]="'error'"
                             [blink]="true">
             </app-alert-dwfe>
 
             <app-alert-dwfe *ngIf="showErrorOfCreateAccountCaptcha"
                             class="form-dwfe__alert-over"
                             [message]="errorMessageOfCreateAccountCaptcha"
-                            [alertType]="'error'"
                             [blink]="true">
             </app-alert-dwfe>
 

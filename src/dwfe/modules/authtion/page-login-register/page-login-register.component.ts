@@ -6,7 +6,6 @@ import {Subscription} from 'rxjs/Subscription';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService} from '../services/authtion-exchange.service';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -29,6 +28,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
   private subscriptionToResultOfPerformLogin: Subscription;
+  private subscriptionToResultOfPerformGoogleCaptchaCheck: Subscription;
   private emailChangesLoginResetBackendError: Subscription;
   private passwordChangesLoginResetBackendError: Subscription;
   private emailChangesCreateAccountResetBackendError: Subscription;
@@ -61,6 +61,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   ngOnDestroy(): void {
     if (this.subscriptionToResultOfPerformLogin) {
       this.subscriptionToResultOfPerformLogin.unsubscribe();
+    }
+    if (this.subscriptionToResultOfPerformGoogleCaptchaCheck) {
+      this.subscriptionToResultOfPerformGoogleCaptchaCheck.unsubscribe();
     }
     this.emailChangesLoginResetBackendError.unsubscribe();
     this.passwordChangesLoginResetBackendError.unsubscribe();
@@ -204,6 +207,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   public googleCaptchaResolved(googleResponse: string): void {
+
     this.errorMessageOfCreateAccountCaptcha = ''; // init
 
     if (googleResponse === null) {
@@ -211,20 +215,22 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
       return;
     }
 
-    this.isLocked = true;
+    // let's run the verification process
+    this.exchangeService.performGoogleCaptchaCheck(googleResponse);
 
-    this.exchangeService.post_googleCaptchaValidate(googleResponse).subscribe(
+    // wait for service response
+    this.setLocked(true);
+
+    // process service response
+    this.subscriptionToResultOfPerformGoogleCaptchaCheck = this.exchangeService.performGoogleCaptchaCheckResult.subscribe(
       data => {
-        if (data['success']) {
+        if (data.result) { // actions on success captcha check
           this.isCreateAccountCaptchaValid = true;
         } else {
-          this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.getReadableErrorFromDwfeServer(data);
+          this.errorMessageOfCreateAccountCaptcha = data.description;
         }
-        this.isLocked = false;
-      },
-      error => {
-        this.errorMessageOfCreateAccountCaptcha = UtilsDwfeService.getHttpError(error);
-        this.isLocked = false;
+        this.setLocked(false);
+        this.subscriptionToResultOfPerformGoogleCaptchaCheck.unsubscribe();
       }
     );
   }

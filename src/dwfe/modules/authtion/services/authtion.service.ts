@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 
-import {AuthtionExchangeService} from './authtion-exchange.service';
+import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Injectable()
@@ -90,10 +90,12 @@ export class AuthtionService {
   }
 
   public tokenUpdate(authFromThePast: AuthtionCredentials): void {
+
     // Update the token only in case:
-    if (this.auth // 1. Is logged in
+    if (this.auth                          // 1. Is logged in
       && authFromThePast.equals(this.auth) // 2. The time has come to update the CURRENT token
     ) {
+
       this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
         data => {
           this.auth = AuthtionCredentials.of(this, data);
@@ -111,28 +113,8 @@ export class AuthtionService {
           }
         }
       );
+
     }
-  }
-}
-
-export class ResultWithDescription {
-
-  private _result: boolean;
-  private _description: string;
-
-  get result(): boolean {
-    return this._result;
-  }
-
-  get description(): string {
-    return this._description;
-  }
-
-  public static of(result: boolean, description: string): ResultWithDescription {
-    const obj = new ResultWithDescription();
-    obj._result = result;
-    obj._description = description;
-    return obj;
   }
 }
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
@@ -17,11 +17,15 @@ export class InputPasswordDwfeComponent implements OnInit {
   private passwordControlID = UtilsDwfeService.randomStr(5, 'form-group-dwfe__password-'); // used in html template for a11y
   @ViewChild('refPassword') private refPassword: ElementRef;
 
+  @Input() private labelText = 'Password';
+
   private group: FormGroup;
   @Output() private takePasswordGroup = new EventEmitter<FormGroup>();
 
   private formControlHasError = UtilsDwfeService.formControlHasError;
   private errorMessage = '';
+
+  @Input() private tabIndexValue = 0;
 
   ngOnInit() {
 
