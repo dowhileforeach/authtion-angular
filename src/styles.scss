@@ -1,20 +1,9 @@
-@import "dwfe/styles/common/dwfe-pref";
-
 html,
 body,
 app-root,
 .app-root__loader {
   width: 100%;
   height: 100%;
-}
-
-body {
-  min-width: $grid-breakpoint-mobile;
-
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-  @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
-
-  background-color: $color-bg-body;
 }
 
 app-root {
@@ -24,17 +13,19 @@ app-root {
   align-items: flex-start;
 }
 
-.app-root__loader {
+.app-root-loader {
+  align-self: center;
+
   display: flex !important;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
 
-  img {
-    margin-top: 70px;
-  }
+.app-root-loader__pic {
+  margin-top: 70px;
+}
 
-  span {
-    margin-top: 10px;
-  }
+.app-root-loader__text {
+  margin-top: 10px;
 }

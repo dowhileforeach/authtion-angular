@@ -1,5 +1,8 @@
-@import "../config";
-@import "../mixins";
+@import "dwfe-pref";
+
+body {
+  min-width: $grid-breakpoint-mobile;
+}
 
 //
 // ADAPTIVE

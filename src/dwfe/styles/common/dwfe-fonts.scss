@@ -1,3 +1,14 @@
+@import "dwfe-pref";
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, sans-serif;
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
+}
+
+//
+// Font faces
+//
+
 @font-face {
   font-family: 'Roboto';
   font-weight: 300;
