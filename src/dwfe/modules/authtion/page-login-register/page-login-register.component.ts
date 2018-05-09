@@ -27,11 +27,11 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
-  private subscriptionToResultOfPerformLogin: Subscription;
-  private subscriptionToResultOfPerformGoogleCaptchaCheck: Subscription;
-  private emailChangesLoginResetBackendError: Subscription;
-  private passwordChangesLoginResetBackendError: Subscription;
-  private emailChangesCreateAccountResetBackendError: Subscription;
+  private subscription_signIn: Subscription;
+  private subscription_googleCaptchaValidate: Subscription;
+  private subscription_emailChangesLoginResetBackendError: Subscription;
+  private subscription_passwordChangesLoginResetBackendError: Subscription;
+  private subscription_emailChangesCreateAccountResetBackendError: Subscription;
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
@@ -53,21 +53,21 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.focusOnDwfeInput(this.refLoginEmail);
 
-    this.emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin']);
-    this.passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin']);
-    this.emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha']);
+    this.subscription_emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin']);
+    this.subscription_passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin']);
+    this.subscription_emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha']);
   }
 
   ngOnDestroy(): void {
-    if (this.subscriptionToResultOfPerformLogin) {
-      this.subscriptionToResultOfPerformLogin.unsubscribe();
+    if (this.subscription_signIn) {
+      this.subscription_signIn.unsubscribe();
     }
-    if (this.subscriptionToResultOfPerformGoogleCaptchaCheck) {
-      this.subscriptionToResultOfPerformGoogleCaptchaCheck.unsubscribe();
+    if (this.subscription_googleCaptchaValidate) {
+      this.subscription_googleCaptchaValidate.unsubscribe();
     }
-    this.emailChangesLoginResetBackendError.unsubscribe();
-    this.passwordChangesLoginResetBackendError.unsubscribe();
-    this.emailChangesCreateAccountResetBackendError.unsubscribe();
+    this.subscription_emailChangesLoginResetBackendError.unsubscribe();
+    this.subscription_passwordChangesLoginResetBackendError.unsubscribe();
+    this.subscription_emailChangesCreateAccountResetBackendError.unsubscribe();
   }
 
   private resetBackendError(controlFieldName, fieldsArr): Subscription {
@@ -181,18 +181,18 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.errorMessageOfProcessLogin = '';  // init
 
     // signIn performs authtion-service, give it a login/password
-    this.authtionService.performLogin(this.controlLoginEmail.value, this.controlLoginPassword.value);
+    this.authtionService.performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value);
 
     // wait for service response
     this.setLocked(true);
 
     // process service response
-    this.subscriptionToResultOfPerformLogin = this.authtionService.performLoginResult.subscribe(
+    this.subscription_signIn = this.authtionService.perform__signIn.subscribe(
       data => {
         if (data.result) { // actions on success Login
           this.dialogRef.close();
         } else {
-          this.subscriptionToResultOfPerformLogin.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
+          this.subscription_signIn.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
           this.setLocked(false);
           this.errorMessageOfProcessLogin = data.description;
         }
@@ -210,20 +210,20 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     }
 
     // let's run the verification process
-    this.exchangeService.performGoogleCaptchaCheck(googleResponse);
+    this.exchangeService.performGoogleCaptchaValidate(googleResponse);
 
     // wait for service response
     this.setLocked(true);
 
     // process service response
-    this.subscriptionToResultOfPerformGoogleCaptchaCheck = this.exchangeService.performGoogleCaptchaCheckResult.subscribe(
+    this.subscription_googleCaptchaValidate = this.exchangeService.perform__googleCaptchaValidate.subscribe(
       data => {
         if (data.result) { // actions on success captcha check
           this.isCreateAccountCaptchaValid = true;
         } else {
           this.errorMessageOfCreateAccountCaptcha = data.description;
         }
-        this.subscriptionToResultOfPerformGoogleCaptchaCheck.unsubscribe();
+        this.subscription_googleCaptchaValidate.unsubscribe();
         this.setLocked(false);
       }
     );

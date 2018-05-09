@@ -38,27 +38,46 @@ const credentialsBase64Encoded = {
 @Injectable()
 export class AuthtionExchangeService {
 
-  private subjPerformGoogleCaptchaCheckResult = new Subject<ResultWithDescription>();
+  private subjPerform__googleCaptchaValidate = new Subject<ResultWithDescription>();
+  private subjPerform__getConsumerData = new Subject<ResultWithDescription>();
 
   constructor(private http: HttpClient) {
   }
 
-  public get performGoogleCaptchaCheckResult(): Observable<ResultWithDescription> {
-    return this.subjPerformGoogleCaptchaCheckResult.asObservable();
+  public get perform__googleCaptchaValidate(): Observable<ResultWithDescription> {
+    return this.subjPerform__googleCaptchaValidate.asObservable();
   }
 
-  public performGoogleCaptchaCheck(googleResponse: string): void {
+  public get perform__getConsumerData(): Observable<ResultWithDescription> {
+    return this.subjPerform__getConsumerData.asObservable();
+  }
+
+  private static handlePerformResponse(response, subject): void {
+    if (response['success']) {
+      subject.next(ResultWithDescription.of({
+        result: true,
+        data: response['data']
+      }));
+    } else {
+      subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(response)}));
+    }
+  }
+
+  private static handlePerformError(error, subject): void {
+    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getHttpError(error)}));
+  }
+
+  public performGoogleCaptchaValidate(googleResponse: string): void {
     this.post_googleCaptchaValidate(googleResponse).subscribe(
-      data => {
-        if (data['success']) {
-          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({result: true}));
-        } else {
-          this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(data)}));
-        }
-      },
-      error => {
-        this.subjPerformGoogleCaptchaCheckResult.next(ResultWithDescription.of({description: UtilsDwfeService.getHttpError(error)}));
-      }
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__googleCaptchaValidate),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__googleCaptchaValidate)
+    );
+  }
+
+  public performGetConsumerData(accessToken: string): void {
+    this.get_getConsumerData(accessToken).subscribe(
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__getConsumerData),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__getConsumerData)
     );
   }
 
@@ -199,8 +218,8 @@ export class AuthtionExchangeService {
     if (reverseHandleResp) { // for 'Login'
 
       return Observable.timer(debounceTime).switchMapTo(observable).map(
-        data => {
-          if (data['success']) {
+        response => {
+          if (response['success']) {
             return {'backendHttp': 'Not found in database'};
           }
           return null;
@@ -209,9 +228,9 @@ export class AuthtionExchangeService {
     } else { // for 'Create account'
 
       return Observable.timer(debounceTime).switchMapTo(observable).map(
-        data => {
-          if (!data['success']) {
-            return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(data)};
+        response => {
+          if (!response['success']) {
+            return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(response)};
           }
           return null;
         }).take(1);
@@ -256,12 +275,11 @@ export class ResultWithDescription {
 
   public static of(param): ResultWithDescription {
     const result = param.result || false;
-    const data = param.data || null;
     const description = param.description || '';
 
     const obj = new ResultWithDescription();
     obj._result = result;
-    obj._data = data;
+    obj._data = param.data;
     obj._description = description;
     return obj;
   }

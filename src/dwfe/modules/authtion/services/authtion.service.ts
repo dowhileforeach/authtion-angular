@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Observable';
 
 import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class AuthtionService {
@@ -14,7 +15,9 @@ export class AuthtionService {
   public user: AuthtionUser;
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
-  private subjPerformLoginResult = new Subject<ResultWithDescription>();
+  private subjPerform__signIn = new Subject<ResultWithDescription>();
+
+  private subscription_getConsumerData: Subscription;
 
   constructor(public exchangeService: AuthtionExchangeService) {
   }
@@ -35,8 +38,8 @@ export class AuthtionService {
     return this.subjIsLoggedIn.asObservable();
   }
 
-  public get performLoginResult(): Observable<ResultWithDescription> {
-    return this.subjPerformLoginResult.asObservable();
+  public get perform__signIn(): Observable<ResultWithDescription> {
+    return this.subjPerform__signIn.asObservable();
   }
 
   private login(): void {
@@ -66,26 +69,26 @@ export class AuthtionService {
     AuthtionUser.removeFromStorage();
   }
 
-  public performLogin(email: string, password: string): void {
+  public performSignIn(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
-      data => {
-        this.exchangeService.get_getConsumerData(data['access_token']).subscribe(
-          data2 => {
-            if (data2['success']) {
-              this.auth = AuthtionCredentials.of(this, data);
-              this.user = AuthtionUser.of(data2);
+      resp => {
+        this.exchangeService.performGetConsumerData(resp['access_token']);
+        this.subscription_getConsumerData = this.exchangeService.perform__getConsumerData.subscribe(
+          rwd => {
+            if (rwd.result) {
+              this.auth = AuthtionCredentials.of(this, resp);
+              this.user = AuthtionUser.of(rwd.data);
               this.login();
-              this.subjPerformLoginResult.next(ResultWithDescription.of({result: true}));
+              this.subjPerform__signIn.next(ResultWithDescription.of({result: true}));
             } else {
-              this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(data2)}));
+              this.subjPerform__signIn.next(ResultWithDescription.of({description: rwd.description}));
             }
-          },
-          error2 => {
-            this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error2)}));
-          });
+            this.subscription_getConsumerData.unsubscribe();
+          }
+        );
       },
       error =>
-        this.subjPerformLoginResult.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}))
+        this.subjPerform__signIn.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}))
     );
   }
 
@@ -97,8 +100,8 @@ export class AuthtionService {
     ) {
 
       this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
-        data => {
-          this.auth = AuthtionCredentials.of(this, data);
+        resp => {
+          this.auth = AuthtionCredentials.of(this, resp);
         },
         error => {
           if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
@@ -145,28 +148,17 @@ class AuthtionCredentials {
     return this._refreshToken;
   }
 
-  private static mainOf(authtionService: AuthtionService,
-                        accessToken: string,
-                        expiresIn: number,
-                        refreshToken: string): AuthtionCredentials {
+  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
     const obj = new AuthtionCredentials();
     obj._instanceID = UtilsDwfeService.randomStr(15);
 
-    obj._accessToken = accessToken;
-    obj._expiresIn = Date.now() + expiresIn * 1000;
-    obj._refreshToken = refreshToken;
+    obj._accessToken = data['access_token'];
+    obj._expiresIn = Date.now() + data['expires_in'] * 1000;
+    obj._refreshToken = data['refresh_token'];
 
     obj.saveInStorage();
     obj.scheduleTokenUpdate(authtionService, obj.get90PercentFromTimeWhenTokenValid());
     return obj;
-  }
-
-  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
-    return AuthtionCredentials.mainOf(
-      authtionService,
-      data['access_token'],
-      data['expires_in'],
-      data['refresh_token']);
   }
 
   public static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
@@ -263,50 +255,30 @@ class AuthtionUser {
     return this._hasRoleUser;
   }
 
-  private static mainOf(id: number,
-                        email: string,
-                        nickName: string,
-                        firstName: string,
-                        lastName: string,
-                        emailConfirmed: boolean,
-                        hasRoleAdmin: boolean,
-                        hasRoleUser: boolean): AuthtionUser {
+  public static of(data): AuthtionUser {
+    let hasRoleAdmin = false;
+    let hasRoleUser = false;
+    data['authorities'].forEach(next => {
+      if (next === 'ADMIN') {
+        hasRoleAdmin = true;
+      } else if (next === 'USER') {
+        hasRoleUser = true;
+      }
+    });
+
     const obj = new AuthtionUser();
 
-    obj._id = id;
-    obj._email = email;
-    obj._nickName = nickName;
-    obj._firstName = firstName;
-    obj._lastName = lastName;
-    obj._emailConfirmed = emailConfirmed;
+    obj._id = data['id'];
+    obj._email = data['email'];
+    obj._nickName = data['nickName'];
+    obj._firstName = data['firstName'];
+    obj._lastName = data['lastName'];
+    obj._emailConfirmed = data['emailConfirmed'];
     obj._hasRoleAdmin = hasRoleAdmin;
     obj._hasRoleUser = hasRoleUser;
 
     obj.saveInStorage();
     return obj;
-  }
-
-  public static of(data2): AuthtionUser {
-    const data = data2['data'];
-    let hasRoleAdmin = false;
-    let hasRoleUser = false;
-    data['authorities'].forEach(next => {
-      if (next === AuthtionRoles.ADMIN) {
-        hasRoleAdmin = true;
-      } else if (next === AuthtionRoles.USER) {
-        hasRoleUser = true;
-      }
-    });
-    return AuthtionUser.mainOf(
-      data['id'],
-      data['email'],
-      data['nickName'],
-      data['firstName'],
-      data['lastName'],
-      data['emailConfirmed'],
-      hasRoleAdmin,
-      hasRoleUser
-    );
   }
 
   public static fromStorage(): AuthtionUser {
@@ -333,9 +305,4 @@ class AuthtionUser {
   private saveInStorage(): void {
     localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
   }
-}
-
-const enum AuthtionRoles {
-  ADMIN,
-  USER
 }
