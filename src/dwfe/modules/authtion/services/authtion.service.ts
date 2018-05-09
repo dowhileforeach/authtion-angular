@@ -53,7 +53,6 @@ export class AuthtionService {
       error => { // I already did everything I could
       }
     );
-
     setTimeout(() => {
       this.coverUpOnesTraces();
       this.subjIsLoggedIn.next(false);
@@ -69,12 +68,12 @@ export class AuthtionService {
 
   public performSignIn(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
-      resp => {
-        this.exchangeService.performGetConsumerData(resp['access_token']);
+      response => {
+        this.exchangeService.performGetConsumerData(response['access_token']);
         this.subscription_getConsumerData = this.exchangeService.perform__getConsumerData.subscribe(
           rwd => {
             if (rwd.result) {
-              this.auth = AuthtionCredentials.of(this, resp);
+              this.auth = AuthtionCredentials.of(this, response);
               this.user = AuthtionUser.of(rwd.data);
               this.login();
               this.subjPerform__signIn.next(ResultWithDescription.of({result: true}));
@@ -97,8 +96,8 @@ export class AuthtionService {
     ) {
 
       this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
-        resp => {
-          this.auth = AuthtionCredentials.of(this, resp);
+        response => {
+          this.auth = AuthtionCredentials.of(this, response);
         },
         error => {
           if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
