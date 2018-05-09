@@ -81,22 +81,22 @@ export class UtilsDwfeService {
     return result;
   }
 
-  public static getReadableHttpError(obj): string {
-    let result = 'Unknown';
-
-    if (obj.hasOwnProperty('error')) {
-
-      const error = obj['error'];
-
-      if (error.hasOwnProperty('error')) {
-        result = `${error['error']}`;
-      } else if (error.hasOwnProperty('error_description')) {
-        result += `, ${error['error_description']}`
-        ;
-      }
-    }
-    return result;
-  }
+  // public static getReadableHttpError(obj): string {
+  //   let result = 'Unknown';
+  //
+  //   if (obj.hasOwnProperty('error')) {
+  //
+  //     const error = obj['error'];
+  //
+  //     if (error.hasOwnProperty('error')) {
+  //       result = `${error['error']}`;
+  //     } else if (error.hasOwnProperty('error_description')) {
+  //       result += `, ${error['error_description']}`
+  //       ;
+  //     }
+  //   }
+  //   return result;
+  // }
 
   public static getReadableHttpError(obj): string {
     let result = '';

@@ -48,18 +48,16 @@ export class AuthtionService {
 
   public logout(): void {
     this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
-      data => {
-        if (data['success']) {
-          this.coverUpOnesTraces();
-          this.subjIsLoggedIn.next(false);
-        } else {
-          // I don't know what to do here yet.
-        }
+      data => { // I already did everything I could
       },
-      error => {
-        // I don't know what to do here yet.
+      error => { // I already did everything I could
       }
     );
+
+    setTimeout(() => {
+      this.coverUpOnesTraces();
+      this.subjIsLoggedIn.next(false);
+    }, 1000);
   }
 
   private coverUpOnesTraces() {
@@ -162,33 +160,43 @@ class AuthtionCredentials {
 
   public static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
     let obj = null;
-    const parsed = JSON.parse(localStorage.getItem(AuthtionCredentials.storageKey));
 
-    if (parsed && +parsed._expiresIn > Date.now()) {
-      obj = new AuthtionCredentials();
-      obj._instanceID = parsed._instanceID;
+    try {
+      const parsed = JSON.parse(localStorage.getItem(AuthtionCredentials.storageKey));
+      if (parsed && +parsed._expiresIn > Date.now()) {
+        obj = new AuthtionCredentials();
+        obj._instanceID = parsed._instanceID;
 
-      obj._accessToken = parsed._accessToken;
-      obj._expiresIn = +parsed._expiresIn;
-      obj._refreshToken = parsed._refreshToken;
+        obj._accessToken = parsed._accessToken;
+        obj._expiresIn = +parsed._expiresIn;
+        obj._refreshToken = parsed._refreshToken;
 
-      const time = obj.get90PercentFromTimeWhenTokenValid();
-      const time1Day = (60 * 60 * 24) * 1000;
-      if (time < time1Day) {
-        obj.scheduleTokenUpdate(authtionService, 10 * 1000);
-      } else {
-        obj.scheduleTokenUpdate(authtionService, time);
+        const time = obj.get90PercentFromTimeWhenTokenValid();
+        const time1Day = (60 * 60 * 24) * 1000;
+        if (time < time1Day) {
+          obj.scheduleTokenUpdate(authtionService, 10 * 1000);
+        } else {
+          obj.scheduleTokenUpdate(authtionService, time);
+        }
       }
+    } catch (e) {
+      return null;
     }
     return obj;
   }
 
   public static removeFromStorage(): void {
-    localStorage.removeItem(AuthtionCredentials.storageKey);
+    try {
+      localStorage.removeItem(AuthtionCredentials.storageKey);
+    } catch (e) {
+    }
   }
 
   private saveInStorage(): void {
-    localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
+    try {
+      localStorage.setItem(AuthtionCredentials.storageKey, JSON.stringify(this));
+    } catch (e) {
+    }
   }
 
   public equals(obj): boolean {
@@ -282,26 +290,37 @@ class AuthtionUser {
 
   public static fromStorage(): AuthtionUser {
     let obj = null;
-    const parsed = JSON.parse(localStorage.getItem(AuthtionUser.storageKey));
-    if (parsed) {
-      obj = new AuthtionUser();
-      obj._id = +parsed._id;
-      obj._email = parsed._email;
-      obj._nickName = parsed._nickName;
-      obj._firstName = parsed._firstName;
-      obj._lastName = parsed._lastName;
-      obj._emailConfirmed = parsed._emailConfirmed === 'true';
-      obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
-      obj._hasRoleUser = parsed._hasRoleUser === 'true';
+
+    try {
+      const parsed = JSON.parse(localStorage.getItem(AuthtionUser.storageKey));
+      if (parsed) {
+        obj = new AuthtionUser();
+        obj._id = +parsed._id;
+        obj._email = parsed._email;
+        obj._nickName = parsed._nickName;
+        obj._firstName = parsed._firstName;
+        obj._lastName = parsed._lastName;
+        obj._emailConfirmed = parsed._emailConfirmed === 'true';
+        obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
+        obj._hasRoleUser = parsed._hasRoleUser === 'true';
+      }
+    } catch (e) {
+      return null;
     }
     return obj;
   }
 
   public static removeFromStorage(): void {
-    localStorage.removeItem(AuthtionUser.storageKey);
+    try {
+      localStorage.removeItem(AuthtionUser.storageKey);
+    } catch (e) {
+    }
   }
 
   private saveInStorage(): void {
-    localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
+    try {
+      localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
+    } catch (e) {
+    }
   }
 }
