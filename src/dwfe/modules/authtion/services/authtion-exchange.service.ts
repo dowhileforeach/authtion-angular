@@ -63,8 +63,8 @@ export class AuthtionExchangeService {
     }
   }
 
-  private static handlePerformError(error, subject): void {
-    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getHttpError(error)}));
+  public static handlePerformError(error, subject): void {
+    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}));
   }
 
   public performGoogleCaptchaValidate(googleResponse: string): void {
@@ -223,6 +223,9 @@ export class AuthtionExchangeService {
             return {'backendHttp': 'Not found in database'};
           }
           return null;
+        },
+        error => {
+          return {'backendHttp': UtilsDwfeService.getReadableHttpError(error)};
         }).take(1);
 
     } else { // for 'Create account'
@@ -233,6 +236,9 @@ export class AuthtionExchangeService {
             return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(response)};
           }
           return null;
+        },
+        error => {
+          return {'backendHttp': UtilsDwfeService.getReadableHttpError(error)};
         }).take(1);
     }
 

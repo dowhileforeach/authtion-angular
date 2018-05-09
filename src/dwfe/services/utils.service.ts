@@ -98,7 +98,7 @@ export class UtilsDwfeService {
     return result;
   }
 
-  public static getHttpError(obj): string {
+  public static getReadableHttpError(obj): string {
     let result = '';
 
     if (obj.hasOwnProperty('error')) {
@@ -115,6 +115,6 @@ export class UtilsDwfeService {
   }
 
   public static isInvalidGrantHttpError(obj): boolean {
-    return UtilsDwfeService.getHttpError(obj) === 'invalid_grant';
+    return UtilsDwfeService.getReadableHttpError(obj) === 'invalid_grant';
   }
 }

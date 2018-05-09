@@ -87,8 +87,7 @@ export class AuthtionService {
           }
         );
       },
-      error =>
-        this.subjPerform__signIn.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}))
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__signIn)
     );
   }
 
