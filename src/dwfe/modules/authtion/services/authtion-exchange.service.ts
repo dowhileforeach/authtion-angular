@@ -64,7 +64,7 @@ export class AuthtionExchangeService {
   }
 
   public static handlePerformError(error, subject): void {
-    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableHttpError(error)}));
+    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableExchangeError(error)}));
   }
 
   public performGoogleCaptchaValidate(googleResponse: string): void {
@@ -225,7 +225,7 @@ export class AuthtionExchangeService {
           return null;
         },
         error => {
-          return {'backendHttp': UtilsDwfeService.getReadableHttpError(error)};
+          return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
         }).take(1);
 
     } else { // for 'Create account'
@@ -238,7 +238,7 @@ export class AuthtionExchangeService {
           return null;
         },
         error => {
-          return {'backendHttp': UtilsDwfeService.getReadableHttpError(error)};
+          return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
         }).take(1);
     }
 

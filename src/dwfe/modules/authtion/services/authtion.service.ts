@@ -7,6 +7,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 import {Subscription} from 'rxjs/Subscription';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class AuthtionService {
@@ -100,7 +101,7 @@ export class AuthtionService {
           this.auth = AuthtionCredentials.of(this, response);
         },
         error => {
-          if (UtilsDwfeService.isInvalidGrantHttpError(error)) {
+          if (UtilsDwfeService.isInvalidGrantError(error)) {
             this.logout();
           } else {
             const time = this.auth.get90PercentFromTimeWhenTokenValid();

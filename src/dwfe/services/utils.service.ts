@@ -1,6 +1,7 @@
 import {AbstractControl} from '@angular/forms';
+import {HttpErrorResponse} from '@angular/common/http';
 
-const errorCodesMap = {
+const dwfeAuthtionErrorCodesMap = {
   'attention-robot-detected': 'Attention! Robot detected',
   'confirm-key-for-another-email': 'Confirm key for another email',
   'confirm-key-not-exist': 'Confirm key does not exist',
@@ -24,7 +25,25 @@ const errorCodesMap = {
   'missing-newpass': 'New password required',
   'missing-oldpass': 'Old password required',
   'missing-password': 'Password required',
-  'wrong-oldpass': 'Wrong old password'
+  'wrong-oldpass': 'Wrong old password',
+};
+
+const dwfeServerErrorsMap = {
+  'access_denied': 'Access denied',
+  'insufficient_scope': 'Insufficient scope',
+  'invalid_client': 'Invalid client',
+  'invalid_grant': 'Invalid grant',
+  'invalid_request': 'Invalid request',
+  'invalid_scope': 'Invalid scope',
+  'invalid_token': 'Invalid token',
+  'method_not_allowed': 'Method not allowed',
+  'redirect_uri_mismatch': 'Redirect URI mismatch',
+  'server_error': 'Server error',
+  'unauthorized': 'Unauthorized',
+  'unauthorized_client': 'Unauthorized client',
+  'unauthorized_user': 'Unauthorized user',
+  'unsupported_grant_type': 'Unsupported grant type',
+  'unsupported_response_type': 'Unsupported response type',
 };
 
 export class UtilsDwfeService {
@@ -68,8 +87,8 @@ export class UtilsDwfeService {
       const errorCodes = data['error-codes'];
       for (let i = 0; i < errorCodes.length; i++) {
         const code = errorCodes[i];
-        if (errorCodesMap.hasOwnProperty(code)) {
-          result += errorCodesMap[code];
+        if (dwfeAuthtionErrorCodesMap.hasOwnProperty(code)) {
+          result += dwfeAuthtionErrorCodesMap[code];
         } else {
           result += code;
         }
@@ -81,40 +100,47 @@ export class UtilsDwfeService {
     return result;
   }
 
-  // public static getReadableHttpError(obj): string {
-  //   let result = 'Unknown';
-  //
-  //   if (obj.hasOwnProperty('error')) {
-  //
-  //     const error = obj['error'];
-  //
-  //     if (error.hasOwnProperty('error')) {
-  //       result = `${error['error']}`;
-  //     } else if (error.hasOwnProperty('error_description')) {
-  //       result += `, ${error['error_description']}`
-  //       ;
-  //     }
-  //   }
-  //   return result;
-  // }
+  public static getReadableExchangeError(obj: HttpErrorResponse): string {
+    let result = ''; // Unknown
 
-  public static getReadableHttpError(obj): string {
-    let result = '';
+    const status = obj.status || -1;
+    const statusText = obj.statusText || '';
 
-    if (obj.hasOwnProperty('error')) {
+    if (status >= 0) {
+      result += `${status}: `;
+    }
 
-      const error = obj['error'];
+    // Error Option 1
+    // ==============
+    // error: "..."
+    //
+    // Error Option 2
+    // ==============
+    // error: {
+    //   error: "error_code",
+    //   error_description: "..."
+    // }
 
-      if (error.hasOwnProperty('error')) {
-        result = error['error'];
-      } else if (obj.hasOwnProperty('statusText')) {
-        result = obj['statusText'];
-      }
+    const error = obj.error || {};
+    const errorCode = error['error'] || null;
+
+    if (errorCode) {
+      result += dwfeServerErrorsMap[errorCode] || errorCode;
+    } else if (statusText !== '') {
+      result += statusText;
+    } else {
+      result = error;
     }
     return result;
   }
 
-  public static isInvalidGrantHttpError(obj): boolean {
-    return UtilsDwfeService.getReadableHttpError(obj) === 'invalid_grant';
+  public static isInvalidGrantError(obj: HttpErrorResponse): boolean {
+    const error = obj.error || {};
+    const errorCode = error['error'] || null;
+    if (errorCode) {
+      return 'invalid_grant' === errorCode;
+    } else {
+      return false;
+    }
   }
 }
