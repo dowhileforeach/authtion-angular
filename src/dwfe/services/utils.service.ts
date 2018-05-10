@@ -139,10 +139,9 @@ export class UtilsDwfeService {
   }
 
   public static isInvalidGrantError(obj: HttpErrorResponse): boolean {
-    const error = obj.error || {};
-    const errorCode = error['error'] || null;
-    if (errorCode) {
-      return 'invalid_grant' === errorCode;
+    const error = obj.error;
+    if (error && error.hasOwnProperty('error')) {
+      return error['error'] === 'invalid_grant';
     } else {
       return false;
     }
