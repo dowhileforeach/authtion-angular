@@ -102,10 +102,7 @@
 
 .auth-nav__signed-in-text {
   @include reset-margin-padding();
-  padding-top: 15px;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-bottom: 5px;
+  padding: 15px 10px 10px;
 
   @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
   text-align: center;
