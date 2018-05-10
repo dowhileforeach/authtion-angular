@@ -20,7 +20,7 @@ const endpoints = {
 };
 
 const credentials = {
-  trusted: { // issued token is valid for a long time, e.g. 10 days
+  trusted: { // issued token is valid for a long time, e.g. 20 days
     name: 'Trusted',
     password: 'YWPV#YGiGLW4Whnr3Q5vuz!d8i'
   },

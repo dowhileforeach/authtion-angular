@@ -7,7 +7,6 @@ import {Observable} from 'rxjs/Observable';
 import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 import {Subscription} from 'rxjs/Subscription';
-import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable()
 export class AuthtionService {
@@ -120,6 +119,7 @@ export class AuthtionService {
 
 class AuthtionCredentials {
   private _instanceID: string;
+  private _date: Date;
 
   private _accessToken: string;
   private _expiresIn: number;
@@ -131,6 +131,10 @@ class AuthtionCredentials {
 
   get instanceID(): string {
     return this._instanceID;
+  }
+
+  get date(): Date {
+    return this._date;
   }
 
   get accessToken(): string {
@@ -148,6 +152,7 @@ class AuthtionCredentials {
   public static of(authtionService: AuthtionService, data): AuthtionCredentials {
     const obj = new AuthtionCredentials();
     obj._instanceID = UtilsDwfeService.randomStr(15);
+    obj._date = new Date();
 
     obj._accessToken = data['access_token'];
     obj._expiresIn = Date.now() + data['expires_in'] * 1000;
@@ -166,6 +171,7 @@ class AuthtionCredentials {
       if (parsed && +parsed._expiresIn > Date.now()) {
         obj = new AuthtionCredentials();
         obj._instanceID = parsed._instanceID;
+        obj._date = parsed._date;
 
         obj._accessToken = parsed._accessToken;
         obj._expiresIn = +parsed._expiresIn;
