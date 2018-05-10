@@ -2,22 +2,21 @@ import {AbstractControl} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
 const dwfeAuthtionErrorCodesMap = {
-  'attention-robot-detected': 'Attention! Robot detected',
   'confirm-key-for-another-email': 'Confirm key for another email',
   'confirm-key-not-exist': 'Confirm key does not exist',
-  'google-captcha-gateway-timeout': 'Google captcha gateway timeout. Try again later',
+  'error-google-captcha-gateway': 'Captcha-check gateway error. Try again later',
   'email-not-exist': 'Email does not exist',
   'email-present-in-database': 'Email is present in database',
   'empty-confirm-key': 'Confirm key is empty',
   'empty-email': 'Email is empty',
-  'empty-google-response': 'Google response is empty',
+  'empty-google-response': 'Google response is empty. Try again',
   'empty-newpass': 'New password is empty',
   'empty-oldpass': 'Old password is empty',
   'empty-password': 'Password is empty',
   'exceeded-max50-email-length': 'Email length must be <= 50',
   'exceeded-min6-or-max55-newpass-length': 'New password length >=6 and <=55',
   'exceeded-min6-or-max55-password-length': 'Password length >=6 and <=55',
-  'failure-when-connecting-to-google': 'Failure when connecting to google. Try again later',
+  'google-captcha-detected-robot': 'Captcha-check detected a robot',
   'id-not-exist': 'Id does not exist',
   'invalid-email': 'Please enter a valid email',
   'missing-confirm-key': 'Confirm key required',
@@ -26,6 +25,7 @@ const dwfeAuthtionErrorCodesMap = {
   'missing-newpass': 'New password required',
   'missing-oldpass': 'Old password required',
   'missing-password': 'Password required',
+  'timeout-google-captcha-gateway': 'Captcha-check gateway timeout. Try again later',
   'wrong-oldpass': 'Wrong old password',
 };
 
@@ -102,35 +102,38 @@ export class UtilsDwfeService {
   }
 
   public static getReadableExchangeError(obj: HttpErrorResponse): string {
-    let result = ''; // Unknown
 
-    const status = obj.status || -1;
-    const statusText = obj.statusText || '';
+    let result = '';
+    const error = obj.error;
+    const status = obj.status;
+    const statusText = obj.statusText;
 
-    if (status >= 0) {
+    if (status) {
       result += `${status}: `;
     }
 
-    // Error Option 1
-    // ==============
+    // Error Option 1.
+    // Real Http error
+    // ===============
     // error: "..."
     //
-    // Error Option 2
-    // ==============
+    // Error Option 2.
+    // Most likely an internal DWFE server error
+    // =========================================
     // error: {
     //   error: "error_code",
     //   error_description: "..."
     // }
 
-    const error = obj.error || {};
-    const errorCode = error['error'] || null;
-
-    if (errorCode) {
+    if (error && error.hasOwnProperty('error')) {
+      const errorCode = error['error'];
       result += dwfeServerErrorsMap[errorCode] || errorCode;
-    } else if (statusText !== '') {
+    } else if (statusText) {
       result += statusText;
+    } else if (error) {
+      result += error;
     } else {
-      result = error;
+      result += 'Unknown error';
     }
     return result;
   }
