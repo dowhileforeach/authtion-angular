@@ -28,7 +28,6 @@
 }
 
 .auth-nav__list {
-  display: none;
   min-width: 100%;
 
   position: absolute;
@@ -40,11 +39,6 @@
   border: 1px solid $color-athens-gray;
   border-top: none;
   box-shadow: 2px 2px 0 0 $color-gallery;
-
-  &.auth-nav__list--open {
-    display: block;
-    transition: transform .5s ease;
-  }
 }
 
 .auth-nav__item {

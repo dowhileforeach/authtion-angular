@@ -15,8 +15,8 @@
 
   </button>
 
-  <ul class="auth-nav__list  btn-user-authtion__nav-list"
-      [ngClass]="{ 'auth-nav__list--open': isMenuOpen }">
+  <ul *ngIf="isMenuOpen" [@animateShowBlock]="isMenuOpen ? 'open': 'close'"
+      class="auth-nav__list  btn-user-authtion__nav-list">
 
     <p class="auth-nav__signed-in-text">Signed in as <b>{{user.email}}</b></p>
 
@@ -27,7 +27,7 @@
         (click)="myAccount()"
         aria-label="My account">
 
-        <span class="auth-nav__text">My account</span>
+        <span class="auth-nav__text">My Account</span>
 
         <span class="auth-nav__pic-wrap">
           <svg class="auth-nav__pic" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">

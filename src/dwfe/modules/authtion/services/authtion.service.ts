@@ -56,7 +56,7 @@ export class AuthtionService {
     setTimeout(() => {
       this.coverUpOnesTraces();
       this.subjIsLoggedIn.next(false);
-    }, 1000);
+    }, 250);
   }
 
   private coverUpOnesTraces() {
