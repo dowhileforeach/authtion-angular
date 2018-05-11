@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 import {AuthtionService} from '../../services/authtion.service';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-authtion-btn-user-logged-in',
@@ -9,13 +9,13 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   styleUrls: ['./btn-user--logged-in.component.scss'],
   animations: [
     trigger('animateShowBlock', [
-      state('close', style({
-        opacity: 0
-      })),
-      state('open', style({
-        opacity: 1
-      })),
-      transition('close <=> open', animate(2000)),
+      transition(':enter', [  // https://angular.io/api/animations/transition#using-enter-and-leave
+        style({opacity: 0}),
+        animate('175ms ease-in', style({opacity: 1}))
+      ]),
+      transition(':leave', [
+        animate('175ms ease-out', style({opacity: 0}))
+      ]),
     ])
   ],
 })
