@@ -1,10 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 

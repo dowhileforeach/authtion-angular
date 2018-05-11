@@ -1,6 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@dwfe/*": [
+        "src/dwfe/*"
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,10 +20,6 @@
     "lib": [
       "es2017",
       "dom"
-    ],
-    "baseUrl": "./src",
-    "paths": {
-      "@dwfe/*": ["dwfe/*"]
-    }
+    ]
   }
 }

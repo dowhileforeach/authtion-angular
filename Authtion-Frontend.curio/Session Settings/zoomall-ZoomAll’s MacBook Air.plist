@@ -16,6 +16,13 @@
 		<key>Zoom Factor</key>
 		<real>1</real>
 	</dict>
+	<key>88DCC3AF-DD8F-4C6E-8D17-34A84FDC1DA4</key>
+	<dict>
+		<key>Visible Rect</key>
+		<string>{{0, 0}, {1195, 662}}</string>
+		<key>Zoom Factor</key>
+		<real>1</real>
+	</dict>
 	<key>8E23F943-9347-4AEB-995F-DB1B69C278B8</key>
 	<dict>
 		<key>Visible Rect</key>
@@ -58,7 +65,7 @@
 	<key>Organizer Width</key>
 	<integer>170</integer>
 	<key>Primary Asset UUID Last Viewed</key>
-	<string>8E23F943-9347-4AEB-995F-DB1B69C278B8</string>
+	<string>88DCC3AF-DD8F-4C6E-8D17-34A84FDC1DA4</string>
 	<key>Scroll Position For Section CE03FCD0-ADC6-4262-BCA0-70CD2D5F2EF6</key>
 	<string>{0, 0}</string>
 	<key>Secondary View Vertical</key>

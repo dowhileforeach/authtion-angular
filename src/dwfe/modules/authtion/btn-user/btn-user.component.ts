@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
 

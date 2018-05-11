@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
 
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
 
 import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
-import {Subscription} from 'rxjs/Subscription';
 
 @Injectable()
 export class AuthtionService {

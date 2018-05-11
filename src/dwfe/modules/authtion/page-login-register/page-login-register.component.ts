@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angul
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MatDialogRef} from '@angular/material';
 
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService} from '../services/authtion-exchange.service';

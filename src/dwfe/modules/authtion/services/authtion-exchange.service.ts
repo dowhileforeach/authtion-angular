@@ -1,8 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import {Observable, Subject} from 'rxjs';
+import 'rxjs/add/observable/timer';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/switchMapTo';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
