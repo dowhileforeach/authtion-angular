@@ -44,6 +44,7 @@ export class AuthtionExchangeService {
 
   private subjPerform__googleCaptchaValidate = new Subject<ResultWithDescription>();
   private subjPerform__getConsumerData = new Subject<ResultWithDescription>();
+  private subjPerform__createConsumer = new Subject<ResultWithDescription>();
 
   constructor(private http: HttpClient) {
   }
@@ -54,6 +55,10 @@ export class AuthtionExchangeService {
 
   public get perform__getConsumerData(): Observable<ResultWithDescription> {
     return this.subjPerform__getConsumerData.asObservable();
+  }
+
+  public get perform__createConsumer(): Observable<ResultWithDescription> {
+    return this.subjPerform__createConsumer.asObservable();
   }
 
   private static handlePerformResponse(response, subject): void {
@@ -82,6 +87,13 @@ export class AuthtionExchangeService {
     this.get_getConsumerData(accessToken).subscribe(
       response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__getConsumerData),
       error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__getConsumerData)
+    );
+  }
+
+  public performCreateConsumer(email: string): void {
+    this.post_createConsumer(email).subscribe(
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__createConsumer),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__createConsumer)
     );
   }
 
@@ -206,7 +218,6 @@ export class AuthtionExchangeService {
       this.opt_GetAuthReq(accessToken)
     );
   }
-
 
   //
   // BACKEND VALIDATORS
