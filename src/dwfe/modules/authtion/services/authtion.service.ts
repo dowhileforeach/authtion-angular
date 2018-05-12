@@ -228,6 +228,8 @@ class AuthtionUser {
   private _emailConfirmed: boolean;
   private _hasRoleAdmin: boolean;
   private _hasRoleUser: boolean;
+  private _createdOn: Date;
+  private _updatedOn: Date;
 
   static get storageKey(): string {
     return 'userData';
@@ -265,6 +267,14 @@ class AuthtionUser {
     return this._hasRoleUser;
   }
 
+  get createdOn(): Date {
+    return this._createdOn;
+  }
+
+  get updatedOn(): Date {
+    return this._updatedOn;
+  }
+
   public static of(data): AuthtionUser {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
@@ -286,6 +296,8 @@ class AuthtionUser {
     obj._emailConfirmed = data['emailConfirmed'];
     obj._hasRoleAdmin = hasRoleAdmin;
     obj._hasRoleUser = hasRoleUser;
+    obj._createdOn = new Date(data['createdOn']);
+    obj._updatedOn = new Date(data['updatedOn']);
 
     obj.saveInStorage();
     return obj;
@@ -306,6 +318,8 @@ class AuthtionUser {
         obj._emailConfirmed = parsed._emailConfirmed === 'true';
         obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
         obj._hasRoleUser = parsed._hasRoleUser === 'true';
+        obj._createdOn = new Date(parsed._createdOn);
+        obj._updatedOn = new Date(parsed._updatedOn);
       }
     } catch (e) {
       return null;
