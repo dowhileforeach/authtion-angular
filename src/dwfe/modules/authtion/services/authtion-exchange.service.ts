@@ -17,10 +17,10 @@ const endpoints = {
   tokenRefresh: `${API_VERSION}/sign-in`,
   googleCaptchaValidate: `${API_VERSION}/google-captcha-validate`,
   signOut: `${API_VERSION}/sign-out`,
-  checkConsumerEmail: `${API_VERSION}/check-consumer-email`,
-  createConsumer: `${API_VERSION}/create-consumer`,
-  updateConsumer: `${API_VERSION}/update-consumer`,
-  getConsumerData: `${API_VERSION}/get-consumer-data`,
+  checkEmail: `${API_VERSION}/check-email`,
+  createAccount: `${API_VERSION}/create-account`,
+  updateAccount: `${API_VERSION}/update-account`,
+  getAccount: `${API_VERSION}/get-account`,
 };
 
 const credentials = {
@@ -43,8 +43,8 @@ const credentialsBase64Encoded = {
 export class AuthtionExchangeService {
 
   private subjPerform__googleCaptchaValidate = new Subject<ResultWithDescription>();
-  private subjPerform__getConsumerData = new Subject<ResultWithDescription>();
-  private subjPerform__createConsumer = new Subject<ResultWithDescription>();
+  private subjPerform__getAccount = new Subject<ResultWithDescription>();
+  private subjPerform__createAccount = new Subject<ResultWithDescription>();
 
   constructor(private http: HttpClient) {
   }
@@ -53,12 +53,12 @@ export class AuthtionExchangeService {
     return this.subjPerform__googleCaptchaValidate.asObservable();
   }
 
-  public get perform__getConsumerData(): Observable<ResultWithDescription> {
-    return this.subjPerform__getConsumerData.asObservable();
+  public get perform__getAccount(): Observable<ResultWithDescription> {
+    return this.subjPerform__getAccount.asObservable();
   }
 
-  public get perform__createConsumer(): Observable<ResultWithDescription> {
-    return this.subjPerform__createConsumer.asObservable();
+  public get perform__createAccount(): Observable<ResultWithDescription> {
+    return this.subjPerform__createAccount.asObservable();
   }
 
   private static handlePerformResponse(response, subject): void {
@@ -83,17 +83,17 @@ export class AuthtionExchangeService {
     );
   }
 
-  public performGetConsumerData(accessToken: string): void {
-    this.get_getConsumerData(accessToken).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__getConsumerData),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__getConsumerData)
+  public performGetAccount(accessToken: string): void {
+    this.get_getAccount(accessToken).subscribe(
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__getAccount),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__getAccount)
     );
   }
 
-  public performCreateConsumer(email: string): void {
-    this.post_createConsumer(email).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__createConsumer),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__createConsumer)
+  public performCreateAccount(email: string): void {
+    this.post_createAccount(email).subscribe(
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__createAccount),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__createAccount)
     );
   }
 
@@ -149,13 +149,13 @@ export class AuthtionExchangeService {
             }`;
   }
 
-  public body_checkConsumerEmail(email: string): string {
+  public body_checkEmail(email: string): string {
     return `{
               "email": "${email}"
             }`;
   }
 
-  public body_createConsumer(email: string): string {
+  public body_createAccount(email: string): string {
     return `{
               "email": "${email}"
             }`;
@@ -196,25 +196,25 @@ export class AuthtionExchangeService {
     );
   }
 
-  public post_checkConsumerEmail(email: string): Observable<Object> {
+  public post_checkEmail(email: string): Observable<Object> {
     return this.http.post(
-      endpoints.checkConsumerEmail,
-      this.body_checkConsumerEmail(email),
+      endpoints.checkEmail,
+      this.body_checkEmail(email),
       this.opt_PostAnonymouseReq);
   }
 
-  public post_createConsumer(email: string): Observable<Object> {
+  public post_createAccount(email: string): Observable<Object> {
     return this.http.post(
-      endpoints.createConsumer,
-      this.body_createConsumer(email),
+      endpoints.createAccount,
+      this.body_createAccount(email),
       this.opt_PostAnonymouseReq);
   }
 
   // update-consumer
 
-  public get_getConsumerData(accessToken: string): Observable<Object> {
+  public get_getAccount(accessToken: string): Observable<Object> {
     return this.http.get(
-      endpoints.getConsumerData,
+      endpoints.getAccount,
       this.opt_GetAuthReq(accessToken)
     );
   }
@@ -224,7 +224,7 @@ export class AuthtionExchangeService {
   //
 
   public backendValidatorEmail(email, reverseHandleResp) {
-    const observable = this.post_checkConsumerEmail(email).retry(3);
+    const observable = this.post_checkEmail(email).retry(3);
 
     // Don't send request to the backend on keyup. Only the last result for the interval.
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982

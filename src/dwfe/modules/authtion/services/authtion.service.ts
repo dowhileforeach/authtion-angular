@@ -9,19 +9,19 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 export class AuthtionService {
 
   private auth: AuthtionCredentials;
-  public user: AuthtionUser;
+  public user: AuthtionAccount;
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjPerform__signIn = new Subject<ResultWithDescription>();
 
-  private subscription_getConsumerData: Subscription;
+  private subscription_getAccount: Subscription;
 
   constructor(public exchangeService: AuthtionExchangeService) {
   }
 
   init(): boolean {
     this.auth = AuthtionCredentials.fromStorage(this);
-    this.user = AuthtionUser.fromStorage();
+    this.user = AuthtionAccount.fromStorage();
 
     if (this.auth && this.user) {
       return true;
@@ -60,24 +60,24 @@ export class AuthtionService {
     this.auth = null;
     this.user = null;
     AuthtionCredentials.removeFromStorage();
-    AuthtionUser.removeFromStorage();
+    AuthtionAccount.removeFromStorage();
   }
 
   public performSignIn(email: string, password: string): void {
     this.exchangeService.post_signIn(email, password).subscribe(
       response => {
-        this.exchangeService.performGetConsumerData(response['access_token']);
-        this.subscription_getConsumerData = this.exchangeService.perform__getConsumerData.subscribe(
+        this.exchangeService.performGetAccount(response['access_token']);
+        this.subscription_getAccount = this.exchangeService.perform__getAccount.subscribe(
           rwd => {
             if (rwd.result) {
               this.auth = AuthtionCredentials.of(this, response);
-              this.user = AuthtionUser.of(rwd.data);
+              this.user = AuthtionAccount.of(rwd.data);
               this.login();
               this.subjPerform__signIn.next(ResultWithDescription.of({result: true}));
             } else {
               this.subjPerform__signIn.next(ResultWithDescription.of({description: rwd.description}));
             }
-            this.subscription_getConsumerData.unsubscribe();
+            this.subscription_getAccount.unsubscribe();
           }
         );
       },
@@ -123,7 +123,7 @@ class AuthtionCredentials {
   private _refreshToken: string;
 
   static get storageKey(): string {
-    return 'authCredentials';
+    return 'credentialsData';
   }
 
   get instanceID(): string {
@@ -219,52 +219,42 @@ class AuthtionCredentials {
   }
 }
 
-class AuthtionUser {
+class AuthtionAccount {
   private _id: number;
-  private _email: string;
-  private _nickName: string;
-  private _firstName: string;
-  private _lastName: string;
-  private _emailConfirmed: boolean;
-  private _hasRoleAdmin: boolean;
-  private _hasRoleUser: boolean;
+
   private _createdOn: Date;
   private _updatedOn: Date;
+  private _hasRoleAdmin: boolean;
+  private _hasRoleUser: boolean;
+
+  private _email: string;
+  private _emailConfirmed: boolean;
+  private _emailNonPublic: boolean;
+
+  private _nickName: string;
+  private _nickNameNonPublic: boolean;
+
+  private _firstName: string;
+  private _firstNameNonPublic: boolean;
+
+  private _middleName: string;
+  private _middleNameNonPublic: boolean;
+
+  private _lastName: string;
+  private _lastNameNonPublic: boolean;
+
+  private _gender: number;
+  private _genderNonPublic: boolean;
+
+  private _dateOfBirth: Date;
+  private _dateOfBirthNonPublic: boolean;
 
   static get storageKey(): string {
-    return 'userData';
+    return 'accountData';
   }
 
   get id(): number {
     return this._id;
-  }
-
-  get email(): string {
-    return this._email;
-  }
-
-  get nickName(): string {
-    return this._nickName;
-  }
-
-  get firstName(): string {
-    return this._firstName;
-  }
-
-  get lastName(): string {
-    return this._lastName;
-  }
-
-  get emailConfirmed(): boolean {
-    return this._emailConfirmed;
-  }
-
-  get hasRoleAdmin(): boolean {
-    return this._hasRoleAdmin;
-  }
-
-  get hasRoleUser(): boolean {
-    return this._hasRoleUser;
   }
 
   get createdOn(): Date {
@@ -275,7 +265,75 @@ class AuthtionUser {
     return this._updatedOn;
   }
 
-  public static of(data): AuthtionUser {
+  get hasRoleAdmin(): boolean {
+    return this._hasRoleAdmin;
+  }
+
+  get hasRoleUser(): boolean {
+    return this._hasRoleUser;
+  }
+
+  get email(): string {
+    return this._email;
+  }
+
+  get emailConfirmed(): boolean {
+    return this._emailConfirmed;
+  }
+
+  get emailNonPublic(): boolean {
+    return this._emailNonPublic;
+  }
+
+  get nickName(): string {
+    return this._nickName;
+  }
+
+  get nickNameNonPublic(): boolean {
+    return this._nickNameNonPublic;
+  }
+
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  get firstNameNonPublic(): boolean {
+    return this._firstNameNonPublic;
+  }
+
+  get middleName(): string {
+    return this._middleName;
+  }
+
+  get middleNameNonPublic(): boolean {
+    return this._middleNameNonPublic;
+  }
+
+  get lastName(): string {
+    return this._lastName;
+  }
+
+  get lastNameNonPublic(): boolean {
+    return this._lastNameNonPublic;
+  }
+
+  get gender(): number {
+    return this._gender;
+  }
+
+  get genderNonPublic(): boolean {
+    return this._genderNonPublic;
+  }
+
+  get dateOfBirth(): Date {
+    return this._dateOfBirth;
+  }
+
+  get dateOfBirthNonPublic(): boolean {
+    return this._dateOfBirthNonPublic;
+  }
+
+  public static of(data): AuthtionAccount {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
     data['authorities'].forEach(next => {
@@ -286,40 +344,77 @@ class AuthtionUser {
       }
     });
 
-    const obj = new AuthtionUser();
+    const obj = new AuthtionAccount();
 
     obj._id = data['id'];
-    obj._email = data['email'];
-    obj._nickName = data['nickName'];
-    obj._firstName = data['firstName'];
-    obj._lastName = data['lastName'];
-    obj._emailConfirmed = data['emailConfirmed'];
-    obj._hasRoleAdmin = hasRoleAdmin;
-    obj._hasRoleUser = hasRoleUser;
+
     obj._createdOn = new Date(data['createdOn']);
     obj._updatedOn = new Date(data['updatedOn']);
+    obj._hasRoleAdmin = hasRoleAdmin;
+    obj._hasRoleUser = hasRoleUser;
+
+    obj._email = data['email'];
+    obj._emailConfirmed = data['emailConfirmed'];
+    obj._emailNonPublic = data['emailNonPublic'];
+
+    obj._nickName = data['nickName'];
+    obj._nickNameNonPublic = data['nickNameNonPublic'];
+
+    obj._firstName = data['firstName'];
+    obj._firstNameNonPublic = data['firstNameNonPublic'];
+
+    obj._middleName = data['middleName'];
+    obj._middleNameNonPublic = data['middleNameNonPublic'];
+
+    obj._lastName = data['lastName'];
+    obj._lastNameNonPublic = data['lastNameNonPublic'];
+
+    obj._gender = data['gender'];
+    obj._genderNonPublic = data['genderNonPublic'];
+
+    obj._dateOfBirth = data['dateOfBirth'];
+    obj._dateOfBirthNonPublic = data['dateOfBirthNonPublic'];
 
     obj.saveInStorage();
     return obj;
   }
 
-  public static fromStorage(): AuthtionUser {
+  public static fromStorage(): AuthtionAccount {
     let obj = null;
 
     try {
-      const parsed = JSON.parse(localStorage.getItem(AuthtionUser.storageKey));
+      const parsed = JSON.parse(localStorage.getItem(AuthtionAccount.storageKey));
       if (parsed) {
-        obj = new AuthtionUser();
+        obj = new AuthtionAccount();
+
         obj._id = +parsed._id;
-        obj._email = parsed._email;
-        obj._nickName = parsed._nickName;
-        obj._firstName = parsed._firstName;
-        obj._lastName = parsed._lastName;
-        obj._emailConfirmed = parsed._emailConfirmed === 'true';
-        obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
-        obj._hasRoleUser = parsed._hasRoleUser === 'true';
+
         obj._createdOn = new Date(parsed._createdOn);
         obj._updatedOn = new Date(parsed._updatedOn);
+        obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
+        obj._hasRoleUser = parsed._hasRoleUser === 'true';
+
+        obj._email = parsed._email;
+        obj._emailConfirmed = parsed._emailConfirmed === 'true';
+        obj._emailNonPublic = parsed._emailNonPublic === 'true';
+
+        obj._nickName = parsed._nickName;
+        obj._nickNameNonPublic = parsed._nickNameNonPublic === 'true';
+
+        obj._firstName = parsed._firstName;
+        obj._firstNameNonPublic = parsed._firstNameNonPublic === 'true';
+
+        obj._middleName = parsed._middleName;
+        obj._middleNameNonPublic = parsed._middleNameNonPublic === 'true';
+
+        obj._lastName = parsed._lastName;
+        obj._lastNameNonPublic = parsed._lastNameNonPublic === 'true';
+
+        obj._gender = +parsed._gender;
+        obj._genderNonPublic = parsed._genderNonPublic === 'true';
+
+        obj._dateOfBirth = new Date(parsed._dateOfBirth);
+        obj._dateOfBirthNonPublic = parsed._dateOfBirthNonPublic === 'true';
       }
     } catch (e) {
       return null;
@@ -329,14 +424,14 @@ class AuthtionUser {
 
   public static removeFromStorage(): void {
     try {
-      localStorage.removeItem(AuthtionUser.storageKey);
+      localStorage.removeItem(AuthtionAccount.storageKey);
     } catch (e) {
     }
   }
 
   private saveInStorage(): void {
     try {
-      localStorage.setItem(AuthtionUser.storageKey, JSON.stringify(this));
+      localStorage.setItem(AuthtionAccount.storageKey, JSON.stringify(this));
     } catch (e) {
     }
   }

@@ -29,7 +29,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
   private subscription_signIn: Subscription;
   private subscription_googleCaptchaValidate: Subscription;
-  private subscription_createConsumer: Subscription;
+  private subscription_createAccount: Subscription;
   private subscription_emailChangesLoginResetBackendError: Subscription;
   private subscription_passwordChangesLoginResetBackendError: Subscription;
   private subscription_emailChangesCreateAccountResetBackendError: Subscription;
@@ -66,8 +66,8 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     if (this.subscription_googleCaptchaValidate) {
       this.subscription_googleCaptchaValidate.unsubscribe();
     }
-    if (this.subscription_createConsumer) {
-      this.subscription_createConsumer.unsubscribe();
+    if (this.subscription_createAccount) {
+      this.subscription_createAccount.unsubscribe();
     }
     this.subscription_emailChangesLoginResetBackendError.unsubscribe();
     this.subscription_passwordChangesLoginResetBackendError.unsubscribe();
@@ -237,21 +237,21 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.errorMessageOfProcessCreateAccount = ''; // init
 
-    // createConsumer performs authtion-exchange.service, give it a email
-    this.exchangeService.performCreateConsumer(this.controlCreateAccountEmail.value);
+    // createAccount performs authtion-exchange.service, give it a email
+    this.exchangeService.performCreateAccount(this.controlCreateAccountEmail.value);
 
     // wait for service response
     this.setLocked(true);
 
     // process service response
-    this.subscription_createConsumer = this.exchangeService.perform__createConsumer.subscribe(
+    this.subscription_createAccount = this.exchangeService.perform__createAccount.subscribe(
       data => {
         if (data.result) { // actions on success 'Create account'
           this.changeSlide(); // just go to 'Login' slide
         } else {
           this.errorMessageOfProcessCreateAccount = data.description;
         }
-        this.subscription_createConsumer.unsubscribe();
+        this.subscription_createAccount.unsubscribe();
         this.setLocked(false);
       }
     );
