@@ -130,7 +130,16 @@ export class UtilsDwfeService {
 
     if (error && error.hasOwnProperty('error')) {
       const errorCode = error['error'];
-      result += dwfeServerErrorsMap[errorCode] || errorCode;
+      const errorDescriptionPropName = 'error_description';
+      if (dwfeServerErrorsMap.hasOwnProperty(errorCode)) {
+        if (error.hasOwnProperty(errorDescriptionPropName)) {
+          result += error[errorDescriptionPropName]; // https://github.com/dowhileforeach/authtion#oauth2-server-error
+        } else {
+          result += dwfeServerErrorsMap[errorCode];
+        }
+      } else {
+        result += errorCode;
+      }
     } else if (statusText) {
       result += statusText;
     } else if (error) {

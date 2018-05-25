@@ -161,7 +161,7 @@ export class AuthtionExchangeService {
             }`;
   }
 
-  // update-consumer
+  // update-account
 
 
   //
@@ -210,7 +210,7 @@ export class AuthtionExchangeService {
       this.opt_PostAnonymouseReq);
   }
 
-  // update-consumer
+  // update-account
 
   public get_getAccount(accessToken: string): Observable<Object> {
     return this.http.get(
