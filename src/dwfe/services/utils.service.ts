@@ -5,7 +5,7 @@ const dwfeAuthtionErrorCodesMap = {
   'confirm-key-not-exist': 'Confirm key does not exist',
   'delay-between-duplicate-requests': 'You\'ve already sent a request. Check your email',
   'email-is-already-confirmed': 'Email is already confirmed',
-  'email-not-exist': 'Email does not exist',
+  'email-not-exist': 'Not found in database',
   'email-present-in-database': 'Email is present in database',
   'empty-confirm-key': 'Confirm key is empty',
   'empty-email': 'Email is empty',
@@ -131,12 +131,10 @@ export class UtilsDwfeService {
     if (error && error.hasOwnProperty('error')) {
       const errorCode = error['error'];
       const errorDescriptionPropName = 'error_description';
-      if (dwfeServerErrorsMap.hasOwnProperty(errorCode)) {
-        if (error.hasOwnProperty(errorDescriptionPropName)) {
-          result += error[errorDescriptionPropName]; // https://github.com/dowhileforeach/authtion#oauth2-server-error
-        } else {
-          result += dwfeServerErrorsMap[errorCode];
-        }
+      if (error.hasOwnProperty(errorDescriptionPropName)) {
+        result += error[errorDescriptionPropName]; // https://github.com/dowhileforeach/authtion#oauth2-server-error
+      } else if (dwfeServerErrorsMap.hasOwnProperty(errorCode)) {
+        result += dwfeServerErrorsMap[errorCode];
       } else {
         result += errorCode;
       }
