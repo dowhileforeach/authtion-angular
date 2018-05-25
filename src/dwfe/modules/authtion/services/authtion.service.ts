@@ -243,11 +243,14 @@ class AuthtionAccount {
   private _lastName: string;
   private _lastNameNonPublic: boolean;
 
-  private _gender: number;
+  private _gender: string;
   private _genderNonPublic: boolean;
 
   private _dateOfBirth: Date;
   private _dateOfBirthNonPublic: boolean;
+
+  private _country: string;
+  private _countryNonPublic: boolean;
 
   static get storageKey(): string {
     return 'accountData';
@@ -317,7 +320,7 @@ class AuthtionAccount {
     return this._lastNameNonPublic;
   }
 
-  get gender(): number {
+  get gender(): string {
     return this._gender;
   }
 
@@ -331,6 +334,14 @@ class AuthtionAccount {
 
   get dateOfBirthNonPublic(): boolean {
     return this._dateOfBirthNonPublic;
+  }
+
+  get country(): string {
+    return this._country;
+  }
+
+  get countryNonPublic(): boolean {
+    return this._countryNonPublic;
   }
 
   public static of(data): AuthtionAccount {
@@ -375,6 +386,9 @@ class AuthtionAccount {
     obj._dateOfBirth = data['dateOfBirth'];
     obj._dateOfBirthNonPublic = data['dateOfBirthNonPublic'];
 
+    obj._country = data['country'];
+    obj._countryNonPublic = data['countryNonPublic'];
+
     obj.saveInStorage();
     return obj;
   }
@@ -410,11 +424,14 @@ class AuthtionAccount {
         obj._lastName = parsed._lastName;
         obj._lastNameNonPublic = parsed._lastNameNonPublic === 'true';
 
-        obj._gender = +parsed._gender;
+        obj._gender = parsed._gender;
         obj._genderNonPublic = parsed._genderNonPublic === 'true';
 
         obj._dateOfBirth = new Date(parsed._dateOfBirth);
         obj._dateOfBirthNonPublic = parsed._dateOfBirthNonPublic === 'true';
+
+        obj._country = parsed._country;
+        obj._countryNonPublic = parsed._countryNonPublic === 'true';
       }
     } catch (e) {
       return null;
