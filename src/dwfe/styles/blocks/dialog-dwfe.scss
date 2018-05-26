@@ -20,7 +20,7 @@
 
 .dialog-dwfe__title {
   @include reset-margin-padding();
-  margin: 0 auto;
+  margin: 5px auto 35px;
 
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-black);
 }
