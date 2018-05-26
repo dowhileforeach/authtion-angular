@@ -13,10 +13,11 @@
 
 .form-dwfe__item {
   margin-bottom: 35px;
+  z-index: 300;
 }
 
 .form-dwfe__text-under-field {
-  z-index: 300;
+  z-index: 200;
 
   align-self: flex-end;
   margin: -30px $indent-horizontal 25px;

@@ -251,16 +251,13 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   private openReqRestorePasswordDialog(): void {
-    setTimeout(() => {
-      this.dialogRef.close();
-    }, 10);
+    this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionPageReqRestorePassComponent, {
-        autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
+        autoFocus: true,
         panelClass: 'cdk-overlay-pane--login-register',
         position: {top: '50px'}
       });
-
   }
 }
 

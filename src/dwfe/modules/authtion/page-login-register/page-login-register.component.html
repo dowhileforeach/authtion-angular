@@ -26,7 +26,7 @@
            [ngClass]="{ 'slider__inner--login': isLoginSlide,
                         'slider__inner--create-account': !isLoginSlide }">
 
-        <form class="form-dwfe  slider__form" spellcheck="false">
+        <form class="form-dwfe" spellcheck="false">
 
           <app-input-email-dwfe class="form-dwfe__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
@@ -41,7 +41,8 @@
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
-          <button class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password"
+          <button type="button"
+                  class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password"
                   (click)="openReqRestorePasswordDialog()">
             Restore password
           </button>
@@ -62,7 +63,7 @@
 
         </form>
 
-        <form class="form-dwfe  slider__form" spellcheck="false">
+        <form class="form-dwfe" spellcheck="false">
 
           <app-input-email-dwfe class="form-dwfe__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
@@ -74,7 +75,6 @@
           <p class="form-dwfe__text-under-field">*Password will be sent to email</p>
 
           <re-captcha *ngIf="!isLoginSlide"
-                      siteKey="6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi"
                       (resolved)="googleCaptchaResolved($event)"
                       class="form-dwfe__item">
           </re-captcha>

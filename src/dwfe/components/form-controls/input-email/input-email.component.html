@@ -4,7 +4,8 @@
          [ngClass]="{ 'filled': !isEmpty(emailControl.value) }"
          type="email"
          [tabindex]="tabIndexValue"
-         [id]="emailControlID">
+         [id]="emailControlID"
+         cdkFocusInitial>
 
   <label [for]="emailControlID">{{labelText}}</label>
 

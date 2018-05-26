@@ -21,6 +21,7 @@ const endpoints = {
   createAccount: `${API_VERSION}/create-account`,
   updateAccount: `${API_VERSION}/update-account`,
   getAccount: `${API_VERSION}/get-account`,
+  reqRestorePass: `${API_VERSION}/req-restore-pass`,
 };
 
 const credentials = {
@@ -45,6 +46,7 @@ export class AuthtionExchangeService {
   private subjPerform__googleCaptchaValidate = new Subject<ResultWithDescription>();
   private subjPerform__getAccount = new Subject<ResultWithDescription>();
   private subjPerform__createAccount = new Subject<ResultWithDescription>();
+  private subjPerform__reqRestorePass = new Subject<ResultWithDescription>();
 
   constructor(private http: HttpClient) {
   }
@@ -59,6 +61,10 @@ export class AuthtionExchangeService {
 
   public get perform__createAccount(): Observable<ResultWithDescription> {
     return this.subjPerform__createAccount.asObservable();
+  }
+
+  public get perform__reqRestorePass(): Observable<ResultWithDescription> {
+    return this.subjPerform__reqRestorePass.asObservable();
   }
 
   private static handlePerformResponse(response, subject): void {
@@ -94,6 +100,13 @@ export class AuthtionExchangeService {
     this.post_createAccount(email).subscribe(
       response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__createAccount),
       error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__createAccount)
+    );
+  }
+
+  public performReqRestorePass(email: string): void {
+    this.post_reqRestorePass(email).subscribe(
+      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__reqRestorePass),
+      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__reqRestorePass)
     );
   }
 
@@ -161,6 +174,12 @@ export class AuthtionExchangeService {
             }`;
   }
 
+  public body_reqRestorePass(email: string): string {
+    return `{
+              "email": "${email}"
+            }`;
+  }
+
   // update-account
 
 
@@ -207,6 +226,13 @@ export class AuthtionExchangeService {
     return this.http.post(
       endpoints.createAccount,
       this.body_createAccount(email),
+      this.opt_PostAnonymouseReq);
+  }
+
+  public post_reqRestorePass(email: string): Observable<Object> {
+    return this.http.post(
+      endpoints.reqRestorePass,
+      this.body_reqRestorePass(email),
       this.opt_PostAnonymouseReq);
   }
 

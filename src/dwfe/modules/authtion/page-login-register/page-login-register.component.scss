@@ -12,10 +12,6 @@
     position: relative;
   }
 
-  .slider__form {
-    width: $dialog-width - 4;
-  }
-
   .slider__controls {
     @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-black);
     display: flex;

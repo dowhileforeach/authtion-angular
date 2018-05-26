@@ -12,6 +12,10 @@
   justify-content: flex-start;
 
   position: relative;
+
+  form {
+    width: $dialog-width - 4;
+  }
 }
 
 .dialog-dwfe__title {

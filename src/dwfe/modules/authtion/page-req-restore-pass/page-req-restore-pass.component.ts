@@ -18,7 +18,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-  private errorMessageOfReq = '';
+  private errorMessageOfProcess = '';
 
   private isCaptchaValid = false;
   private errorMessageOfCaptcha = '';
@@ -35,8 +35,17 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
 
   ngAfterViewInit(): void {
     this.controlAccountEmail = this.groupAccountEmail.get('email');
-    this.focusOnDwfeInput(this.refAccountEmail);
-    this.subscription_emailChangesAccountResetBackendError = this.resetBackendError('controlAccountEmail', ['errorMessageOfReq', 'errorMessageOfCaptcha']);
+    this.subscription_emailChangesAccountResetBackendError = this.resetBackendError('controlAccountEmail', ['errorMessageOfProcess', 'errorMessageOfCaptcha']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription_googleCaptchaValidate) {
+      this.subscription_googleCaptchaValidate.unsubscribe();
+    }
+    if (this.subscription_reqRestorePass) {
+      this.subscription_reqRestorePass.unsubscribe();
+    }
+    this.subscription_emailChangesAccountResetBackendError.unsubscribe();
   }
 
   private setLocked(value: boolean): void {
@@ -80,7 +89,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   }
 
   private performReqRestorePass(): void {
-    this.errorMessageOfReq = ''; // init
+    this.errorMessageOfProcess = ''; // init
 
     // password restore request performs authtion-exchange.service, give it a email
     this.exchangeService.performReqRestorePass(this.controlAccountEmail.value);
@@ -94,7 +103,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
         if (data.result) { // actions on success 'Create account'
           // TODO
         } else {
-          this.errorMessageOfReq = data.description;
+          this.errorMessageOfProcess = data.description;
         }
         this.subscription_reqRestorePass.unsubscribe();
         this.setLocked(false);
@@ -103,13 +112,13 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   }
 
 
-  private get showErrorOfReq(): boolean {
+  private get showErrorOfProcess(): boolean {
 
-    const result = this.errorMessageOfReq !== ''
+    const result = this.errorMessageOfProcess !== ''
       && this.groupAccountEmail.valid;
 
     if (!result) {
-      this.errorMessageOfReq = '';
+      this.errorMessageOfProcess = '';
     }
     return result;
   }
@@ -122,16 +131,5 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
       this.errorMessageOfCaptcha = '';
     }
     return result;
-  }
-
-
-  ngOnDestroy(): void {
-    if (this.subscription_googleCaptchaValidate) {
-      this.subscription_googleCaptchaValidate.unsubscribe();
-    }
-    if (this.subscription_reqRestorePass) {
-      this.subscription_reqRestorePass.unsubscribe();
-    }
-    this.subscription_emailChangesAccountResetBackendError.unsubscribe();
   }
 }
