@@ -1,6 +1,9 @@
 import {AbstractControl} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
+import {Subscription} from 'rxjs/Subscription';
+import {ElementRef} from '@angular/core';
+
 const dwfeAuthtionErrorCodesMap = {
   'confirm-key-not-exist': 'Confirm key does not exist',
   'delay-between-duplicate-requests': 'You\'ve already sent a request. Check your email',
@@ -71,6 +74,20 @@ export class UtilsDwfeService {
 
   public static getErrorOnFormControl(control: AbstractControl, errorName: string) {
     return control.errors[errorName];
+  }
+
+  public static focusOnDwfeInput(elementRef: ElementRef) {
+    elementRef.nativeElement.querySelector('.form-group-dwfe input').focus();
+  }
+
+  public static resetBackendError(controlFieldName, fieldsArr): Subscription {
+    return this[controlFieldName].valueChanges.subscribe(() => {
+      fieldsArr.forEach(errorFieldName => {
+        if (this[errorFieldName] !== '') {
+          this[errorFieldName] = '';
+        }
+      });
+    });
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript

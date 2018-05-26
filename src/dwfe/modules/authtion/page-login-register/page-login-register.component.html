@@ -1,4 +1,4 @@
-<section class="page-authtion-login-register">
+<section class="page-authtion-login-register  dialog-dwfe">
   <h2 class="visually-hidden">Login or Create new account</h2>
 
   <div class="slider" #refSlider>
@@ -41,7 +41,10 @@
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
-          <a class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password" href="#">Restore password</a>
+          <button class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password"
+                  (click)="openReqRestorePasswordDialog()">
+            Restore password
+          </button>
 
           <button class="form-dwfe__btn"
                   mat-raised-button
@@ -111,7 +114,7 @@
 
   </div>
 
-  <button class="btn-close"
+  <button class="dialog-dwfe__btn-close"
           mat-mini-fab
           mat-dialog-close>
     Close

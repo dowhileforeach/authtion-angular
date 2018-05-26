@@ -29,6 +29,7 @@
 }
 
 .form-dwfe__text-under-field--restore-password {
+  border: 0;
   border-bottom: 0.5px dashed $color-gray;
   transition: color 0.15s ease, border-color 0.15s ease;
   &:hover,

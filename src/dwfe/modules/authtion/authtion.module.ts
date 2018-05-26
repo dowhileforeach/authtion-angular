@@ -10,6 +10,7 @@ import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/btn-user--logged-in/btn-user--logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not-authenticated/btn-user--not-authenticated.component';
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
+import {AuthtionPageReqRestorePassComponent} from './page-req-restore-pass/page-req-restore-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
@@ -25,6 +26,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
     AuthtionPageLoginRegisterComponent,
+    AuthtionPageReqRestorePassComponent,
     AlertDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
@@ -52,7 +54,8 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
     AuthtionBtnUserComponent,
   ],
   entryComponents: [
-    AuthtionPageLoginRegisterComponent
+    AuthtionPageLoginRegisterComponent,
+    AuthtionPageReqRestorePassComponent,
   ],
 })
 export class AuthtionModule {

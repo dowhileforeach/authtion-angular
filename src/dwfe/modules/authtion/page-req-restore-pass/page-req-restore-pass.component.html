@@ -1,0 +1,47 @@
+<section class="page-req-restore-pass  dialog-dwfe">
+  <h2 class="dialog-dwfe__title">Password restore request</h2>
+
+  <form class="form-dwfe" spellcheck="false">
+
+    <app-input-email-dwfe class="form-dwfe__item"
+                          [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
+                          [isDirtyTouchedCheckMode]="true"
+                          (takeEmailGroup)="groupAccountEmail=$event"
+                          #refAccountEmail>
+    </app-input-email-dwfe>
+
+    <button class="form-dwfe__btn"
+            mat-raised-button
+            (click)="performReqRestorePass()"
+            [disabled]="!groupAccountEmail.valid || !isCaptchaValid || isLocked"
+            aria-label="Perform 'Password restore request'">
+      OK
+
+      <app-alert-dwfe *ngIf="showErrorOfReq"
+                      class="form-dwfe__alert-over"
+                      [message]="errorMessageOfReq"
+                      [blink]="true">
+      </app-alert-dwfe>
+
+      <app-alert-dwfe *ngIf="showErrorOfCaptcha"
+                      class="form-dwfe__alert-over"
+                      [message]="errorMessageOfCaptcha"
+                      [blink]="true">
+      </app-alert-dwfe>
+
+    </button>
+
+  </form>
+
+  <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
+    <div class="pending-overlay" *ngIf="isLocked">
+      <app-spinner-shark-fin-circle-dwfe></app-spinner-shark-fin-circle-dwfe>
+    </div>
+  </div>
+
+  <button class="dialog-dwfe__btn-close"
+          mat-mini-fab
+          mat-dialog-close>
+    Close
+  </button>
+</section>

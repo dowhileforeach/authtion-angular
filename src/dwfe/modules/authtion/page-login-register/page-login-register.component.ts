@@ -1,11 +1,13 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {MatDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 
 import {Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService} from '../services/authtion-exchange.service';
+import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
+import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -42,9 +44,13 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private isCreateAccountCaptchaValid = false;
   private errorMessageOfCreateAccountCaptcha = '';
 
+  private resetBackendError = UtilsDwfeService.resetBackendError;
+  private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
+
   constructor(private authtionService: AuthtionService,
               public exchangeService: AuthtionExchangeService,
-              private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>) {
+              private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
+              private dialog: MatDialog) {
   }
 
   ngAfterViewInit(): void {
@@ -74,17 +80,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.subscription_emailChangesCreateAccountResetBackendError.unsubscribe();
   }
 
-  private resetBackendError(controlFieldName, fieldsArr): Subscription {
-    return this[controlFieldName].valueChanges.subscribe(() => {
-      fieldsArr.forEach(errorFieldName => {
-        if (this[errorFieldName] !== '') {
-          this[errorFieldName] = '';
-        }
-      });
-    });
-  }
-
-  private changeSlide() {
+  private changeSlide(): void {
     this.isLoginSlide = !this.isLoginSlide;
     this.afterChangeSlideActions();
   }
@@ -100,13 +96,13 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     );
   }
 
-  private exchangeEmail() {
+  private exchangeEmail(): void {
     this.isLoginSlide ?
       this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value)
       : this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
   }
 
-  private focusOnInput() {
+  private focusOnInput(): void {
     if (this.isLoginSlide) {
       if (this.controlLoginEmail.invalid) {
         this.focusOnDwfeInput(this.refLoginEmail);
@@ -120,9 +116,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     }
   }
 
-  private focusOnDwfeInput(elementRef: ElementRef) {
-    elementRef.nativeElement.querySelector('.form-group-dwfe input').focus();
-  }
 
   private setLocked(value: boolean): void {
 
@@ -180,7 +173,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     return result;
   }
 
-  private performLogin() {
+  private performLogin(): void {
 
     this.errorMessageOfProcessLogin = '';  // init
 
@@ -233,7 +226,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     );
   }
 
-  private performCreateAccount() {
+  private performCreateAccount(): void {
 
     this.errorMessageOfProcessCreateAccount = ''; // init
 
@@ -255,6 +248,19 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
         this.setLocked(false);
       }
     );
+  }
+
+  private openReqRestorePasswordDialog(): void {
+    setTimeout(() => {
+      this.dialogRef.close();
+    }, 10);
+    this.dialog.open( // https://material.angular.io/components/dialog/api
+      AuthtionPageReqRestorePassComponent, {
+        autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
+        panelClass: 'cdk-overlay-pane--login-register',
+        position: {top: '50px'}
+      });
+
   }
 }
 
