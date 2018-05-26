@@ -47,7 +47,7 @@
             Restore password
           </button>
 
-          <button class="form-dwfe__btn"
+          <button class="form-dwfe__btn  form-dwfe__btn--standard"
                   mat-raised-button
                   (click)="performLogin()"
                   [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
@@ -79,7 +79,7 @@
                       class="form-dwfe__item">
           </re-captcha>
 
-          <button class="form-dwfe__btn"
+          <button class="form-dwfe__btn  form-dwfe__btn--standard"
                   mat-raised-button
                   (click)="performCreateAccount()"
                   [disabled]="!groupCreateAccountEmail.valid || !isCreateAccountCaptchaValid || isLocked"

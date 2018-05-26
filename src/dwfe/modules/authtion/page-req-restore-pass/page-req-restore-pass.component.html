@@ -1,7 +1,7 @@
 <section class="page-req-restore-pass  dialog-dwfe">
   <h2 class="dialog-dwfe__title">Password restore request</h2>
 
-  <form class="form-dwfe" spellcheck="false">
+  <form class="form-dwfe" spellcheck="false" *ngIf="!isReqSuccessful">
 
     <app-input-email-dwfe class="form-dwfe__item"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
@@ -15,7 +15,7 @@
                 class="form-dwfe__item">
     </re-captcha>
 
-    <button class="form-dwfe__btn"
+    <button class="form-dwfe__btn  form-dwfe__btn--standard"
             mat-raised-button
             (click)="performReqRestorePass()"
             [disabled]="!groupAccountEmail.valid || !isCaptchaValid || isLocked"
@@ -37,6 +37,15 @@
     </button>
 
   </form>
+
+  <div *ngIf="isReqSuccessful">
+    <p>Congratulation!</p>
+    <button class="form-dwfe__btn"
+            mat-raised-button color="primary"
+            (click)="goToLoginPage()">
+      Go to Login page
+    </button>
+  </div>
 
   <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
     <div class="pending-overlay" *ngIf="isLocked">

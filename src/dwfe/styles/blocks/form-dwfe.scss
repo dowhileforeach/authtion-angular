@@ -53,14 +53,18 @@
   margin: 0 auto 15px;
   padding: 10px 0;
 
-  @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
-  background-color: $color-tower-gray;
+  @include fonts4($font-size-x3, $font-height-normal, $font-weight-normal, normal);
   outline-width: 0;
   &[disabled] {
     cursor: not-allowed;
     background-color: rgba($color-black, 0.12);
     color: rgba($color-black, 0.26);
   }
+}
+
+.form-dwfe__btn--standard {
+  background-color: $color-tower-gray;
+  color: $color-mine-shaft;
 }
 
 .form-dwfe__alert-over {

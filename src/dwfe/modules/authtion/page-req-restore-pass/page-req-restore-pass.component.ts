@@ -12,6 +12,8 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 })
 export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy {
 
+  private isReqSuccessful = false;
+
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
@@ -101,7 +103,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     this.subscription_reqRestorePass = this.exchangeService.perform__reqRestorePass.subscribe(
       data => {
         if (data.result) { // actions on success 'Create account'
-          // TODO
+          this.isReqSuccessful = true;
         } else {
           this.errorMessageOfProcess = data.description;
         }
@@ -131,5 +133,10 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
       this.errorMessageOfCaptcha = '';
     }
     return result;
+  }
+
+
+  private goToLoginPage(): void {
+
   }
 }

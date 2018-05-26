@@ -11,11 +11,15 @@
   padding: 0;
 }
 
-@mixin fonts($size, $height, $weight, $style, $color) {
+@mixin fonts4($size, $height, $weight, $style) {
   font-size: $size;
   line-height: $height;
   font-weight: $weight;
   font-style: $style;
+}
+
+@mixin fonts($size, $height, $weight, $style, $color) {
+  @include fonts4($size, $height, $weight, $style);
   color: $color;
 }
 
