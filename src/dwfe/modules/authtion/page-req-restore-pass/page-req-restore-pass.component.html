@@ -38,13 +38,9 @@
 
   </form>
 
-  <div *ngIf="isReqSuccessful">
-    <p>Congratulation!</p>
-    <button class="form-dwfe__btn"
-            mat-raised-button color="primary"
-            (click)="goToLoginPage()">
-      Go to Login page
-    </button>
+  <div class="dialog-dwfe__successful" *ngIf="isReqSuccessful">
+    <p class="dialog-dwfe__successful-title">Successful!</p>
+    <p class="dialog-dwfe__successful-info">Please check your email box</p>
   </div>
 
   <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>

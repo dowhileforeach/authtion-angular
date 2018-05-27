@@ -134,9 +134,4 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     }
     return result;
   }
-
-
-  private goToLoginPage(): void {
-
-  }
 }
