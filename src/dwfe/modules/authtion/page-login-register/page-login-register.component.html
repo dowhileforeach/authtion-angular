@@ -75,7 +75,7 @@
           <p class="dwfe-form__text-under-field">*Password will be sent to email</p>
 
           <re-captcha *ngIf="!isLoginSlide"
-                      (resolved)="googleCaptchaResolved($event)"
+                      (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
                       class="dwfe-form__item">
           </re-captcha>
 

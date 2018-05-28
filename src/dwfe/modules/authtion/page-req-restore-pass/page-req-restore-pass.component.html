@@ -11,7 +11,7 @@
                           #refAccountEmail>
     </app-input-email-dwfe>
 
-    <re-captcha (resolved)="googleCaptchaResolved($event)"
+    <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
                 class="dwfe-form__item">
     </re-captcha>
 
@@ -39,7 +39,7 @@
   </form>
 
   <div class="dwfe-dialog__successful" *ngIf="isReqSuccessful">
-    <p class="dwfe-dialog__successful-title">Compiled successfully</p>
+    <p class="dwfe-dialog__successful-title">Successfully completed</p>
     <p class="dwfe-dialog__successful-info">Please check your email box</p>
   </div>
 

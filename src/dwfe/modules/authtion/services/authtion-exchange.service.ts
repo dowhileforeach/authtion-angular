@@ -248,7 +248,6 @@ export class AuthtionExchangeService {
   //
   // BACKEND VALIDATORS
   //
-
   public backendValidatorEmail(email, reverseHandleResp) {
     const observable = this.post_checkEmail(email).retry(3);
 
@@ -300,6 +299,38 @@ export class AuthtionExchangeService {
     //     );
     //   });
   }
+
+  //
+  // GOOGLE CAPTCHA
+  //
+  public checkGoogleCaptcha(googleResponse: string, source: GoogleCaptchaProcess): void {
+
+    source.setErrorMessageOfCaptcha(''); // init
+
+    if (googleResponse === null) {
+      source.setCaptchaValid(false);
+      return;
+    }
+
+    // let's run the verification process
+    this.performGoogleCaptchaValidate(googleResponse);
+
+    // wait for service response
+    source.setLocked(true);
+
+    // process service response
+    const subscription_googleCaptchaValidate = this.perform__googleCaptchaValidate.subscribe(
+      data => {
+        if (data.result) { // actions on success captcha check
+          source.setCaptchaValid(true);
+        } else {
+          source.setErrorMessageOfCaptcha(data.description);
+        }
+        subscription_googleCaptchaValidate.unsubscribe();
+        source.setLocked(false);
+      }
+    );
+  }
 }
 
 export class ResultWithDescription {
@@ -330,4 +361,12 @@ export class ResultWithDescription {
     obj._description = description;
     return obj;
   }
+}
+
+export interface GoogleCaptchaProcess {
+  setLocked(value: boolean): void;
+
+  setErrorMessageOfCaptcha(value: string): void;
+
+  setCaptchaValid(value: boolean): void;
 }

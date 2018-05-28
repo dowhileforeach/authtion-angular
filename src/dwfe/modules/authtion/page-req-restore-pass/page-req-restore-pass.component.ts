@@ -4,14 +4,14 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import {Subscription} from 'rxjs/index';
 
-import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AuthtionExchangeService, GoogleCaptchaProcess} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',
   templateUrl: './page-req-restore-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy {
+export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess {
 
   private isReqSuccessful = false;
 
@@ -26,7 +26,6 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   private isCaptchaValid = false;
   private errorMessageOfCaptcha = '';
 
-  private subscription_googleCaptchaValidate: Subscription;
   private subscription_reqRestorePass: Subscription;
   private subscription_emailChangesAccountResetBackendError: Subscription;
 
@@ -45,16 +44,13 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   }
 
   ngOnDestroy(): void {
-    if (this.subscription_googleCaptchaValidate) {
-      this.subscription_googleCaptchaValidate.unsubscribe();
-    }
     if (this.subscription_reqRestorePass) {
       this.subscription_reqRestorePass.unsubscribe();
     }
     this.subscription_emailChangesAccountResetBackendError.unsubscribe();
   }
 
-  private setLocked(value: boolean): void {
+  public setLocked(value: boolean): void {
 
     this.isLocked = value;
 
@@ -65,33 +61,12 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     }
   }
 
-  public googleCaptchaResolved(googleResponse: string): void {
+  public setErrorMessageOfCaptcha(value: string): void {
+    this.errorMessageOfCaptcha = value;
+  }
 
-    this.errorMessageOfCaptcha = ''; // init
-
-    if (googleResponse === null) {
-      this.isCaptchaValid = false;
-      return;
-    }
-
-    // let's run the verification process
-    this.exchangeService.performGoogleCaptchaValidate(googleResponse);
-
-    // wait for service response
-    this.setLocked(true);
-
-    // process service response
-    this.subscription_googleCaptchaValidate = this.exchangeService.perform__googleCaptchaValidate.subscribe(
-      data => {
-        if (data.result) { // actions on success captcha check
-          this.isCaptchaValid = true;
-        } else {
-          this.errorMessageOfCaptcha = data.description;
-        }
-        this.subscription_googleCaptchaValidate.unsubscribe();
-        this.setLocked(false);
-      }
-    );
+  public setCaptchaValid(value: boolean): void {
+    this.isCaptchaValid = value;
   }
 
   private performReqRestorePass(): void {

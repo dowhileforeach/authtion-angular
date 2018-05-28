@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
@@ -14,7 +14,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   templateUrl: './page-login-register.component.html',
   styleUrls: ['./page-login-register.component.scss']
 })
-export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy {
+export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess {
 
   private isLoginSlide = true;
 
@@ -30,7 +30,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
   private subscription_signIn: Subscription;
-  private subscription_googleCaptchaValidate: Subscription;
   private subscription_createAccount: Subscription;
   private subscription_emailChangesLoginResetBackendError: Subscription;
   private subscription_passwordChangesLoginResetBackendError: Subscription;
@@ -68,9 +67,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   ngOnDestroy(): void {
     if (this.subscription_signIn) {
       this.subscription_signIn.unsubscribe();
-    }
-    if (this.subscription_googleCaptchaValidate) {
-      this.subscription_googleCaptchaValidate.unsubscribe();
     }
     if (this.subscription_createAccount) {
       this.subscription_createAccount.unsubscribe();
@@ -117,7 +113,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
 
-  private setLocked(value: boolean): void {
+  public setLocked(value: boolean): void {
 
     this.isLocked = value;
 
@@ -126,6 +122,14 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     } else {
       this.focusOnInput();
     }
+  }
+
+  public setErrorMessageOfCaptcha(value: string): void {
+    this.errorMessageOfCreateAccountCaptcha = value;
+  }
+
+  public setCaptchaValid(value: boolean): void {
+    this.isCreateAccountCaptchaValid = value;
   }
 
   private get showErrorOfProcessLogin(): boolean {
@@ -193,35 +197,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
           this.setLocked(false);
           this.errorMessageOfProcessLogin = data.description;
         }
-      }
-    );
-  }
-
-  public googleCaptchaResolved(googleResponse: string): void {
-
-    this.errorMessageOfCreateAccountCaptcha = ''; // init
-
-    if (googleResponse === null) {
-      this.isCreateAccountCaptchaValid = false;
-      return;
-    }
-
-    // let's run the verification process
-    this.exchangeService.performGoogleCaptchaValidate(googleResponse);
-
-    // wait for service response
-    this.setLocked(true);
-
-    // process service response
-    this.subscription_googleCaptchaValidate = this.exchangeService.perform__googleCaptchaValidate.subscribe(
-      data => {
-        if (data.result) { // actions on success captcha check
-          this.isCreateAccountCaptchaValid = true;
-        } else {
-          this.errorMessageOfCreateAccountCaptcha = data.description;
-        }
-        this.subscription_googleCaptchaValidate.unsubscribe();
-        this.setLocked(false);
       }
     );
   }
