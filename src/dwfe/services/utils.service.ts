@@ -77,7 +77,7 @@ export class UtilsDwfeService {
   }
 
   public static focusOnDwfeInput(elementRef: ElementRef) {
-    elementRef.nativeElement.querySelector('.form-group-dwfe input').focus();
+    elementRef.nativeElement.querySelector('.dwfe-form-group input').focus();
   }
 
   public static resetBackendError(controlFieldName, fieldsArr): Subscription {

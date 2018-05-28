@@ -5,8 +5,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-input-password-dwfe',
-  templateUrl: './input-password.component.html',
-  styleUrls: ['./input-password.component.scss']
+  templateUrl: './input-password.component.html'
 })
 export class InputPasswordDwfeComponent implements OnInit {
 
@@ -14,7 +13,7 @@ export class InputPasswordDwfeComponent implements OnInit {
   private maxLength = 55;
 
   private passwordControl: FormControl;
-  private passwordControlID = UtilsDwfeService.randomStr(5, 'form-group-dwfe__password-'); // used in html template for a11y
+  private passwordControlID = UtilsDwfeService.randomStr(5, 'dwfe-form-group__password-'); // used in html template for a11y
   @ViewChild('refPassword') private refPassword: ElementRef;
 
   @Input() private labelText = 'Password';

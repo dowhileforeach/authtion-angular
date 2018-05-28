@@ -1,6 +1,6 @@
-@import "../common/dwfe-pref";
+@import "dwfe-pref";
 
-.form-group-dwfe {
+.dwfe-form-group {
   width: 100%;
   margin: 0 auto;
   padding: 0;
@@ -88,7 +88,7 @@
   }
 }
 
-.form-group-dwfe__inputs-horizontal-spinner {
+.dwfe-form-group__inputs-horizontal-spinner {
   position: absolute;
   z-index: 400;
   top: 46px;
@@ -99,7 +99,7 @@
   user-select: none;
 }
 
-.form-group-dwfe__alert-under {
+.dwfe-form-group__alert-under {
   position: absolute;
   z-index: 400;
   top: 50px;

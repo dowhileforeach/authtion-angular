@@ -48,7 +48,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {
-        panelClass: 'dwfe__mat-dialog-cdk-overlay-pane',
+        panelClass: 'dwfe-material__dialog-cdk-overlay-pane',
         position: {top: '50px'},
         hasBackdrop: true,
       }

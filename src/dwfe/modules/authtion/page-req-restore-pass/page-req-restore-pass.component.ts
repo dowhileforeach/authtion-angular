@@ -9,8 +9,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',
-  templateUrl: './page-req-restore-pass.component.html',
-  styleUrls: ['./page-req-restore-pass.component.scss']
+  templateUrl: './page-req-restore-pass.component.html'
 })
 export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy {
 

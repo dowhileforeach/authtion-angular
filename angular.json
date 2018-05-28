@@ -27,7 +27,7 @@
             ],
             "styles": [
               "src/dwfe/styles/css/normalize.css",
-              "src/dwfe/styles/common/dwfe-all.scss",
+              "src/dwfe/styles/dwfe-all.scss",
               "src/styles.scss"
             ],
             "scripts": []

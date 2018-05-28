@@ -1,4 +1,4 @@
-<div class="form-group-dwfe" [formGroup]="group">
+<div class="dwfe-form-group" [formGroup]="group">
 
   <input #refEmail [formControlName]="'email'"
          [ngClass]="{ 'filled': !isEmpty(emailControl.value) }"
@@ -9,11 +9,11 @@
   <label [for]="emailControlID">{{labelText}}</label>
 
   <app-spinner-dotted-horizontal-dwfe *ngIf="emailControl.pending"
-                                      class="form-group-dwfe__inputs-horizontal-spinner">
+                                      class="dwfe-form-group__inputs-horizontal-spinner">
   </app-spinner-dotted-horizontal-dwfe>
 
   <app-alert-dwfe *ngIf="hasError"
-                  class="form-group-dwfe__alert-under"
+                  class="dwfe-form-group__alert-under"
                   [message]="errorMessage"
                   [noBorder]="true">
   </app-alert-dwfe>

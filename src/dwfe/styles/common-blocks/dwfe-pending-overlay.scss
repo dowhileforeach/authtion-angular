@@ -1,4 +1,4 @@
-.pending-overlay {
+.dwfe-pending-overlay {
   content: '';
   position: absolute;
   z-index: 1000;
@@ -11,6 +11,6 @@
   background-color: rgba(#fff, 0.7);
 }
 
-.pending-overlay__wrap {
+.dwfe-pending-overlay__wrap {
   outline: none;
 }

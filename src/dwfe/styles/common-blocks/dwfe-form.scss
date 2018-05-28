@@ -1,6 +1,6 @@
-@import "../common/dwfe-pref";
+@import "dwfe-pref";
 
-.form-dwfe {
+.dwfe-form {
   z-index: 100;
 
   margin: 0 auto 0;
@@ -11,12 +11,12 @@
   align-items: stretch;
 }
 
-.form-dwfe__item {
+.dwfe-form__item {
   margin-bottom: 35px;
   z-index: 300;
 }
 
-.form-dwfe__text-under-field {
+.dwfe-form__text-under-field {
   z-index: 200;
 
   align-self: flex-end;
@@ -29,7 +29,7 @@
   user-select: none;
 }
 
-.form-dwfe__text-under-field--restore-password {
+.dwfe-form__text-under-field--restore-password {
   border: 0;
   border-bottom: 0.5px dashed $color-gray;
   transition: color 0.15s ease, border-color 0.15s ease;
@@ -45,8 +45,8 @@
   }
 }
 
-.form-dwfe__btn,
-.form-dwfe__btn.mat-raised-button {
+.dwfe-form__btn,
+.dwfe-form__btn.mat-raised-button {
   z-index: 300;
 
   width: 94%;
@@ -62,12 +62,12 @@
   }
 }
 
-.form-dwfe__btn--standard {
+.dwfe-form__btn--standard {
   background-color: $color-tower-gray;
   color: $color-mine-shaft;
 }
 
-.form-dwfe__alert-over {
+.dwfe-form__alert-over {
   position: absolute;
   z-index: 400;
   top: -28px;

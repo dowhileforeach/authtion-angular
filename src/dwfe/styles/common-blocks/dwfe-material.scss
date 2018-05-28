@@ -1,0 +1,33 @@
+@import "dwfe-pref";
+//
+// Angular Material
+// https://material.angular.io/
+//
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+//
+// DWFE material
+//
+.dwfe-material__dialog-cdk-overlay-pane.cdk-overlay-pane {
+  min-width: $grid-breakpoint-mobile;
+
+  .mat-dialog-container {
+    max-height: calc(100vh - 50px); // for content scrolling if it not fit on the screen
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+}
+
+//
+// ADAPTIVE
+//
+@include media-tablet {
+
+  .dwfe-material__dialog-cdk-overlay-pane.cdk-overlay-pane {
+    .mat-dialog-container {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+
+}

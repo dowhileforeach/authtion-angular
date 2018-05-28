@@ -1,4 +1,4 @@
-<section class="page-authtion-login-register  dialog-dwfe">
+<section class="page-authtion-login-register  dwfe-dialog">
   <h2 class="visually-hidden">Login or Create new account</h2>
 
   <div class="slider" #refSlider>
@@ -26,9 +26,9 @@
            [ngClass]="{ 'slider__inner--login': isLoginSlide,
                         'slider__inner--create-account': !isLoginSlide }">
 
-        <form class="form-dwfe" spellcheck="false">
+        <form class="dwfe-form" spellcheck="false">
 
-          <app-input-email-dwfe class="form-dwfe__item"
+          <app-input-email-dwfe class="dwfe-form__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
                                 [isDirtyTouchedCheckMode]="true"
@@ -36,18 +36,18 @@
                                 #refLoginEmail>
           </app-input-email-dwfe>
 
-          <app-input-password-dwfe class="form-dwfe__item"
+          <app-input-password-dwfe class="dwfe-form__item"
                                    (takePasswordGroup)="groupLoginPassword=$event"
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
           <button type="button"
-                  class="form-dwfe__text-under-field form-dwfe__text-under-field--restore-password"
+                  class="dwfe-form__text-under-field dwfe-form__text-under-field--restore-password"
                   (click)="openReqRestorePasswordDialog()">
             Restore password
           </button>
 
-          <button class="form-dwfe__btn  form-dwfe__btn--standard"
+          <button class="dwfe-form__btn  dwfe-form__btn--standard"
                   mat-raised-button
                   (click)="performLogin()"
                   [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
@@ -55,7 +55,7 @@
             OK
 
             <app-alert-dwfe *ngIf="showErrorOfProcessLogin"
-                            class="form-dwfe__alert-over"
+                            class="dwfe-form__alert-over"
                             [message]="errorMessageOfProcessLogin"
                             [blink]="true">
             </app-alert-dwfe>
@@ -63,23 +63,23 @@
 
         </form>
 
-        <form class="form-dwfe" spellcheck="false">
+        <form class="dwfe-form" spellcheck="false">
 
-          <app-input-email-dwfe class="form-dwfe__item"
+          <app-input-email-dwfe class="dwfe-form__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [tabIndexValue]="-1"
                                 (takeEmailGroup)="groupCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
-          <p class="form-dwfe__text-under-field">*Password will be sent to email</p>
+          <p class="dwfe-form__text-under-field">*Password will be sent to email</p>
 
           <re-captcha *ngIf="!isLoginSlide"
                       (resolved)="googleCaptchaResolved($event)"
-                      class="form-dwfe__item">
+                      class="dwfe-form__item">
           </re-captcha>
 
-          <button class="form-dwfe__btn  form-dwfe__btn--standard"
+          <button class="dwfe-form__btn  dwfe-form__btn--standard"
                   mat-raised-button
                   (click)="performCreateAccount()"
                   [disabled]="!groupCreateAccountEmail.valid || !isCreateAccountCaptchaValid || isLocked"
@@ -88,13 +88,13 @@
             OK
 
             <app-alert-dwfe *ngIf="showErrorOfProcessCreateAccount"
-                            class="form-dwfe__alert-over"
+                            class="dwfe-form__alert-over"
                             [message]="errorMessageOfProcessCreateAccount"
                             [blink]="true">
             </app-alert-dwfe>
 
             <app-alert-dwfe *ngIf="showErrorOfCreateAccountCaptcha"
-                            class="form-dwfe__alert-over"
+                            class="dwfe-form__alert-over"
                             [message]="errorMessageOfCreateAccountCaptcha"
                             [blink]="true">
             </app-alert-dwfe>
@@ -106,15 +106,15 @@
       </div>
     </div>
 
-    <div class="pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
-      <div class="pending-overlay" *ngIf="isLocked">
+    <div class="dwfe-pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
+      <div class="dwfe-pending-overlay" *ngIf="isLocked">
         <app-spinner-shark-fin-circle-dwfe></app-spinner-shark-fin-circle-dwfe>
       </div>
     </div>
 
   </div>
 
-  <button class="dialog-dwfe__btn-close"
+  <button class="dwfe-dialog__btn-close"
           mat-mini-fab
           mat-dialog-close>
     Close

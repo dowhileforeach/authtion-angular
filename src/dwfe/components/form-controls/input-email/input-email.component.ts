@@ -5,8 +5,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
   selector: 'app-input-email-dwfe',
-  templateUrl: './input-email.component.html',
-  styleUrls: ['./input-email.component.scss']
+  templateUrl: './input-email.component.html'
 })
 export class InputEmailDwfeComponent implements OnInit {
 
@@ -15,7 +14,7 @@ export class InputEmailDwfeComponent implements OnInit {
   @Input() private maxLength = 50;
 
   private emailControl: FormControl;
-  private emailControlID = UtilsDwfeService.randomStr(5, 'form-group-dwfe__email-'); // used in html template for a11y
+  private emailControlID = UtilsDwfeService.randomStr(5, 'dwfe-form-group__email-'); // used in html template for a11y
   @ViewChild('refEmail') private refEmail: ElementRef;
 
   @Input() private labelText = 'Email';

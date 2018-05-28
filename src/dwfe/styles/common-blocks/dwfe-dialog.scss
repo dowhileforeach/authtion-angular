@@ -1,6 +1,6 @@
-@import "../common/dwfe-pref";
+@import "dwfe-pref";
 
-.dialog-dwfe {
+.dwfe-dialog {
   width: $dialog-width + $dialog-indent * 2;
   margin: 0 auto;
   padding: $dialog-indent 0;
@@ -18,14 +18,14 @@
   }
 }
 
-.dialog-dwfe__title {
+.dwfe-dialog__title {
   @include reset-margin-padding();
   margin: 5px auto 35px;
 
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-black);
 }
 
-.dialog-dwfe__successful {
+.dwfe-dialog__successful {
   width: 100%;
   margin: 0 auto;
 
@@ -35,19 +35,20 @@
   align-items: center;
 }
 
-.dialog-dwfe__successful-title {
+.dwfe-dialog__successful-title {
   @include reset-margin-padding();
   margin-bottom: 35px;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-bold, normal, $color-japanese-laurel-approx);
 }
 
-.dialog-dwfe__successful-info {
+.dwfe-dialog__successful-info {
   @include reset-margin-padding();
   margin-bottom: 35px;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-warning);
 }
 
-.dialog-dwfe__btn-close {
+.dwfe-dialog__btn-close.mat-mini-fab,
+.dwfe-dialog__btn-close.mat-mini-fab:not([class*=mat-elevation-z]) {
   position: absolute;
   top: -15px;
   right: 5px;
@@ -98,7 +99,8 @@
 // ADAPTIVE
 //
 @include media-tablet {
-  .dialog-dwfe__btn-close {
+  .dwfe-dialog__btn-close.mat-mini-fab,
+  .dwfe-dialog__btn-close.mat-mini-fab:not([class*=mat-elevation-z]) {
     right: -15px;
   }
 }
