@@ -1,8 +1,10 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
+import {AbstractControl, FormGroup} from '@angular/forms';
+import {MAT_DIALOG_DATA} from '@angular/material';
+
+import {Subscription} from 'rxjs/index';
 
 import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {AbstractControl, FormGroup} from '@angular/forms';
-import {Subscription} from 'rxjs/index';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
@@ -32,11 +34,14 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   private resetBackendError = UtilsDwfeService.resetBackendError;
   private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
 
-  constructor(public exchangeService: AuthtionExchangeService) {
+  constructor(public exchangeService: AuthtionExchangeService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngAfterViewInit(): void {
     this.controlAccountEmail = this.groupAccountEmail.get('email');
+    setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
+
     this.subscription_emailChangesAccountResetBackendError = this.resetBackendError('controlAccountEmail', ['errorMessageOfProcess', 'errorMessageOfCaptcha']);
   }
 
@@ -102,7 +107,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     // process service response
     this.subscription_reqRestorePass = this.exchangeService.perform__reqRestorePass.subscribe(
       data => {
-        if (data.result) { // actions on success 'Create account'
+        if (data.result) { // actions on success 'Password restore request'
           this.isReqSuccessful = true;
         } else {
           this.errorMessageOfProcess = data.description;

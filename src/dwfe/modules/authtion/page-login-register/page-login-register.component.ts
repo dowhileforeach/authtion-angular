@@ -255,8 +255,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionPageReqRestorePassComponent, {
         autoFocus: true,
-        panelClass: 'cdk-overlay-pane--login-register',
-        position: {top: '50px'}
+        data: {email: this.controlLoginEmail.value}
       });
   }
 }

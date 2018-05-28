@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {MatButtonModule, MatDialogModule} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
@@ -45,6 +45,14 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   providers: [
     AuthtionExchangeService,
     UtilsDwfeService,
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        panelClass: 'dwfe__mat-dialog-cdk-overlay-pane',
+        position: {top: '50px'},
+        hasBackdrop: true,
+      }
+    },
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {siteKey: '6LfGxk4UAAAAAJ9YrW5GuwXosCn1hawNn8YXNaTi'} as RecaptchaSettings

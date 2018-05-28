@@ -16,8 +16,6 @@ export class AuthtionBtnUserNotAuthenticatedComponent {
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionPageLoginRegisterComponent, {
         autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
-        panelClass: 'cdk-overlay-pane--login-register',
-        position: {top: '50px'}
       });
   }
 }
