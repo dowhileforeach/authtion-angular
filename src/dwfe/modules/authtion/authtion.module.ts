@@ -12,6 +12,8 @@ import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
 import {AuthtionPageReqRestorePassComponent} from './page-req-restore-pass/page-req-restore-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
+import {AuthtionPageRestorePassWrapComponent} from './page-restore-pass/page-restore-pass-wrap/page-restore-pass-wrap.component';
+import {AuthtionPageRestorePassComponent} from './page-restore-pass/page-restore-pass.component';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
 import {InputEmailDwfeComponent} from '@dwfe/components/form-controls/input-email/input-email.component';
@@ -27,6 +29,8 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
     AuthtionBtnUserLoggedInComponent,
     AuthtionPageLoginRegisterComponent,
     AuthtionPageReqRestorePassComponent,
+    AuthtionPageRestorePassWrapComponent,
+    AuthtionPageRestorePassComponent,
     AlertDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
