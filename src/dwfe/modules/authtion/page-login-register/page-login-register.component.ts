@@ -8,6 +8,7 @@ import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -29,11 +30,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
+  private latchForUnsubscribe = new Subject();
   private subscription_signIn: Subscription;
   private subscription_createAccount: Subscription;
-  private subscription_emailChangesLoginResetBackendError: Subscription;
-  private subscription_passwordChangesLoginResetBackendError: Subscription;
-  private subscription_emailChangesCreateAccountResetBackendError: Subscription;
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
@@ -59,9 +58,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.focusOnDwfeInput(this.refLoginEmail);
 
-    this.subscription_emailChangesLoginResetBackendError = this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin']);
-    this.subscription_passwordChangesLoginResetBackendError = this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin']);
-    this.subscription_emailChangesCreateAccountResetBackendError = this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha']);
+    this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin'], this.latchForUnsubscribe);
+    this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin'], this.latchForUnsubscribe);
+    this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha'], this.latchForUnsubscribe);
   }
 
   ngOnDestroy(): void {
@@ -71,9 +70,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     if (this.subscription_createAccount) {
       this.subscription_createAccount.unsubscribe();
     }
-    this.subscription_emailChangesLoginResetBackendError.unsubscribe();
-    this.subscription_passwordChangesLoginResetBackendError.unsubscribe();
-    this.subscription_emailChangesCreateAccountResetBackendError.unsubscribe();
+    this.latchForUnsubscribe.next();
   }
 
   private changeSlide(): void {

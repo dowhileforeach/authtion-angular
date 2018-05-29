@@ -4,7 +4,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {PageHomeComponent} from './pages/home/page-home.component';
 
 const appRoutes: Routes = [
-  {path: '', component: PageHomeComponent}
+  {path: '', component: PageHomeComponent},
+  {path: 'restore-pass', component: PageHomeComponent}
 ];
 
 @NgModule({

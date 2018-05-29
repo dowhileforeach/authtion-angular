@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs/index';
 
 import {AuthtionExchangeService, GoogleCaptchaProcess} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',
@@ -26,11 +27,8 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   private isCaptchaValid = false;
   private errorMessageOfCaptcha = '';
 
+  private latchForUnsubscribe = new Subject();
   private subscription_reqRestorePass: Subscription;
-  private subscription_emailChangesAccountResetBackendError: Subscription;
-
-  private resetBackendError = UtilsDwfeService.resetBackendError;
-  private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
 
   constructor(public exchangeService: AuthtionExchangeService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -40,14 +38,14 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     this.controlAccountEmail = this.groupAccountEmail.get('email');
     setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
 
-    this.subscription_emailChangesAccountResetBackendError = this.resetBackendError('controlAccountEmail', ['errorMessageOfProcess', 'errorMessageOfCaptcha']);
+    UtilsDwfeService.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessageOfProcess', 'errorMessageOfCaptcha'], this.latchForUnsubscribe);
   }
 
   ngOnDestroy(): void {
     if (this.subscription_reqRestorePass) {
       this.subscription_reqRestorePass.unsubscribe();
     }
-    this.subscription_emailChangesAccountResetBackendError.unsubscribe();
+    this.latchForUnsubscribe.next();
   }
 
   public setLocked(value: boolean): void {
@@ -57,7 +55,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {
-      this.focusOnDwfeInput(this.refAccountEmail);
+      UtilsDwfeService.focusOnDwfeInput(this.refAccountEmail);
     }
   }
 

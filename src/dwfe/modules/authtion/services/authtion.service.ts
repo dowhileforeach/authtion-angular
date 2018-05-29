@@ -81,7 +81,7 @@ export class AuthtionService {
           }
         );
       },
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__signIn)
+      error => AuthtionExchangeService.handleError(error, this.subjPerform__signIn)
     );
   }
 

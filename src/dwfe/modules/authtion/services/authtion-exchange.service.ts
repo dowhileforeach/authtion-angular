@@ -67,7 +67,7 @@ export class AuthtionExchangeService {
     return this.subjPerform__reqRestorePass.asObservable();
   }
 
-  private static handlePerformResponse(response, subject): void {
+  private static handleResponse(response, subject: Subject<ResultWithDescription>): void {
     if (response['success']) {
       subject.next(ResultWithDescription.of({
         result: true,
@@ -78,35 +78,35 @@ export class AuthtionExchangeService {
     }
   }
 
-  public static handlePerformError(error, subject): void {
+  public static handleError(error, subject): void {
     subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableExchangeError(error)}));
   }
 
   public performGoogleCaptchaValidate(googleResponse: string): void {
     this.post_googleCaptchaValidate(googleResponse).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__googleCaptchaValidate),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__googleCaptchaValidate)
+      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__googleCaptchaValidate),
+      error => AuthtionExchangeService.handleError(error, this.subjPerform__googleCaptchaValidate)
     );
   }
 
   public performGetAccount(accessToken: string): void {
     this.get_getAccount(accessToken).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__getAccount),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__getAccount)
+      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__getAccount),
+      error => AuthtionExchangeService.handleError(error, this.subjPerform__getAccount)
     );
   }
 
   public performCreateAccount(email: string): void {
     this.post_createAccount(email).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__createAccount),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__createAccount)
+      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__createAccount),
+      error => AuthtionExchangeService.handleError(error, this.subjPerform__createAccount)
     );
   }
 
   public performReqRestorePass(email: string): void {
     this.post_reqRestorePass(email).subscribe(
-      response => AuthtionExchangeService.handlePerformResponse(response, this.subjPerform__reqRestorePass),
-      error => AuthtionExchangeService.handlePerformError(error, this.subjPerform__reqRestorePass)
+      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__reqRestorePass),
+      error => AuthtionExchangeService.handleError(error, this.subjPerform__reqRestorePass)
     );
   }
 

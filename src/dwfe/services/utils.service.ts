@@ -1,8 +1,9 @@
+import {ElementRef} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
-import {Subscription} from 'rxjs/Subscription';
-import {ElementRef} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 const dwfeAuthtionErrorCodesMap = {
   'confirm-key-not-exist': 'Confirm key does not exist',
@@ -80,14 +81,16 @@ export class UtilsDwfeService {
     elementRef.nativeElement.querySelector('.dwfe-form-group input').focus();
   }
 
-  public static resetBackendError(controlFieldName, fieldsArr): Subscription {
-    return this[controlFieldName].valueChanges.subscribe(() => {
-      fieldsArr.forEach(errorFieldName => {
-        if (this[errorFieldName] !== '') {
-          this[errorFieldName] = '';
-        }
+  public static resetBackendError(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
+    return this[controlFieldName].valueChanges
+      .pipe(takeUntil(notifier))
+      .subscribe(() => {
+        fieldsArr.forEach(errorFieldName => {
+          if (this[errorFieldName] !== '') {
+            this[errorFieldName] = '';
+          }
+        });
       });
-    });
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
