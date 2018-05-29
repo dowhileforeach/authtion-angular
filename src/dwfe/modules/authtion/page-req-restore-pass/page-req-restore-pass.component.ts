@@ -2,11 +2,10 @@ import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material';
 
-import {Subscription} from 'rxjs/index';
+import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionExchangeService, GoogleCaptchaProcess} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
-import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',

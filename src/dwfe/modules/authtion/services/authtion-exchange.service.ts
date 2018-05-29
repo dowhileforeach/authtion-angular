@@ -1,12 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
-import {Observable, Subject} from 'rxjs';
-import 'rxjs/add/observable/timer';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/operator/switchMapTo';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+import {Observable, Subject, timer} from 'rxjs';
+import {map, switchMapTo, take} from 'rxjs/operators';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
@@ -249,7 +245,7 @@ export class AuthtionExchangeService {
   // BACKEND VALIDATORS
   //
   public backendValidatorEmail(email, reverseHandleResp) {
-    const observable = this.post_checkEmail(email).retry(3);
+    const observable = this.post_checkEmail(email);
 
     // Don't send request to the backend on keyup. Only the last result for the interval.
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
@@ -257,29 +253,37 @@ export class AuthtionExchangeService {
 
     if (reverseHandleResp) { // for 'Login'
 
-      return Observable.timer(debounceTime).switchMapTo(observable).map(
-        response => {
-          if (response['success']) {
-            return {'backendHttp': 'Not found in database'};
-          }
-          return null;
-        },
-        error => {
-          return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
-        }).take(1);
+      return timer(debounceTime).pipe(
+        switchMapTo(observable),
+        map(
+          response => {
+            if (response['success']) {
+              return {'backendHttp': 'Not found in database'};
+            }
+            return null;
+          },
+          error => {
+            return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
+          }),
+        take(1)
+      );
 
     } else { // for 'Create account'
 
-      return Observable.timer(debounceTime).switchMapTo(observable).map(
-        response => {
-          if (!response['success']) {
-            return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(response)};
-          }
-          return null;
-        },
-        error => {
-          return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
-        }).take(1);
+      return timer(debounceTime).pipe(
+        switchMapTo(observable),
+        map(
+          response => {
+            if (!response['success']) {
+              return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(response)};
+            }
+            return null;
+          },
+          error => {
+            return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
+          }),
+        take(1)
+      );
     }
 
     // return this.reverseHandleResp ?

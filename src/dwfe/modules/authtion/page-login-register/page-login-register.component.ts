@@ -2,13 +2,12 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angul
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
-import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-authtion-page-login-register',
