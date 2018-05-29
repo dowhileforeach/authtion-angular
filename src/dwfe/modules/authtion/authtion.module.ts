@@ -72,6 +72,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   entryComponents: [
     AuthtionPageLoginRegisterComponent,
     AuthtionPageReqRestorePassComponent,
+    AuthtionPageRestorePassComponent
   ],
 })
 export class AuthtionModule {
