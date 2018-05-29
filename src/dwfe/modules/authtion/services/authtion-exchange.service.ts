@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
-import {Observable, Subject, timer} from 'rxjs';
+import {interval, Observable, Subject} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
 
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
@@ -253,7 +253,7 @@ export class AuthtionExchangeService {
 
     if (reverseHandleResp) { // for 'Login'
 
-      return timer(debounceTime).pipe(
+      return interval(debounceTime).pipe(
         switchMapTo(observable),
         map(
           response => {
@@ -270,7 +270,7 @@ export class AuthtionExchangeService {
 
     } else { // for 'Create account'
 
-      return timer(debounceTime).pipe(
+      return interval(debounceTime).pipe(
         switchMapTo(observable),
         map(
           response => {
