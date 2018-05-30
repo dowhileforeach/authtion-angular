@@ -1,17 +1,23 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
+import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-page-restore-pass',
   templateUrl: './page-restore-pass.component.html',
   styleUrls: ['./page-restore-pass.component.scss']
 })
-export class AuthtionPageRestorePassComponent implements OnInit {
+export class AuthtionPageRestorePassComponent implements AfterViewInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  private isLocked = false;
+  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
+  private errorMessageOfProcess = '';
+
+  constructor(public exchangeService: AuthtionExchangeService,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
   }
 
 }

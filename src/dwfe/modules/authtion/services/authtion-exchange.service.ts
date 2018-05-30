@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 import {interval, Observable, Subject} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
@@ -18,22 +18,6 @@ const endpoints = {
   updateAccount: `${API_VERSION}/update-account`,
   getAccount: `${API_VERSION}/get-account`,
   reqRestorePass: `${API_VERSION}/req-restore-pass`,
-};
-
-const credentials = {
-  trusted: { // issued token is valid for a long time, e.g. 20 days
-    name: 'Trusted',
-    password: 'YWPVYGiGLW4Whnr3Q5vuzd8i'
-  },
-  untrusted: { // the token is issued for a very short time, e.g. 3 minutes
-    name: 'Untrusted',
-    password: '4rZi5yEhcv5Jb3jSzGPfFFDK'
-  }
-};
-
-const credentialsBase64Encoded = {
-  trusted: 'Basic ' + btoa(credentials.trusted.name + ':' + credentials.trusted.password),
-  untrusted: 'Basic ' + btoa(credentials.untrusted.name + ':' + credentials.untrusted.password)
 };
 
 @Injectable()
@@ -104,34 +88,6 @@ export class AuthtionExchangeService {
       response => AuthtionExchangeService.handleResponse(response, this.subjPerform__reqRestorePass),
       error => AuthtionExchangeService.handleError(error, this.subjPerform__reqRestorePass)
     );
-  }
-
-  //
-  // REQUEST OPTIONS
-  //
-
-  public get opt_AuthReq() {
-    return {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', credentialsBase64Encoded.trusted)
-    };
-  }
-
-  public get opt_PostAnonymouseReq() {
-    return {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    };
-  }
-
-  public opt_GetAuthReq(accessToken: string) {
-    return {
-      headers: {
-        'Authorization': 'Bearer ' + accessToken
-      }
-    };
   }
 
 
@@ -373,4 +329,63 @@ export interface GoogleCaptchaProcess {
   setErrorMessageOfCaptcha(value: string): void;
 
   setCaptchaValid(value: boolean): void;
+}
+
+export abstract class AuthtionAbstractRequest {
+
+  private subjResult = new Subject<ResultWithDescription>();
+
+  public static optionsForAnonymouseReq() {
+    return {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    };
+  }
+
+  public static optionsForAuthorizedReq(accessToken: string) {
+    return {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken
+      }
+    };
+  }
+
+  public static bodySimple(propName: string, propValue: string): string {
+    return `{
+              "${propName}": "${propValue}"
+            }`;
+  }
+
+  public get result(): Observable<ResultWithDescription> {
+    return this.subjResult.asObservable();
+  }
+
+  public performRequest(params?: any): void {
+    this.getHttpRequestObj(params).subscribe(
+      response => this.handleResponse(response),
+      error => this.handleError(error)
+    );
+  }
+
+  abstract getHttpRequestObj(params?: any): Observable<Object>;
+
+  private handleResponse(response): void {
+    if (response['success']) {
+      this.subjResult.next(ResultWithDescription.of({
+        result: true,
+        data: response['data']
+      }));
+    } else {
+      this.subjResult.next(ResultWithDescription.of({
+        description: UtilsDwfeService.getReadableErrorFromDwfeServer(response)
+      }));
+    }
+  }
+
+  private handleError(error): void {
+    this.subjResult.next(ResultWithDescription.of({
+      description: UtilsDwfeService.getReadableExchangeError(error)
+    }));
+  }
 }

@@ -4,6 +4,23 @@ import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
 
 import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {HttpHeaders} from '@angular/common/http';
+
+const credentials = {
+  trusted: { // issued token is valid for a long time, e.g. 20 days
+    name: 'Trusted',
+    password: 'YWPVYGiGLW4Whnr3Q5vuzd8i'
+  },
+  untrusted: { // the token is issued for a very short time, e.g. 3 minutes
+    name: 'Untrusted',
+    password: '4rZi5yEhcv5Jb3jSzGPfFFDK'
+  }
+};
+
+const credentialsBase64Encoded = {
+  trusted: 'Basic ' + btoa(credentials.trusted.name + ':' + credentials.trusted.password),
+  untrusted: 'Basic ' + btoa(credentials.untrusted.name + ':' + credentials.untrusted.password)
+};
 
 @Injectable()
 export class AuthtionService {
@@ -15,6 +32,14 @@ export class AuthtionService {
   private subjPerform__signIn = new Subject<ResultWithDescription>();
 
   private subscription_getAccount: Subscription;
+
+  private static optionsForAuthentificationReq() {
+    return {
+      headers: new HttpHeaders()
+        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Authorization', credentialsBase64Encoded.trusted)
+    };
+  }
 
   constructor(public exchangeService: AuthtionExchangeService) {
   }

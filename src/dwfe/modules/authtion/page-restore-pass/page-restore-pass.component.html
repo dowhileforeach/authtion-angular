@@ -1,3 +1,19 @@
-<p>
-  {{data.key}}
-</p>
+<section class="page-restore-pass  dwfe-dialog">
+  <h2 class="dwfe-dialog__title">Password restore</h2>
+  <p>
+    {{data.key}}
+  </p>
+
+  <div class="dwfe-pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
+    <div class="dwfe-pending-overlay" *ngIf="isLocked">
+      <app-spinner-shark-fin-circle-dwfe></app-spinner-shark-fin-circle-dwfe>
+    </div>
+  </div>
+
+  <button class="dwfe-dialog__btn-close"
+          mat-mini-fab
+          mat-dialog-close>
+    Close
+  </button>
+
+</section>
