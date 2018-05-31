@@ -4,33 +4,28 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import {Subject} from 'rxjs';
 
-import {
-  AuthtionExchangeService,
-  GoogleCaptchaInitiator,
-  ReqRestorePassExchanger,
-  ResultWithDescription
-} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',
   templateUrl: './page-req-restore-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaInitiator {
+export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe implements AfterViewInit, OnDestroy {
+
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   private isReqSuccessful = false;
 
-  private isLocked = false;
-  private errorMessage = '';
-  private isCaptchaValid = false;
-
   private latchForUnsubscribe = new Subject();
 
   constructor(public exchangeService: AuthtionExchangeService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
+    super();
   }
 
   ngAfterViewInit(): void {
@@ -52,16 +47,8 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     }
   }
 
-  public setErrorMessage(value: string): void {
-    this.errorMessage = value;
-  }
-
-  public setCaptchaValid(value: boolean): void {
-    this.isCaptchaValid = value;
-  }
-
   private performReqRestorePass(): void {
-    ReqRestorePassExchanger.of(this.exchangeService)
+    ReqRestorePassExchanger.of(this.exchangeService.http)
       .run(
         this,                                    // initiator
         {                                        // request params

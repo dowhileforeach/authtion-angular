@@ -5,17 +5,18 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService, CreateAccountExchange, GoogleCaptchaInitiator} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService, CreateAccountExchange} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
-import {ResultWithDescription} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
   selector: 'app-authtion-page-login-register',
   templateUrl: './page-login-register.component.html',
   styleUrls: ['./page-login-register.component.scss']
 })
-export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy, GoogleCaptchaInitiator {
+export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe implements AfterViewInit, OnDestroy {
 
   private isLoginSlide = true;
 
@@ -34,11 +35,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   private subscription_signIn: Subscription;
   private subscription_createAccount: Subscription;
 
-  private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-  private errorMessage = '';
-
-  private isCreateAccountCaptchaValid = false;
 
   private resetBackendError = UtilsDwfeService.resetBackendError;
   private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
@@ -47,6 +44,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
               public exchangeService: AuthtionExchangeService,
               private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
               private dialog: MatDialog) {
+    super();
   }
 
   ngAfterViewInit(): void {
@@ -75,7 +73,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     this.isLoginSlide = !this.isLoginSlide;
 
     this.errorMessage = '';
-    this.isCreateAccountCaptchaValid = this.isLoginSlide;
+    this.isCaptchaValid = this.isLoginSlide;
     this.exchangeEmail();
 
     setTimeout(() => this.focusOnInput()
@@ -104,22 +102,12 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
   }
 
   public setLocked(value: boolean): void {
-
     this.isLocked = value;
-
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {
       this.focusOnInput();
     }
-  }
-
-  public setErrorMessage(value: string): void {
-    this.errorMessage = value;
-  }
-
-  public setCaptchaValid(value: boolean): void {
-    this.isCreateAccountCaptchaValid = value;
   }
 
   private performLogin(): void {
@@ -148,7 +136,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
   private performCreateAccount(): void {
 
-    CreateAccountExchange.of(this.exchangeService)
+    CreateAccountExchange.of(this.exchangeService.http)
       .run(
         this,
         {

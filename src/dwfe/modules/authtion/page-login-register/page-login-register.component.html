@@ -81,7 +81,7 @@
           <button class="dwfe-form__btn  dwfe-form__btn--standard"
                   mat-raised-button
                   (click)="performCreateAccount()"
-                  [disabled]="!groupCreateAccountEmail.valid || !isCreateAccountCaptchaValid || isLocked"
+                  [disabled]="!groupCreateAccountEmail.valid || !isCaptchaValid || isLocked"
                   tabindex="-1"
                   aria-label="Perform 'Create account'">
             OK

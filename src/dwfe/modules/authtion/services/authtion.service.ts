@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
-import {AuthtionExchangeService, endpoints, ResultWithDescription} from './authtion-exchange.service';
+import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {AuthtionAbstractExchanger, GetAccountExchange} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {GetAccountExchange} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 const credentials = {
   trusted: { // issued token is valid for a long time, e.g. 20 days
@@ -107,13 +108,13 @@ export class AuthtionService {
   public signOutHttpReq$(accessToken: string): Observable<Object> {
     return this.exchangeService.http.get(
       endpoints.signOut,
-      AuthtionAbstractExchanger.optionsForAuthorizedReq(accessToken));
+      AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken));
   }
 
   public performSignIn(email: string, password: string): void {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        GetAccountExchange.of(this.exchangeService)
+        GetAccountExchange.of(this.exchangeService.http)
           .performRequest({accessToken: response['access_token']})
           .result$.subscribe(
           rwd => {
