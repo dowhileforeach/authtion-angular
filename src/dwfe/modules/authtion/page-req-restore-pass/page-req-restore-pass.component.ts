@@ -5,7 +5,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 import {Subject} from 'rxjs';
 
 import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
@@ -31,7 +31,7 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe
   ngAfterViewInit(): void {
     this.controlAccountEmail = this.groupAccountEmail.get('email');
     setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
-    UtilsDwfeService.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+    UtilsDwfe.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
   }
 
   ngOnDestroy(): void {
@@ -43,7 +43,7 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {
-      UtilsDwfeService.focusOnDwfeInput(this.refAccountEmail);
+      UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
     }
   }
 

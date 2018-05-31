@@ -1,5 +1,5 @@
 import {Observable, Subject} from 'rxjs';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {HttpClient} from '@angular/common/http';
 
@@ -76,14 +76,14 @@ export abstract class AbstractExchangerDwfe {
       }));
     } else {
       this.subjResult.next(ResultWithDescription.of({
-        description: UtilsDwfeService.getReadableErrorFromDwfeServer(response)
+        description: UtilsDwfe.getReadableErrorFromDwfeServer(response)
       }));
     }
   }
 
   private errorHandler(error): void {
     this.subjResult.next(ResultWithDescription.of({
-      description: UtilsDwfeService.getReadableExchangeError(error)
+      description: UtilsDwfe.getReadableExchangeError(error)
     }));
   }
 }

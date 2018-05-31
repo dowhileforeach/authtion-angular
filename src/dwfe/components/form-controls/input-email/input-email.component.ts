@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 @Component({
   selector: 'app-input-email-dwfe',
@@ -14,7 +14,7 @@ export class InputEmailDwfeComponent implements OnInit {
   @Input() private maxLength = 50;
 
   private emailControl: FormControl;
-  private emailControlID = UtilsDwfeService.randomStr(5, 'dwfe-form-group__email-'); // used in html template for a11y
+  private emailControlID = UtilsDwfe.randomStr(5, 'dwfe-form-group__email-'); // used in html template for a11y
   @ViewChild('refEmail') private refEmail: ElementRef;
 
   @Input() private labelText = 'Email';
@@ -30,8 +30,8 @@ export class InputEmailDwfeComponent implements OnInit {
 
   @Input() private externalBackendValidator = null;
 
-  private isEmpty = UtilsDwfeService.isEmpty; // used in html template
-  private formControlHasError = UtilsDwfeService.formControlHasError;
+  private isEmpty = UtilsDwfe.isEmpty; // used in html template
+  private formControlHasError = UtilsDwfe.formControlHasError;
 
   ngOnInit() {
 
@@ -67,7 +67,7 @@ export class InputEmailDwfeComponent implements OnInit {
       this.errorMessage = `Length must be <= ${this.maxLength}`;
       return true;
     } else if (this.formControlHasError(this.emailControl, 'backendHttp', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = UtilsDwfeService.getErrorOnFormControl(this.emailControl, 'backendHttp');
+      this.errorMessage = UtilsDwfe.getErrorOnFormControl(this.emailControl, 'backendHttp');
       return true;
     }
     this.errorMessage = '';

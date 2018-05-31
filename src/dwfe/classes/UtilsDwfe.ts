@@ -54,7 +54,7 @@ const dwfeServerErrorsMap = {
   'unsupported_response_type': 'Unsupported response type',
 };
 
-export class UtilsDwfeService {
+export class UtilsDwfe {
 
   public static isEmpty(value: string): boolean {
     if (value) {

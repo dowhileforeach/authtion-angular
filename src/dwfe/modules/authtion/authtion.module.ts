@@ -20,7 +20,6 @@ import {InputEmailDwfeComponent} from '@dwfe/components/form-controls/input-emai
 import {InputPasswordDwfeComponent} from '@dwfe/components/form-controls/input-password/input-password.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   ],
   providers: [
     AuthtionExchangeService,
-    UtilsDwfeService,
     {
       provide: MAT_DIALOG_DEFAULT_OPTIONS,
       useValue: {

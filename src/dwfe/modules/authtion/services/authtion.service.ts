@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {GetAccountExchange} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
@@ -130,7 +130,7 @@ export class AuthtionService {
       },
       error =>
         this.subjPerform__signIn.next(ResultWithDescription.of({
-          description: UtilsDwfeService.getReadableExchangeError(error)
+          description: UtilsDwfe.getReadableExchangeError(error)
         }))
     );
   }
@@ -147,7 +147,7 @@ export class AuthtionService {
           this.auth = AuthtionCredentials.of(this, response);
         },
         error => {
-          if (UtilsDwfeService.isInvalidGrantError(error)) {
+          if (UtilsDwfe.isInvalidGrantError(error)) {
             this.logout();
           } else {
             const time = this.auth.get90PercentFromTimeWhenTokenValid();
@@ -198,7 +198,7 @@ class AuthtionCredentials {
 
   public static of(authtionService: AuthtionService, data): AuthtionCredentials {
     const obj = new AuthtionCredentials();
-    obj._instanceID = UtilsDwfeService.randomStr(15);
+    obj._instanceID = UtilsDwfe.randomStr(15);
     obj._date = new Date();
 
     obj._accessToken = data['access_token'];

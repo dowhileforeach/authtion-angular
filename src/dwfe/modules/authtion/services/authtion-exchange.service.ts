@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {interval, Observable} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
 
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
@@ -62,7 +62,7 @@ export class AuthtionExchangeService {
             return null;
           },
           error => {
-            return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
+            return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
           }),
         take(1)
       );
@@ -74,12 +74,12 @@ export class AuthtionExchangeService {
         map(
           response => {
             if (!response['success']) {
-              return {'backendHttp': UtilsDwfeService.getReadableErrorFromDwfeServer(response)};
+              return {'backendHttp': UtilsDwfe.getReadableErrorFromDwfeServer(response)};
             }
             return null;
           },
           error => {
-            return {'backendHttp': UtilsDwfeService.getReadableExchangeError(error)};
+            return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
           }),
         take(1)
       );

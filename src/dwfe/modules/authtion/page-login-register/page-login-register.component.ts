@@ -7,7 +7,7 @@ import {Subject, Subscription} from 'rxjs';
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchange} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
-import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
@@ -37,8 +37,8 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
 
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
-  private resetBackendError = UtilsDwfeService.resetBackendError;
-  private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
+  private resetBackendError = UtilsDwfe.resetBackendError;
+  private focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
   constructor(private authtionService: AuthtionService,
               public exchangeService: AuthtionExchangeService,
