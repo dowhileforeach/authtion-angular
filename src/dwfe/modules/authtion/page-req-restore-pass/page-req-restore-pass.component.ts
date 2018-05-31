@@ -2,10 +2,11 @@ import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material';
 
-import {Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {
   AuthtionExchangeService,
+  ExchangeInitiator,
   GoogleCaptchaProcess,
   ReqRestorePassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
@@ -15,7 +16,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   selector: 'app-authtion-page-req-restore-pass',
   templateUrl: './page-req-restore-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess {
+export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess, ExchangeInitiator {
 
   private isReqSuccessful = false;
 
@@ -24,6 +25,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
 
   private isLocked = false;
+
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   private errorMessageOfProcess = '';
 
@@ -31,7 +33,6 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   private errorMessageOfCaptcha = '';
 
   private latchForUnsubscribe = new Subject();
-  private subscription_reqRestorePass: Subscription;
 
   constructor(public exchangeService: AuthtionExchangeService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -45,9 +46,6 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   }
 
   ngOnDestroy(): void {
-    if (this.subscription_reqRestorePass) {
-      this.subscription_reqRestorePass.unsubscribe();
-    }
     this.latchForUnsubscribe.next();
   }
 
@@ -70,24 +68,24 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     this.isCaptchaValid = value;
   }
 
+  public setErrorMessageOfExchange(value: string): void {
+    this.errorMessageOfProcess = value;
+  }
+
   private performReqRestorePass(): void {
-    this.errorMessageOfProcess = ''; // init
-
-    // waiting for service response
-    this.setLocked(true);
-
     ReqRestorePassExchanger.of(this.exchangeService)
-      .performRequest({email: this.controlAccountEmail.value})
-      .result$.subscribe(
-      data => {
-        if (data.result) { // actions on success 'Password restore request'
-          this.isReqSuccessful = true;
-        } else {
-          this.errorMessageOfProcess = data.description;
+      .run(
+        this,                                    // source
+        {email: this.controlAccountEmail.value}, // params
+        data => {                                // fnRequestHandlingLogic
+          if (data.result) { // actions on success 'Password restore request'
+            this.isReqSuccessful = true;
+          } else {
+            this.errorMessageOfProcess = data.description;
+          }
+          this.setLocked(false);
         }
-        this.setLocked(false);
-      }
-    );
+      );
   }
 
 

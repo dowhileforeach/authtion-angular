@@ -113,7 +113,7 @@ export class AuthtionExchangeService {
       return;
     }
 
-    // waiting for service response
+    // waiting for response
     source.setLocked(true);
 
     GoogleCaptchaValidateExchange.of(this)
@@ -169,6 +169,12 @@ export interface GoogleCaptchaProcess {
   setCaptchaValid(value: boolean): void;
 }
 
+export interface ExchangeInitiator {
+  setLocked(value: boolean): void;
+
+  setErrorMessageOfExchange(value: string): void;
+}
+
 export abstract class AuthtionAbstractExchanger {
 
   private subjResult = new Subject<ResultWithDescription>();
@@ -197,6 +203,20 @@ export abstract class AuthtionAbstractExchanger {
     return `{
               "${propName}": "${propValue}"
             }`;
+  }
+
+  public run(source: ExchangeInitiator, params: any, fnRequestHandlingLogic: any): void {
+
+    source.setErrorMessageOfExchange('');
+
+    // waiting for response
+    source.setLocked(true);
+
+    this
+      .performRequest(params)
+      .result$.subscribe(
+      data => fnRequestHandlingLogic(data)
+    );
   }
 
   public get result$(): Observable<ResultWithDescription> {
