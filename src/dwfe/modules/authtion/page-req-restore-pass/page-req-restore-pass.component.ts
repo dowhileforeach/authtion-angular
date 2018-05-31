@@ -6,9 +6,9 @@ import {Subject} from 'rxjs';
 
 import {
   AuthtionExchangeService,
-  ExchangeInitiator,
-  GoogleCaptchaProcess,
-  ReqRestorePassExchanger
+  GoogleCaptchaInitiator,
+  ReqRestorePassExchanger,
+  ResultWithDescription
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
@@ -16,21 +16,16 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
   selector: 'app-authtion-page-req-restore-pass',
   templateUrl: './page-req-restore-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess, ExchangeInitiator {
-
-  private isReqSuccessful = false;
-
+export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDestroy, GoogleCaptchaInitiator {
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
+  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
+  private isReqSuccessful = false;
 
   private isLocked = false;
-
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-  private errorMessageOfProcess = '';
-
+  private errorMessage = '';
   private isCaptchaValid = false;
-  private errorMessageOfCaptcha = '';
 
   private latchForUnsubscribe = new Subject();
 
@@ -41,8 +36,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   ngAfterViewInit(): void {
     this.controlAccountEmail = this.groupAccountEmail.get('email');
     setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
-
-    UtilsDwfeService.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessageOfProcess', 'errorMessageOfCaptcha'], this.latchForUnsubscribe);
+    UtilsDwfeService.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
   }
 
   ngOnDestroy(): void {
@@ -50,9 +44,7 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   }
 
   public setLocked(value: boolean): void {
-
     this.isLocked = value;
-
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {
@@ -60,53 +52,27 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
     }
   }
 
-  public setErrorMessageOfCaptcha(value: string): void {
-    this.errorMessageOfCaptcha = value;
+  public setErrorMessage(value: string): void {
+    this.errorMessage = value;
   }
 
   public setCaptchaValid(value: boolean): void {
     this.isCaptchaValid = value;
   }
 
-  public setErrorMessageOfExchange(value: string): void {
-    this.errorMessageOfProcess = value;
-  }
-
   private performReqRestorePass(): void {
     ReqRestorePassExchanger.of(this.exchangeService)
       .run(
-        this,                                    // source
-        {email: this.controlAccountEmail.value}, // params
-        data => {                                // fnRequestHandlingLogic
+        this,                                    // initiator
+        {                                        // request params
+          email: this.controlAccountEmail.value
+        },
+        (data: ResultWithDescription) => {       // response handler
           if (data.result) { // actions on success 'Password restore request'
             this.isReqSuccessful = true;
           } else {
-            this.errorMessageOfProcess = data.description;
+            this.errorMessage = data.description;
           }
-          this.setLocked(false);
-        }
-      );
-  }
-
-
-  private get showErrorOfProcess(): boolean {
-
-    const result = this.errorMessageOfProcess !== ''
-      && this.groupAccountEmail.valid;
-
-    if (!result) {
-      this.errorMessageOfProcess = '';
-    }
-    return result;
-  }
-
-  private get showErrorOfCaptcha(): boolean {
-
-    const result = this.errorMessageOfCaptcha !== '';
-
-    if (!result) {
-      this.errorMessageOfCaptcha = '';
-    }
-    return result;
+        });
   }
 }

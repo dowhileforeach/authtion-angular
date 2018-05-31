@@ -104,30 +104,28 @@ export class AuthtionExchangeService {
   //
   // GOOGLE CAPTCHA
   //
-  public checkGoogleCaptcha(googleResponse: string, source: GoogleCaptchaProcess): void {
-
-    source.setErrorMessageOfCaptcha(''); // init
+  public checkGoogleCaptcha(googleResponse: string, initiator: GoogleCaptchaInitiator): void {
 
     if (googleResponse === null) {
-      source.setCaptchaValid(false);
+      initiator.setCaptchaValid(false);
       return;
     }
 
-    // waiting for response
-    source.setLocked(true);
-
     GoogleCaptchaValidateExchange.of(this)
-      .performRequest({googleResponse: googleResponse})
-      .result$.subscribe(
-      data => {
-        if (data.result) { // actions on success captcha check
-          source.setCaptchaValid(true);
-        } else {
-          source.setErrorMessageOfCaptcha(data.description);
+      .run(
+        initiator,
+        {
+          googleResponse: googleResponse
+        },
+        (data: ResultWithDescription) => {
+          if (data.result) { // actions on success captcha check
+            initiator.setCaptchaValid(true);
+          } else {
+            initiator.setErrorMessage(data.description);
+          }
+          initiator.setLocked(false);
         }
-        source.setLocked(false);
-      }
-    );
+      );
   }
 }
 
@@ -161,18 +159,14 @@ export class ResultWithDescription {
   }
 }
 
-export interface GoogleCaptchaProcess {
-  setLocked(value: boolean): void;
-
-  setErrorMessageOfCaptcha(value: string): void;
-
+export interface GoogleCaptchaInitiator extends ExchangeInitiator {
   setCaptchaValid(value: boolean): void;
 }
 
 export interface ExchangeInitiator {
   setLocked(value: boolean): void;
 
-  setErrorMessageOfExchange(value: string): void;
+  setErrorMessage(value: string): void;
 }
 
 export abstract class AuthtionAbstractExchanger {
@@ -205,35 +199,43 @@ export abstract class AuthtionAbstractExchanger {
             }`;
   }
 
-  public run(source: ExchangeInitiator, params: any, fnRequestHandlingLogic: any): void {
+  abstract getHttpReq$(params?: any): Observable<Object>;
 
-    source.setErrorMessageOfExchange('');
-
-    // waiting for response
-    source.setLocked(true);
-
-    this
-      .performRequest(params)
-      .result$.subscribe(
-      data => fnRequestHandlingLogic(data)
-    );
-  }
-
-  public get result$(): Observable<ResultWithDescription> {
-    return this.subjResult.asObservable();
-  }
-
+  //
+  // STAGE 1.
+  //
   public performRequest(params?: any): AuthtionAbstractExchanger {
     this.getHttpReq$(params).subscribe(
-      response => this.handleResponse(response),
-      error => this.handleError(error)
+      response => this.responseHandler(response),
+      error => this.errorHandler(error)
     );
     return this;
   }
 
-  abstract getHttpReq$(params?: any): Observable<Object>;
+  //
+  // STAGE 2.
+  //
+  public get result$(): Observable<ResultWithDescription> {
+    return this.subjResult.asObservable();
+  }
 
-  private handleResponse(response): void {
+  public run(initiator: ExchangeInitiator, params: any, responseHandlerFn: any): void {
+
+    initiator.setErrorMessage('');
+
+    // waiting for response
+    initiator.setLocked(true);
+
+    this
+      .performRequest(params)
+      .result$.subscribe(
+      (data: ResultWithDescription) => {
+        responseHandlerFn(data);
+        initiator.setLocked(false);
+      });
+  }
+
+  private responseHandler(response): void {
     if (response['success']) {
       this.subjResult.next(ResultWithDescription.of({
         result: true,
@@ -246,7 +248,7 @@ export abstract class AuthtionAbstractExchanger {
     }
   }
 
-  private handleError(error): void {
+  private errorHandler(error): void {
     this.subjResult.next(ResultWithDescription.of({
       description: UtilsDwfeService.getReadableExchangeError(error)
     }));

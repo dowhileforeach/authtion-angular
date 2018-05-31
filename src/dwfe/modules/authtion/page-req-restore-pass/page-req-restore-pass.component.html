@@ -21,16 +21,9 @@
             [disabled]="!groupAccountEmail.valid || !isCaptchaValid || isLocked"
             aria-label="Perform 'Password restore request'">
       OK
-
-      <app-alert-dwfe *ngIf="showErrorOfProcess"
+      <app-alert-dwfe *ngIf="errorMessage !== ''"
                       class="dwfe-form__alert-over"
-                      [message]="errorMessageOfProcess"
-                      [blink]="true">
-      </app-alert-dwfe>
-
-      <app-alert-dwfe *ngIf="showErrorOfCaptcha"
-                      class="dwfe-form__alert-over"
-                      [message]="errorMessageOfCaptcha"
+                      [message]="errorMessage"
                       [blink]="true">
       </app-alert-dwfe>
 

@@ -53,10 +53,9 @@
                   [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
                   aria-label="Perform 'Login'">
             OK
-
-            <app-alert-dwfe *ngIf="showErrorOfProcessLogin"
+            <app-alert-dwfe *ngIf="errorMessage !== ''"
                             class="dwfe-form__alert-over"
-                            [message]="errorMessageOfProcessLogin"
+                            [message]="errorMessage"
                             [blink]="true">
             </app-alert-dwfe>
           </button>
@@ -86,19 +85,11 @@
                   tabindex="-1"
                   aria-label="Perform 'Create account'">
             OK
-
-            <app-alert-dwfe *ngIf="showErrorOfProcessCreateAccount"
+            <app-alert-dwfe *ngIf="errorMessage !== ''"
                             class="dwfe-form__alert-over"
-                            [message]="errorMessageOfProcessCreateAccount"
+                            [message]="errorMessage"
                             [blink]="true">
             </app-alert-dwfe>
-
-            <app-alert-dwfe *ngIf="showErrorOfCreateAccountCaptcha"
-                            class="dwfe-form__alert-over"
-                            [message]="errorMessageOfCreateAccountCaptcha"
-                            [blink]="true">
-            </app-alert-dwfe>
-
           </button>
 
         </form>

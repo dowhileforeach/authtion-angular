@@ -11,7 +11,7 @@ export class AuthtionPageRestorePassComponent implements AfterViewInit {
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-  private errorMessageOfProcess = '';
+  private errorMessage = '';
 
   constructor(public exchangeService: AuthtionExchangeService,
               @Inject(MAT_DIALOG_DATA) public data: any) {

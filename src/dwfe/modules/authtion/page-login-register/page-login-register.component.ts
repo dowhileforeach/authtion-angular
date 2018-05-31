@@ -5,16 +5,17 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService, CreateAccountExchange, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService, CreateAccountExchange, GoogleCaptchaInitiator} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
+import {ResultWithDescription} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-page-login-register',
   templateUrl: './page-login-register.component.html',
   styleUrls: ['./page-login-register.component.scss']
 })
-export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy, GoogleCaptchaProcess {
+export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDestroy, GoogleCaptchaInitiator {
 
   private isLoginSlide = true;
 
@@ -35,11 +36,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
   private isLocked = false;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-  private errorMessageOfProcessLogin = '';
-  private errorMessageOfProcessCreateAccount = '';
+  private errorMessage = '';
 
   private isCreateAccountCaptchaValid = false;
-  private errorMessageOfCreateAccountCaptcha = '';
 
   private resetBackendError = UtilsDwfeService.resetBackendError;
   private focusOnDwfeInput = UtilsDwfeService.focusOnDwfeInput;
@@ -57,9 +56,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.focusOnDwfeInput(this.refLoginEmail);
 
-    this.resetBackendError('controlLoginEmail', ['errorMessageOfProcessLogin'], this.latchForUnsubscribe);
-    this.resetBackendError('controlLoginPassword', ['errorMessageOfProcessLogin'], this.latchForUnsubscribe);
-    this.resetBackendError('controlCreateAccountEmail', ['errorMessageOfProcessCreateAccount', 'errorMessageOfCreateAccountCaptcha'], this.latchForUnsubscribe);
+    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
   }
 
   ngOnDestroy(): void {
@@ -74,13 +73,9 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
   private changeSlide(): void {
     this.isLoginSlide = !this.isLoginSlide;
-    this.afterChangeSlideActions();
-  }
 
-  private afterChangeSlideActions() {
-
+    this.errorMessage = '';
     this.isCreateAccountCaptchaValid = this.isLoginSlide;
-
     this.exchangeEmail();
 
     setTimeout(() => this.focusOnInput()
@@ -108,7 +103,6 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     }
   }
 
-
   public setLocked(value: boolean): void {
 
     this.isLocked = value;
@@ -120,64 +114,19 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
     }
   }
 
-  public setErrorMessageOfCaptcha(value: string): void {
-    this.errorMessageOfCreateAccountCaptcha = value;
+  public setErrorMessage(value: string): void {
+    this.errorMessage = value;
   }
 
   public setCaptchaValid(value: boolean): void {
     this.isCreateAccountCaptchaValid = value;
   }
 
-  private get showErrorOfProcessLogin(): boolean {
-
-    if (!this.isLoginSlide) {
-      return false;
-    }
-
-    const result = this.errorMessageOfProcessLogin !== ''
-      && this.groupLoginEmail.valid
-      && this.groupLoginPassword.valid;
-
-    if (!result) {
-      this.errorMessageOfProcessLogin = '';
-    }
-    return result;
-  }
-
-  private get showErrorOfProcessCreateAccount(): boolean {
-
-    if (this.isLoginSlide) {
-      return false;
-    }
-
-    const result = this.errorMessageOfProcessCreateAccount !== ''
-      && this.groupCreateAccountEmail.valid;
-
-    if (!result) {
-      this.errorMessageOfProcessCreateAccount = '';
-    }
-    return result;
-  }
-
-  private get showErrorOfCreateAccountCaptcha(): boolean {
-
-    if (this.isLoginSlide) {
-      return false;
-    }
-
-    const result = this.errorMessageOfCreateAccountCaptcha !== '';
-
-    if (!result) {
-      this.errorMessageOfCreateAccountCaptcha = '';
-    }
-    return result;
-  }
-
   private performLogin(): void {
 
-    this.errorMessageOfProcessLogin = '';  // init
+    this.errorMessage = '';  // init
 
-    // waiting for service response
+    // waiting for response
     this.setLocked(true);
 
     // signIn performs authtion-service, give it a login/password
@@ -191,7 +140,7 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
         } else {
           this.subscription_signIn.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
           this.setLocked(false);
-          this.errorMessageOfProcessLogin = data.description;
+          this.errorMessage = data.description;
         }
       }
     );
@@ -199,23 +148,21 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
   private performCreateAccount(): void {
 
-    this.errorMessageOfProcessCreateAccount = ''; // init
-
-    // waiting for service response
-    this.setLocked(true);
-
     CreateAccountExchange.of(this.exchangeService)
-      .performRequest({email: this.controlCreateAccountEmail.value})
-      .result$.subscribe(
-      data => {
-        if (data.result) { // actions on success 'Create account'
-          this.changeSlide(); // just go to 'Login' slide
-        } else {
-          this.errorMessageOfProcessCreateAccount = data.description;
+      .run(
+        this,
+        {
+          email: this.controlCreateAccountEmail.value
+        },
+        (data: ResultWithDescription) => {
+          if (data.result) { // actions on success 'Create account'
+            this.changeSlide(); // just go to 'Login' slide
+          } else {
+            this.errorMessage = data.description;
+          }
+          this.setLocked(false);
         }
-        this.setLocked(false);
-      }
-    );
+      );
   }
 
   private openReqRestorePasswordDialog(): void {
