@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 import {interval, Observable, Subject} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
@@ -8,7 +8,7 @@ import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 const API_VERSION = '/v1';
 
-const endpoints = {
+export const endpoints = {
   signIn: `${API_VERSION}/sign-in`,
   tokenRefresh: `${API_VERSION}/sign-in`,
   googleCaptchaValidate: `${API_VERSION}/google-captcha-validate`,
@@ -28,7 +28,11 @@ export class AuthtionExchangeService {
   private subjPerform__createAccount = new Subject<ResultWithDescription>();
   private subjPerform__reqRestorePass = new Subject<ResultWithDescription>();
 
-  constructor(private http: HttpClient) {
+  constructor(private _http: HttpClient) {
+  }
+
+  get http(): HttpClient {
+    return this._http;
   }
 
   public get perform__googleCaptchaValidate(): Observable<ResultWithDescription> {
@@ -95,24 +99,6 @@ export class AuthtionExchangeService {
   // REQUEST BODIES
   //
 
-  public body_signIn(email: string, password: string): HttpParams {
-    return new HttpParams()
-      .set('grant_type', 'password')
-      .set('username', email)
-      .set('password', password);
-  }
-
-  public body_tokenRefresh(refreshToken: string): HttpParams {
-    return new HttpParams()
-      .set('grant_type', 'refresh_token')
-      .set('refresh_token', refreshToken);
-  }
-
-  public body_googleCaptchaValidate(googleResponse: string): string {
-    return `{
-              "googleResponse": "${googleResponse}"
-            }`;
-  }
 
   public body_checkEmail(email: string): string {
     return `{
@@ -132,57 +118,34 @@ export class AuthtionExchangeService {
             }`;
   }
 
-  // update-account
-
 
   //
   // EXCHANGERS
   //
 
-  public post_signIn(email: string, password: string): Observable<Object> {
-    return this.http.post(
-      endpoints.signIn,
-      this.body_signIn(email, password),
-      this.opt_AuthReq);
-  }
-
-  public post_tokenRefresh(refreshToken: string): Observable<Object> {
-    return this.http.post(
-      endpoints.tokenRefresh,
-      this.body_tokenRefresh(refreshToken),
-      this.opt_AuthReq);
-  }
-
   public post_googleCaptchaValidate(googleResponse: string): Observable<Object> {
-    return this.http.post(
+    return this._http.post(
       endpoints.googleCaptchaValidate,
       this.body_googleCaptchaValidate(googleResponse),
       this.opt_PostAnonymouseReq);
   }
 
-  public get_signOut(accessToken: string): Observable<Object> {
-    return this.http.get(
-      endpoints.signOut,
-      this.opt_GetAuthReq(accessToken)
-    );
-  }
-
   public post_checkEmail(email: string): Observable<Object> {
-    return this.http.post(
+    return this._http.post(
       endpoints.checkEmail,
       this.body_checkEmail(email),
       this.opt_PostAnonymouseReq);
   }
 
   public post_createAccount(email: string): Observable<Object> {
-    return this.http.post(
+    return this._http.post(
       endpoints.createAccount,
       this.body_createAccount(email),
       this.opt_PostAnonymouseReq);
   }
 
   public post_reqRestorePass(email: string): Observable<Object> {
-    return this.http.post(
+    return this._http.post(
       endpoints.reqRestorePass,
       this.body_reqRestorePass(email),
       this.opt_PostAnonymouseReq);
@@ -191,7 +154,7 @@ export class AuthtionExchangeService {
   // update-account
 
   public get_getAccount(accessToken: string): Observable<Object> {
-    return this.http.get(
+    return this._http.get(
       endpoints.getAccount,
       this.opt_GetAuthReq(accessToken)
     );
@@ -203,7 +166,7 @@ export class AuthtionExchangeService {
   public backendValidatorEmail(email, reverseHandleResp) {
     const observable = this.post_checkEmail(email);
 
-    // Don't send request to the backend on keyup. Only the last result for the interval.
+    // Don't send request to the backend on keyup. Only the last result$ for the interval.
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
     const debounceTime = 500; // ms
 
@@ -272,21 +235,19 @@ export class AuthtionExchangeService {
       return;
     }
 
-    // let's run the verification process
-    this.performGoogleCaptchaValidate(googleResponse);
+    const googleCaptchaValidateReq = new GoogleCaptchaValidate(this);
+    googleCaptchaValidateReq.performRequest({googleResponse: googleResponse});
 
     // wait for service response
     source.setLocked(true);
 
-    // process service response
-    const subscription_googleCaptchaValidate = this.perform__googleCaptchaValidate.subscribe(
+    googleCaptchaValidateReq.result$.subscribe(
       data => {
         if (data.result) { // actions on success captcha check
           source.setCaptchaValid(true);
         } else {
           source.setErrorMessageOfCaptcha(data.description);
         }
-        subscription_googleCaptchaValidate.unsubscribe();
         source.setLocked(false);
       }
     );
@@ -335,6 +296,9 @@ export abstract class AuthtionAbstractRequest {
 
   private subjResult = new Subject<ResultWithDescription>();
 
+  constructor(protected exchangeService: AuthtionExchangeService) {
+  }
+
   public static optionsForAnonymouseReq() {
     return {
       headers: {
@@ -346,6 +310,7 @@ export abstract class AuthtionAbstractRequest {
   public static optionsForAuthorizedReq(accessToken: string) {
     return {
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         'Authorization': 'Bearer ' + accessToken
       }
     };
@@ -357,18 +322,18 @@ export abstract class AuthtionAbstractRequest {
             }`;
   }
 
-  public get result(): Observable<ResultWithDescription> {
+  public get result$(): Observable<ResultWithDescription> {
     return this.subjResult.asObservable();
   }
 
   public performRequest(params?: any): void {
-    this.getHttpRequestObj(params).subscribe(
+    this.getHttpReq$(params).subscribe(
       response => this.handleResponse(response),
       error => this.handleError(error)
     );
   }
 
-  abstract getHttpRequestObj(params?: any): Observable<Object>;
+  abstract getHttpReq$(params?: any): Observable<Object>;
 
   private handleResponse(response): void {
     if (response['success']) {
@@ -389,3 +354,23 @@ export abstract class AuthtionAbstractRequest {
     }));
   }
 }
+
+export class GoogleCaptchaValidate extends AuthtionAbstractRequest {
+  getHttpReq$(params?: any): Observable<Object> {
+    return this.exchangeService.http.post(
+      endpoints.googleCaptchaValidate,
+      AuthtionAbstractRequest.bodySimple('googleResponse', params.googleResponse),
+      AuthtionAbstractRequest.optionsForAnonymouseReq());
+  }
+}
+
+export class GetAccount extends AuthtionAbstractRequest {
+  getHttpReq$(params?: any): Observable<Object> {
+    return this.exchangeService.http.get(
+      endpoints.getAccount,
+      AuthtionAbstractRequest.optionsForAuthorizedReq(params.accessToken)
+    );
+  }
+}
+
+

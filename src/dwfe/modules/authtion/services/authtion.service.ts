@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 
-import {BehaviorSubject, Observable, Subject, Subscription} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
-import {AuthtionExchangeService, ResultWithDescription} from './authtion-exchange.service';
+import {AuthtionExchangeService, endpoints, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
-import {HttpHeaders} from '@angular/common/http';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {AuthtionAbstractRequest, GetAccount} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 const credentials = {
   trusted: { // issued token is valid for a long time, e.g. 20 days
@@ -22,6 +23,12 @@ const credentialsBase64Encoded = {
   untrusted: 'Basic ' + btoa(credentials.untrusted.name + ':' + credentials.untrusted.password)
 };
 
+const optionsAuthentificationReq = {
+  headers: new HttpHeaders()
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('Authorization', credentialsBase64Encoded.trusted)
+};
+
 @Injectable()
 export class AuthtionService {
 
@@ -30,16 +37,6 @@ export class AuthtionService {
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjPerform__signIn = new Subject<ResultWithDescription>();
-
-  private subscription_getAccount: Subscription;
-
-  private static optionsForAuthentificationReq() {
-    return {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-        .set('Authorization', credentialsBase64Encoded.trusted)
-    };
-  }
 
   constructor(public exchangeService: AuthtionExchangeService) {
   }
@@ -69,7 +66,7 @@ export class AuthtionService {
   }
 
   public logout(): void {
-    this.exchangeService.get_signOut(this.auth.accessToken).subscribe(
+    this.tokenRefreshHttpReq$(this.auth.accessToken).subscribe(
       data => { // I already did everything I could
       },
       error => { // I already did everything I could
@@ -88,11 +85,37 @@ export class AuthtionService {
     AuthtionAccount.removeFromStorage();
   }
 
+  public signInHttpReq$(email: string, password: string): Observable<Object> {
+    return this.exchangeService.http.post(
+      endpoints.signIn,
+      new HttpParams()
+        .set('grant_type', 'password')
+        .set('username', email)
+        .set('password', password),
+      optionsAuthentificationReq);
+  }
+
+  public tokenRefreshHttpReq$(refreshToken: string): Observable<Object> {
+    return this.exchangeService.http.post(
+      endpoints.tokenRefresh,
+      new HttpParams()
+        .set('grant_type', 'refresh_token')
+        .set('refresh_token', refreshToken),
+      optionsAuthentificationReq);
+  }
+
+  public signOutHttpReq$(accessToken: string): Observable<Object> {
+    return this.exchangeService.http.get(
+      endpoints.signOut,
+      AuthtionAbstractRequest.optionsForAuthorizedReq(accessToken));
+  }
+
   public performSignIn(email: string, password: string): void {
-    this.exchangeService.post_signIn(email, password).subscribe(
+    this.signInHttpReq$(email, password).subscribe(
       response => {
-        this.exchangeService.performGetAccount(response['access_token']);
-        this.subscription_getAccount = this.exchangeService.perform__getAccount.subscribe(
+        const getAccount = new GetAccount(this.exchangeService);
+        getAccount.performRequest({accessToken: response['access_token']});
+        getAccount.result$.subscribe(
           rwd => {
             if (rwd.result) {
               this.auth = AuthtionCredentials.of(this, response);
@@ -102,9 +125,7 @@ export class AuthtionService {
             } else {
               this.subjPerform__signIn.next(ResultWithDescription.of({description: rwd.description}));
             }
-            this.subscription_getAccount.unsubscribe();
-          }
-        );
+          });
       },
       error => AuthtionExchangeService.handleError(error, this.subjPerform__signIn)
     );
@@ -117,7 +138,7 @@ export class AuthtionService {
       && authFromThePast.equals(this.auth) // 2. The time has come to update the CURRENT token
     ) {
 
-      this.exchangeService.post_tokenRefresh(this.auth.refreshToken).subscribe(
+      this.tokenRefreshHttpReq$(this.auth.refreshToken).subscribe(
         response => {
           this.auth = AuthtionCredentials.of(this, response);
         },
