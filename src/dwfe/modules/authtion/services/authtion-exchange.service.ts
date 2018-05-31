@@ -23,11 +23,6 @@ export const endpoints = {
 @Injectable()
 export class AuthtionExchangeService {
 
-  private subjPerform__googleCaptchaValidate = new Subject<ResultWithDescription>();
-  private subjPerform__getAccount = new Subject<ResultWithDescription>();
-  private subjPerform__createAccount = new Subject<ResultWithDescription>();
-  private subjPerform__reqRestorePass = new Subject<ResultWithDescription>();
-
   constructor(private _http: HttpClient) {
   }
 
@@ -35,130 +30,13 @@ export class AuthtionExchangeService {
     return this._http;
   }
 
-  public get perform__googleCaptchaValidate(): Observable<ResultWithDescription> {
-    return this.subjPerform__googleCaptchaValidate.asObservable();
-  }
-
-  public get perform__getAccount(): Observable<ResultWithDescription> {
-    return this.subjPerform__getAccount.asObservable();
-  }
-
-  public get perform__createAccount(): Observable<ResultWithDescription> {
-    return this.subjPerform__createAccount.asObservable();
-  }
-
-  public get perform__reqRestorePass(): Observable<ResultWithDescription> {
-    return this.subjPerform__reqRestorePass.asObservable();
-  }
-
-  private static handleResponse(response, subject: Subject<ResultWithDescription>): void {
-    if (response['success']) {
-      subject.next(ResultWithDescription.of({
-        result: true,
-        data: response['data']
-      }));
-    } else {
-      subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableErrorFromDwfeServer(response)}));
-    }
-  }
-
-  public static handleError(error, subject): void {
-    subject.next(ResultWithDescription.of({description: UtilsDwfeService.getReadableExchangeError(error)}));
-  }
-
-  public performGoogleCaptchaValidate(googleResponse: string): void {
-    this.post_googleCaptchaValidate(googleResponse).subscribe(
-      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__googleCaptchaValidate),
-      error => AuthtionExchangeService.handleError(error, this.subjPerform__googleCaptchaValidate)
-    );
-  }
-
-  public performGetAccount(accessToken: string): void {
-    this.get_getAccount(accessToken).subscribe(
-      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__getAccount),
-      error => AuthtionExchangeService.handleError(error, this.subjPerform__getAccount)
-    );
-  }
-
-  public performCreateAccount(email: string): void {
-    this.post_createAccount(email).subscribe(
-      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__createAccount),
-      error => AuthtionExchangeService.handleError(error, this.subjPerform__createAccount)
-    );
-  }
-
-  public performReqRestorePass(email: string): void {
-    this.post_reqRestorePass(email).subscribe(
-      response => AuthtionExchangeService.handleResponse(response, this.subjPerform__reqRestorePass),
-      error => AuthtionExchangeService.handleError(error, this.subjPerform__reqRestorePass)
-    );
-  }
-
-
-  //
-  // REQUEST BODIES
-  //
-
-
-  public body_checkEmail(email: string): string {
-    return `{
-              "email": "${email}"
-            }`;
-  }
-
-  public body_createAccount(email: string): string {
-    return `{
-              "email": "${email}"
-            }`;
-  }
-
-  public body_reqRestorePass(email: string): string {
-    return `{
-              "email": "${email}"
-            }`;
-  }
-
-
-  //
-  // EXCHANGERS
-  //
-
-  public post_googleCaptchaValidate(googleResponse: string): Observable<Object> {
-    return this._http.post(
-      endpoints.googleCaptchaValidate,
-      this.body_googleCaptchaValidate(googleResponse),
-      this.opt_PostAnonymouseReq);
-  }
-
   public post_checkEmail(email: string): Observable<Object> {
     return this._http.post(
       endpoints.checkEmail,
-      this.body_checkEmail(email),
-      this.opt_PostAnonymouseReq);
+      AuthtionAbstractExchanger.bodySimple('email', email),
+      AuthtionAbstractExchanger.optionsForAnonymouseReq());
   }
 
-  public post_createAccount(email: string): Observable<Object> {
-    return this._http.post(
-      endpoints.createAccount,
-      this.body_createAccount(email),
-      this.opt_PostAnonymouseReq);
-  }
-
-  public post_reqRestorePass(email: string): Observable<Object> {
-    return this._http.post(
-      endpoints.reqRestorePass,
-      this.body_reqRestorePass(email),
-      this.opt_PostAnonymouseReq);
-  }
-
-  // update-account
-
-  public get_getAccount(accessToken: string): Observable<Object> {
-    return this._http.get(
-      endpoints.getAccount,
-      this.opt_GetAuthReq(accessToken)
-    );
-  }
 
   //
   // BACKEND VALIDATORS
@@ -235,13 +113,12 @@ export class AuthtionExchangeService {
       return;
     }
 
-    const googleCaptchaValidateReq = new GoogleCaptchaValidate(this);
-    googleCaptchaValidateReq.performRequest({googleResponse: googleResponse});
-
-    // wait for service response
+    // waiting for service response
     source.setLocked(true);
 
-    googleCaptchaValidateReq.result$.subscribe(
+    GoogleCaptchaValidateExchange.of(this)
+      .performRequest({googleResponse: googleResponse})
+      .result$.subscribe(
       data => {
         if (data.result) { // actions on success captcha check
           source.setCaptchaValid(true);
@@ -292,7 +169,7 @@ export interface GoogleCaptchaProcess {
   setCaptchaValid(value: boolean): void;
 }
 
-export abstract class AuthtionAbstractRequest {
+export abstract class AuthtionAbstractExchanger {
 
   private subjResult = new Subject<ResultWithDescription>();
 
@@ -326,11 +203,12 @@ export abstract class AuthtionAbstractRequest {
     return this.subjResult.asObservable();
   }
 
-  public performRequest(params?: any): void {
+  public performRequest(params?: any): AuthtionAbstractExchanger {
     this.getHttpReq$(params).subscribe(
       response => this.handleResponse(response),
       error => this.handleError(error)
     );
+    return this;
   }
 
   abstract getHttpReq$(params?: any): Observable<Object>;
@@ -355,22 +233,58 @@ export abstract class AuthtionAbstractRequest {
   }
 }
 
-export class GoogleCaptchaValidate extends AuthtionAbstractRequest {
+export class GoogleCaptchaValidateExchange extends AuthtionAbstractExchanger {
+  static of(exchangeService: AuthtionExchangeService): GoogleCaptchaValidateExchange {
+    return new GoogleCaptchaValidateExchange(exchangeService);
+  }
+
   getHttpReq$(params?: any): Observable<Object> {
     return this.exchangeService.http.post(
       endpoints.googleCaptchaValidate,
-      AuthtionAbstractRequest.bodySimple('googleResponse', params.googleResponse),
-      AuthtionAbstractRequest.optionsForAnonymouseReq());
+      AuthtionAbstractExchanger.bodySimple('googleResponse', params.googleResponse),
+      AuthtionAbstractExchanger.optionsForAnonymouseReq());
   }
 }
 
-export class GetAccount extends AuthtionAbstractRequest {
+export class CreateAccountExchange extends AuthtionAbstractExchanger {
+  static of(exchangeService: AuthtionExchangeService): CreateAccountExchange {
+    return new CreateAccountExchange(exchangeService);
+  }
+
+  getHttpReq$(params?: any): Observable<Object> {
+    return this.exchangeService.http.post(
+      endpoints.createAccount,
+      AuthtionAbstractExchanger.bodySimple('email', params.email),
+      AuthtionAbstractExchanger.optionsForAnonymouseReq());
+  }
+}
+
+export class GetAccountExchange extends AuthtionAbstractExchanger {
+  static of(exchangeService: AuthtionExchangeService): GetAccountExchange {
+    return new GetAccountExchange(exchangeService);
+  }
+
   getHttpReq$(params?: any): Observable<Object> {
     return this.exchangeService.http.get(
       endpoints.getAccount,
-      AuthtionAbstractRequest.optionsForAuthorizedReq(params.accessToken)
+      AuthtionAbstractExchanger.optionsForAuthorizedReq(params.accessToken)
     );
   }
 }
+
+export class ReqRestorePassExchanger extends AuthtionAbstractExchanger {
+  static of(exchangeService: AuthtionExchangeService): ReqRestorePassExchanger {
+    return new ReqRestorePassExchanger(exchangeService);
+  }
+
+  getHttpReq$(params?: any): Observable<Object> {
+    return this.exchangeService.http.post(
+      endpoints.reqRestorePass,
+      AuthtionAbstractExchanger.bodySimple('email', params.email),
+      AuthtionAbstractExchanger.optionsForAnonymouseReq());
+  }
+}
+
+
 
 

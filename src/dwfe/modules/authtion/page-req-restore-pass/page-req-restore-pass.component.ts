@@ -4,7 +4,11 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import {Subject, Subscription} from 'rxjs';
 
-import {AuthtionExchangeService, GoogleCaptchaProcess} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {
+  AuthtionExchangeService,
+  GoogleCaptchaProcess,
+  ReqRestorePassExchanger
+} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
 @Component({
@@ -69,21 +73,18 @@ export class AuthtionPageReqRestorePassComponent implements AfterViewInit, OnDes
   private performReqRestorePass(): void {
     this.errorMessageOfProcess = ''; // init
 
-    // password restore request performs authtion-exchange.service, give it a email
-    this.exchangeService.performReqRestorePass(this.controlAccountEmail.value);
-
-    // wait for service response
+    // waiting for service response
     this.setLocked(true);
 
-    // process service response
-    this.subscription_reqRestorePass = this.exchangeService.perform__reqRestorePass.subscribe(
+    ReqRestorePassExchanger.of(this.exchangeService)
+      .performRequest({email: this.controlAccountEmail.value})
+      .result$.subscribe(
       data => {
         if (data.result) { // actions on success 'Password restore request'
           this.isReqSuccessful = true;
         } else {
           this.errorMessageOfProcess = data.description;
         }
-        this.subscription_reqRestorePass.unsubscribe();
         this.setLocked(false);
       }
     );

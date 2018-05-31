@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 

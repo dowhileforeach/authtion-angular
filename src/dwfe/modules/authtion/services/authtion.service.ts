@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AuthtionExchangeService, endpoints, ResultWithDescription} from './authtion-exchange.service';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {AuthtionAbstractRequest, GetAccount} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AuthtionAbstractExchanger, GetAccountExchange} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 const credentials = {
   trusted: { // issued token is valid for a long time, e.g. 20 days
@@ -107,15 +107,15 @@ export class AuthtionService {
   public signOutHttpReq$(accessToken: string): Observable<Object> {
     return this.exchangeService.http.get(
       endpoints.signOut,
-      AuthtionAbstractRequest.optionsForAuthorizedReq(accessToken));
+      AuthtionAbstractExchanger.optionsForAuthorizedReq(accessToken));
   }
 
   public performSignIn(email: string, password: string): void {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        const getAccount = new GetAccount(this.exchangeService);
-        getAccount.performRequest({accessToken: response['access_token']});
-        getAccount.result$.subscribe(
+        GetAccountExchange.of(this.exchangeService)
+          .performRequest({accessToken: response['access_token']})
+          .result$.subscribe(
           rwd => {
             if (rwd.result) {
               this.auth = AuthtionCredentials.of(this, response);
@@ -127,7 +127,10 @@ export class AuthtionService {
             }
           });
       },
-      error => AuthtionExchangeService.handleError(error, this.subjPerform__signIn)
+      error =>
+        this.subjPerform__signIn.next(ResultWithDescription.of({
+          description: UtilsDwfeService.getReadableExchangeError(error)
+        }))
     );
   }
 

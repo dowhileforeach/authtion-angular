@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService, CreateAccountExchange, GoogleCaptchaProcess} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfeService} from '@dwfe/services/utils.service';
 
@@ -177,11 +177,11 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.errorMessageOfProcessLogin = '';  // init
 
+    // waiting for service response
+    this.setLocked(true);
+
     // signIn performs authtion-service, give it a login/password
     this.authtionService.performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value);
-
-    // wait for service response
-    this.setLocked(true);
 
     // process service response
     this.subscription_signIn = this.authtionService.perform__signIn.subscribe(
@@ -201,21 +201,18 @@ export class AuthtionPageLoginRegisterComponent implements AfterViewInit, OnDest
 
     this.errorMessageOfProcessCreateAccount = ''; // init
 
-    // createAccount performs authtion-exchange.service, give it a email
-    this.exchangeService.performCreateAccount(this.controlCreateAccountEmail.value);
-
-    // wait for service response
+    // waiting for service response
     this.setLocked(true);
 
-    // process service response
-    this.subscription_createAccount = this.exchangeService.perform__createAccount.subscribe(
+    CreateAccountExchange.of(this.exchangeService)
+      .performRequest({email: this.controlCreateAccountEmail.value})
+      .result$.subscribe(
       data => {
         if (data.result) { // actions on success 'Create account'
           this.changeSlide(); // just go to 'Login' slide
         } else {
           this.errorMessageOfProcessCreateAccount = data.description;
         }
-        this.subscription_createAccount.unsubscribe();
         this.setLocked(false);
       }
     );
