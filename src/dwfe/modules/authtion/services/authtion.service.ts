@@ -9,7 +9,7 @@ import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exch
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 const credentials = {
-  trusted: { // issued token is valid for a long time, e.g. 20 days
+  trusted: {   // issued token is valid for a long time, e.g. 20 days
     name: 'Trusted',
     password: 'YWPVYGiGLW4Whnr3Q5vuzd8i'
   },
@@ -77,7 +77,7 @@ export class AuthtionService {
     setTimeout(() => {
       this.coverUpOnesTraces();
       this.subjIsLoggedIn.next(false);
-    }, 250);
+    }, 300);
   }
 
   private coverUpOnesTraces() {
@@ -112,7 +112,7 @@ export class AuthtionService {
       AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken));
   }
 
-  public performSignIn(email: string, password: string): void {
+  public performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
         GetAccountExchanger.of(this.exchangeService.http)
@@ -134,6 +134,7 @@ export class AuthtionService {
           description: UtilsDwfe.getReadableExchangeError(error)
         }))
     );
+    return this;
   }
 
   public performTokenRefresh(authFromThePast: AuthtionCredentials): void {

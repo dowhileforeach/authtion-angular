@@ -39,7 +39,7 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe
   }
 
   public setLocked(value: boolean): void {
-    this.isLocked = value;
+    super.setLocked(value);
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {

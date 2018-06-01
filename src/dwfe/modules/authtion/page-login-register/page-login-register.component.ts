@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angul
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
-import {Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
@@ -10,6 +10,7 @@ import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -32,8 +33,6 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
 
   private latchForUnsubscribe = new Subject();
-  private subscription_signIn: Subscription;
-  private subscription_createAccount: Subscription;
 
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
@@ -60,31 +59,21 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
   }
 
   ngOnDestroy(): void {
-    if (this.subscription_signIn) {
-      this.subscription_signIn.unsubscribe();
-    }
-    if (this.subscription_createAccount) {
-      this.subscription_createAccount.unsubscribe();
-    }
     this.latchForUnsubscribe.next();
   }
 
   private changeSlide(): void {
     this.isLoginSlide = !this.isLoginSlide;
-
     this.errorMessage = '';
-    this.isCaptchaValid = this.isLoginSlide;
-    this.exchangeEmail();
+    this.isCaptchaValid = false;
+
+    this.isLoginSlide ?
+      this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value)
+      : this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
 
     setTimeout(() => this.focusOnInput()
       , 210 // becouse: .slider__inner {... transition: transform 200ms ...}
     );
-  }
-
-  private exchangeEmail(): void {
-    this.isLoginSlide ?
-      this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value)
-      : this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
   }
 
   private focusOnInput(): void {
@@ -102,7 +91,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
   }
 
   public setLocked(value: boolean): void {
-    this.isLocked = value;
+    super.setLocked(value);
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
     } else {
@@ -112,26 +101,23 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
 
   private performLogin(): void {
 
-    this.errorMessage = '';  // init
-
-    // waiting for response
+    this.errorMessage = '';
     this.setLocked(true);
 
-    // signIn performs authtion-service, give it a login/password
-    this.authtionService.performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value);
-
-    // process service response
-    this.subscription_signIn = this.authtionService.resultSignIn$.subscribe(
-      data => {
-        if (data.result) { // actions on success 'Login'
-          this.dialogRef.close();
-        } else {
-          this.subscription_signIn.unsubscribe(); // otherwise, the subscriptions will be as much as times the button is pressed
+    this.authtionService
+      .performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value)
+      .resultSignIn$
+      .pipe(takeUntil(this.isLocked$))
+      .subscribe(
+        (data: ResultWithDescription) => {
+          if (data.result) { // actions on success 'Login'
+            this.dialogRef.close();
+          } else {
+            this.errorMessage = data.description;
+          }
           this.setLocked(false);
-          this.errorMessage = data.description;
         }
-      }
-    );
+      );
   }
 
   private performCreateAccount(): void {
@@ -143,12 +129,11 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
           email: this.controlCreateAccountEmail.value
         },
         (data: ResultWithDescription) => {
-          if (data.result) { // actions on success 'Create account'
+          if (data.result) {    // actions on success 'Create account'
             this.changeSlide(); // just go to 'Login' slide
           } else {
             this.errorMessage = data.description;
           }
-          this.setLocked(false);
         }
       );
   }
