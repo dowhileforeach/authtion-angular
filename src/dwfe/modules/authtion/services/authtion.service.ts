@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {GetAccountExchange} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 const credentials = {
@@ -37,7 +37,7 @@ export class AuthtionService {
   public user: AuthtionAccount;
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
-  private subjPerform__signIn = new Subject<ResultWithDescription>();
+  private subjSignIn = new Subject<ResultWithDescription>();
 
   constructor(public exchangeService: AuthtionExchangeService) {
   }
@@ -54,12 +54,12 @@ export class AuthtionService {
     }
   }
 
-  public get isLoggedIn(): Observable<boolean> {
+  public get isLoggedIn$(): Observable<boolean> {
     return this.subjIsLoggedIn.asObservable();
   }
 
-  public get perform__signIn(): Observable<ResultWithDescription> {
-    return this.subjPerform__signIn.asObservable();
+  public get resultSignIn$(): Observable<ResultWithDescription> {
+    return this.subjSignIn.asObservable();
   }
 
   private login(): void {
@@ -67,12 +67,13 @@ export class AuthtionService {
   }
 
   public logout(): void {
-    this.tokenRefreshHttpReq$(this.auth.accessToken).subscribe(
-      data => { // I already did everything I could
-      },
-      error => { // I already did everything I could
-      }
-    );
+    this.signOutHttpReq$(this.auth.accessToken)
+      .subscribe(
+        data => { // I already did everything I could
+        },
+        error => { // I already did everything I could
+        }
+      );
     setTimeout(() => {
       this.coverUpOnesTraces();
       this.subjIsLoggedIn.next(false);
@@ -114,7 +115,7 @@ export class AuthtionService {
   public performSignIn(email: string, password: string): void {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        GetAccountExchange.of(this.exchangeService.http)
+        GetAccountExchanger.of(this.exchangeService.http)
           .performRequest({accessToken: response['access_token']})
           .result$.subscribe(
           rwd => {
@@ -122,44 +123,43 @@ export class AuthtionService {
               this.auth = AuthtionCredentials.of(this, response);
               this.user = AuthtionAccount.of(rwd.data);
               this.login();
-              this.subjPerform__signIn.next(ResultWithDescription.of({result: true}));
+              this.subjSignIn.next(ResultWithDescription.of({result: true}));
             } else {
-              this.subjPerform__signIn.next(ResultWithDescription.of({description: rwd.description}));
+              this.subjSignIn.next(ResultWithDescription.of({description: rwd.description}));
             }
           });
       },
       error =>
-        this.subjPerform__signIn.next(ResultWithDescription.of({
+        this.subjSignIn.next(ResultWithDescription.of({
           description: UtilsDwfe.getReadableExchangeError(error)
         }))
     );
   }
 
-  public tokenUpdate(authFromThePast: AuthtionCredentials): void {
+  public performTokenRefresh(authFromThePast: AuthtionCredentials): void {
 
     // Update the token only in case:
     if (this.auth                          // 1. Is logged in
       && authFromThePast.equals(this.auth) // 2. The time has come to update the CURRENT token
     ) {
-
-      this.tokenRefreshHttpReq$(this.auth.refreshToken).subscribe(
-        response => {
-          this.auth = AuthtionCredentials.of(this, response);
-        },
-        error => {
-          if (UtilsDwfe.isInvalidGrantError(error)) {
-            this.logout();
-          } else {
-            const time = this.auth.get90PercentFromTimeWhenTokenValid();
-            if (time > 10 * 1000) { // if 90% percent of token valid time > 10 seconds
-              this.auth.scheduleTokenUpdate(this, time);
-            } else {
+      this.tokenRefreshHttpReq$(this.auth.refreshToken)
+        .subscribe(
+          response => {
+            this.auth = AuthtionCredentials.of(this, response);
+          },
+          error => {
+            if (UtilsDwfe.isInvalidGrantError(error)) {
               this.logout();
+            } else {
+              const time = this.auth.get90PercentFromTimeWhenTokenValid();
+              if (time > 10 * 1000) { // if 90% percent of token valid time > 10 seconds
+                this.auth.scheduleTokenUpdate(this, time);
+              } else {
+                this.logout();
+              }
             }
           }
-        }
-      );
-
+        );
     }
   }
 }
@@ -263,7 +263,7 @@ class AuthtionCredentials {
   public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
     if (time >= 0) {
       setTimeout(() => {
-        authtionService.tokenUpdate(this);
+        authtionService.performTokenRefresh(this);
       }, time);
     }
   }

@@ -33,7 +33,7 @@ export class AuthtionExchangeService {
   }
 
   public post_checkEmail(email: string): Observable<Object> {
-    return this._http.post(
+    return this.http.post(
       endpoints.checkEmail,
       AbstractExchangerDwfe.bodySimple('email', email),
       AbstractExchangerDwfe.optionsForAnonymouseReq());
@@ -43,7 +43,7 @@ export class AuthtionExchangeService {
   //
   // BACKEND VALIDATORS
   //
-  public backendValidatorEmail(email, reverseHandleResp) {
+  public backendValidatorEmail(email: string, reverseHandleResp: boolean) {
     const observable = this.post_checkEmail(email);
 
     // Don't send request to the backend on keyup. Only the last result$ for the interval.
@@ -113,7 +113,7 @@ export class AuthtionExchangeService {
       return;
     }
 
-    GoogleCaptchaValidateExchange.of(this.http)
+    GoogleCaptchaValidateExchanger.of(this.http)
       .run(
         initiator,
         {
@@ -131,9 +131,9 @@ export class AuthtionExchangeService {
   }
 }
 
-export class GoogleCaptchaValidateExchange extends AbstractExchangerDwfe {
-  static of(http: HttpClient): GoogleCaptchaValidateExchange {
-    return new GoogleCaptchaValidateExchange(http);
+export class GoogleCaptchaValidateExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): GoogleCaptchaValidateExchanger {
+    return new GoogleCaptchaValidateExchanger(http);
   }
 
   getHttpReq$(params?: any): Observable<Object> {
@@ -144,9 +144,9 @@ export class GoogleCaptchaValidateExchange extends AbstractExchangerDwfe {
   }
 }
 
-export class CreateAccountExchange extends AbstractExchangerDwfe {
-  static of(http: HttpClient): CreateAccountExchange {
-    return new CreateAccountExchange(http);
+export class CreateAccountExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): CreateAccountExchanger {
+    return new CreateAccountExchanger(http);
   }
 
   getHttpReq$(params?: any): Observable<Object> {
@@ -157,9 +157,9 @@ export class CreateAccountExchange extends AbstractExchangerDwfe {
   }
 }
 
-export class GetAccountExchange extends AbstractExchangerDwfe {
-  static of(http: HttpClient): GetAccountExchange {
-    return new GetAccountExchange(http);
+export class GetAccountExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): GetAccountExchanger {
+    return new GetAccountExchanger(http);
   }
 
   getHttpReq$(params?: any): Observable<Object> {

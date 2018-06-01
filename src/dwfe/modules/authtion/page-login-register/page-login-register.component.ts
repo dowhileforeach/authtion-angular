@@ -5,7 +5,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import {Subject, Subscription} from 'rxjs';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService, CreateAccountExchange} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
@@ -121,7 +121,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
     this.authtionService.performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value);
 
     // process service response
-    this.subscription_signIn = this.authtionService.perform__signIn.subscribe(
+    this.subscription_signIn = this.authtionService.resultSignIn$.subscribe(
       data => {
         if (data.result) { // actions on success 'Login'
           this.dialogRef.close();
@@ -136,7 +136,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
 
   private performCreateAccount(): void {
 
-    CreateAccountExchange.of(this.exchangeService.http)
+    CreateAccountExchanger.of(this.exchangeService.http)
       .run(
         this,
         {

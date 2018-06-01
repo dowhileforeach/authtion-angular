@@ -1,6 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-
-import {Observable} from 'rxjs';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AuthtionService} from '../services/authtion.service';
 
@@ -10,14 +8,7 @@ import {AuthtionService} from '../services/authtion.service';
   styleUrls: ['./btn-user.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AuthtionBtnUserComponent implements OnInit {
-
-  private isLoggedIn: Observable<boolean>;
-
-  constructor(private authtionService: AuthtionService) {
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.authtionService.isLoggedIn;
+export class AuthtionBtnUserComponent {
+  constructor(protected authtionService: AuthtionService) {
   }
 }
