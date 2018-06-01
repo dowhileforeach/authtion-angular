@@ -13,8 +13,8 @@ export class AuthtionPageRestorePassComponent implements AfterViewInit {
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   private errorMessage = '';
 
-  constructor(public exchangeService: AuthtionExchangeService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(protected exchangeService: AuthtionExchangeService,
+              @Inject(MAT_DIALOG_DATA) protected data: any) {
   }
 
   ngAfterViewInit(): void {

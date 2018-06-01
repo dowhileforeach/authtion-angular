@@ -12,8 +12,8 @@ export class AuthtionPageRestorePassWrapComponent implements OnInit, AfterViewIn
 
   private key: string;
 
-  constructor(private route: ActivatedRoute,
-              private dialog: MatDialog) {
+  constructor(protected route: ActivatedRoute,
+              protected dialog: MatDialog) {
   }
 
   ngOnInit() {

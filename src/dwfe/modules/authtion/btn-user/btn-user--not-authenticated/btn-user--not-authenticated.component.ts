@@ -9,7 +9,7 @@ import {AuthtionPageLoginRegisterComponent} from '../../page-login-register/page
 })
 export class AuthtionBtnUserNotAuthenticatedComponent {
 
-  constructor(private dialog: MatDialog) {
+  constructor(protected dialog: MatDialog) {
   }
 
   private openDialog(): void {

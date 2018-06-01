@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 import {AuthtionService} from '../../services/authtion.service';
-import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-authtion-btn-user-logged-in',
@@ -24,7 +24,7 @@ export class AuthtionBtnUserLoggedInComponent {
   private isMenuOpen = false;
   private user = this.authtionService.user;
 
-  constructor(private authtionService: AuthtionService) {
+  constructor(protected authtionService: AuthtionService) {
   }
 
   toggleMenu(): void {

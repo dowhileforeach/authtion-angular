@@ -34,24 +34,28 @@ const optionsAuthentificationReq = {
 export class AuthtionService {
 
   private auth: AuthtionCredentials;
-  public user: AuthtionAccount;
+  private _user: AuthtionAccount;
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjSignIn = new Subject<ResultWithDescription>();
 
-  constructor(public exchangeService: AuthtionExchangeService) {
+  constructor(protected exchangeService: AuthtionExchangeService) {
   }
 
   init(): boolean {
     this.auth = AuthtionCredentials.fromStorage(this);
-    this.user = AuthtionAccount.fromStorage();
+    this._user = AuthtionAccount.fromStorage();
 
-    if (this.auth && this.user) {
+    if (this.auth && this._user) {
       return true;
     } else {
       this.coverUpOnesTraces();
       return false;
     }
+  }
+
+  get user(): AuthtionAccount {
+    return this._user;
   }
 
   public get isLoggedIn$(): Observable<boolean> {
@@ -82,7 +86,7 @@ export class AuthtionService {
 
   private coverUpOnesTraces() {
     this.auth = null;
-    this.user = null;
+    this._user = null;
     AuthtionCredentials.removeFromStorage();
     AuthtionAccount.removeFromStorage();
   }
@@ -121,7 +125,7 @@ export class AuthtionService {
           rwd => {
             if (rwd.result) {
               this.auth = AuthtionCredentials.of(this, response);
-              this.user = AuthtionAccount.of(rwd.data);
+              this._user = AuthtionAccount.of(rwd.data);
               this.login();
               this.subjSignIn.next(ResultWithDescription.of({result: true}));
             } else {

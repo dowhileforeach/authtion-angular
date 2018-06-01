@@ -3,14 +3,14 @@ import {AbstractControl, FormGroup} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material';
 
 import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {takeUntil} from 'rxjs/operators';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -31,18 +31,17 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
   @ViewChild('refLoginEmail', {read: ElementRef}) private refLoginEmail: ElementRef;
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
+  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
   private latchForUnsubscribe = new Subject();
-
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
   private resetBackendError = UtilsDwfe.resetBackendError;
   private focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
-  constructor(private authtionService: AuthtionService,
-              public exchangeService: AuthtionExchangeService,
-              private dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
-              private dialog: MatDialog) {
+  constructor(protected authtionService: AuthtionService,
+              protected exchangeService: AuthtionExchangeService,
+              protected dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
+              protected dialog: MatDialog) {
     super();
   }
 
@@ -53,9 +52,9 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
 
     this.focusOnDwfeInput(this.refLoginEmail);
 
-    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+    this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
   }
 
   ngOnDestroy(): void {

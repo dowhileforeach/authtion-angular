@@ -25,7 +25,7 @@ export const endpoints = {
 @Injectable()
 export class AuthtionExchangeService {
 
-  constructor(private _http: HttpClient) {
+  constructor(protected _http: HttpClient) {
   }
 
   get http(): HttpClient {

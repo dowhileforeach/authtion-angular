@@ -23,15 +23,17 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe
 
   private latchForUnsubscribe = new Subject();
 
-  constructor(public exchangeService: AuthtionExchangeService,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+  private resetBackendError = UtilsDwfe.resetBackendError;
+
+  constructor(protected exchangeService: AuthtionExchangeService,
+              @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
   }
 
   ngAfterViewInit(): void {
     this.controlAccountEmail = this.groupAccountEmail.get('email');
     setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
-    UtilsDwfe.resetBackendError.bind(this, 'controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
   }
 
   ngOnDestroy(): void {
