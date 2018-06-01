@@ -20,12 +20,6 @@ export class AuthtionPageRestorePassWrapComponent implements OnInit, AfterViewIn
 
     this.route.queryParamMap
       .subscribe(params => this.key = params.get('key') || 'none');
-
-    // key$.pipe(
-    //   concat()
-    // );
-
-
   }
 
   ngAfterViewInit(): void {

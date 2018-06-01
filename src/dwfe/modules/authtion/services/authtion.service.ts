@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
+import {HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
-import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -122,14 +122,14 @@ export class AuthtionService {
         GetAccountExchanger.of(this.exchangeService.http)
           .performRequest({accessToken: response['access_token']})
           .result$.subscribe(
-          rwd => {
-            if (rwd.result) {
+          (data: ResultWithDescription) => {
+            if (data.result) {
               this.auth = AuthtionCredentials.of(this, response);
-              this._user = AuthtionAccount.of(rwd.data);
+              this._user = AuthtionAccount.of(data.data);
               this.login();
               this.subjSignIn.next(ResultWithDescription.of({result: true}));
             } else {
-              this.subjSignIn.next(ResultWithDescription.of({description: rwd.description}));
+              this.subjSignIn.next(ResultWithDescription.of({description: data.description}));
             }
           });
       },

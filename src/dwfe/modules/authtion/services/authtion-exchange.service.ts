@@ -4,9 +4,9 @@ import {HttpClient} from '@angular/common/http';
 import {interval, Observable} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
 
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 const API_VERSION = '/v1';
 
@@ -39,68 +39,52 @@ export class AuthtionExchangeService {
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 
-
   //
   // BACKEND VALIDATORS
   //
   public backendValidatorEmail(email: string, reverseHandleResp: boolean) {
-    const observable = this.post_checkEmail(email);
 
-    // Don't send request to the backend on keyup. Only the last result$ for the interval.
+    // Don't send request to the backend after each press on the keyboard.
+    // Only the last result$ for the interval.
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
     const debounceTime = 500; // ms
 
     if (reverseHandleResp) { // for 'Login'
 
-      return interval(debounceTime).pipe(
-        switchMapTo(observable),
-        map(
-          response => {
-            if (response['success']) {
-              return {'backendHttp': 'Not found in database'};
-            }
-            return null;
-          },
-          error => {
-            return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
-          }),
-        take(1)
-      );
+      return interval(debounceTime)
+        .pipe(
+          switchMapTo(this.post_checkEmail(email)),
+          map(
+            response => {
+              if (response['success']) {
+                return {'backendHttp': 'Not found in database'};
+              }
+              return null;
+            },
+            error => {
+              return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
+            }),
+          take(1)
+        );
 
     } else { // for 'Create account'
 
-      return interval(debounceTime).pipe(
-        switchMapTo(observable),
-        map(
-          response => {
-            if (!response['success']) {
-              return {'backendHttp': UtilsDwfe.getReadableErrorFromDwfeServer(response)};
-            }
-            return null;
-          },
-          error => {
-            return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
-          }),
-        take(1)
-      );
+      return interval(debounceTime)
+        .pipe(
+          switchMapTo(this.post_checkEmail(email)),
+          map(
+            response => {
+              if (!response['success']) {
+                return {'backendHttp': UtilsDwfe.getReadableErrorFromDwfeServer(response)};
+              }
+              return null;
+            },
+            error => {
+              return {'backendHttp': UtilsDwfe.getReadableExchangeError(error)};
+            }),
+          take(1)
+        );
     }
-
-    // return this.reverseHandleResp ?
-    //   new Promise(resolve => { // for 'Login'
-    //     this.connect.pipe(retry(3)).subscribe(
-    //       data => data['success'] ? resolve({'backendHttp': 'Not found in our database'}) : resolve(null),
-    //       error => resolve({'http': error.message})
-    //     );
-    //   })
-    //   : new Promise(resolve => { // for 'Create account'
-    //     this.connect.pipe(retry(3)).subscribe(
-    //       data => {
-    //         data['success'] ? resolve(null) : resolve({'backendHttp': this.getReadableErrorFromDwfeServer(data)});
-    //         this.emailControl.markAsTouched();
-    //       },
-    //       error => resolve({'http': error.message})
-    //     );
-    //   });
   }
 
   //
@@ -114,8 +98,7 @@ export class AuthtionExchangeService {
     }
 
     GoogleCaptchaValidateExchanger.of(this.http)
-      .run(
-        initiator,
+      .run(initiator,
         {
           googleResponse: googleResponse
         },
@@ -125,7 +108,6 @@ export class AuthtionExchangeService {
           } else {
             initiator.setErrorMessage(data.description);
           }
-          initiator.setLocked(false);
         }
       );
   }

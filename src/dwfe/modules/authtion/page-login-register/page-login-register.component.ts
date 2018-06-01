@@ -122,8 +122,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
   private performCreateAccount(): void {
 
     CreateAccountExchanger.of(this.exchangeService.http)
-      .run(
-        this,
+      .run(this,
         {
           email: this.controlCreateAccountEmail.value
         },

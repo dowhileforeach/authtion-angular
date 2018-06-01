@@ -4,10 +4,10 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import {Subject} from 'rxjs';
 
-import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-page-req-restore-pass',
@@ -51,12 +51,11 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe
 
   private performReqRestorePass(): void {
     ReqRestorePassExchanger.of(this.exchangeService.http)
-      .run(
-        this,                                    // initiator
-        {                                        // request params
+      .run(this,                           // initiator
+        {                                  // request params
           email: this.controlAccountEmail.value
         },
-        (data: ResultWithDescription) => {       // response handler
+        (data: ResultWithDescription) => { // response handler
           if (data.result) { // actions on success 'Password restore request'
             this.isReqSuccessful = true;
           } else {
