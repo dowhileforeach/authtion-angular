@@ -49,7 +49,7 @@ export class AuthtionExchangeService {
     // Based on: https://github.com/angular/angular/issues/6895#issuecomment-329464982
     const debounceTime = 500; // ms
 
-    if (reverseHandleResp) { // for 'Login'
+    if (reverseHandleResp) {      // e.g. for 'Login'
 
       return interval(debounceTime)
         .pipe(
@@ -67,7 +67,7 @@ export class AuthtionExchangeService {
           take(1)
         );
 
-    } else { // for 'Create account'
+    } else {                      // e.g. for 'Create account'
 
       return interval(debounceTime)
         .pipe(

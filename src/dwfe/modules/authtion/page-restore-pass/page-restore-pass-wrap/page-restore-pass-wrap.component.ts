@@ -17,9 +17,9 @@ export class AuthtionPageRestorePassWrapComponent implements OnInit, AfterViewIn
   }
 
   ngOnInit() {
-
-    this.route.queryParamMap
-      .subscribe(params => this.key = params.get('key') || 'none');
+    this.route.queryParamMap.subscribe(
+      params => this.key = params.get('key') || 'none'
+    );
   }
 
   ngAfterViewInit(): void {
@@ -28,8 +28,7 @@ export class AuthtionPageRestorePassWrapComponent implements OnInit, AfterViewIn
         AuthtionPageRestorePassComponent, {
           autoFocus: true,
           data: {
-            key: this.key,
-            email: ''
+            key: this.key
           }
         });
     }, 10); // to prevent error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed
