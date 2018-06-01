@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {interval, Observable} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
 
-import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {ExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
@@ -90,7 +90,7 @@ export class AuthtionExchangeService {
   //
   // GOOGLE CAPTCHA
   //
-  public checkGoogleCaptcha(googleResponse: string, initiator: AbstractExchangableDwfe): void {
+  public checkGoogleCaptcha(googleResponse: string, initiator: ExchangeableDwfe): void {
 
     if (googleResponse === null) {
       initiator.setCaptchaValid(false);

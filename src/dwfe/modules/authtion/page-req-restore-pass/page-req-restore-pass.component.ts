@@ -4,7 +4,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 
 import {Subject} from 'rxjs';
 
-import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
@@ -13,7 +13,7 @@ import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/au
   selector: 'app-authtion-page-req-restore-pass',
   templateUrl: './page-req-restore-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent extends AbstractExchangableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionPageReqRestorePassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;

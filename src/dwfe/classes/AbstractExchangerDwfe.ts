@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {ExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 export abstract class AbstractExchangerDwfe {
@@ -56,20 +56,20 @@ export abstract class AbstractExchangerDwfe {
     return this.subjResult.asObservable();
   }
 
-  public run(initiator: AbstractExchangableDwfe, params: any, responseHandlerFn: any): void {
+  public run(initiator: ExchangeableDwfe, params: any, responseHandlerFn: any): void {
 
-    initiator.setErrorMessage('');         // STAGE 0. Clear error message
-    initiator.setLocked(true);             // STAGE 0. Initiator goes into standby mode
+    initiator.setErrorMessage('');          // STAGE 0. Clear error message
+    initiator.setLocked(true);              // STAGE 0. Initiator goes into standby mode
 
     this
-      .performRequest(params)              // STAGE 1. Send request
-      .result$                             // STAGE 2. Get result of exchange
+      .performRequest(params)               // STAGE 1. Send request
+      .result$                              // STAGE 2. Get result of exchange
       .pipe(
-        takeUntil(initiator.isLocked$)     // just in case, although here it is not necessary
+        takeUntil(initiator.getIsLocked$()) // just in case, although with the current scheme it is not necessary
       )
       .subscribe(
         (data: ResultWithDescription) => {
-          responseHandlerFn(data);         // STAGE 3. Process result
+          responseHandlerFn(data);          // STAGE 3. Process result
           initiator.setLocked(false);
         });
   }

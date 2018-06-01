@@ -8,7 +8,7 @@ import {takeUntil} from 'rxjs/operators';
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
 import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
-import {AbstractExchangableDwfe} from '@dwfe/classes/AbstractExchangableDwfe';
+import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
@@ -17,7 +17,7 @@ import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
   templateUrl: './page-login-register.component.html',
   styleUrls: ['./page-login-register.component.scss']
 })
-export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private isLoginSlide = true;
 
@@ -106,7 +106,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangableDwfe 
     this.authtionService
       .performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value)
       .resultSignIn$
-      .pipe(takeUntil(this.isLocked$))
+      .pipe(takeUntil(this.getIsLocked$()))
       .subscribe(
         (data: ResultWithDescription) => {
           if (data.result) { // actions on success 'Login'

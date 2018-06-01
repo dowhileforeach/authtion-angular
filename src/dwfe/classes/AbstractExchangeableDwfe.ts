@@ -1,6 +1,6 @@
 import {Observable, Subject} from 'rxjs';
 
-export abstract class AbstractExchangableDwfe {
+export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe {
   protected isLocked = false;
   protected subjIsLocked = new Subject<boolean>();
   protected errorMessage = '';
@@ -11,7 +11,7 @@ export abstract class AbstractExchangableDwfe {
     this.subjIsLocked.next(value);
   }
 
-  public get isLocked$(): Observable<boolean> {
+  public getIsLocked$(): Observable<boolean> {
     return this.subjIsLocked.asObservable();
   }
 
@@ -22,4 +22,14 @@ export abstract class AbstractExchangableDwfe {
   public setCaptchaValid(value: boolean): void {
     this.isCaptchaValid = value;
   }
+}
+
+export interface ExchangeableDwfe {
+  setLocked(value: boolean): void;
+
+  getIsLocked$(): Observable<boolean>;
+
+  setErrorMessage(value: string): void;
+
+  setCaptchaValid(value: boolean): void;
 }
