@@ -7,13 +7,13 @@ import {Subject} from 'rxjs';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {AuthtionExchangeService, ReqRestorePassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AuthtionExchangeService, ReqResetPassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 
 @Component({
-  selector: 'app-authtion-page-req-restore-pass',
-  templateUrl: './page-req-restore-pass.component.html'
+  selector: 'app-authtion-page-req-reset-pass',
+  templateUrl: './page-req-reset-pass.component.html'
 })
-export class AuthtionPageReqRestorePassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionPageReqResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;
@@ -49,12 +49,12 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangeableDwf
     }
   }
 
-  private performReqRestorePass(): void {
-    ReqRestorePassExchanger.of(this.exchangeService.http)
+  private performReqResetPass(): void {
+    ReqResetPassExchanger.of(this.exchangeService.http)
       .run(this,
         `{ "email": "${this.controlAccountEmail.value}" }`,
         (data: ResultWithDescription) => { // response handler
-          if (data.result) { // actions on success 'Password restore request'
+          if (data.result) { // actions on success 'Password reset request'
             this.isReqSuccessful = true;
           } else {
             this.errorMessage = data.description;

@@ -7,7 +7,7 @@ import {takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
-import {AuthtionPageReqRestorePassComponent} from '../page-req-restore-pass/page-req-restore-pass.component';
+import {AuthtionPageReqResetPassComponent} from '../page-req-reset-pass/page-req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
@@ -145,10 +145,10 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
       );
   }
 
-  private openReqRestorePasswordDialog(): void {
+  private openReqResetPasswordDialog(): void {
     this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
-      AuthtionPageReqRestorePassComponent, {
+      AuthtionPageReqResetPassComponent, {
         autoFocus: true,
         data: {email: this.controlLoginEmail.value}
       });

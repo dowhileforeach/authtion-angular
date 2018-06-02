@@ -19,9 +19,9 @@ export const endpoints = {
   createAccount: `${API_VERSION}/create-account`,
   updateAccount: `${API_VERSION}/update-account`,
   getAccount: `${API_VERSION}/get-account`,
-  reqRestorePass: `${API_VERSION}/req-restore-pass`,
-  confirmRestorePass: `${API_VERSION}/confirm-restore-pass`,
-  restorePass: `${API_VERSION}/restore-pass`,
+  reqResetPass: `${API_VERSION}/req-reset-pass`,
+  confirmResetPass: `${API_VERSION}/confirm-reset-pass`,
+  resetPass: `${API_VERSION}/reset-pass`,
 };
 
 @Injectable()
@@ -152,40 +152,40 @@ export class GetAccountExchanger extends AbstractExchangerDwfe {
   }
 }
 
-export class ReqRestorePassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): ReqRestorePassExchanger {
-    return new ReqRestorePassExchanger(http);
+export class ReqResetPassExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): ReqResetPassExchanger {
+    return new ReqResetPassExchanger(http);
   }
 
   getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
-      endpoints.reqRestorePass,
+      endpoints.reqResetPass,
       body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 }
 
-export class ConfirmRestorePassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): ConfirmRestorePassExchanger {
-    return new ConfirmRestorePassExchanger(http);
+export class ConfirmResetPassExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): ConfirmResetPassExchanger {
+    return new ConfirmResetPassExchanger(http);
   }
 
   getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
-      endpoints.confirmRestorePass,
+      endpoints.confirmResetPass,
       body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 }
 
-export class RestorePassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): RestorePassExchanger {
-    return new RestorePassExchanger(http);
+export class ResetPassExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): ResetPassExchanger {
+    return new ResetPassExchanger(http);
   }
 
   getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
-      endpoints.restorePass,
+      endpoints.resetPass,
       body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }

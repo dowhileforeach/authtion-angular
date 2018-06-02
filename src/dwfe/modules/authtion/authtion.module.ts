@@ -10,10 +10,10 @@ import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/btn-user--logged-in/btn-user--logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not-authenticated/btn-user--not-authenticated.component';
 import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
-import {AuthtionPageReqRestorePassComponent} from './page-req-restore-pass/page-req-restore-pass.component';
+import {AuthtionPageReqResetPassComponent} from './page-req-reset-pass/page-req-reset-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
-import {AuthtionPageRestorePassWrapComponent} from './page-restore-pass/page-restore-pass-wrap/page-restore-pass-wrap.component';
-import {AuthtionPageRestorePassComponent} from './page-restore-pass/page-restore-pass.component';
+import {AuthtionPageResetPassWrapComponent} from './page-reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
+import {AuthtionPageResetPassComponent} from './page-reset-pass/page-reset-pass.component';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
 import {InputEmailDwfeComponent} from '@dwfe/components/form-controls/input-email/input-email.component';
@@ -27,9 +27,9 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spin
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
     AuthtionPageLoginRegisterComponent,
-    AuthtionPageReqRestorePassComponent,
-    AuthtionPageRestorePassWrapComponent,
-    AuthtionPageRestorePassComponent,
+    AuthtionPageReqResetPassComponent,
+    AuthtionPageResetPassWrapComponent,
+    AuthtionPageResetPassComponent,
     AlertDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
@@ -69,8 +69,8 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spin
   ],
   entryComponents: [
     AuthtionPageLoginRegisterComponent,
-    AuthtionPageReqRestorePassComponent,
-    AuthtionPageRestorePassComponent
+    AuthtionPageReqResetPassComponent,
+    AuthtionPageResetPassComponent
   ],
 })
 export class AuthtionModule {

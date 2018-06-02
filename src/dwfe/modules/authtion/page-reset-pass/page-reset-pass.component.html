@@ -1,5 +1,5 @@
-<section class="page-restore-pass  dwfe-dialog">
-  <h2 class="dwfe-dialog__title">Password restore</h2>
+<section class="page-reset-pass  dwfe-dialog">
+  <h2 class="dwfe-dialog__title">Reset password</h2>
 
   <form class="dwfe-form" spellcheck="false" *ngIf="isPreparingSuccessfull && !isReqSuccessful">
 
@@ -17,9 +17,9 @@
 
     <button class="dwfe-form__btn  dwfe-form__btn--standard"
             mat-raised-button
-            (click)="performRestorePassword()"
+            (click)="performResetPassword()"
             [disabled]="!(groupNewPassword.valid && groupRepeatNewPassword.valid) || isLocked"
-            aria-label="Perform 'Restore Password'">
+            aria-label="Perform 'Reset Password'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"
                       class="dwfe-form__alert-over"

@@ -10,17 +10,16 @@ import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {
   AuthtionExchangeService,
-  ConfirmRestorePassExchanger,
-  RestorePassExchanger
+  ConfirmResetPassExchanger,
+  ResetPassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AuthtionPageLoginRegisterComponent} from '@dwfe/modules/authtion/page-login-register/page-login-register.component';
 
 @Component({
-  selector: 'app-authtion-page-restore-pass',
-  templateUrl: './page-restore-pass.component.html',
-  styleUrls: ['./page-restore-pass.component.scss']
+  selector: 'app-authtion-page-reset-pass',
+  templateUrl: './page-reset-pass.component.html'
 })
-export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private key: string;
   private email: string;
@@ -47,7 +46,7 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
 
   constructor(protected exchangeService: AuthtionExchangeService,
               protected dialog: MatDialog,
-              protected dialogRef: MatDialogRef<AuthtionPageRestorePassComponent>,
+              protected dialogRef: MatDialogRef<AuthtionPageResetPassComponent>,
               @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
 
@@ -68,7 +67,7 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
     setTimeout(() => { // to prevent multiple ExpressionChangedAfterItHasBeenCheckedError
 
       if (this.isPreparingSuccessfull) {
-        ConfirmRestorePassExchanger.of(this.exchangeService.http)
+        ConfirmResetPassExchanger.of(this.exchangeService.http)
           .run(this,
             `{ "key": "${this.key}" }`,
             (data: ResultWithDescription) => {
@@ -109,13 +108,13 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
     }
   }
 
-  private performRestorePassword(): void {
+  private performResetPassword(): void {
     if (this.controlNewPassword.value !== this.controlRepeatNewPassword.value) {
       this.errorMessage = 'New Password and Repeat do not match';
       return;
     }
 
-    RestorePassExchanger.of(this.exchangeService.http)
+    ResetPassExchanger.of(this.exchangeService.http)
       .run(this,
         `{ "email": "${this.email}",
            "key": "${this.key}",
