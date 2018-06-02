@@ -1,6 +1,6 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -41,7 +41,8 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
   constructor(protected authtionService: AuthtionService,
               protected exchangeService: AuthtionExchangeService,
               protected dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
-              protected dialog: MatDialog) {
+              protected dialog: MatDialog,
+              @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
   }
 
@@ -50,7 +51,14 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
     this.controlLoginPassword = this.groupLoginPassword.get('password');
     this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
 
-    this.focusOnDwfeInput(this.refLoginEmail);
+    setTimeout(() => {
+      if (this.data.email) {
+        this.controlLoginEmail.setValue(this.data.email);
+        this.focusOnDwfeInput(this.refLoginPassword);
+      } else {
+        this.focusOnDwfeInput(this.refLoginEmail);
+      }
+    }, 10); // to prevent ExpressionChangedAfterItHasBeenCheckedError
 
     this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
     this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
@@ -126,7 +134,8 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
         `{ "email": "${this.controlCreateAccountEmail.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {    // actions on success 'Create account'
-            this.changeSlide(); // just go to 'Login' slide
+            this.changeSlide(); // go to 'Login' slide
+            this.controlLoginPassword.setValue('');
           } else {
             this.errorMessage = data.description;
           }

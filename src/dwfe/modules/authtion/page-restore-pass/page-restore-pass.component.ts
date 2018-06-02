@@ -1,18 +1,19 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {
   AuthtionExchangeService,
   ConfirmRestorePassExchanger,
   RestorePassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+import {AuthtionPageLoginRegisterComponent} from '@dwfe/modules/authtion/page-login-register/page-login-register.component';
 
 @Component({
   selector: 'app-authtion-page-restore-pass',
@@ -42,8 +43,11 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
   private latchForUnsubscribe = new Subject();
 
   private resetBackendError = UtilsDwfe.resetBackendError;
+  private focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
   constructor(protected exchangeService: AuthtionExchangeService,
+              protected dialog: MatDialog,
+              protected dialogRef: MatDialogRef<AuthtionPageRestorePassComponent>,
               @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
 
@@ -61,8 +65,7 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => { // to prevent multiple Error:
-      // ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after
+    setTimeout(() => { // to prevent multiple ExpressionChangedAfterItHasBeenCheckedError
 
       if (this.isPreparingSuccessfull) {
         ConfirmRestorePassExchanger.of(this.exchangeService.http)
@@ -78,8 +81,9 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
               }
             });
       } else {
-        this.errorMessage = 'Confirmation key is wrong';
+        this.errorMessage = 'Confirm key is wrong';
       }
+
     }, 10);
 
     this.subjIsPreparingSuccessfull
@@ -92,6 +96,7 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
           this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
           this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
           this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+          this.focusOnDwfeInput(this.refNewPassword);
         }
       });
   }
@@ -104,7 +109,7 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
     }
   }
 
-  public performRestorePassword(): void {
+  private performRestorePassword(): void {
     if (this.controlNewPassword.value !== this.controlRepeatNewPassword.value) {
       this.errorMessage = 'New Password and Repeat do not match';
       return;
@@ -123,5 +128,16 @@ export class AuthtionPageRestorePassComponent extends AbstractExchangeableDwfe i
           }
         }
       );
+  }
+
+  private goToLoginPage(): void {
+    this.dialogRef.close();
+    this.dialog.open( // https://material.angular.io/components/dialog/api
+      AuthtionPageLoginRegisterComponent, {
+        autoFocus: false,
+        data: {
+          email: this.email
+        }
+      });
   }
 }

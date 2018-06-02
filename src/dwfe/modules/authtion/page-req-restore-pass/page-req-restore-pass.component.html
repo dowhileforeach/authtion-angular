@@ -18,7 +18,7 @@
     <button class="dwfe-form__btn  dwfe-form__btn--standard"
             mat-raised-button
             (click)="performReqRestorePass()"
-            [disabled]="!groupAccountEmail.valid || !isCaptchaValid || isLocked"
+            [disabled]="!(groupAccountEmail.valid && isCaptchaValid) || isLocked"
             aria-label="Perform 'Password restore request'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"
@@ -32,7 +32,7 @@
   </form>
 
   <div class="dwfe-dialog__info" *ngIf="isReqSuccessful">
-    <p class="dwfe-dialog__info-title-successfull">Successfully completed</p>
+    <p class="dwfe-dialog__info-title-successful">Successfully completed</p>
     <p class="dwfe-dialog__info-warning">Please check your email box</p>
   </div>
 

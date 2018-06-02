@@ -35,7 +35,13 @@
   </div>
 
   <div class="dwfe-dialog__info" *ngIf="isReqSuccessful">
-    <p class="dwfe-dialog__info-title-successfull">Successfully completed</p>
+    <p class="dwfe-dialog__info-title-successful">Successfully completed</p>
+
+    <button class="dwfe-form__btn  dwfe-form__btn--attraction"
+            mat-raised-button
+            (click)="goToLoginPage()">
+      Go to Login Page
+    </button>
   </div>
 
   <div class="dwfe-pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>

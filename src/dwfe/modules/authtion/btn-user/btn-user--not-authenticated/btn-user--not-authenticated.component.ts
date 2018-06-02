@@ -16,6 +16,7 @@ export class AuthtionBtnUserNotAuthenticatedComponent {
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionPageLoginRegisterComponent, {
         autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
+        data: {}
       });
   }
 }
