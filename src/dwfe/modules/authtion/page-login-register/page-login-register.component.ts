@@ -123,9 +123,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
 
     CreateAccountExchanger.of(this.exchangeService.http)
       .run(this,
-        {
-          email: this.controlCreateAccountEmail.value
-        },
+        `{ "email": "${this.controlCreateAccountEmail.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {    // actions on success 'Create account'
             this.changeSlide(); // just go to 'Login' slide

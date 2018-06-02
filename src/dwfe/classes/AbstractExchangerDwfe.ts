@@ -30,13 +30,7 @@ export abstract class AbstractExchangerDwfe {
     };
   }
 
-  public static bodySimple(propName: string, propValue: string): string {
-    return `{
-              "${propName}": "${propValue}"
-            }`;
-  }
-
-  abstract getHttpReq$(params?: any): Observable<Object>;
+  abstract getHttpReq$(something?: any): Observable<Object>;
 
   //
   // STAGE 1.

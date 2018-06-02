@@ -20,6 +20,8 @@ export const endpoints = {
   updateAccount: `${API_VERSION}/update-account`,
   getAccount: `${API_VERSION}/get-account`,
   reqRestorePass: `${API_VERSION}/req-restore-pass`,
+  confirmRestorePass: `${API_VERSION}/confirm-restore-pass`,
+  restorePass: `${API_VERSION}/restore-pass`,
 };
 
 @Injectable()
@@ -35,7 +37,7 @@ export class AuthtionExchangeService {
   public post_checkEmail(email: string): Observable<Object> {
     return this.http.post(
       endpoints.checkEmail,
-      AbstractExchangerDwfe.bodySimple('email', email),
+      `{ "email": "${email}" }`,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 
@@ -99,9 +101,7 @@ export class AuthtionExchangeService {
 
     GoogleCaptchaValidateExchanger.of(this.http)
       .run(initiator,
-        {
-          googleResponse: googleResponse
-        },
+        `{ "googleResponse": "${googleResponse}" }`,
         (data: ResultWithDescription) => {
           if (data.result) { // actions on success captcha check
             initiator.setCaptchaValid(true);
@@ -118,10 +118,10 @@ export class GoogleCaptchaValidateExchanger extends AbstractExchangerDwfe {
     return new GoogleCaptchaValidateExchanger(http);
   }
 
-  getHttpReq$(params?: any): Observable<Object> {
+  getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
       endpoints.googleCaptchaValidate,
-      AbstractExchangerDwfe.bodySimple('googleResponse', params.googleResponse),
+      body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 }
@@ -131,10 +131,10 @@ export class CreateAccountExchanger extends AbstractExchangerDwfe {
     return new CreateAccountExchanger(http);
   }
 
-  getHttpReq$(params?: any): Observable<Object> {
+  getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
       endpoints.createAccount,
-      AbstractExchangerDwfe.bodySimple('email', params.email),
+      body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 }
@@ -157,14 +157,39 @@ export class ReqRestorePassExchanger extends AbstractExchangerDwfe {
     return new ReqRestorePassExchanger(http);
   }
 
-  getHttpReq$(params?: any): Observable<Object> {
+  getHttpReq$(body?: any): Observable<Object> {
     return this.http.post(
       endpoints.reqRestorePass,
-      AbstractExchangerDwfe.bodySimple('email', params.email),
+      body,
       AbstractExchangerDwfe.optionsForAnonymouseReq());
   }
 }
 
+export class ConfirmRestorePassExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): ConfirmRestorePassExchanger {
+    return new ConfirmRestorePassExchanger(http);
+  }
+
+  getHttpReq$(body?: any): Observable<Object> {
+    return this.http.post(
+      endpoints.confirmRestorePass,
+      body,
+      AbstractExchangerDwfe.optionsForAnonymouseReq());
+  }
+}
+
+export class RestorePassExchanger extends AbstractExchangerDwfe {
+  static of(http: HttpClient): RestorePassExchanger {
+    return new RestorePassExchanger(http);
+  }
+
+  getHttpReq$(body?: any): Observable<Object> {
+    return this.http.post(
+      endpoints.restorePass,
+      body,
+      AbstractExchangerDwfe.optionsForAnonymouseReq());
+  }
+}
 
 
 

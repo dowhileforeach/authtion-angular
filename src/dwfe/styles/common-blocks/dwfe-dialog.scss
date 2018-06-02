@@ -25,7 +25,7 @@
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-black);
 }
 
-.dwfe-dialog__successful {
+.dwfe-dialog__info {
   width: 100%;
   margin: 0 auto;
 
@@ -35,13 +35,13 @@
   align-items: center;
 }
 
-.dwfe-dialog__successful-title {
+.dwfe-dialog__info-title-successfull {
   @include reset-margin-padding();
   margin-bottom: 35px;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-bold, normal, $color-japanese-laurel-approx);
 }
 
-.dwfe-dialog__successful-info {
+.dwfe-dialog__info-warning {
   @include reset-margin-padding();
   margin-bottom: 35px;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-warning);

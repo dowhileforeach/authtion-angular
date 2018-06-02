@@ -1,8 +1,42 @@
 <section class="page-restore-pass  dwfe-dialog">
   <h2 class="dwfe-dialog__title">Password restore</h2>
-  <p>
-    {{data.key}}
-  </p>
+
+  <form class="dwfe-form" spellcheck="false" *ngIf="isPreparingSuccessfull && !isReqSuccessful">
+
+    <app-input-password-dwfe class="dwfe-form__item"
+                             [labelText]="'New Password'"
+                             (takePasswordGroup)="groupNewPassword=$event"
+                             #refNewPassword>
+    </app-input-password-dwfe>
+
+    <app-input-password-dwfe class="dwfe-form__item"
+                             [labelText]="'Repeat New Password'"
+                             (takePasswordGroup)="groupRepeatNewPassword=$event"
+                             #refRepeatNewPassword>
+    </app-input-password-dwfe>
+
+    <button class="dwfe-form__btn  dwfe-form__btn--standard"
+            mat-raised-button
+            (click)="performRestorePassword()"
+            [disabled]="!(groupNewPassword.valid && groupRepeatNewPassword.valid) || isLocked"
+            aria-label="Perform 'Restore Password'">
+      OK
+      <app-alert-dwfe *ngIf="errorMessage !== ''"
+                      class="dwfe-form__alert-over"
+                      [message]="errorMessage"
+                      [blink]="true">
+      </app-alert-dwfe>
+    </button>
+
+  </form>
+
+  <div class="dwfe-dialog__info" *ngIf="!isPreparingSuccessfull">
+    <p class="dwfe-dialog__info-warning">{{errorMessage}}</p>
+  </div>
+
+  <div class="dwfe-dialog__info" *ngIf="isReqSuccessful">
+    <p class="dwfe-dialog__info-title-successfull">Successfully completed</p>
+  </div>
 
   <div class="dwfe-pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap>
     <div class="dwfe-pending-overlay" *ngIf="isLocked">

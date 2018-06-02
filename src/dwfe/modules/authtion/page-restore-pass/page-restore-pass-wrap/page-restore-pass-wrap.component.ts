@@ -26,7 +26,7 @@ export class AuthtionPageRestorePassWrapComponent implements OnInit, AfterViewIn
     setTimeout(() => {
       this.dialog.open( // https://material.angular.io/components/dialog/api
         AuthtionPageRestorePassComponent, {
-          autoFocus: true,
+          autoFocus: false,
           data: {
             key: this.key
           }

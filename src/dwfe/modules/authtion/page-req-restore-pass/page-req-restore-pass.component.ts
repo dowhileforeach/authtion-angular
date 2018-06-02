@@ -51,10 +51,8 @@ export class AuthtionPageReqRestorePassComponent extends AbstractExchangeableDwf
 
   private performReqRestorePass(): void {
     ReqRestorePassExchanger.of(this.exchangeService.http)
-      .run(this,                           // initiator
-        {                                  // request params
-          email: this.controlAccountEmail.value
-        },
+      .run(this,
+        `{ "email": "${this.controlAccountEmail.value}" }`,
         (data: ResultWithDescription) => { // response handler
           if (data.result) { // actions on success 'Password restore request'
             this.isReqSuccessful = true;
