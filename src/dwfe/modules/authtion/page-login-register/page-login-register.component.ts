@@ -89,6 +89,8 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
         this.focusOnDwfeInput(this.refLoginEmail);
       } else if (this.controlLoginPassword.invalid) {
         this.focusOnDwfeInput(this.refLoginPassword);
+      } else if (this.errorMessage !== '') {
+        this.focusOnDwfeInput(this.refLoginPassword);
       } else {
         this.focusOnDwfeInput(this.refLoginEmail);
       }
