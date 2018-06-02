@@ -7,14 +7,14 @@
 
       <button class="control control--log-in"
               [ngClass]="{ 'control--pushed': isLoginSlide }"
-              [disabled]="isLocked"
+              [disabled]="isLoginSlide || isLocked"
               (click)="changeSlide()">
         <span>Login</span>
       </button>
 
       <button class="control control--create-account"
               [ngClass]="{ 'control--pushed': !isLoginSlide }"
-              [disabled]="isLocked"
+              [disabled]="!isLoginSlide || isLocked"
               (click)="changeSlide()">
         <span>Create account</span>
       </button>
