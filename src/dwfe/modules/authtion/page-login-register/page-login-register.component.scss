@@ -126,12 +126,17 @@
 }
 
 .page-authtion-login-register__reset-password {
-  z-index: 200;
   border: 0;
-  text-decoration: none;
+  background-color: transparent;
+
   @include fonts($font-size-x1, $font-size-x2, $font-weight-light, normal, $color-gray);
+  text-decoration: none;
+
+  z-index: 200;
+
   user-select: none;
   transition: color 0.15s ease, border-color 0.15s ease;
+
   &:hover,
   &:focus {
     outline-width: 0;
