@@ -1,9 +1,10 @@
 import {ElementRef} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
 import {Observable, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {ErrorStateMatcher} from '@angular/material';
 
 const dwfeAuthtionErrorCodesMap = {
   'confirm-key-not-exist': 'Confirm key does not exist',
@@ -78,7 +79,7 @@ export class UtilsDwfe {
   }
 
   public static focusOnDwfeInput(elementRef: ElementRef) {
-    elementRef.nativeElement.querySelector('.dwfe-form-group input').focus();
+    elementRef.nativeElement.querySelector('.dwfe-form-group-material input').focus();
   }
 
   public static resetBackendError(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
@@ -175,5 +176,12 @@ export class UtilsDwfe {
     } else {
       return false;
     }
+  }
+}
+
+export class MyErrorStateMatcherDwfe implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return (control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }

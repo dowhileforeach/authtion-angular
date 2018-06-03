@@ -31,7 +31,6 @@
           <app-input-email-dwfe class="dwfe-form__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
-                                [isDirtyTouchedCheckMode]="true"
                                 (takeEmailGroup)="groupLoginEmail=$event"
                                 #refLoginEmail>
           </app-input-email-dwfe>

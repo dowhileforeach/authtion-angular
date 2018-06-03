@@ -2,7 +2,15 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule} from '@angular/material';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatButtonModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule,
+  MatProgressBarModule
+} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
@@ -41,6 +49,10 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spin
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatButtonModule,
     MatDialogModule,
     RecaptchaModule.forRoot(),

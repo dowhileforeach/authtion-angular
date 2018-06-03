@@ -1,7 +1,7 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
 
 @Component({
   selector: 'app-input-email-dwfe',
@@ -13,25 +13,19 @@ export class InputEmailDwfeComponent implements OnInit {
   private PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   @Input() private maxLength = 50;
 
+  private group: FormGroup;
+  @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
   private emailControl: FormControl;
-  private emailControlID = UtilsDwfe.randomStr(5, 'dwfe-form-group__email-'); // used in html template for a11y
-  @ViewChild('refEmail') private refEmail: ElementRef;
 
   @Input() private labelText = 'Email';
 
-  private group: FormGroup;
-  @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
-
   @Input() private reverseHandleRespFromBackend = false;
-  @Input() private isDirtyTouchedCheckMode = false;
-  private errorMessage = '';
 
   @Input() private tabIndexValue = 0;
 
   @Input() private externalBackendValidator = null;
 
-  private isEmpty = UtilsDwfe.isEmpty; // used in html template
-  private formControlHasError = UtilsDwfe.formControlHasError;
+  private matcher = new MyErrorStateMatcherDwfe();
 
   ngOnInit() {
 
@@ -54,28 +48,5 @@ export class InputEmailDwfeComponent implements OnInit {
     return this.externalBackendValidator ?
       this.externalBackendValidator(this.emailControl.value, this.reverseHandleRespFromBackend)
       : null;
-  }
-
-  private get hasError(): boolean {
-    if (this.formControlHasError(this.emailControl, 'required', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = 'Required';
-      return true;
-    } else if (this.formControlHasError(this.emailControl, 'pattern', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = 'Please enter a valid email';
-      return true;
-    } else if (this.formControlHasError(this.emailControl, 'maxlength', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = `Length must be <= ${this.maxLength}`;
-      return true;
-    } else if (this.formControlHasError(this.emailControl, 'backendHttp', this.isDirtyTouchedCheckMode)) {
-      this.errorMessage = UtilsDwfe.getErrorOnFormControl(this.emailControl, 'backendHttp');
-      return true;
-    }
-    this.errorMessage = '';
-    return false;
-  }
-
-  private clearEmail() {
-    this.emailControl.setValue('');
-    this.refEmail.nativeElement.focus();
   }
 }

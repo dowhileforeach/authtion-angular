@@ -1,26 +1,32 @@
-<div class="dwfe-form-group" [formGroup]="group">
+<mat-form-field class="dwfe-form-group-material" appearance="fill" [formGroup]="group">
 
-  <input #refEmail [formControlName]="'email'"
-         [ngClass]="{ 'filled': !isEmpty(emailControl.value) }"
-         type="email"
-         [tabindex]="tabIndexValue"
-         [id]="emailControlID">
+  <input type="email" matInput [formControlName]="'email'"
+         [ngClass]="{ 'filled': emailControl.value }"
+         [errorStateMatcher]="matcher"
+         [tabindex]="tabIndexValue">
 
-  <label [for]="emailControlID">{{labelText}}</label>
+  <mat-label>{{labelText}}</mat-label>
 
   <app-spinner-dotted-horizontal-dwfe *ngIf="emailControl.pending"
-                                      class="dwfe-form-group__inputs-horizontal-spinner">
+                                      class="dwfe-form-group-material__inputs-horizontal-spinner">
   </app-spinner-dotted-horizontal-dwfe>
 
-  <app-alert-dwfe *ngIf="hasError"
-                  class="dwfe-form-group__alert-under"
-                  [message]="errorMessage"
-                  [noBorder]="true">
-  </app-alert-dwfe>
+  <mat-error *ngIf="emailControl.hasError('required')">
+    Required
+  </mat-error>
+  <mat-error *ngIf="emailControl.hasError('pattern')">
+    Please enter a valid email
+  </mat-error>
+  <mat-error *ngIf="emailControl.hasError('maxlength')">
+    Length must be <= {{maxLength}}
+  </mat-error>
+  <mat-error *ngIf="emailControl.hasError('backendHttp')">
+    {{emailControl.errors['backendHttp']}}
+  </mat-error>
 
-  <svg class="icon-clear-field" (click)="clearEmail()"
+  <svg class="icon-clear-field" (click)="emailControl.setValue('')"
        xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="2 2 20 20">
     <path d="M 12 2 C 6.5 2 2 6.5 2 12 C 2 17.5 6.5 22 12 22 C 17.5 22 22 17.5 22 12 C 22 6.5 17.5 2 12 2 Z M 16.898438 15.5 L 15.5 16.898438 L 12 13.398438 L 8.5 16.898438 L 7.101563 15.5 L 10.601563 12 L 7.101563 8.5 L 8.5 7.101563 L 12 10.601563 L 15.5 7.101563 L 16.898438 8.5 L 13.398438 12 Z "></path>
   </svg>
 
-</div>
+</mat-form-field>
