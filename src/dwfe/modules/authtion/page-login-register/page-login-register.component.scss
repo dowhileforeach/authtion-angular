@@ -108,3 +108,43 @@
     }
   }
 }
+
+.page-authtion-login-register__login-action-wrap {
+  padding: 2px 0 20px 10px;
+
+  position: relative;
+  z-index: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  button {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+}
+
+.page-authtion-login-register__reset-password {
+  z-index: 200;
+  border: 0;
+  text-decoration: none;
+  @include fonts($font-size-x1, $font-size-x2, $font-weight-light, normal, $color-gray);
+  user-select: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  &:hover,
+  &:focus {
+    outline-width: 0;
+    color: $color-danger;
+    border-bottom-color: $color-danger;
+    cursor: pointer;
+  }
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.page-authtion-login-register__login-action-alert-over {
+  padding-right: 10px;
+  padding-left: 10px;
+}

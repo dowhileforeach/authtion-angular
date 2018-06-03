@@ -15,6 +15,7 @@ export class InputPasswordDwfeComponent implements OnInit {
   private passwordControl: FormControl;
 
   @Input() private labelText = 'Password';
+  @Input() private hintText = '';
 
   @Input() private tabIndexValue = 0;
 

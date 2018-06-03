@@ -18,6 +18,7 @@ export class InputEmailDwfeComponent implements OnInit {
   private emailControl: FormControl;
 
   @Input() private labelText = 'Email';
+  @Input() private hintText = '';
 
   @Input() private reverseHandleRespFromBackend = false;
 

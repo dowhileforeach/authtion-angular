@@ -11,6 +11,8 @@
                                       class="dwfe-form-group-material__inputs-horizontal-spinner">
   </app-spinner-dotted-horizontal-dwfe>
 
+  <mat-hint align="start">{{hintText}}</mat-hint>
+
   <mat-error *ngIf="emailControl.hasError('required')">
     Required
   </mat-error>

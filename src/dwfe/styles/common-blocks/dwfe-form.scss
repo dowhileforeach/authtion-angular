@@ -12,7 +12,7 @@
 }
 
 .dwfe-form__item {
-  margin-bottom: 35px;
+  margin-bottom: 25px;
   z-index: 300;
 }
 
@@ -27,22 +27,6 @@
   text-decoration: none;
 
   user-select: none;
-}
-
-.dwfe-form__text-under-field--reset-password {
-  border: 0;
-  border-bottom: 0.5px dashed $color-gray;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  &:hover,
-  &:focus {
-    outline-width: 0;
-    color: $color-danger;
-    border-bottom-color: $color-danger;
-    cursor: pointer;
-  }
-  &:active {
-    opacity: 0.5;
-  }
 }
 
 .dwfe-form__btn,

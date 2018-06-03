@@ -40,24 +40,28 @@
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
-          <button type="button"
-                  class="dwfe-form__text-under-field dwfe-form__text-under-field--reset-password"
-                  (click)="openReqResetPasswordDialog()">
-            Forgot password?
-          </button>
+          <div class="page-authtion-login-register__login-action-wrap">
 
-          <button class="dwfe-form__btn  dwfe-form__btn--standard"
-                  mat-raised-button
-                  (click)="performLogin()"
-                  [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
-                  aria-label="Perform 'Login'">
-            OK
+            <button class="dwfe-form__btn  dwfe-form__btn--standard"
+                    mat-raised-button
+                    (click)="performLogin()"
+                    [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
+                    aria-label="Perform 'Login'">
+              OK
+            </button>
+
+            <button type="button"
+                    class="page-authtion-login-register__reset-password"
+                    (click)="openReqResetPasswordDialog()">
+              Forgot password?
+            </button>
+
             <app-alert-dwfe *ngIf="errorMessage !== ''"
-                            class="dwfe-form__alert-over"
+                            class="dwfe-form__alert-over  page-authtion-login-register__login-action-alert-over"
                             [message]="errorMessage"
                             [blink]="true">
             </app-alert-dwfe>
-          </button>
+          </div>
 
         </form>
 
@@ -66,11 +70,10 @@
           <app-input-email-dwfe class="dwfe-form__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [tabIndexValue]="-1"
+                                [hintText]="'*Password will be sent to your email'"
                                 (takeEmailGroup)="groupCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
-
-          <p class="dwfe-form__text-under-field">*Password will be sent to email</p>
 
           <re-captcha *ngIf="!isLoginSlide"
                       (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
