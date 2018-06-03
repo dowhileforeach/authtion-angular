@@ -1,8 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-
-import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
@@ -10,7 +8,6 @@ import {AuthtionExchangeService, CreateAccountExchanger} from '../services/autht
 import {AuthtionPageReqResetPassComponent} from '../page-req-reset-pass/page-req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 @Component({
   selector: 'app-authtion-page-login-register',
@@ -32,11 +29,6 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-
-  private latchForUnsubscribe = new Subject();
-
-  private resetBackendError = UtilsDwfe.resetBackendError;
-  private focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
   constructor(protected authtionService: AuthtionService,
               protected exchangeService: AuthtionExchangeService,
@@ -63,10 +55,6 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
     this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
     this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
     this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
-  }
-
-  ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
   }
 
   private changeSlide(): void {

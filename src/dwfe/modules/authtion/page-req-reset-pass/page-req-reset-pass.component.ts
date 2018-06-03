@@ -2,8 +2,6 @@ import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material';
 
-import {Subject} from 'rxjs';
-
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
@@ -21,10 +19,6 @@ export class AuthtionPageReqResetPassComponent extends AbstractExchangeableDwfe 
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   private isReqSuccessful = false;
 
-  private latchForUnsubscribe = new Subject();
-
-  private resetBackendError = UtilsDwfe.resetBackendError;
-
   constructor(protected exchangeService: AuthtionExchangeService,
               @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
@@ -34,10 +28,6 @@ export class AuthtionPageReqResetPassComponent extends AbstractExchangeableDwfe 
     this.controlAccountEmail = this.groupAccountEmail.get('email');
     setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
     this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
-  }
-
-  ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
   }
 
   public setLocked(value: boolean): void {

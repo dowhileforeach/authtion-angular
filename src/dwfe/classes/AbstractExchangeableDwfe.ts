@@ -1,10 +1,23 @@
+import {OnDestroy} from '@angular/core';
+
 import {Observable, Subject} from 'rxjs';
 
-export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe {
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+
+export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDestroy {
   protected isLocked = false;
   protected subjIsLocked = new Subject<boolean>();
   protected errorMessage = '';
   protected isCaptchaValid = false;
+
+  protected resetBackendError = UtilsDwfe.resetBackendError;
+  protected focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
+
+  protected latchForUnsubscribe = new Subject();
+
+  ngOnDestroy(): void {
+    this.latchForUnsubscribe.next();
+  }
 
   public setLocked(value: boolean): void {
     this.isLocked = value;

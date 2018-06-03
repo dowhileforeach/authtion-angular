@@ -7,7 +7,6 @@ import {takeUntil} from 'rxjs/operators';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {
   AuthtionExchangeService,
   ConfirmResetPassExchanger,
@@ -28,6 +27,7 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
   private subjIsPreparingSuccessfull = new Subject();
 
   private isReqSuccessful = false;
+  private subjIsReqSuccessful = new Subject();
 
   private groupNewPassword = new FormGroup({});
   private controlNewPassword: AbstractControl;
@@ -38,11 +38,7 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
   @ViewChild('refRepeatNewPassword', {read: ElementRef}) private refRepeatNewPassword: ElementRef;
 
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-
-  private latchForUnsubscribe = new Subject();
-
-  private resetBackendError = UtilsDwfe.resetBackendError;
-  private focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
+  @ViewChild('refGoToLoginPage', {read: ElementRef}) refGoToLoginPage: ElementRef;
 
   constructor(protected exchangeService: AuthtionExchangeService,
               protected dialog: MatDialog,
@@ -54,13 +50,14 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
     this.setIsPreparingSuccessfull(this.key !== 'none');
   }
 
-  ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
-  }
-
   public setIsPreparingSuccessfull(value: boolean): void {
     this.isPreparingSuccessfull = value;
     this.subjIsPreparingSuccessfull.next(value);
+  }
+
+  public setIsReqSuccessful(value: boolean): void {
+    this.isReqSuccessful = value;
+    this.subjIsReqSuccessful.next(value);
   }
 
   ngAfterViewInit(): void {
@@ -98,6 +95,19 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
           this.focusOnDwfeInput(this.refNewPassword);
         }
       });
+
+    this.subjIsReqSuccessful
+      .pipe(
+        takeUntil(this.latchForUnsubscribe.asObservable())
+      )
+      .subscribe(value => {
+          setTimeout(() => { // wait for the element to appear in the DOM
+            if (value) {
+              this.refGoToLoginPage.nativeElement.focus();
+            }
+          }, 100);
+        }
+      );
   }
 
   public setLocked(value: boolean): void {
@@ -121,7 +131,7 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
            "newpass": "${this.controlNewPassword.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {
-            this.isReqSuccessful = true;
+            this.setIsReqSuccessful(true);
           } else {
             this.errorMessage = data.description;
           }

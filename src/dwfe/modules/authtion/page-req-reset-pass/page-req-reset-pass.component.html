@@ -1,5 +1,5 @@
 <section class="page-req-reset-pass  dwfe-dialog">
-  <h2 class="dwfe-dialog__title">Request for reset password</h2>
+  <h2 class="dwfe-dialog__title">Reset password request</h2>
 
   <form class="dwfe-form" spellcheck="false" *ngIf="!isReqSuccessful">
 
@@ -18,7 +18,7 @@
             mat-raised-button
             (click)="performReqResetPass()"
             [disabled]="!(groupAccountEmail.valid && isCaptchaValid) || isLocked"
-            aria-label="Perform 'Request for reset password'">
+            aria-label="Perform 'Reset password request'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"
                       class="dwfe-form__alert-over"
