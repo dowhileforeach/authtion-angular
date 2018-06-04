@@ -24,6 +24,10 @@ import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinners/sp
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 import {AuthtionPageAccountComponent} from './page-account/page-account.component';
 import {AuthtionPageAccountSettingsComponent} from './page-account/page-account-settings/page-account-settings.component';
+import {AuthtionPageAccountSettingsPersonalComponent} from './page-account/page-account-settings/page-account-settings-personal/page-account-settings-personal.component';
+import {AuthtionPageAccountSettingsEmailComponent} from './page-account/page-account-settings/page-account-settings-email/page-account-settings-email.component';
+import {AuthtionPageAccountSettingsPasswordComponent} from './page-account/page-account-settings/page-account-settings-password/page-account-settings-password.component';
+import {AuthtionPageAccountPaymentsComponent} from './page-account/page-account-payments/page-account-payments.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import {AuthtionPageAccountSettingsComponent} from './page-account/page-account-
     SpinnerSharkFinCircleDwfeComponent,
     AuthtionPageAccountComponent,
     AuthtionPageAccountSettingsComponent,
+    AuthtionPageAccountSettingsPersonalComponent,
+    AuthtionPageAccountSettingsEmailComponent,
+    AuthtionPageAccountSettingsPasswordComponent,
+    AuthtionPageAccountPaymentsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/page-account/page-account.component';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-page-account-settings',
@@ -8,9 +8,17 @@ import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/page-account/
 })
 export class AuthtionPageAccountSettingsComponent implements OnInit {
 
-  constructor() { }
+  navLinks: { label: string, path: string }[] = [
+    {label: 'Personal', path: 'personal'},
+    {label: 'Email', path: 'email'},
+    {label: 'Password', path: 'password'},
+  ];
+
+  constructor(protected router: Router) {
+  }
 
   ngOnInit() {
+    this.router.navigate(['account/settings/personal']);
   }
 
 }
