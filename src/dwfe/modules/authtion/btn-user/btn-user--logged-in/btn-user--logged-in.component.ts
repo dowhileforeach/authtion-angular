@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 import {AuthtionService} from '../../services/authtion.service';
@@ -24,7 +25,8 @@ export class AuthtionBtnUserLoggedInComponent {
   private isMenuOpen = false;
   private user = this.authtionService.user;
 
-  constructor(protected authtionService: AuthtionService) {
+  constructor(protected authtionService: AuthtionService,
+              protected router: Router) {
   }
 
   toggleMenu(): void {
@@ -32,6 +34,8 @@ export class AuthtionBtnUserLoggedInComponent {
   }
 
   myAccount(): void {
+    this.router.navigate(['account']);
+    this.toggleMenu();
   }
 
   logout(): void {

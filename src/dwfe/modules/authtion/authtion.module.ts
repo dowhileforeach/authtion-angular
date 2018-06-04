@@ -2,8 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {RouterModule} from '@angular/router';
 
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule, MatInputModule} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule, MatInputModule, MatTabsModule} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
@@ -21,6 +22,8 @@ import {InputEmailDwfeComponent} from '@dwfe/components/form-controls/input-emai
 import {InputPasswordDwfeComponent} from '@dwfe/components/form-controls/input-password/input-password.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {AuthtionPageAccountComponent} from './page-account/page-account.component';
+import {AuthtionPageAccountSettingsComponent} from './page-account/page-account-settings/page-account-settings.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,8 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spin
     InputPasswordDwfeComponent,
     SpinnerDottedHorizontalDwfeComponent,
     SpinnerSharkFinCircleDwfeComponent,
+    AuthtionPageAccountComponent,
+    AuthtionPageAccountSettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +50,9 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spin
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatTabsModule,
     RecaptchaModule.forRoot(),
+    RouterModule,
   ],
   providers: [
     AuthtionExchangeService,
