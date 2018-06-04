@@ -21,9 +21,6 @@
 
         &.filled ~ .icon-clear-field {
           display: inline-block;
-          &:hover {
-            opacity: 0.95;
-          }
         }
       }
       .mat-form-field-label {
@@ -50,21 +47,30 @@
 
     user-select: none;
     cursor: pointer;
-    opacity: 0.3;
     transition: opacity 0.15s ease;
+    opacity: 0.3;
+
+    &:hover {
+      opacity: 0.95;
+    }
   }
 
   .icon-clear-field--password {
     top: -20px;
-    right: -26.5px;
+    right: -30.5px;
   }
 
   .icon-visible {
-    width: 20px;
+    width: 24px;
     height: 20px;
     user-select: none;
     cursor: pointer;
     transition: opacity 0.15s ease;
+    opacity: 0.3;
+
+    &:hover {
+      opacity: 0.95;
+    }
   }
 }
 
