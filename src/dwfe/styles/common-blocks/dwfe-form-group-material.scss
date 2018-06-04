@@ -64,6 +64,10 @@
     width: 24px;
     height: 20px;
     user-select: none;
+    fill: none;
+    stroke: $color-mine-shaft;
+    stroke-width: 1.2px;
+    stroke-miterlimit: 10;
     cursor: pointer;
     transition: opacity 0.15s ease;
     opacity: 0.3;

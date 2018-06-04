@@ -22,7 +22,6 @@ export class InputPasswordDwfeComponent implements OnInit {
   private hide = true;
 
   ngOnInit() {
-
     this.passwordControl = new FormControl('', [
       Validators.required,
       Validators.minLength(this.minLength),
@@ -34,5 +33,9 @@ export class InputPasswordDwfeComponent implements OnInit {
     });
 
     this.takePasswordGroup.emit(this.group);
+  }
+
+  private switchHide(): void {
+    this.hide = !this.hide;
   }
 }
