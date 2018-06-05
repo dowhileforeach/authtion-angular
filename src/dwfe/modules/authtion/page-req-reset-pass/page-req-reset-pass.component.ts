@@ -6,6 +6,8 @@ import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AuthtionExchangeService, ReqResetPassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {concatMap, delay, takeUntil} from 'rxjs/operators';
+import {of} from 'rxjs/index';
 
 @Component({
   selector: 'app-authtion-page-req-reset-pass',
@@ -25,16 +27,24 @@ export class AuthtionPageReqResetPassComponent extends AbstractExchangeableDwfe 
   }
 
   ngAfterViewInit(): void {
-    this.controlAccountEmail = this.groupAccountEmail.get('email');
-    setTimeout(() => this.controlAccountEmail.setValue(this.data.email), 10);
-    this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+    this.isCaptchaValid$.pipe(
+      takeUntil(this.latchForUnsubscribe.asObservable()),
+      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
+    ).subscribe(isCaptchaValid => {
+      if (isCaptchaValid) {
+        this.controlAccountEmail = this.groupAccountEmail.get('email');
+        this.controlAccountEmail.setValue(this.data.email);
+        this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+        UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
+      }
+    });
   }
 
   public setLocked(value: boolean): void {
     super.setLocked(value);
     if (value) {
       this.refPendingOverlayWrap.nativeElement.focus();
-    } else {
+    } else if (this.refAccountEmail) {
       UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
     }
   }

@@ -3,19 +3,29 @@
 
   <form class="dwfe-form" spellcheck="false" *ngIf="!isReqSuccessful">
 
-    <app-input-email-dwfe class="dwfe-form__item"
+    <app-input-email-dwfe class="dwfe-form__item" *ngIf="isCaptchaValid$ | async"
+                          [labelText]="'Email associated with your Account'"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [reverseHandleRespFromBackend]="true"
                           (takeEmailGroup)="groupAccountEmail=$event"
                           #refAccountEmail>
     </app-input-email-dwfe>
 
-    <re-captcha *ngIf="controlAccountEmail === undefined ? false : controlAccountEmail.valid"
-                (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
-                class="dwfe-form__item">
-    </re-captcha>
+    <div [ngClass]="{ 'visually-hidden': (isCaptchaValid$ | async) }"
+         class="dwfe-form__re-captcha-wrap  dwfe-form__item">
+      <p class="dwfe-form__text">
+        Please confirm that you are a real person:
+      </p>
+      <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)" cdkFocusInitial>
+      </re-captcha>
+      <app-alert-dwfe *ngIf="errorMessage !== ''"
+                      class="dwfe-form__alert-over"
+                      [message]="errorMessage"
+                      [blink]="true">
+      </app-alert-dwfe>
+    </div>
 
-    <button class="dwfe-form__btn  dwfe-form__btn--standard"
+    <button class="dwfe-form__btn  dwfe-form__btn--standard" *ngIf="isCaptchaValid$ | async"
             mat-raised-button
             (click)="performReqResetPass()"
             [disabled]="!groupAccountEmail.valid || isLocked"

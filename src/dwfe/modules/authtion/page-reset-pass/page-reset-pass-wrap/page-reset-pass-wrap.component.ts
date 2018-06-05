@@ -6,7 +6,7 @@ import {AuthtionPageResetPassComponent} from '@dwfe/modules/authtion/page-reset-
 
 @Component({
   selector: 'app-authtion-page-reset-pass-wrap',
-  templateUrl: './page-reset-pass-wrap.component.html'
+  template: '',
 })
 export class AuthtionPageResetPassWrapComponent implements OnInit, AfterViewInit {
 

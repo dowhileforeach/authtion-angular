@@ -77,12 +77,11 @@
 
           <div *ngIf="!isLoginSlide || !(isCaptchaValid$ | async)"
                [ngClass]="{ 'visually-hidden': (isCaptchaValid$ | async) }"
-               class="dwfe-form__re-captcha-wrap">
+               class="dwfe-form__re-captcha-wrap  dwfe-form__item">
             <p class="dwfe-form__text">
               Please confirm that you are a real person:
             </p>
-            <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
-                        class="dwfe-form__item">
+            <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)">
             </re-captcha>
             <app-alert-dwfe *ngIf="errorMessage !== ''"
                             class="dwfe-form__alert-over"
