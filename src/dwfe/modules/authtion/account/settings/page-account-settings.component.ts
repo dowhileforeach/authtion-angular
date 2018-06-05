@@ -2,9 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-page-account-settings',
+  selector: 'app-authtion-page-account-settings',
   templateUrl: './page-account-settings.component.html',
-  styleUrls: ['./page-account-settings.component.scss']
 })
 export class AuthtionPageAccountSettingsComponent implements OnInit {
 
@@ -18,7 +17,6 @@ export class AuthtionPageAccountSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.navigate(['account/settings/personal']);
   }
 
 }

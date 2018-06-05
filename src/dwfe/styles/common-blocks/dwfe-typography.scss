@@ -5,6 +5,23 @@ body {
   @include fonts($font-size-x1, $font-height-normal, $font-weight-normal, normal, $color-mine-shaft);
 }
 
+h2 {
+  @include reset-margin-padding();
+  margin-top: 19px;
+  margin-bottom: 10px;
+  @include fonts4($font-size-x3, $font-height-normal, $font-weight-medium, normal);
+}
+
+//
+// ADAPTIVE
+//
+@include media-tablet {
+  h2 {
+    margin-top: 27px;
+    font-size: $font-size-x4;
+  }
+}
+
 //
 // Font faces
 //
