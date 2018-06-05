@@ -18,7 +18,7 @@
     <button class="dwfe-form__btn  dwfe-form__btn--standard"
             mat-raised-button
             (click)="performReqResetPass()"
-            [disabled]="!(groupAccountEmail.valid && isCaptchaValid) || isLocked"
+            [disabled]="!groupAccountEmail.valid || isLocked"
             aria-label="Perform 'Reset password request'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"

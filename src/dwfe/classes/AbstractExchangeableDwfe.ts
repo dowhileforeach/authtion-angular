@@ -3,16 +3,18 @@ import {OnDestroy} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+import {BehaviorSubject} from 'rxjs/index';
 
 export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDestroy {
   protected isLocked = false;
   protected subjIsLocked = new Subject<boolean>();
   protected errorMessage = '';
-  protected isCaptchaValid = false;
 
   protected resetBackendError = UtilsDwfe.resetBackendError;
   protected focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
+  protected subjIsCaptchaValid = new BehaviorSubject<boolean>(false);
+  protected subjIsCaptchaValidWithDelay = new BehaviorSubject<boolean>(false);
   protected latchForUnsubscribe = new Subject();
 
   ngOnDestroy(): void {
@@ -33,7 +35,16 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   }
 
   public setCaptchaValid(value: boolean): void {
-    this.isCaptchaValid = value;
+    this.subjIsCaptchaValid.next(value);
+    setTimeout(() => this.subjIsCaptchaValidWithDelay.next(value), 20);
+  }
+
+  public get isCaptchaValid$(): Observable<boolean> {
+    return this.subjIsCaptchaValid.asObservable();
+  }
+
+  public get isCaptchaValidWithDelay$(): Observable<boolean> {
+    return this.subjIsCaptchaValidWithDelay.asObservable();
   }
 }
 

@@ -67,7 +67,7 @@
 
         <form class="dwfe-form" spellcheck="false">
 
-          <app-input-email-dwfe class="dwfe-form__item"
+          <app-input-email-dwfe class="dwfe-form__item" *ngIf="isCaptchaValid$ | async"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [tabIndexValue]="-1"
                                 [hintText]="'*Password will be sent to your email'"
@@ -75,15 +75,26 @@
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
-          <re-captcha *ngIf="!isLoginSlide && controlCreateAccountEmail.valid"
-                      (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
-                      class="dwfe-form__item">
-          </re-captcha>
+          <div *ngIf="!isLoginSlide || !(isCaptchaValid$ | async)"
+               [ngClass]="{ 'visually-hidden': (isCaptchaValid$ | async) }"
+               class="dwfe-form__re-captcha-wrap">
+            <p class="dwfe-form__text">
+              Please confirm that you are a real person:
+            </p>
+            <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
+                        class="dwfe-form__item">
+            </re-captcha>
+            <app-alert-dwfe *ngIf="errorMessage !== ''"
+                            class="dwfe-form__alert-over"
+                            [message]="errorMessage"
+                            [blink]="true">
+            </app-alert-dwfe>
+          </div>
 
-          <button class="dwfe-form__btn  dwfe-form__btn--standard"
+          <button class="dwfe-form__btn  dwfe-form__btn--standard" *ngIf="isCaptchaValid$ | async"
                   mat-raised-button
                   (click)="performCreateAccount()"
-                  [disabled]="!(groupCreateAccountEmail.valid && isCaptchaValid) || isLocked"
+                  [disabled]="!groupCreateAccountEmail.valid || isLocked"
                   tabindex="-1"
                   aria-label="Perform 'Create account'">
             OK

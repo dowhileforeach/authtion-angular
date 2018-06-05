@@ -1,7 +1,9 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
-import {takeUntil} from 'rxjs/operators';
+
+import {of} from 'rxjs';
+import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
@@ -41,7 +43,6 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
   ngAfterViewInit(): void {
     this.controlLoginEmail = this.groupLoginEmail.get('email');
     this.controlLoginPassword = this.groupLoginPassword.get('password');
-    this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
 
     setTimeout(() => {
       if (this.data.email) {
@@ -54,20 +55,34 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
 
     this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
     this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
-    this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+
+    this.isCaptchaValid$.pipe(
+      takeUntil(this.latchForUnsubscribe.asObservable()),
+      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
+    ).subscribe(isCaptchaValid => {
+      if (isCaptchaValid) {
+        this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
+        this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
+        this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+        this.focusOnInput();
+      }
+    });
   }
 
   private changeSlide(): void {
+
     this.isLoginSlide = !this.isLoginSlide;
     this.errorMessage = '';
-    this.isCaptchaValid = false;
 
-    this.isLoginSlide ?
-      this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value)
-      : this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
-
-    setTimeout(() => this.focusOnInput()
-      , 210 // becouse: .slider__inner {... transition: transform 200ms ...}
+    setTimeout(() => {
+        if (this.isLoginSlide && this.controlCreateAccountEmail) {
+          this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value);
+          this.focusOnInput();
+        }
+        this.subjIsCaptchaValid.next(false);
+      }, 210 // becouse:
+      // 1) .slider__inner {... transition: transform 200ms ...}
+      // 2) this.subjIsCaptchaValid.next(false); require delay
     );
   }
 
@@ -82,7 +97,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
       } else {
         this.focusOnDwfeInput(this.refLoginEmail);
       }
-    } else {
+    } else if (this.refCreateAccountEmail) {
       this.focusOnDwfeInput(this.refCreateAccountEmail);
     }
   }
