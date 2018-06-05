@@ -4,12 +4,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {PageHomeComponent} from './pages/home/page-home.component';
 
 import {AuthtionPageResetPassWrapComponent} from '@dwfe/modules/authtion/page-reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
-import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/page-account/page-account.component';
-import {AuthtionPageAccountSettingsComponent} from '@dwfe/modules/authtion/page-account/page-account-settings/page-account-settings.component';
-import {AuthtionPageAccountSettingsPersonalComponent} from '@dwfe/modules/authtion/page-account/page-account-settings/page-account-settings-personal/page-account-settings-personal.component';
-import {AuthtionPageAccountSettingsEmailComponent} from '@dwfe/modules/authtion/page-account/page-account-settings/page-account-settings-email/page-account-settings-email.component';
-import {AuthtionPageAccountSettingsPasswordComponent} from '@dwfe/modules/authtion/page-account/page-account-settings/page-account-settings-password/page-account-settings-password.component';
-import {AuthtionPageAccountPaymentsComponent} from '@dwfe/modules/authtion/page-account/page-account-payments/page-account-payments.component';
+import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/account/page-account.component';
+import {AuthtionPageAccountSettingsComponent} from '@dwfe/modules/authtion/account/settings/page-account-settings.component';
+import {AuthtionPageAccountSettingsPersonalComponent} from '@dwfe/modules/authtion/account/settings/personal/page-account-settings-personal.component';
+import {AuthtionPageAccountSettingsEmailComponent} from '@dwfe/modules/authtion/account/settings/email/page-account-settings-email.component';
+import {AuthtionPageAccountSettingsPasswordComponent} from '@dwfe/modules/authtion/account/settings/password/page-account-settings-password.component';
+import {AuthtionPageAccountPaymentsComponent} from '@dwfe/modules/authtion/account/payments/page-account-payments.component';
 
 const appRoutes: Routes = [
   {path: '', component: PageHomeComponent},
