@@ -1,6 +1,7 @@
 <section class="page-account-settings">
   <h2 class="visually-hidden">Account settings page</h2>
 
+
   <nav mat-tab-nav-bar>
     <a mat-tab-link
        *ngFor="let link of navLinks"
@@ -10,6 +11,11 @@
       {{link.label}}
     </a>
   </nav>
-  <router-outlet></router-outlet>
+
+  <div class="grid-indent">
+
+    <router-outlet></router-outlet>
+
+  </div>
 
 </section>

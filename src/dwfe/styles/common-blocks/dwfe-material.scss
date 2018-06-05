@@ -39,4 +39,12 @@ app-authtion-page-account {
     }
   }
 
+  app-authtion-page-account {
+    .mat-tab-link {
+      height: 48px;
+      padding: 0 15px;
+      font-size: $font-size-x2;
+    }
+  }
+
 }
