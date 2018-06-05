@@ -2,6 +2,10 @@
 
 .page-account {
   .mat-tab-nav-bar {
-    background-color: $color-athens-gray;
+    background-color: $color-snow-drift-approx;
+  }
+  .mat-tab-link {
+    color: $color-fruit-salad-approx;
+    opacity: 1;
   }
 }

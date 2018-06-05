@@ -4,7 +4,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule, MatInputModule, MatTabsModule} from '@angular/material';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatButtonModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatInputModule,
+  MatTabsModule
+} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
@@ -18,10 +25,10 @@ import {AuthtionPageResetPassWrapComponent} from './page-reset-pass/page-reset-p
 import {AuthtionPageResetPassComponent} from './page-reset-pass/page-reset-pass.component';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
-import {InputEmailDwfeComponent} from '@dwfe/components/form-controls/input-email/input-email.component';
-import {InputPasswordDwfeComponent} from '@dwfe/components/form-controls/input-password/input-password.component';
-import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinners/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
-import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinners/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
+import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
+import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
+import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 import {AuthtionPageAccountComponent} from './page-account/page-account.component';
 import {AuthtionPageAccountSettingsComponent} from './page-account/page-account-settings/page-account-settings.component';
 import {AuthtionPageAccountSettingsPersonalComponent} from './page-account/page-account-settings/page-account-settings-personal/page-account-settings-personal.component';
@@ -59,6 +66,7 @@ import {AuthtionPageAccountPaymentsComponent} from './page-account/page-account-
     MatButtonModule,
     MatDialogModule,
     MatTabsModule,
+    MatDividerModule,
     RecaptchaModule.forRoot(),
     RouterModule,
   ],

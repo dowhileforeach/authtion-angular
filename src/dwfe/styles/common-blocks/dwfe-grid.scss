@@ -43,7 +43,20 @@ body {
   align-items: flex-start;
 }
 
-.grid-row--with-indent {
+.grid-row--content-center {
+  align-items: center;
+}
+
+.grid-column {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.grid-indent {
   padding-right: $indent-mobile;
   padding-left: $indent-mobile;
 
@@ -53,6 +66,3 @@ body {
   }
 }
 
-.grid-row--content-center {
-  align-items: center;
-}

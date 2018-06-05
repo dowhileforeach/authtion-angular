@@ -1,0 +1,11 @@
+@import "../../../../styles/common-blocks/dwfe-pref";
+
+.page-account-settings {
+  .mat-tab-nav-bar {
+    background-color: $color-spring-wood-approx;
+  }
+  .mat-tab-link {
+    color: $color-sycamore-approx;
+    opacity: 1;
+  }
+}
