@@ -10,7 +10,8 @@
                           #refAccountEmail>
     </app-input-email-dwfe>
 
-    <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
+    <re-captcha *ngIf="controlAccountEmail === undefined ? false : controlAccountEmail.valid"
+                (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
                 class="dwfe-form__item">
     </re-captcha>
 

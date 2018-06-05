@@ -75,7 +75,7 @@
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
-          <re-captcha *ngIf="!isLoginSlide"
+          <re-captcha *ngIf="!isLoginSlide && controlCreateAccountEmail.valid"
                       (resolved)="exchangeService.checkGoogleCaptcha($event, this)"
                       class="dwfe-form__item">
           </re-captcha>
