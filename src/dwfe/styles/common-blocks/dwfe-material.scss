@@ -18,9 +18,12 @@
   }
 }
 
-app-authtion-page-account { // material tabs has its own grid @media (max-width: 599px)
-  .mat-tab-link {           // override this value
-    min-width: 20px;
+app-authtion-page-account {
+  .mat-tab-link {
+    height: 38px;
+    padding: 0 10px;
+    min-width: 20px;           // override material tab its own grid @media (max-width: 599px)
+    font-size: $font-size-x1;
   }
 }
 
