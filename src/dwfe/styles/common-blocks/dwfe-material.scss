@@ -24,6 +24,7 @@ app-authtion-page-account {
     padding: 0 10px;
     min-width: 20px;           // override material tab its own grid @media (max-width: 599px)
     font-size: $font-size-x1;
+    font-weight: $font-weight-light;
   }
 }
 
