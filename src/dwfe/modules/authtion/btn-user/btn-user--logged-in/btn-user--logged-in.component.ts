@@ -29,13 +29,9 @@ export class AuthtionBtnUserLoggedInComponent {
               protected router: Router) {
   }
 
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
-
   myAccount(): void {
-    this.router.navigate(['account']);
-    this.toggleMenu();
+    this.router.navigate(['account/settings/personal']);
+    this.isMenuOpen = false;
   }
 
   logout(): void {
