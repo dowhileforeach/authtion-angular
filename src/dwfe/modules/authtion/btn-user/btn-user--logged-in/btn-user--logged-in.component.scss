@@ -36,6 +36,13 @@
       fill: $color-bg-page-header;
     }
   }
+
+  &:hover.menu-close { // becouse Firefox, Safari remove focus from the element after clicking on it. Why?:)
+    background-color: $color-indigo-approx;
+    .auth-nav__btn-title-pic {
+      fill: $color-bg-page-header;
+    }
+  }
 }
 
 .menu-open {
