@@ -2,44 +2,80 @@
 
 .auth-nav {
   position: relative;
+  transition: all 0.15s ease;
+
+  &:hover.menu-open {
+    background-color: $color-indigo-approx;
+    .auth-nav__btn-title-pic {
+      fill: $color-bg-page-header;
+    }
+  }
+  &:hover.menu-close {
+    background-color: transparent;
+    .auth-nav__btn-title-pic {
+      fill: $color-bg-page-header;
+    }
+  }
 }
 
-.auth-nav__title-btn {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.auth-nav__btn-title {
 
-  border-radius: 0;
-  outline-width: 0;
-  cursor: pointer;
+  background-color: $color-bg-page-header;
+  transition: all 0.15s ease;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-
-  &:hover,
-  &:focus {
-    background-color: $color-alto;
+  &:focus.menu-open {
+    background-color: $color-indigo-approx;
+    .auth-nav__btn-title-pic {
+      fill: $color-bg-page-header;
+    }
   }
 
-  &.auth-nav__title-btn--open {
-    background-color: $color-chilean-heath;
+  &:focus.menu-close {
+    background-color: rgba($color-indigo-approx, 0.3);
+    .auth-nav__btn-title-pic {
+      fill: $color-bg-page-header;
+    }
   }
+}
+
+.menu-open {
+  &.auth-nav__btn-title {
+    background-color: $color-indigo-approx;
+  }
+  .auth-nav__btn-title-pic {
+    fill: $color-bg-page-header;
+  }
+}
+
+.menu-close {
+  &.auth-nav__btn-title {
+    background-color: $color-bg-page-header;
+  }
+  .auth-nav__btn-title-pic {
+    fill: $color-silver;
+  }
+}
+
+.auth-nav__list-wrap {
+  padding: 2px;
+  background-color: $color-indigo-approx;
+
+  position: absolute;
+  z-index: 1000;
+  top: $page-header-height;
+  right: 0;
+
+  transition: all 0.15s ease;
 }
 
 .auth-nav__list {
   min-width: 100%;
 
-  position: absolute;
-  z-index: 1000;
-  top: $page-header-height;
-  right: -1px;
-
   @include reset-list();
-  background: $color-chilean-heath linear-gradient(to bottom, $color-chilean-heath, $color-shalimar);
-  border: 1px solid $color-athens-gray;
-  border-top: none;
-  box-shadow: 2px 2px 0 0 $color-gallery;
+  background: $color-bg-page-header;
+  //background: $color-chilean-heath linear-gradient(to bottom, $color-chilean-heath, $color-shalimar);
+
+  transition: all 0.15s ease;
 }
 
 .auth-nav__item {

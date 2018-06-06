@@ -1,21 +1,28 @@
 @import "../../../styles/common-blocks/dwfe-pref";
 
 .btn-user-authtion {
+  border: none;
+  &.mat-button {
+    border-radius: 0;
+  }
+
+  @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-silver);
+
+  user-select: none;
+  transition: all 0.15s ease;
+
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
 
-  border: none;
-  border-radius: $border-radius;
-
-  user-select: none;
-  transition: all 0.15s ease;
-
   &:hover,
   &:focus {
     .btn-user-authtion__pic {
-      fill: $color-navy-blue;
+      fill: $color-mine-shaft;
+    }
+    .btn-user-authtion__text {
+      color: $color-mine-shaft;
     }
   }
 
@@ -24,31 +31,22 @@
   }
 
   &.btn-user-authtion--logged-in {
-    padding: 5px 10px;
-    background-color: $color-bg-page-header;
+    padding-top: 8px;
+    padding-bottom: 8px;
 
-    .btn-user-authtion__text {
-      padding-right: 10px;
-    }
-
-    .btn-user-authtion__pic-wrap {
-      img,
-      svg {
-        border-radius: 50%;
-        background-color: transparent;
-      }
-    }
+    cursor: pointer;
+    outline-width: 0;
   }
 
   &.btn-user-authtion--not-authenticated {
-    padding: 5px 12px;
+    padding: 7px 4px 6px 10px;
   }
 }
 
 .btn-user-authtion__pic-wrap {
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 33.656px;
 }
 
 .btn-user-authtion__pic {
@@ -56,12 +54,7 @@
   max-width: 100%;
   height: auto;
 
-  fill: $color-mine-shaft;
-}
-
-.btn-user-authtion__text {
-  display: inline-block;
-  @include fonts($font-size-x3, $font-size-x3, $font-weight-light, normal, $color-mine-shaft);
+  fill: $color-silver;
 }
 
 .btn-user-authtion__nav-list {

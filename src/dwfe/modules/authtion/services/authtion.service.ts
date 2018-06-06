@@ -7,6 +7,7 @@ import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {Router} from '@angular/router';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -39,7 +40,8 @@ export class AuthtionService {
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjSignIn = new Subject<ResultWithDescription>();
 
-  constructor(protected exchangeService: AuthtionExchangeService) {
+  constructor(protected exchangeService: AuthtionExchangeService,
+              protected router: Router) {
   }
 
   init(): boolean {
@@ -81,6 +83,7 @@ export class AuthtionService {
     setTimeout(() => {
       this.coverUpOnesTraces();
       this.subjIsLoggedIn.next(false);
+      this.router.navigate(['/']);
     }, 300);
   }
 
