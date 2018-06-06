@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
 
 @Component({
   selector: 'app-input-password-dwfe',
@@ -18,6 +19,8 @@ export class InputPasswordDwfeComponent implements OnInit {
   @Input() private hintText = '';
 
   @Input() private tabIndexValue = 0;
+
+  private matcher = new MyErrorStateMatcherDwfe();
 
   private hide = true;
 

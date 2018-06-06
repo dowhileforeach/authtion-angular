@@ -76,7 +76,7 @@
           </app-input-email-dwfe>
 
           <div *ngIf="!isLoginSlide || !(isCaptchaValid$ | async)"
-               [ngClass]="{ 'visually-hidden': (isCaptchaValid$ | async) }"
+               [ngClass]="{ 'dwfe-form__visually-hidden': (isCaptchaValid$ | async) }"
                class="dwfe-form__re-captcha-wrap  dwfe-form__item">
             <p class="dwfe-form__text">
               Please confirm that you are a real person:
