@@ -59,10 +59,11 @@
 .auth-nav__list-wrap {
   padding: 2px;
   background-color: $color-indigo-approx;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
 
   position: absolute;
   z-index: 1000;
-  top: $page-header-height;
+  top: $page-header-height - 1px;
   right: 0;
 
   transition: all 0.15s ease;
