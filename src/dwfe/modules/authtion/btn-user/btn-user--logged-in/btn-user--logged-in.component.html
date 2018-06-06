@@ -28,9 +28,11 @@
   <div class="auth-nav__list-wrap" *ngIf="isMenuOpen" [@animateShowBlock]>
     <ul class="auth-nav__list  btn-user-authtion__nav-list">
 
-      <p class="auth-nav__signed-in-text">Signed in as <b>{{user.email}}</b></p>
-
       <li class="auth-nav__item">
+        <div class="auth-nav__signed-in-text-wrap">
+          <p class="auth-nav__signed-in-text">Signed in as</p>
+          <p class="auth-nav__signed-in-text"><b>{{user.email}}</b></p>
+        </div>
         <button class="auth-nav__btn"
                 mat-button
                 (click)="myAccount()"

@@ -12,10 +12,10 @@ import {AuthtionService} from '../../services/authtion.service';
     trigger('animateShowBlock', [ // https://angular.io/guide/animations#example-entering-and-leaving
       transition(':enter', [      // https://angular.io/api/animations/transition#using-enter-and-leave
         style({opacity: 0}),
-        animate('150ms ease-in', style({opacity: 1}))
+        animate('120ms ease-in', style({opacity: 1}))
       ]),
       transition(':leave', [
-        animate('150ms ease-out', style({opacity: 0}))
+        animate('120ms ease-out', style({opacity: 0}))
         // animate('150ms ease-out', style({opacity: 0, transform: 'translateX(100%)'}))
       ]),
     ])

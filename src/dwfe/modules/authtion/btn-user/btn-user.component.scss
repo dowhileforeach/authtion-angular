@@ -9,7 +9,7 @@
   @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-silver);
 
   user-select: none;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
 
   display: flex;
   flex-direction: row;
@@ -32,7 +32,7 @@
 
   &.btn-user-authtion--logged-in {
     padding-top: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 8.5px;
 
     cursor: pointer;
     outline-width: 0;

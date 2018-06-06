@@ -2,7 +2,6 @@
 
 .auth-nav {
   position: relative;
-  transition: all 0.15s ease;
 
   &:hover.menu-open {
     background-color: $color-indigo-approx;
@@ -19,9 +18,10 @@
 }
 
 .auth-nav__btn-title {
+  position: relative;
+  z-index: 1100;
 
   background-color: $color-bg-page-header;
-  transition: all 0.15s ease;
 
   &:focus.menu-open {
     background-color: $color-indigo-approx;
@@ -59,14 +59,14 @@
 .auth-nav__list-wrap {
   padding: 2px;
   background-color: $color-indigo-approx;
-  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
   position: absolute;
   z-index: 1000;
-  top: $page-header-height - 1px;
+  top: $page-header-height;
   right: 0;
 
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
 }
 
 .auth-nav__list {
@@ -76,7 +76,7 @@
   background: $color-bg-page-header;
   //background: $color-chilean-heath linear-gradient(to bottom, $color-chilean-heath, $color-shalimar);
 
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
 }
 
 .auth-nav__item {
@@ -98,7 +98,7 @@
   border-radius: 0;
 
   user-select: none;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
 
   &:hover,
   &:focus {
@@ -112,7 +112,7 @@
   flex-grow: 1;
   margin-right: 15px;
 
-  @include fonts($font-size-x3, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+  @include fonts($font-size-x2, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
   text-align: left;
 }
 
@@ -132,14 +132,13 @@
   fill: $color-mine-shaft;
 }
 
+.auth-nav__signed-in-text-wrap {
+  padding: 15px 10px 10px;
+}
+
 .auth-nav__signed-in-text {
   @include reset-margin-padding();
-  padding: 15px 10px 10px;
 
   @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
   text-align: center;
-
-  b {
-    font-weight: $font-weight-medium;
-  }
 }
