@@ -1,16 +1,12 @@
 <nav class="auth-nav"
-     [ngClass]="{
-                  'menu-open': isMenuOpen,
-                  'menu-close': !isMenuOpen
-                }"
+     [ngClass]="{ 'menu-open' : isMenuOpen,
+                  'menu-close': !isMenuOpen }"
      (mouseenter)="isMenuOpen = true"
      (mouseleave)="isMenuOpen = false">
 
   <button class="btn-user-authtion  btn-user-authtion--logged-in  auth-nav__btn-title"
-          [ngClass]="{
-                       'menu-open': isMenuOpen,
-                       'menu-close': !isMenuOpen
-                     }"
+          [ngClass]="{ 'menu-open' : isMenuOpen,
+                       'menu-close': !isMenuOpen }"
           (focus)="isMenuOpen = true"
           (click)="isMenuOpen = !isMenuOpen"
           aria-label="Show/Close User menu">
