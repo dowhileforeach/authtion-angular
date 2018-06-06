@@ -9,7 +9,7 @@ export class AuthtionPageAccountComponent implements OnInit {
 
   navLinks: { label: string, path: string }[] = [
     {label: 'Payments', path: 'payments'},
-    {label: 'Settings', path: 'settings/personal'},
+    {label: 'Settings', path: 'settings'},
   ];
 
   constructor(protected router: Router) {
