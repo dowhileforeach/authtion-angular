@@ -5,19 +5,19 @@
 
   &:hover.menu-open {
     background-color: $color-indigo-approx;
-    .loggedin-nav__btn-title-pic {
+    .loggedin-nav__btn-user-pic {
       fill: $color-bg-page-header;
     }
   }
   &:hover.menu-close {
     background-color: transparent;
-    .loggedin-nav__btn-title-pic {
+    .loggedin-nav__btn-user-pic {
       fill: $color-bg-page-header;
     }
   }
 }
 
-.loggedin-nav__btn-title {
+.loggedin-nav__btn-user {
   position: relative;
   z-index: 1100;
 
@@ -25,61 +25,71 @@
 
   &:focus.menu-open {
     background-color: $color-indigo-approx;
-    .loggedin-nav__btn-title-pic {
+    .loggedin-nav__btn-user-pic {
       fill: $color-bg-page-header;
     }
   }
 
   &:focus.menu-close {
     background-color: rgba($color-indigo-approx, 0.3);
-    .loggedin-nav__btn-title-pic {
+    .loggedin-nav__btn-user-pic {
       fill: $color-bg-page-header;
     }
   }
 
   &:hover.menu-close { // becouse Firefox, Safari remove focus from the element after clicking on it. Why?:)
     background-color: $color-indigo-approx;
-    .loggedin-nav__btn-title-pic {
+    .loggedin-nav__btn-user-pic {
       fill: $color-bg-page-header;
     }
   }
 }
 
 .menu-open {
-  &.loggedin-nav__btn-title {
+  &.loggedin-nav__btn-user {
     background-color: $color-indigo-approx;
   }
-  .loggedin-nav__btn-title-pic {
+  .loggedin-nav__btn-user-pic {
     fill: $color-bg-page-header;
   }
 }
 
 .menu-close {
-  &.loggedin-nav__btn-title {
+  &.loggedin-nav__btn-user {
     background-color: $color-bg-page-header;
   }
-  .loggedin-nav__btn-title-pic {
+  .loggedin-nav__btn-user-pic {
     fill: $color-silver;
   }
 }
 
+.loggedin-nav__signed-in-text-wrap {
+  padding: 15px 10px 10px;
+}
+
+.loggedin-nav__signed-in-text {
+  @include reset-margin-padding();
+  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
+  text-align: center;
+}
+
 .loggedin-nav__list-wrap {
   padding: 2px;
-  background-color: $color-indigo-approx;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-
   position: absolute;
   z-index: 1000;
   top: $page-header-height;
   right: 0;
+
+  background-color: $color-indigo-approx;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
   transition: all 0.12s ease;
 }
 
 .loggedin-nav__list {
   min-width: 100%;
-
   @include reset-list();
+
   background: $color-bg-page-header;
   //background: $color-chilean-heath linear-gradient(to bottom, $color-chilean-heath, $color-shalimar);
 
@@ -92,17 +102,17 @@
   padding-right: 0;
 }
 
-.loggedin-nav__btn {
+.loggedin-nav__item-btn {
   width: 100%;
   padding: 10px 10px;
+
+  border: none;
+  border-radius: 0;
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
-
-  border: none;
-  border-radius: 0;
 
   user-select: none;
   transition: all 0.12s ease;
@@ -115,7 +125,7 @@
   }
 }
 
-.loggedin-nav__text {
+.loggedin-nav__item-text {
   flex-grow: 1;
   margin-right: 15px;
 
@@ -123,7 +133,7 @@
   text-align: left;
 }
 
-.loggedin-nav__pic-wrap {
+.loggedin-nav__item-pic-wrap {
   flex-shrink: 0;
 
   width: 30px;
@@ -137,15 +147,4 @@
   height: auto;
 
   fill: $color-mine-shaft;
-}
-
-.loggedin-nav__signed-in-text-wrap {
-  padding: 15px 10px 10px;
-}
-
-.loggedin-nav__signed-in-text {
-  @include reset-margin-padding();
-
-  @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
-  text-align: center;
 }

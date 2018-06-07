@@ -4,7 +4,7 @@
      (mouseenter)="isMenuOpen = true"
      (mouseleave)="isMenuOpen = false">
 
-  <button class="authtion-btn-user  authtion-btn-user--logged-in  loggedin-nav__btn-title"
+  <button class="authtion-btn-user  authtion-btn-user--logged-in  loggedin-nav__btn-user"
           [ngClass]="{ 'menu-open' : isMenuOpen,
                        'menu-close': !isMenuOpen }"
           (focus)="isMenuOpen = true"
@@ -12,7 +12,7 @@
           aria-label="Show/Close User menu">
 
     <span class="authtion-btn-user__pic-wrap">
-      <svg class="authtion-btn-user__pic  loggedin-nav__btn-title-pic" width="35" height="33.656" viewBox="-22 7 1045 1005" xmlns="http://www.w3.org/2000/svg">
+      <svg class="authtion-btn-user__pic  loggedin-nav__btn-user-pic" width="35" height="33.656" viewBox="-22 7 1045 1005" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M736 696c-1 0-10-12-31-18l-6-2c-29-12-52-20-57-21-14-5-25-10-38-17l-18-11-1-1c-27 20-57 31-87 31-29 0-58-13-84-33-2 3-5 6-8 7-16 14-40 24-60 31-21 7-41 13-52 17-21 6-30 18-30 18-27 38-39 111-45 161 80 59 180 92 281 92s201-33 281-92c-6-50-18-123-45-162zM500 68C247 68 41 266 41 509c0 110 43 216 120 297 8-49 23-107 50-145 18-26 62-42 62-42 45-13 89-31 99-39-18-26-32-54-38-83-6-9-11-20-13-32-7-24-9-49 2-67-9-57-1-85 3-96 24-70 96-101 109-106 1-1 17-7 33-7h4c4 0 8-1 11-1 6 0 31 2 69 14l22 7c49 17 75 42 83 51 43 47 36 111 28 145 7 18 5 39-1 62-2 11-7 22-14 31-6 28-20 56-39 82 4 3 10 6 20 11 3 1 7 3 19 6 15 5 33 12 52 21 26 7 47 19 64 39l3 3c26 38 42 96 50 146 77-81 120-187 120-297 0-243-205-441-459-441zm125 359c-7-7-8-18-5-26 8-29 13-73-12-100-2-2-18-20-54-32l-22-7c-24-8-42-10-48-11-6 1-12 2-23 3-29 7-65 43-74 68 0 3-7 23 2 79 2 11-2 21-9 28 0 3 0 11 4 22 2 8 4 11 4 11 5 5 8 11 9 17 10 63 64 115 101 115 47 0 100-58 110-115 1-6 4-12 9-17 1 0 2-3 3-8 3-9 5-16 6-20 1-5 3-2-1-7zm-125 582c-287 0-520-224-520-500S213 9 500 9s520 224 520 500-233 500-520 500z"></path>
       </svg>
@@ -20,49 +20,55 @@
 
   </button>
 
-  <div class="loggedin-nav__list-wrap" *ngIf="isMenuOpen" [@animateShowBlock]>
+  <div class="loggedin-nav__list-wrap" *ngIf="isMenuOpen" [@animatedBlock]>
+
     <ul class="loggedin-nav__list  authtion-btn-user__nav-list">
 
       <li class="loggedin-nav__item">
+
         <div class="loggedin-nav__signed-in-text-wrap">
           <p class="loggedin-nav__signed-in-text">Signed in as</p>
           <p class="loggedin-nav__signed-in-text"><b>{{user.email}}</b></p>
         </div>
-        <button class="loggedin-nav__btn"
-                mat-button
+
+        <button class="loggedin-nav__item-btn" mat-button
                 (click)="myAccount()"
                 aria-label="My account">
 
-          <span class="loggedin-nav__text">My Account</span>
+          <span class="loggedin-nav__item-text">My Account</span>
 
-          <span class="loggedin-nav__pic-wrap">
-          <svg class="loggedin-nav__item-pic" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-            <path d="M28,4v22h-4.268C23.902,25.706,24,25.364,24,25c0-1.103-0.897-2-2-2s-2,0.897-2,2v1H10v-1c0-1.103-0.897-2-2-2s-2,0.897-2,2c0,0.364,0.098,0.706,0.268,1H2V4H28 M29,3H1v24h7v-1c-0.552,0-1-0.448-1-1c0-0.552,0.448-1,1-1s1,0.448,1,1v2h12v-2c0-0.552,0.448-1,1-1s1,0.448,1,1c0,0.552-0.448,1-1,1v1h7V3L29,3z"></path>
-            <circle cx="9" cy="11" r="3"></circle>
-            <path d="M14,20c0-2.761-2.239-5-5-5c-2.761,0-5,2.239-5,5H14z"></path>
-            <rect x="17" y="11" width="9" height="1"></rect>
-            <rect x="17" y="14" width="9" height="1"></rect>
-            <rect x="17" y="17" width="9" height="1"></rect>
-          </svg>
-        </span>
+          <span class="loggedin-nav__item-pic-wrap">
+
+            <svg class="loggedin-nav__item-pic" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+              <path d="M28,4v22h-4.268C23.902,25.706,24,25.364,24,25c0-1.103-0.897-2-2-2s-2,0.897-2,2v1H10v-1c0-1.103-0.897-2-2-2s-2,0.897-2,2c0,0.364,0.098,0.706,0.268,1H2V4H28 M29,3H1v24h7v-1c-0.552,0-1-0.448-1-1c0-0.552,0.448-1,1-1s1,0.448,1,1v2h12v-2c0-0.552,0.448-1,1-1s1,0.448,1,1c0,0.552-0.448,1-1,1v1h7V3L29,3z"></path>
+              <circle cx="9" cy="11" r="3"></circle>
+              <path d="M14,20c0-2.761-2.239-5-5-5c-2.761,0-5,2.239-5,5H14z"></path>
+              <rect x="17" y="11" width="9" height="1"></rect>
+              <rect x="17" y="14" width="9" height="1"></rect>
+              <rect x="17" y="17" width="9" height="1"></rect>
+            </svg>
+
+          </span>
 
         </button>
       </li>
 
       <li class="loggedin-nav__item">
-        <button class="loggedin-nav__btn"
-                mat-button
+
+        <button class="loggedin-nav__item-btn" mat-button
                 (click)="logout()"
-                aria-label="Perform Logout">
+                aria-label="Perform 'Logout'">
 
-          <span class="loggedin-nav__text">Logout</span>
+          <span class="loggedin-nav__item-text">Logout</span>
 
-          <span class="loggedin-nav__pic-wrap">
-          <svg class="loggedin-nav__item-pic" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M 15 3 C 8.3845336 3 3 8.3845336 3 15 C 3 21.615466 8.3845336 27 15 27 C 17.554923 27 19.9167 26.181425 21.853516 24.818359 A 1.0002806 1.0002806 0 0 0 20.703125 23.181641 C 19.081941 24.322575 17.129077 25 15 25 C 9.4654664 25 5 20.534534 5 15 C 5 9.4654664 9.4654664 5 15 5 C 17.129077 5 19.081941 5.6774247 20.703125 6.8183594 A 1.0002809 1.0002809 0 1 0 21.853516 5.1816406 C 19.9167 3.8185753 17.554923 3 15 3 z M 22.990234 9.9902344 A 1.0001 1.0001 0 0 0 22.292969 11.707031 L 24.585938 14 L 14 14 A 1.0001 1.0001 0 1 0 14 16 L 24.585938 16 L 22.292969 18.292969 A 1.0001 1.0001 0 1 0 23.707031 19.707031 L 27.619141 15.794922 A 1.0001 1.0001 0 0 0 27.617188 14.203125 L 23.707031 10.292969 A 1.0001 1.0001 0 0 0 22.990234 9.9902344 z"></path>
-          </svg>
-        </span>
+          <span class="loggedin-nav__item-pic-wrap">
+
+            <svg class="loggedin-nav__item-pic" width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M 15 3 C 8.3845336 3 3 8.3845336 3 15 C 3 21.615466 8.3845336 27 15 27 C 17.554923 27 19.9167 26.181425 21.853516 24.818359 A 1.0002806 1.0002806 0 0 0 20.703125 23.181641 C 19.081941 24.322575 17.129077 25 15 25 C 9.4654664 25 5 20.534534 5 15 C 5 9.4654664 9.4654664 5 15 5 C 17.129077 5 19.081941 5.6774247 20.703125 6.8183594 A 1.0002809 1.0002809 0 1 0 21.853516 5.1816406 C 19.9167 3.8185753 17.554923 3 15 3 z M 22.990234 9.9902344 A 1.0001 1.0001 0 0 0 22.292969 11.707031 L 24.585938 14 L 14 14 A 1.0001 1.0001 0 1 0 14 16 L 24.585938 16 L 22.292969 18.292969 A 1.0001 1.0001 0 1 0 23.707031 19.707031 L 27.619141 15.794922 A 1.0001 1.0001 0 0 0 27.617188 14.203125 L 23.707031 10.292969 A 1.0001 1.0001 0 0 0 22.990234 9.9902344 z"></path>
+            </svg>
+
+          </span>
 
         </button>
       </li>

@@ -10,7 +10,7 @@ import {myAccountMenuItemNavigate} from '../../../../../app/app.routes';
   templateUrl: './logged-in.component.html',
   styleUrls: ['./logged-in.component.scss'],
   animations: [
-    trigger('animateShowBlock', [ // https://angular.io/guide/animations#example-entering-and-leaving
+    trigger('animatedBlock', [ // https://angular.io/guide/animations#example-entering-and-leaving
       transition(':enter', [      // https://angular.io/api/animations/transition#using-enter-and-leave
         style({opacity: 0}),
         animate('120ms ease-in', style({opacity: 1}))
