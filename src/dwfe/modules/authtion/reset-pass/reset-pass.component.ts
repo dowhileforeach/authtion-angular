@@ -13,6 +13,7 @@ import {
   ResetPassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AuthtionLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-reset-pass',
@@ -43,7 +44,8 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   constructor(protected exchangeService: AuthtionExchangeService,
               protected dialog: MatDialog,
               protected dialogRef: MatDialogRef<AuthtionResetPassComponent>,
-              @Inject(MAT_DIALOG_DATA) protected data: any) {
+              @Inject(MAT_DIALOG_DATA) protected data: any,
+              protected router: Router) {
     super();
 
     this.key = this.data.key;
@@ -108,6 +110,8 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
           }, 100);
         }
       );
+
+    this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
   }
 
   public setLocked(value: boolean): void {

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 import {of} from 'rxjs';
 import {concatMap, delay, takeUntil} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AuthtionExchangeService, ReqResetPassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-req-reset-pass',
@@ -23,7 +24,9 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   private isReqSuccessful = false;
 
   constructor(protected exchangeService: AuthtionExchangeService,
-              @Inject(MAT_DIALOG_DATA) protected data: any) {
+              protected dialogRef: MatDialogRef<AuthtionReqResetPassComponent>,
+              @Inject(MAT_DIALOG_DATA) protected data: any,
+              protected router: Router) {
     super();
   }
 
@@ -39,6 +42,8 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
         UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
       }
     });
+
+    this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
   }
 
   public setLocked(value: boolean): void {

@@ -40,6 +40,8 @@ export class AuthtionService {
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjSignIn = new Subject<ResultWithDescription>();
 
+  public redirectUrl: string;
+
   constructor(protected exchangeService: AuthtionExchangeService,
               protected router: Router) {
   }
@@ -70,6 +72,9 @@ export class AuthtionService {
 
   private login(): void {
     this.subjIsLoggedIn.next(true);
+    if (this.redirectUrl) {
+      this.router.navigate([this.redirectUrl]);
+    }
   }
 
   public logout(): void {

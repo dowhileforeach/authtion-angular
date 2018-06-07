@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
-
-import {AuthtionLoginRegisterComponent} from '../../login-register/login-register.component';
+import {Router} from '@angular/router';
+import {AuthtionLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 
 @Component({
   selector: 'app-authtion-btn-user-not-authenticated',
@@ -9,7 +9,8 @@ import {AuthtionLoginRegisterComponent} from '../../login-register/login-registe
 })
 export class AuthtionBtnUserNotAuthenticatedComponent {
 
-  constructor(protected dialog: MatDialog) {
+  constructor(protected dialog: MatDialog,
+              protected router: Router) {
   }
 
   private openDialog(): void {

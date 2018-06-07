@@ -31,7 +31,8 @@
 }
 
 app-body-main {
-  background-color: $color-white;
-  @include full-content-border;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
-

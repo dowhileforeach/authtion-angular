@@ -10,6 +10,7 @@ import {AuthtionExchangeService, CreateAccountExchanger} from '../services/autht
 import {AuthtionReqResetPassComponent} from '../req-reset-pass/req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-login-register',
@@ -36,7 +37,8 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
               protected exchangeService: AuthtionExchangeService,
               protected dialogRef: MatDialogRef<AuthtionLoginRegisterComponent>,
               protected dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) protected data: any) {
+              @Inject(MAT_DIALOG_DATA) protected data: any,
+              protected router: Router) {
     super();
   }
 
@@ -67,6 +69,8 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
         this.focusOnInput();
       }
     });
+
+    this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
   }
 
   private changeSlide(): void {

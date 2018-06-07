@@ -33,6 +33,11 @@
   box-shadow: 0 1px 0 0 $color-alto, 0 0 0 1px $color-athens-gray;
 }
 
+@mixin decorateContent {
+  background-color: $color-white;
+  @include full-content-border;
+}
+
 //
 // ADAPTIVE
 //
