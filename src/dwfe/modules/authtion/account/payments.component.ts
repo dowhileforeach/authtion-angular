@@ -5,7 +5,6 @@ import {Component} from '@angular/core';
   template: `
     <section class="authtion-payments  grid-column  grid-indent">
       <h2>Payments</h2>
-      <mat-divider></mat-divider>
       <p>Example component</p>
     </section>
   `

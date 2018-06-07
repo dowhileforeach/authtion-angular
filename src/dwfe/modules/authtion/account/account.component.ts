@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-account',
@@ -30,12 +30,9 @@ export class AuthtionAccountComponent implements OnInit {
     {path: 'settings', label: 'Settings'},        // AuthtionSettingsComponent
   ];
 
-
-  constructor(protected router: Router,
-              protected route: ActivatedRoute) {
+  constructor(protected router: Router) {
   }
 
   ngOnInit() {
-    this.router.navigate(['profile/personal'], {relativeTo: this.route});
   }
 }

@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {animate, style, transition, trigger} from '@angular/animations';
 
 import {AuthtionService} from '../../services/authtion.service';
-import {myAccountMenuItemNavigate} from '../../../../../app/app.routes';
 
 @Component({
   selector: 'app-authtion-btn-user-logged-in',
@@ -32,7 +31,7 @@ export class AuthtionBtnUserLoggedInComponent {
   }
 
   private myAccount(): void {
-    this.router.navigate([myAccountMenuItemNavigate]);
+    this.router.navigate(['/account/profile/personal']);
     this.isMenuOpen = false;
   }
 

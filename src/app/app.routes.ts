@@ -12,12 +12,15 @@ import {AuthtionPersonalComponent} from '@dwfe/modules/authtion/account/personal
 import {AuthtionAccountEmailComponent} from '@dwfe/modules/authtion/account/email/account-email.component';
 import {AuthtionAccountPasswordComponent} from '@dwfe/modules/authtion/account/password/page-account-password.component';
 import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings.component';
+import {AuthGuardService} from './auth-guard.service';
+import {AuthtionLoginRegisterWrapComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 
 const appRoutes: Routes = [
   {path: '', component: PageHomeComponent},
+  {path: 'login', canActivate: [AuthGuardService], component: AuthtionLoginRegisterWrapComponent},
   {path: 'reset-pass', component: AuthtionResetPassWrapComponent},
   {
-    path: 'account', component: AuthtionAccountComponent, children: [
+    path: 'account', canActivate: [AuthGuardService], component: AuthtionAccountComponent, children: [
       {path: 'payments', component: AuthtionPaymentsComponent},
       {
         path: 'profile', component: AuthtionProfileComponent, children: [
@@ -31,7 +34,5 @@ const appRoutes: Routes = [
   },
   {path: '**', component: PageNotFoundComponent},
 ];
-
-export const myAccountMenuItemNavigate = '/account/profile/personal';
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

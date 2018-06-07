@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
@@ -158,8 +158,26 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
   }
 }
 
+@Component({
+  selector: 'app-authtion-login-register-wrap',
+  template: ``,
+})
+export class AuthtionLoginRegisterWrapComponent implements OnInit {
 
+  constructor(protected dialog: MatDialog) {
+  }
 
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.dialog.open( // https://material.angular.io/components/dialog/api
+        AuthtionLoginRegisterComponent, {
+          autoFocus: false, // prevent autofocusing (default autofocus on field with attribute 'cdkFocusInitial')
+          data: {}
+        });
+    }, 10);
+  }
+
+}
 
 
 

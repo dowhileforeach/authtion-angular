@@ -13,6 +13,7 @@ import {AppRoutes} from './app.routes';
 
 import {AuthtionModule} from '@dwfe/modules/authtion/authtion.module';
 import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
+import {AuthGuardService} from './auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service'
     AuthtionModule,
   ],
   providers: [
-    AuthtionService,
+    AuthtionService, AuthGuardService
   ],
   bootstrap: [
     AppComponent
