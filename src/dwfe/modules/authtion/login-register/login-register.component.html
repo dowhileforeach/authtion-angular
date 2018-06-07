@@ -1,5 +1,5 @@
-<section class="page-authtion-login-register  dwfe-dialog">
-  <h2 class="visually-hidden">Login or Create new account</h2>
+<section class="authtion-login-register  dwfe-dialog">
+  <h2 class="visually-hidden">'Login' or 'Create new account'</h2>
 
   <div class="slider" #refSlider>
 
@@ -40,7 +40,7 @@
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
-          <div class="page-authtion-login-register__login-action-wrap">
+          <div class="authtion-login-register__login-action-wrap">
 
             <button class="dwfe-form__btn  dwfe-form__btn--standard"
                     mat-raised-button
@@ -51,13 +51,13 @@
             </button>
 
             <button type="button"
-                    class="page-authtion-login-register__reset-password"
+                    class="authtion-login-register__reset-password"
                     (click)="openReqResetPasswordDialog()">
               Forgot password?
             </button>
 
             <app-alert-dwfe *ngIf="errorMessage !== ''"
-                            class="dwfe-form__alert-over  page-authtion-login-register__login-action-alert-over"
+                            class="dwfe-form__alert-over  authtion-login-register__login-action-alert-over"
                             [message]="errorMessage"
                             [blink]="true">
             </app-alert-dwfe>

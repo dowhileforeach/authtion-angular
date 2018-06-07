@@ -12,13 +12,13 @@ import {
   ConfirmResetPassExchanger,
   ResetPassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {AuthtionPageLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/page-login-register.component';
+import {AuthtionLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 
 @Component({
-  selector: 'app-authtion-page-reset-pass',
-  templateUrl: './page-reset-pass.component.html'
+  selector: 'app-authtion-reset-pass',
+  templateUrl: './reset-pass.component.html'
 })
-export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private key: string;
   private email: string;
@@ -42,7 +42,7 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
 
   constructor(protected exchangeService: AuthtionExchangeService,
               protected dialog: MatDialog,
-              protected dialogRef: MatDialogRef<AuthtionPageResetPassComponent>,
+              protected dialogRef: MatDialogRef<AuthtionResetPassComponent>,
               @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
 
@@ -142,7 +142,7 @@ export class AuthtionPageResetPassComponent extends AbstractExchangeableDwfe imp
   private goToLoginPage(): void {
     this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
-      AuthtionPageLoginRegisterComponent, {
+      AuthtionLoginRegisterComponent, {
         autoFocus: false,
         data: {
           email: this.email

@@ -2,18 +2,19 @@ import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA} from '@angular/material';
 
+import {of} from 'rxjs';
+import {concatMap, delay, takeUntil} from 'rxjs/operators';
+
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 import {AuthtionExchangeService, ReqResetPassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {concatMap, delay, takeUntil} from 'rxjs/operators';
-import {of} from 'rxjs/index';
 
 @Component({
-  selector: 'app-authtion-page-req-reset-pass',
-  templateUrl: './page-req-reset-pass.component.html'
+  selector: 'app-authtion-req-reset-pass',
+  templateUrl: './req-reset-pass.component.html'
 })
-export class AuthtionPageReqResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;

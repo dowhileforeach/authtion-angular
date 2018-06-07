@@ -18,11 +18,11 @@ import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettin
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/not-authenticated/not-authenticated.component';
-import {AuthtionPageLoginRegisterComponent} from './login-register/page-login-register.component';
-import {AuthtionPageReqResetPassComponent} from './req-reset-pass/page-req-reset-pass.component';
+import {AuthtionLoginRegisterComponent} from './login-register/login-register.component';
+import {AuthtionReqResetPassComponent} from './req-reset-pass/req-reset-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
-import {AuthtionPageResetPassWrapComponent} from './reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
-import {AuthtionPageResetPassComponent} from './reset-pass/page-reset-pass.component';
+import {AuthtionResetPassWrapComponent} from './reset-pass/reset-pass-wrap/reset-pass-wrap.component';
+import {AuthtionResetPassComponent} from './reset-pass/reset-pass.component';
 
 import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
 import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
@@ -44,10 +44,10 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinn
     AuthtionBtnUserComponent,
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
-    AuthtionPageLoginRegisterComponent,
-    AuthtionPageReqResetPassComponent,
-    AuthtionPageResetPassWrapComponent,
-    AuthtionPageResetPassComponent,
+    AuthtionLoginRegisterComponent,
+    AuthtionReqResetPassComponent,
+    AuthtionResetPassWrapComponent,
+    AuthtionResetPassComponent,
     AlertDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
@@ -97,9 +97,9 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinn
     AuthtionBtnUserComponent,
   ],
   entryComponents: [
-    AuthtionPageLoginRegisterComponent,
-    AuthtionPageReqResetPassComponent,
-    AuthtionPageResetPassComponent
+    AuthtionLoginRegisterComponent,
+    AuthtionReqResetPassComponent,
+    AuthtionResetPassComponent
   ],
 })
 export class AuthtionModule {

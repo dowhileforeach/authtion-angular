@@ -2,13 +2,13 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 
-import {AuthtionPageResetPassComponent} from '@dwfe/modules/authtion/reset-pass/page-reset-pass.component';
+import {AuthtionResetPassComponent} from '@dwfe/modules/authtion/reset-pass/reset-pass.component';
 
 @Component({
-  selector: 'app-authtion-page-reset-pass-wrap',
+  selector: 'app-authtion-reset-pass-wrap',
   template: '',
 })
-export class AuthtionPageResetPassWrapComponent implements OnInit, AfterViewInit {
+export class AuthtionResetPassWrapComponent implements OnInit, AfterViewInit {
 
   private key: string;
 
@@ -25,7 +25,7 @@ export class AuthtionPageResetPassWrapComponent implements OnInit, AfterViewInit
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.dialog.open( // https://material.angular.io/components/dialog/api
-        AuthtionPageResetPassComponent, {
+        AuthtionResetPassComponent, {
           autoFocus: false,
           data: {
             key: this.key

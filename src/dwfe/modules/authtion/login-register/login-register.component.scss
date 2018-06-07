@@ -1,6 +1,6 @@
 @import "../../../styles/common-blocks/dwfe-pref";
 
-.page-authtion-login-register {
+.authtion-login-register {
 
   .slider {
     width: $dialog-width;
@@ -109,7 +109,7 @@
   }
 }
 
-.page-authtion-login-register__login-action-wrap {
+.authtion-login-register__login-action-wrap {
   padding: 0 0 20px 10px;
 
   position: relative;
@@ -125,7 +125,7 @@
   }
 }
 
-.page-authtion-login-register__reset-password {
+.authtion-login-register__reset-password {
   border: 0;
   background-color: transparent;
 
@@ -149,7 +149,7 @@
   }
 }
 
-.page-authtion-login-register__login-action-alert-over {
+.authtion-login-register__login-action-alert-over {
   padding-right: 10px;
   padding-left: 10px;
 }

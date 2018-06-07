@@ -2,7 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {PageHomeComponent} from './pages/home/page-home.component';
 
-import {AuthtionPageResetPassWrapComponent} from '@dwfe/modules/authtion/reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
+import {AuthtionResetPassWrapComponent} from '@dwfe/modules/authtion/reset-pass/reset-pass-wrap/reset-pass-wrap.component';
 
 import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
 import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
@@ -14,7 +14,7 @@ import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings
 
 const appRoutes: Routes = [
   {path: '', component: PageHomeComponent},
-  {path: 'reset-pass', component: AuthtionPageResetPassWrapComponent},
+  {path: 'reset-pass', component: AuthtionResetPassWrapComponent},
   {
     path: 'account', component: AuthtionAccountComponent, children: [
       {path: 'payments', component: AuthtionPaymentsComponent},

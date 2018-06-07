@@ -7,16 +7,16 @@ import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
-import {AuthtionPageReqResetPassComponent} from '../req-reset-pass/page-req-reset-pass.component';
+import {AuthtionReqResetPassComponent} from '../req-reset-pass/req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
-  selector: 'app-authtion-page-login-register',
-  templateUrl: './page-login-register.component.html',
-  styleUrls: ['./page-login-register.component.scss']
+  selector: 'app-authtion-login-register',
+  templateUrl: './login-register.component.html',
+  styleUrls: ['./login-register.component.scss']
 })
-export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
   private isLoginSlide = true;
 
@@ -34,7 +34,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
 
   constructor(protected authtionService: AuthtionService,
               protected exchangeService: AuthtionExchangeService,
-              protected dialogRef: MatDialogRef<AuthtionPageLoginRegisterComponent>,
+              protected dialogRef: MatDialogRef<AuthtionLoginRegisterComponent>,
               protected dialog: MatDialog,
               @Inject(MAT_DIALOG_DATA) protected data: any) {
     super();
@@ -151,7 +151,7 @@ export class AuthtionPageLoginRegisterComponent extends AbstractExchangeableDwfe
   private openReqResetPasswordDialog(): void {
     this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
-      AuthtionPageReqResetPassComponent, {
+      AuthtionReqResetPassComponent, {
         autoFocus: true,
         data: {email: this.controlLoginEmail.value}
       });
