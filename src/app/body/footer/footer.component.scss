@@ -1,14 +1,17 @@
-@import "../../../dwfe/styles/lib/config";
+@import "../../../dwfe/styles/common-blocks/dwfe-pref";
 
-.wrap {
-  padding: 10px;
-}
+.body-footer {
+  justify-content: flex-end;
 
-p {
-  margin: 0;
-  padding: 0;
-}
+  padding-bottom: 10px;
+  padding-top: 10px;
 
-b {
-  font-weight: $font-weight-bold;
+  p {
+    @include reset-margin-padding();
+  }
+
+  b {
+    font-weight: $font-weight-bold;
+  }
+
 }

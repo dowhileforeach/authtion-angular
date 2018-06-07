@@ -2,7 +2,11 @@
 
 $logo-height: 36px;
 
-.logo {
+.body-header {
+  align-items: center;
+}
+
+.body-header__link {
   flex-shrink: 0;
   height: $logo-height;
   margin-left: 4px;
@@ -18,14 +22,14 @@ $logo-height: 36px;
     filter: hue-rotate(35deg);
     cursor: pointer;
 
-    .logo__logo {
+    .body-header__logo {
       outline-width: 0;
       transform: rotate(120deg);
     }
   }
 }
 
-.logo__logo {
+.body-header__logo {
   width: $logo-height - 1;
   height: $logo-height - 1;
   margin-right: 7px;
@@ -36,7 +40,7 @@ $logo-height: 36px;
   transition: transform .15s linear;
 }
 
-.logo__text {
+.body-header__text {
   width: 74px;
   height: 20px;
 

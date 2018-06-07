@@ -56,7 +56,7 @@
               Forgot password?
             </button>
 
-            <app-alert-dwfe *ngIf="errorMessage !== ''"
+            <app-alert-dwfe *ngIf="isLoginSlide && errorMessage !== ''"
                             class="dwfe-form__alert-over  authtion-login-register__login-action-alert-over"
                             [message]="errorMessage"
                             [blink]="true">
@@ -83,7 +83,7 @@
             </p>
             <re-captcha (resolved)="exchangeService.checkGoogleCaptcha($event, this)">
             </re-captcha>
-            <app-alert-dwfe *ngIf="errorMessage !== ''"
+            <app-alert-dwfe *ngIf="!isLoginSlide && errorMessage !== ''"
                             class="dwfe-form__alert-over"
                             [message]="errorMessage"
                             [blink]="true">

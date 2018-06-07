@@ -19,7 +19,7 @@
 
 .loggedin-nav__btn-user {
   position: relative;
-  z-index: 1100;
+  z-index: 1000;
 
   background-color: $color-bg-page-header;
 
@@ -76,7 +76,7 @@
 .loggedin-nav__list-wrap {
   padding: 2px;
   position: absolute;
-  z-index: 1000;
+  z-index: 999;
   top: $page-header-height;
   right: 0;
 
