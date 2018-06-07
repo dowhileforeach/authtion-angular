@@ -18,6 +18,21 @@
   }
 }
 
+.authtion-btn-user {
+  &.mat-button {
+    border-radius: 0;
+  }
+}
+
+.authtion-btn-user__nav-list {
+  span.mat-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
 // Notice that for [mat-tab-nav-bar] No pagination when the list of
 // tab labels exceeds the width of the header, see here:
 // https://github.com/angular/material2/issues/2177

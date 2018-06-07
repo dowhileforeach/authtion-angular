@@ -2,9 +2,6 @@
 
 .authtion-btn-user {
   border: none;
-  &.mat-button {
-    border-radius: 0;
-  }
 
   @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-silver);
 
@@ -30,16 +27,16 @@
     opacity: 0.6;
   }
 
+  &.authtion-btn-user--not-authenticated {
+    padding: 7px 4px 6px 10px;
+  }
+
   &.authtion-btn-user--logged-in {
     padding-top: 8px;
     padding-bottom: 8.5px;
 
     cursor: pointer;
     outline-width: 0;
-  }
-
-  &.authtion-btn-user--not-authenticated {
-    padding: 7px 4px 6px 10px;
   }
 }
 
@@ -55,13 +52,4 @@
   height: auto;
 
   fill: $color-silver;
-}
-
-.authtion-btn-user__nav-list {
-  span.mat-button-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-  }
 }

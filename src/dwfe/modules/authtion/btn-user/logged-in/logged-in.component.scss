@@ -1,23 +1,23 @@
 @import "../../../../styles/common-blocks/dwfe-pref";
 
-.auth-nav {
+.loggedin-nav {
   position: relative;
 
   &:hover.menu-open {
     background-color: $color-indigo-approx;
-    .auth-nav__btn-title-pic {
+    .loggedin-nav__btn-title-pic {
       fill: $color-bg-page-header;
     }
   }
   &:hover.menu-close {
     background-color: transparent;
-    .auth-nav__btn-title-pic {
+    .loggedin-nav__btn-title-pic {
       fill: $color-bg-page-header;
     }
   }
 }
 
-.auth-nav__btn-title {
+.loggedin-nav__btn-title {
   position: relative;
   z-index: 1100;
 
@@ -25,45 +25,45 @@
 
   &:focus.menu-open {
     background-color: $color-indigo-approx;
-    .auth-nav__btn-title-pic {
+    .loggedin-nav__btn-title-pic {
       fill: $color-bg-page-header;
     }
   }
 
   &:focus.menu-close {
     background-color: rgba($color-indigo-approx, 0.3);
-    .auth-nav__btn-title-pic {
+    .loggedin-nav__btn-title-pic {
       fill: $color-bg-page-header;
     }
   }
 
   &:hover.menu-close { // becouse Firefox, Safari remove focus from the element after clicking on it. Why?:)
     background-color: $color-indigo-approx;
-    .auth-nav__btn-title-pic {
+    .loggedin-nav__btn-title-pic {
       fill: $color-bg-page-header;
     }
   }
 }
 
 .menu-open {
-  &.auth-nav__btn-title {
+  &.loggedin-nav__btn-title {
     background-color: $color-indigo-approx;
   }
-  .auth-nav__btn-title-pic {
+  .loggedin-nav__btn-title-pic {
     fill: $color-bg-page-header;
   }
 }
 
 .menu-close {
-  &.auth-nav__btn-title {
+  &.loggedin-nav__btn-title {
     background-color: $color-bg-page-header;
   }
-  .auth-nav__btn-title-pic {
+  .loggedin-nav__btn-title-pic {
     fill: $color-silver;
   }
 }
 
-.auth-nav__list-wrap {
+.loggedin-nav__list-wrap {
   padding: 2px;
   background-color: $color-indigo-approx;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -76,7 +76,7 @@
   transition: all 0.12s ease;
 }
 
-.auth-nav__list {
+.loggedin-nav__list {
   min-width: 100%;
 
   @include reset-list();
@@ -86,13 +86,13 @@
   transition: all 0.12s ease;
 }
 
-.auth-nav__item {
+.loggedin-nav__item {
   width: 100%;
   padding-left: 0;
   padding-right: 0;
 }
 
-.auth-nav__btn {
+.loggedin-nav__btn {
   width: 100%;
   padding: 10px 10px;
 
@@ -109,13 +109,13 @@
 
   &:hover,
   &:focus {
-    .auth-nav__pic {
+    .loggedin-nav__pic {
       fill: $color-dark-blue;
     }
   }
 }
 
-.auth-nav__text {
+.loggedin-nav__text {
   flex-grow: 1;
   margin-right: 15px;
 
@@ -123,7 +123,7 @@
   text-align: left;
 }
 
-.auth-nav__pic-wrap {
+.loggedin-nav__pic-wrap {
   flex-shrink: 0;
 
   width: 30px;
@@ -131,7 +131,7 @@
   margin-left: auto;
 }
 
-.auth-nav__pic {
+.loggedin-nav__pic {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -139,11 +139,11 @@
   fill: $color-mine-shaft;
 }
 
-.auth-nav__signed-in-text-wrap {
+.loggedin-nav__signed-in-text-wrap {
   padding: 15px 10px 10px;
 }
 
-.auth-nav__signed-in-text {
+.loggedin-nav__signed-in-text {
   @include reset-margin-padding();
 
   @include fonts($font-size-x1, $font-height-normal, $font-weight-light, normal, $color-mine-shaft);
