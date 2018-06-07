@@ -5,10 +5,10 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {of} from 'rxjs';
 import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
-import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
-import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {AuthtionExchangeService, ReqResetPassExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AbstractExchangeableDwfe} from '../../../../classes/AbstractExchangeableDwfe';
+import {ResultWithDescription} from '../../../../classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '../../../../classes/UtilsDwfe';
+import {AuthtionExchangeService, ReqResetPassExchanger} from '../../services/authtion-exchange.service';
 import {Router} from '@angular/router';
 
 @Component({

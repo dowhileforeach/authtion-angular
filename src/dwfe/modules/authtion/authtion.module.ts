@@ -20,10 +20,9 @@ import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.c
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/not-authenticated/not-authenticated.component';
 import {AuthtionLoginRegisterComponent} from './login-register/login-register.component';
 import {AuthtionLoginRegisterWrapComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
-import {AuthtionReqResetPassComponent} from './req-reset-pass/req-reset-pass.component';
+import {AuthtionReqResetPassComponent} from './reset-pass/req-reset-pass/req-reset-pass.component';
+import {AuthtionResetPassComponent, AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
-import {AuthtionResetPassWrapComponent} from './reset-pass/reset-pass-wrap/reset-pass-wrap.component';
-import {AuthtionResetPassComponent} from './reset-pass/reset-pass.component';
 
 import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
 import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';

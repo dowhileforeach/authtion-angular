@@ -7,7 +7,7 @@ import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
-import {AuthtionReqResetPassComponent} from '../req-reset-pass/req-reset-pass.component';
+import {AuthtionReqResetPassComponent} from '../reset-pass/req-reset-pass/req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {Router} from '@angular/router';
