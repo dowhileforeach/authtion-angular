@@ -29,8 +29,8 @@ export class AuthGuardService implements CanActivate {
         }
       });
       subscription.unsubscribe();
-    }).catch(() => {
-      this.router.navigate([loginPath]);
     });
+    // if 'reject' is used then you may have to use 'catch', for more detail:
+    // https://stackoverflow.com/questions/42592903/canactivate-promiseboolean-does-not-navigatebyurl-after-reject
   }
 }
