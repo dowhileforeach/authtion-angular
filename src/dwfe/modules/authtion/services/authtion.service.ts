@@ -74,6 +74,7 @@ export class AuthtionService {
     this.subjIsLoggedIn.next(true);
     if (this.redirectUrl) {
       this.router.navigate([this.redirectUrl]);
+      this.redirectUrl = undefined;
     }
   }
 

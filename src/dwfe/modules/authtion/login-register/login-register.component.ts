@@ -33,6 +33,8 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
   @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
+  private isLoggedIn = false;
+
   constructor(protected authtionService: AuthtionService,
               protected exchangeService: AuthtionExchangeService,
               protected dialogRef: MatDialogRef<AuthtionLoginRegisterComponent>,
@@ -70,7 +72,12 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
       }
     });
 
-    this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
+    const redirectUrl = this.authtionService.redirectUrl;
+    this.dialogRef.afterClosed().subscribe(() => {
+      if (!(redirectUrl && this.isLoggedIn)) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   private changeSlide(): void {
@@ -127,6 +134,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
       .subscribe(
         (data: ResultWithDescription) => {
           if (data.result) { // actions on success 'Login'
+            this.isLoggedIn = true;
             this.dialogRef.close();
           } else {
             this.errorMessage = data.description;
