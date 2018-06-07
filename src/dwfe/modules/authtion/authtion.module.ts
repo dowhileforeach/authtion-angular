@@ -16,25 +16,28 @@ import {
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
-import {AuthtionBtnUserLoggedInComponent} from './btn-user/btn-user--logged-in/btn-user--logged-in.component';
-import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/btn-user--not-authenticated/btn-user--not-authenticated.component';
-import {AuthtionPageLoginRegisterComponent} from './page-login-register/page-login-register.component';
-import {AuthtionPageReqResetPassComponent} from './page-req-reset-pass/page-req-reset-pass.component';
+import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.component';
+import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/not-authenticated/not-authenticated.component';
+import {AuthtionPageLoginRegisterComponent} from './login-register/page-login-register.component';
+import {AuthtionPageReqResetPassComponent} from './req-reset-pass/page-req-reset-pass.component';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
-import {AuthtionPageResetPassWrapComponent} from './page-reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
-import {AuthtionPageResetPassComponent} from './page-reset-pass/page-reset-pass.component';
+import {AuthtionPageResetPassWrapComponent} from './reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
+import {AuthtionPageResetPassComponent} from './reset-pass/page-reset-pass.component';
+
+import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
+import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
+import {AuthtionProfileComponent} from './account/profile.component';
+import {AuthtionPersonalComponent} from './account/personal/personal.component';
+import {AuthtionAccountEmailComponent} from '@dwfe/modules/authtion/account/email/account-email.component';
+import {AuthtionAccountPasswordComponent} from '@dwfe/modules/authtion/account/password/page-account-password.component';
+import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings.component';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
 import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
 import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
-import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/account/page-account.component';
-import {AuthtionPageAccountSettingsComponent} from '@dwfe/modules/authtion/account/settings/page-account-settings.component';
-import {AuthtionPageAccountSettingsEmailComponent} from '@dwfe/modules/authtion/account/settings/email/page-account-settings-email.component';
-import {AuthtionPageAccountSettingsPersonalComponent} from '@dwfe/modules/authtion/account/settings/personal/page-account-settings-personal.component';
-import {AuthtionPageAccountSettingsPasswordComponent} from '@dwfe/modules/authtion/account/settings/password/page-account-settings-password.component';
-import {AuthtionPageAccountPaymentsComponent} from '@dwfe/modules/authtion/account/payments/page-account-payments.component';
+
 
 @NgModule({
   declarations: [
@@ -50,12 +53,13 @@ import {AuthtionPageAccountPaymentsComponent} from '@dwfe/modules/authtion/accou
     InputPasswordDwfeComponent,
     SpinnerDottedHorizontalDwfeComponent,
     SpinnerSharkFinCircleDwfeComponent,
-    AuthtionPageAccountComponent,
-    AuthtionPageAccountSettingsComponent,
-    AuthtionPageAccountSettingsPersonalComponent,
-    AuthtionPageAccountSettingsEmailComponent,
-    AuthtionPageAccountSettingsPasswordComponent,
-    AuthtionPageAccountPaymentsComponent,
+    AuthtionAccountComponent,
+    AuthtionPaymentsComponent,
+    AuthtionProfileComponent,
+    AuthtionPersonalComponent,
+    AuthtionAccountEmailComponent,
+    AuthtionAccountPasswordComponent,
+    AuthtionSettingsComponent,
   ],
   imports: [
     CommonModule,

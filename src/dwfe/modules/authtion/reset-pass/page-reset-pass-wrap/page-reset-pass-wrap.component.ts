@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog} from '@angular/material';
 
-import {AuthtionPageResetPassComponent} from '@dwfe/modules/authtion/page-reset-pass/page-reset-pass.component';
+import {AuthtionPageResetPassComponent} from '@dwfe/modules/authtion/reset-pass/page-reset-pass.component';
 
 @Component({
   selector: 'app-authtion-page-reset-pass-wrap',

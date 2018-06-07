@@ -12,7 +12,7 @@ import {
   ConfirmResetPassExchanger,
   ResetPassExchanger
 } from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {AuthtionPageLoginRegisterComponent} from '@dwfe/modules/authtion/page-login-register/page-login-register.component';
+import {AuthtionPageLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/page-login-register.component';
 
 @Component({
   selector: 'app-authtion-page-reset-pass',

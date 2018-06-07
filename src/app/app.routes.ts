@@ -2,30 +2,35 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {PageHomeComponent} from './pages/home/page-home.component';
 
-import {AuthtionPageResetPassWrapComponent} from '@dwfe/modules/authtion/page-reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
-import {AuthtionPageAccountComponent} from '@dwfe/modules/authtion/account/page-account.component';
-import {AuthtionPageAccountSettingsComponent} from '@dwfe/modules/authtion/account/settings/page-account-settings.component';
-import {AuthtionPageAccountSettingsPersonalComponent} from '@dwfe/modules/authtion/account/settings/personal/page-account-settings-personal.component';
-import {AuthtionPageAccountSettingsEmailComponent} from '@dwfe/modules/authtion/account/settings/email/page-account-settings-email.component';
-import {AuthtionPageAccountSettingsPasswordComponent} from '@dwfe/modules/authtion/account/settings/password/page-account-settings-password.component';
-import {AuthtionPageAccountPaymentsComponent} from '@dwfe/modules/authtion/account/payments/page-account-payments.component';
+import {AuthtionPageResetPassWrapComponent} from '@dwfe/modules/authtion/reset-pass/page-reset-pass-wrap/page-reset-pass-wrap.component';
+
+import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
+import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
+import {AuthtionProfileComponent} from '@dwfe/modules/authtion/account/profile.component';
+import {AuthtionPersonalComponent} from '@dwfe/modules/authtion/account/personal/personal.component';
+import {AuthtionAccountEmailComponent} from '@dwfe/modules/authtion/account/email/account-email.component';
+import {AuthtionAccountPasswordComponent} from '@dwfe/modules/authtion/account/password/page-account-password.component';
+import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings.component';
 
 const appRoutes: Routes = [
   {path: '', component: PageHomeComponent},
   {path: 'reset-pass', component: AuthtionPageResetPassWrapComponent},
   {
-    path: 'account', component: AuthtionPageAccountComponent, children: [
+    path: 'account', component: AuthtionAccountComponent, children: [
+      {path: 'payments', component: AuthtionPaymentsComponent},
       {
-        path: 'settings', component: AuthtionPageAccountSettingsComponent, children: [
-          {path: 'personal', component: AuthtionPageAccountSettingsPersonalComponent},
-          {path: 'email', component: AuthtionPageAccountSettingsEmailComponent},
-          {path: 'password', component: AuthtionPageAccountSettingsPasswordComponent},
+        path: 'profile', component: AuthtionProfileComponent, children: [
+          {path: 'personal', component: AuthtionPersonalComponent},
+          {path: 'email', component: AuthtionAccountEmailComponent},
+          {path: 'password', component: AuthtionAccountPasswordComponent},
         ]
       },
-      {path: 'payments', component: AuthtionPageAccountPaymentsComponent},
+      {path: 'settings', component: AuthtionSettingsComponent}
+
     ]
   },
-
 ];
+
+export const myAccountMenuItemNavigate = 'account/profile/personal';
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);

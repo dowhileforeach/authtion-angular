@@ -1,6 +1,6 @@
 @import "../../../styles/common-blocks/dwfe-pref";
 
-.btn-user-authtion {
+.authtion-btn-user {
   border: none;
   &.mat-button {
     border-radius: 0;
@@ -18,10 +18,10 @@
 
   &:hover,
   &:focus {
-    .btn-user-authtion__pic {
+    .authtion-btn-user__pic {
       fill: $color-mine-shaft;
     }
-    .btn-user-authtion__text {
+    .authtion-btn-user__text {
       color: $color-mine-shaft;
     }
   }
@@ -30,7 +30,7 @@
     opacity: 0.6;
   }
 
-  &.btn-user-authtion--logged-in {
+  &.authtion-btn-user--logged-in {
     padding-top: 8px;
     padding-bottom: 8.5px;
 
@@ -38,18 +38,18 @@
     outline-width: 0;
   }
 
-  &.btn-user-authtion--not-authenticated {
+  &.authtion-btn-user--not-authenticated {
     padding: 7px 4px 6px 10px;
   }
 }
 
-.btn-user-authtion__pic-wrap {
+.authtion-btn-user__pic-wrap {
   display: inline-block;
   width: 35px;
   height: 33.656px;
 }
 
-.btn-user-authtion__pic {
+.authtion-btn-user__pic {
   width: 100%;
   max-width: 100%;
   height: auto;
@@ -57,7 +57,7 @@
   fill: $color-silver;
 }
 
-.btn-user-authtion__nav-list {
+.authtion-btn-user__nav-list {
   span.mat-button-wrapper {
     display: flex;
     flex-direction: row;

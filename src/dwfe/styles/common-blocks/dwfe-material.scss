@@ -21,22 +21,21 @@
 // Notice that for [mat-tab-nav-bar] No pagination when the list of
 // tab labels exceeds the width of the header, see here:
 // https://github.com/angular/material2/issues/2177
-.authtion-page-account {
+.authtion-account {
   .mat-tab-link {
+    min-width: 20px; // override material tab its own grid @media (max-width: 599px)
     height: 44px;
     padding: 0 10px;
-    min-width: 20px; // override material tab its own grid @media (max-width: 599px)
+
     font-size: $font-size-x1;
     font-weight: $font-weight-light;
-  }
-  .mat-tab-link {
-    opacity: 1;
     &:hover:not(.mat-tab-label-active) {
       text-decoration: underline;
     }
+    opacity: 1;
   }
 
-  .authtion-page-account-settings {
+  .authtion-profile {
     .mat-tab-nav-bar {
       background-color: $color-spring-wood-approx;
     }
@@ -55,7 +54,7 @@
     }
   }
 
-  .authtion-page-account {
+  .authtion-account {
     .mat-tab-link {
       height: 48px;
       padding: 0 15px;

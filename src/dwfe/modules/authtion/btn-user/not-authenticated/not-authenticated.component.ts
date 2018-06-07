@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 import {MatDialog} from '@angular/material';
 
-import {AuthtionPageLoginRegisterComponent} from '../../page-login-register/page-login-register.component';
+import {AuthtionPageLoginRegisterComponent} from '../../login-register/page-login-register.component';
 
 @Component({
   selector: 'app-authtion-btn-user-not-authenticated',
-  templateUrl: './btn-user--not-authenticated.component.html',
+  templateUrl: './not-authenticated.component.html',
 })
 export class AuthtionBtnUserNotAuthenticatedComponent {
 
