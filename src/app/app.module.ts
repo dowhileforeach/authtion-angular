@@ -7,6 +7,7 @@ import {BodyHeaderComponent} from './body/header/header.component';
 import {BodyMainComponent} from './body/main/main.component';
 import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
+import {PageNotFoundComponent} from './pages/not-found/page-not-found.component';
 
 import {AppRoutes} from './app.routes';
 
@@ -20,6 +21,7 @@ import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service'
     BodyMainComponent,
     BodyFooterComponent,
     PageHomeComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

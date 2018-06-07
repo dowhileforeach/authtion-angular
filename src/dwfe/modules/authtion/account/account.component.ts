@@ -31,10 +31,11 @@ export class AuthtionAccountComponent implements OnInit {
   ];
 
 
-  constructor(protected router: Router) {
+  constructor(protected router: Router,
+              protected route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.router.navigate(['profile/personal'], {relativeTo: this.route});
   }
-
 }

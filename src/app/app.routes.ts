@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 
 import {PageHomeComponent} from './pages/home/page-home.component';
+import {PageNotFoundComponent} from './pages/not-found/page-not-found.component';
 
 import {AuthtionResetPassWrapComponent} from '@dwfe/modules/authtion/reset-pass/reset-pass-wrap/reset-pass-wrap.component';
 
@@ -26,9 +27,9 @@ const appRoutes: Routes = [
         ]
       },
       {path: 'settings', component: AuthtionSettingsComponent}
-
     ]
   },
+  {path: '**', component: PageNotFoundComponent},
 ];
 
 export const myAccountMenuItemNavigate = '/account/profile/personal';
