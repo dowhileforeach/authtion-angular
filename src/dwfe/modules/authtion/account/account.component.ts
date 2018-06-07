@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-account',
@@ -11,7 +11,8 @@ import {Router} from '@angular/router';
         <a mat-tab-link
            *ngFor="let link of navLinks"
            [routerLink]="link.path"
-           routerLinkActive #rla="routerLinkActive"
+           routerLinkActive
+           #rla="routerLinkActive"
            [active]="rla.isActive">
           {{link.label}}
         </a>
@@ -24,9 +25,9 @@ import {Router} from '@angular/router';
 export class AuthtionAccountComponent implements OnInit {
 
   private navLinks: { path: string, label: string }[] = [
-    {path: 'payments', label: 'Payments'}, // AuthtionPaymentsComponent
-    {path: 'profile', label: 'Profile'},   // AuthtionProfileComponent
-    {path: 'settings', label: 'Settings'}, // AuthtionSettingsComponent
+    {path: 'payments', label: 'Payments'},        // AuthtionPaymentsComponent
+    {path: 'profile/personal', label: 'Profile'}, // AuthtionProfileComponent
+    {path: 'settings', label: 'Settings'},        // AuthtionSettingsComponent
   ];
 
 
@@ -34,7 +35,6 @@ export class AuthtionAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.router.navigate(['account/profile/personal']);
   }
 
 }

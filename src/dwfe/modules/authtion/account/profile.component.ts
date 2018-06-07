@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-profile',
@@ -10,7 +11,8 @@ import {Component, OnInit} from '@angular/core';
         <a mat-tab-link
            *ngFor="let link of navLinks"
            [routerLink]="link.path"
-           routerLinkActive #rla="routerLinkActive"
+           routerLinkActive
+           #rla="routerLinkActive"
            [active]="rla.isActive">
           {{link.label}}
         </a>
@@ -33,10 +35,12 @@ export class AuthtionProfileComponent implements OnInit {
     {path: 'password', label: 'Password'}, // AuthtionAccountPasswordComponent
   ];
 
-  constructor() {
+  constructor(protected router: Router,
+              protected route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.router.navigate(['personal'], {relativeTo: this.route});
   }
 
 }

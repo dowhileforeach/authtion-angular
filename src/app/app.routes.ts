@@ -31,6 +31,6 @@ const appRoutes: Routes = [
   },
 ];
 
-export const myAccountMenuItemNavigate = 'account/profile/personal';
+export const myAccountMenuItemNavigate = '/account/profile/personal';
 
 export const AppRoutes = RouterModule.forRoot(appRoutes);
