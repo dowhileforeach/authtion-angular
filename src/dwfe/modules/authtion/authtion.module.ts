@@ -1,25 +1,14 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 
-import {
-  MAT_DIALOG_DEFAULT_OPTIONS,
-  MatButtonModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatInputModule,
-  MatTabsModule
-} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatTabsModule} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
-import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
-import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
-import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
-import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
-import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {DwfeModule} from '@dwfe/modules/dwfe.module';
 
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.component';
@@ -45,12 +34,6 @@ import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.mod
 
 @NgModule({
   declarations: [
-    AlertDwfeComponent,
-    InputEmailDwfeComponent,
-    InputPasswordDwfeComponent,
-    SpinnerDottedHorizontalDwfeComponent,
-    SpinnerSharkFinCircleDwfeComponent,
-
     AuthtionBtnUserComponent,
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
@@ -71,17 +54,15 @@ import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.mod
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
 
-    MatInputModule,
-    MatButtonModule,
     MatDialogModule,
     MatTabsModule,
-    MatDividerModule,
 
     RecaptchaModule.forRoot(),
+
+    DwfeModule,
 
     AuthtionRoutingModule,
   ],
