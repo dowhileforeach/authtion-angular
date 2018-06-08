@@ -1,9 +1,7 @@
-import {Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import {PageHomeComponent} from '../../../app/pages/home/page-home.component';
-import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
-
-
+import {AuthtionLoginRegisterWrapComponent} from './login-register/login-register.component';
 import {AuthtionAccountComponent} from './account/account.component';
 import {AuthtionPaymentsComponent} from './account/payments.component';
 import {AuthtionProfileComponent} from './account/profile.component';
@@ -11,14 +9,11 @@ import {AuthtionPersonalComponent} from './account/personal/personal.component';
 import {AuthtionAccountEmailComponent} from './account/email/account-email.component';
 import {AuthtionAccountPasswordComponent} from './account/password/page-account-password.component';
 import {AuthtionSettingsComponent} from './account/settings.component';
-import {AuthtionLoginRegisterWrapComponent} from './login-register/login-register.component';
 import {AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
 import {AuthtionGuardService} from './services/authtion-guard.service';
 
-export const authtionRoutes: Routes = [
-  {path: '', component: PageHomeComponent},
+const authtionRoutes: Routes = [
   {path: 'login', canActivate: [AuthtionGuardService], component: AuthtionLoginRegisterWrapComponent},
-  {path: 'reset-pass', component: AuthtionResetPassWrapComponent},
   {
     path: 'account', canActivate: [AuthtionGuardService], component: AuthtionAccountComponent, children: [
       {path: 'payments', component: AuthtionPaymentsComponent},
@@ -32,5 +27,17 @@ export const authtionRoutes: Routes = [
       {path: 'settings', component: AuthtionSettingsComponent}
     ]
   },
-  {path: '**', component: PageNotFoundDwfeComponent},
+  {path: 'reset-pass', component: AuthtionResetPassWrapComponent},
 ];
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(authtionRoutes)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class AuthtionRoutingModule {
+}
+

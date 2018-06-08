@@ -15,6 +15,12 @@ import {
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
+import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
+import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
+import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
+import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
+import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/not-authenticated/not-authenticated.component';
@@ -22,7 +28,6 @@ import {AuthtionLoginRegisterComponent} from './login-register/login-register.co
 import {AuthtionLoginRegisterWrapComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 import {AuthtionReqResetPassComponent} from './reset-pass/req-reset-pass/req-reset-pass.component';
 import {AuthtionResetPassComponent, AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
-import {AuthtionExchangeService} from './services/authtion-exchange.service';
 
 import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
 import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
@@ -32,16 +37,20 @@ import {AuthtionAccountEmailComponent} from '@dwfe/modules/authtion/account/emai
 import {AuthtionAccountPasswordComponent} from '@dwfe/modules/authtion/account/password/page-account-password.component';
 import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings.component';
 
-import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
-import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
-import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
-import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
-import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
-import {AuthtionGuardService} from '@dwfe/modules/authtion/services/authtion-guard.service';
 import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
+import {AuthtionExchangeService} from './services/authtion-exchange.service';
+import {AuthtionGuardService} from '@dwfe/modules/authtion/services/authtion-guard.service';
+
+import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.module';
 
 @NgModule({
   declarations: [
+    AlertDwfeComponent,
+    InputEmailDwfeComponent,
+    InputPasswordDwfeComponent,
+    SpinnerDottedHorizontalDwfeComponent,
+    SpinnerSharkFinCircleDwfeComponent,
+
     AuthtionBtnUserComponent,
     AuthtionBtnUserNotAuthenticatedComponent,
     AuthtionBtnUserLoggedInComponent,
@@ -50,11 +59,7 @@ import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service'
     AuthtionReqResetPassComponent,
     AuthtionResetPassWrapComponent,
     AuthtionResetPassComponent,
-    AlertDwfeComponent,
-    InputEmailDwfeComponent,
-    InputPasswordDwfeComponent,
-    SpinnerDottedHorizontalDwfeComponent,
-    SpinnerSharkFinCircleDwfeComponent,
+
     AuthtionAccountComponent,
     AuthtionPaymentsComponent,
     AuthtionProfileComponent,
@@ -68,13 +73,17 @@ import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
+
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
     MatTabsModule,
     MatDividerModule,
+
     RecaptchaModule.forRoot(),
-    RouterModule,
+
+    AuthtionRoutingModule,
   ],
   providers: [
     AuthtionService,
