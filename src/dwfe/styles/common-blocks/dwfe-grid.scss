@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: stretch;
 
   @include media-mobile {
     max-width: $grid-breakpoint-mobile;
@@ -28,10 +28,6 @@ body {
   @include media-desktop {
     max-width: $grid-breakpoint-desktop;
   }
-}
-
-.grid-container--content-center {
-  justify-content: center;
 }
 
 .grid-row {

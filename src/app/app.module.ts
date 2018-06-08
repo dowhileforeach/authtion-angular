@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule} from '@angular/router';
 
 import {AppComponent} from './app.component';
 import {BodyHeaderComponent} from './body/header/header.component';
@@ -9,11 +10,8 @@ import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
 import {PageNotFoundComponent} from './pages/not-found/page-not-found.component';
 
-import {AppRoutes} from './app.routes';
-
 import {AuthtionModule} from '@dwfe/modules/authtion/authtion.module';
-import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
-import {AuthGuardService} from './auth-guard.service';
+import {authtionRoutes} from '@dwfe/modules/authtion/authtion.routes';
 
 @NgModule({
   declarations: [
@@ -27,12 +25,10 @@ import {AuthGuardService} from './auth-guard.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutes,
     AuthtionModule,
+    RouterModule.forRoot(authtionRoutes),
   ],
-  providers: [
-    AuthtionService, AuthGuardService
-  ],
+  providers: [],
   bootstrap: [
     AppComponent
   ]

@@ -1,12 +1,13 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component} from '@angular/core';
 
 import {AuthtionService} from '../services/authtion.service';
 
 @Component({
   selector: 'app-authtion-btn-user',
-  templateUrl: './btn-user.component.html',
-  styleUrls: ['./btn-user.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  template: `
+    <app-authtion-btn-user-logged-in *ngIf="(authtionService.isLoggedIn$ | async)"></app-authtion-btn-user-logged-in>
+    <app-authtion-btn-user-not-authenticated *ngIf="!(authtionService.isLoggedIn$ | async)"></app-authtion-btn-user-not-authenticated>
+  `
 })
 export class AuthtionBtnUserComponent {
   constructor(protected authtionService: AuthtionService) {

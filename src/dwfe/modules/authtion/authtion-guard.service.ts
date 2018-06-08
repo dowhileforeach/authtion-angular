@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+
 import {Observable} from 'rxjs';
-import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
+
+import {AuthtionService} from './services/authtion.service';
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
+export class AuthtionGuardService implements CanActivate {
 
   constructor(protected auth: AuthtionService,
               protected router: Router) {
@@ -29,7 +31,9 @@ export class AuthGuardService implements CanActivate {
           }
         }
       });
-      subscription.unsubscribe();
+      setTimeout(() =>
+          subscription.unsubscribe()
+        , 100); // setTimeout just in case
     });
     // if 'reject' is used then you may have to use 'catch', for more detail:
     // https://stackoverflow.com/questions/42592903/canactivate-promiseboolean-does-not-navigatebyurl-after-reject

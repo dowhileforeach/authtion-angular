@@ -1,4 +1,3 @@
-@import "styles/config";
 @import "../dwfe/styles/common-blocks/dwfe-pref";
 
 .page-header,
@@ -21,8 +20,8 @@
 
 .page-main {
   flex-grow: 1;
-  margin-top: $blocks-gap;
-  margin-bottom: $blocks-gap;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .page-footer {
@@ -35,4 +34,9 @@ app-body-main {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
+}
+
+app-page-home,
+app-page-not-found {
+  @include decorateContent();
 }

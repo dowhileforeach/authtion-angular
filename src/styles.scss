@@ -29,9 +29,3 @@ app-root {
 .app-root-loader__text {
   margin-top: 10px;
 }
-
-@import "dwfe/styles/common-blocks/dwfe-pref";
-app-page-home,
-app-page-not-found {
-  @include decorateContent();
-}

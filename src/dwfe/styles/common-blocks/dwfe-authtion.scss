@@ -1,5 +1,8 @@
-@import "../../../styles/common-blocks/dwfe-pref";
+@import "dwfe-pref";
 
+//
+// btn-user
+//
 .authtion-btn-user {
   border: none;
 
@@ -52,4 +55,12 @@
   height: auto;
 
   fill: $color-silver;
+}
+
+//
+// account
+//
+app-authtion-account {
+  width: 100%;
+  @include decorateContent();
 }

@@ -4,11 +4,6 @@ body {
   background-color: $color-bg-body;
 }
 
-app-authtion-account {
-  width: 100%;
-  @include decorateContent();
-}
-
 //
 // UTIL
 //
