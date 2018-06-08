@@ -37,7 +37,7 @@ import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email
 import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
-import {AuthtionGuardService} from '@dwfe/modules/authtion/authtion-guard.service';
+import {AuthtionGuardService} from '@dwfe/modules/authtion/services/authtion-guard.service';
 import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
 
 @NgModule({

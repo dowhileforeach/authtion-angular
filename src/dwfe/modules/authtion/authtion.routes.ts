@@ -13,7 +13,7 @@ import {AuthtionAccountPasswordComponent} from './account/password/page-account-
 import {AuthtionSettingsComponent} from './account/settings.component';
 import {AuthtionLoginRegisterWrapComponent} from './login-register/login-register.component';
 import {AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
-import {AuthtionGuardService} from './authtion-guard.service';
+import {AuthtionGuardService} from './services/authtion-guard.service';
 
 export const authtionRoutes: Routes = [
   {path: '', component: PageHomeComponent},
