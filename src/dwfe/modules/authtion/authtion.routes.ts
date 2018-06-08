@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 
 import {PageHomeComponent} from '../../../app/pages/home/page-home.component';
-import {PageNotFoundComponent} from '../../../app/pages/not-found/page-not-found.component';
+import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
 
 
 import {AuthtionAccountComponent} from './account/account.component';
@@ -32,5 +32,5 @@ export const authtionRoutes: Routes = [
       {path: 'settings', component: AuthtionSettingsComponent}
     ]
   },
-  {path: '**', component: PageNotFoundComponent},
+  {path: '**', component: PageNotFoundDwfeComponent},
 ];

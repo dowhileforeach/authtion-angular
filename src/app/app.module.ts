@@ -8,7 +8,8 @@ import {BodyHeaderComponent} from './body/header/header.component';
 import {BodyMainComponent} from './body/main/main.component';
 import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
-import {PageNotFoundComponent} from './pages/not-found/page-not-found.component';
+
+import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
 
 import {AuthtionModule} from '@dwfe/modules/authtion/authtion.module';
 import {authtionRoutes} from '@dwfe/modules/authtion/authtion.routes';
@@ -20,7 +21,7 @@ import {authtionRoutes} from '@dwfe/modules/authtion/authtion.routes';
     BodyMainComponent,
     BodyFooterComponent,
     PageHomeComponent,
-    PageNotFoundComponent,
+    PageNotFoundDwfeComponent,
   ],
   imports: [
     BrowserModule,

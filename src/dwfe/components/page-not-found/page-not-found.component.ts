@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-page-not-found',
+  selector: 'app-page-not-found-dwfe',
   template: `
-    <section class="page-not-found  grid-indent">
+    <section class="page-not-found-dwfe  grid-indent">
       <h2>404. That’s an error</h2>
       <p>The requested resource
         <mark>{{path}}</mark>
@@ -14,7 +14,7 @@ import {ActivatedRoute} from '@angular/router';
     </section>
   `
 })
-export class PageNotFoundComponent implements OnInit {
+export class PageNotFoundDwfeComponent implements OnInit {
 
   private path: string;
 

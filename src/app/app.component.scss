@@ -36,7 +36,6 @@ app-body-main {
   align-items: stretch;
 }
 
-app-page-home,
-app-page-not-found {
+app-page-home {
   @include decorateContent();
 }

@@ -4,6 +4,10 @@ body {
   background-color: $color-bg-body;
 }
 
+app-page-not-found-dwfe {
+  @include decorateContent();
+}
+
 //
 // UTIL
 //
