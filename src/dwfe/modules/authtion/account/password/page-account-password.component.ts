@@ -1,6 +1,8 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
+import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
   selector: 'app-authtion-account-password',
@@ -21,7 +23,7 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
   private controlCurrentPassword: AbstractControl;
   @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
 
-  constructor() {
+  constructor(protected exchangeService: AuthtionExchangeService) {
     super();
   }
 
@@ -44,5 +46,17 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
       return;
     }
 
+    this.exchangeService.changePassExchanger
+      .run(this,
+        `{ "oldpass": "${this.controlCurrentPassword.value}",
+           "newpass": "${this.controlNewPassword.value}" }`,
+        (data: ResultWithDescription) => {
+          if (data.result) {
+            // if success
+          } else {
+            this.errorMessage = data.description;
+          }
+        }
+      );
   }
 }

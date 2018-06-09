@@ -10,7 +10,12 @@ export abstract class AbstractExchangerDwfe {
 
   private subjResult = new Subject<ResultWithDescription>();
 
-  protected constructor(protected http: HttpClient) {
+  protected http: HttpClient;
+  protected accessToken: string;
+
+  constructor(obj) {
+    this.http = obj.http;
+    this.accessToken = obj.accessToken || '';
   }
 
   public static optionsForAnonymouseReq() {

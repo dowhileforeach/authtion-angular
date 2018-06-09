@@ -7,7 +7,7 @@ import {of} from 'rxjs';
 import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
 import {AuthtionService} from '../services/authtion.service';
-import {AuthtionExchangeService, CreateAccountExchanger} from '../services/authtion-exchange.service';
+import {AuthtionExchangeService} from '../services/authtion-exchange.service';
 import {AuthtionReqResetPassComponent} from '../reset-pass/req-reset-pass/req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
@@ -143,7 +143,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
   private performCreateAccount(): void {
 
-    CreateAccountExchanger.of(this.exchangeService.http)
+    this.exchangeService.createAccountExchanger
       .run(this,
         `{ "email": "${this.controlCreateAccountEmail.value}" }`,
         (data: ResultWithDescription) => {

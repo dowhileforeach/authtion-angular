@@ -8,7 +8,7 @@ import {concatMap, delay, takeUntil} from 'rxjs/operators';
 import {AbstractExchangeableDwfe} from '../../../../classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '../../../../classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '../../../../classes/UtilsDwfe';
-import {AuthtionExchangeService, ReqResetPassExchanger} from '../../services/authtion-exchange.service';
+import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -53,7 +53,7 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   }
 
   private performReqResetPass(): void {
-    ReqResetPassExchanger.of(this.exchangeService.http)
+    this.exchangeService.reqResetPassExchanger
       .run(this,
         `{ "email": "${this.controlAccountEmail.value}" }`,
         (data: ResultWithDescription) => { // response handler

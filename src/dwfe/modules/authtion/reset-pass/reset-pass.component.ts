@@ -7,11 +7,7 @@ import {takeUntil} from 'rxjs/operators';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {
-  AuthtionExchangeService,
-  ConfirmResetPassExchanger,
-  ResetPassExchanger
-} from '@dwfe/modules/authtion/services/authtion-exchange.service';
+import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AuthtionLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -65,7 +61,7 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
     setTimeout(() => { // to prevent multiple ExpressionChangedAfterItHasBeenCheckedError
 
       if (this.isPreparingSuccessfull) {
-        ConfirmResetPassExchanger.of(this.exchangeService.http)
+        this.exchangeService.confirmResetPassExchanger
           .run(this,
             `{ "key": "${this.key}" }`,
             (data: ResultWithDescription) => {
@@ -119,7 +115,7 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
       return;
     }
 
-    ResetPassExchanger.of(this.exchangeService.http)
+    this.exchangeService.resetPassExchanger
       .run(this,
         `{ "email": "${this.email}",
            "key": "${this.key}",

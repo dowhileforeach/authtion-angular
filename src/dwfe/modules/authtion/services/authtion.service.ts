@@ -1,13 +1,12 @@
 import {Injectable} from '@angular/core';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
-import {AuthtionExchangeService, endpoints} from './authtion-exchange.service';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {GetAccountExchanger} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {Router} from '@angular/router';
+import {endpoints, GetAccountExchanger} from '@dwfe/modules/authtion/services/exchange.utils';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -42,7 +41,7 @@ export class AuthtionService {
 
   public redirectUrl: string;
 
-  constructor(protected exchangeService: AuthtionExchangeService,
+  constructor(protected http: HttpClient,
               protected router: Router) {
   }
 
@@ -60,6 +59,10 @@ export class AuthtionService {
 
   get user(): AuthtionAccount {
     return this._user;
+  }
+
+  get accessToken(): string {
+    return this.auth.accessToken;
   }
 
   public get isLoggedIn$(): Observable<boolean> {
@@ -101,7 +104,7 @@ export class AuthtionService {
   }
 
   public signInHttpReq$(email: string, password: string): Observable<Object> {
-    return this.exchangeService.http.post(
+    return this.http.post(
       endpoints.signIn,
       new HttpParams()
         .set('grant_type', 'password')
@@ -111,7 +114,7 @@ export class AuthtionService {
   }
 
   public tokenRefreshHttpReq$(refreshToken: string): Observable<Object> {
-    return this.exchangeService.http.post(
+    return this.http.post(
       endpoints.tokenRefresh,
       new HttpParams()
         .set('grant_type', 'refresh_token')
@@ -120,7 +123,7 @@ export class AuthtionService {
   }
 
   public signOutHttpReq$(accessToken: string): Observable<Object> {
-    return this.exchangeService.http.get(
+    return this.http.get(
       endpoints.signOut,
       AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken));
   }
@@ -128,7 +131,7 @@ export class AuthtionService {
   public performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        GetAccountExchanger.of(this.exchangeService.http)
+        GetAccountExchanger.of(this.http)
           .performRequest({accessToken: response['access_token']})
           .result$.subscribe(
           (data: ResultWithDescription) => {

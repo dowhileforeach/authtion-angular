@@ -8,33 +8,30 @@ import {ExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
-const API_VERSION = '/v1';
-
-export const endpoints = {
-  signIn: `${API_VERSION}/sign-in`,
-  tokenRefresh: `${API_VERSION}/sign-in`,
-  googleCaptchaValidate: `${API_VERSION}/google-captcha-validate`,
-  signOut: `${API_VERSION}/sign-out`,
-  checkEmail: `${API_VERSION}/check-email`,
-  createAccount: `${API_VERSION}/create-account`,
-  updateAccount: `${API_VERSION}/update-account`,
-  getAccount: `${API_VERSION}/get-account`,
-  reqResetPass: `${API_VERSION}/req-reset-pass`,
-  confirmResetPass: `${API_VERSION}/confirm-reset-pass`,
-  resetPass: `${API_VERSION}/reset-pass`,
-};
+import {AuthtionService} from './authtion.service';
+import {
+  ChangePassExchanger,
+  ConfirmResetPassExchanger,
+  CreateAccountExchanger,
+  endpoints,
+  GetAccountExchanger,
+  GoogleCaptchaValidateExchanger,
+  ReqResetPassExchanger,
+  ResetPassExchanger,
+} from './exchange.utils';
 
 @Injectable()
 export class AuthtionExchangeService {
 
-  constructor(protected _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private authtionService: AuthtionService) {
   }
 
   get http(): HttpClient {
     return this._http;
   }
 
-  public post_checkEmail(email: string): Observable<Object> {
+  private post_checkEmail(email: string): Observable<Object> {
     return this.http.post(
       endpoints.checkEmail,
       `{ "email": "${email}" }`,
@@ -44,7 +41,7 @@ export class AuthtionExchangeService {
   //
   // BACKEND VALIDATORS
   //
-  public backendValidatorEmail(email: string, reverseHandleResp: boolean) {
+  backendValidatorEmail(email: string, reverseHandleResp: boolean) {
 
     // Don't send request to the backend after each press on the keyboard.
     // Only the last result$ for the interval.
@@ -92,14 +89,14 @@ export class AuthtionExchangeService {
   //
   // GOOGLE CAPTCHA
   //
-  public checkGoogleCaptcha(googleResponse: string, initiator: ExchangeableDwfe): void {
+  checkGoogleCaptcha(googleResponse: string, initiator: ExchangeableDwfe): void {
 
     if (googleResponse === null) {
       initiator.setCaptchaValid(false);
       return;
     }
 
-    GoogleCaptchaValidateExchanger.of(this.http)
+    this.googleCaptchaValidateExchanger
       .run(initiator,
         `{ "googleResponse": "${googleResponse}" }`,
         (data: ResultWithDescription) => {
@@ -111,85 +108,46 @@ export class AuthtionExchangeService {
         }
       );
   }
-}
 
-export class GoogleCaptchaValidateExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): GoogleCaptchaValidateExchanger {
-    return new GoogleCaptchaValidateExchanger(http);
+  //
+  // EXCHANGERS
+  //
+
+  get googleCaptchaValidateExchanger(): GoogleCaptchaValidateExchanger {
+    return new GoogleCaptchaValidateExchanger({http: this.http});
   }
 
-  getHttpReq$(body?: any): Observable<Object> {
-    return this.http.post(
-      endpoints.googleCaptchaValidate,
-      body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
-  }
-}
-
-export class CreateAccountExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): CreateAccountExchanger {
-    return new CreateAccountExchanger(http);
+  get createAccountExchanger(): CreateAccountExchanger {
+    return new CreateAccountExchanger({http: this.http});
   }
 
-  getHttpReq$(body?: any): Observable<Object> {
-    return this.http.post(
-      endpoints.createAccount,
-      body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
-  }
-}
-
-export class GetAccountExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): GetAccountExchanger {
-    return new GetAccountExchanger(http);
+  get getAccountExchanger(): GetAccountExchanger {
+    return new GetAccountExchanger({
+      http: this.http,
+      accessToken: this.authtionService.accessToken
+    });
   }
 
-  getHttpReq$(params?: any): Observable<Object> {
-    return this.http.get(
-      endpoints.getAccount,
-      AbstractExchangerDwfe.optionsForAuthorizedReq(params.accessToken)
-    );
-  }
-}
-
-export class ReqResetPassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): ReqResetPassExchanger {
-    return new ReqResetPassExchanger(http);
+  get changePassExchanger(): ChangePassExchanger {
+    return new ChangePassExchanger({
+      http: this.http,
+      accessToken: this.authtionService.accessToken
+    });
   }
 
-  getHttpReq$(body?: any): Observable<Object> {
-    return this.http.post(
-      endpoints.reqResetPass,
-      body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+  get reqResetPassExchanger(): ReqResetPassExchanger {
+    return new ReqResetPassExchanger({http: this.http});
+  }
+
+  get confirmResetPassExchanger(): ConfirmResetPassExchanger {
+    return new ConfirmResetPassExchanger({http: this.http});
+  }
+
+  get resetPassExchanger(): ResetPassExchanger {
+    return new ResetPassExchanger({http: this.http});
   }
 }
 
-export class ConfirmResetPassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): ConfirmResetPassExchanger {
-    return new ConfirmResetPassExchanger(http);
-  }
-
-  getHttpReq$(body?: any): Observable<Object> {
-    return this.http.post(
-      endpoints.confirmResetPass,
-      body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
-  }
-}
-
-export class ResetPassExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): ResetPassExchanger {
-    return new ResetPassExchanger(http);
-  }
-
-  getHttpReq$(body?: any): Observable<Object> {
-    return this.http.post(
-      endpoints.resetPass,
-      body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
-  }
-}
 
 
 
