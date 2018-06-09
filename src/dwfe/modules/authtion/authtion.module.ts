@@ -12,16 +12,15 @@ import {DwfeModule} from '@dwfe/modules/dwfe.module';
 import {AuthtionBtnUserComponent} from './btn-user/btn-user.component';
 import {AuthtionBtnUserLoggedInComponent} from './btn-user/logged-in/logged-in.component';
 import {AuthtionBtnUserNotAuthenticatedComponent} from './btn-user/not-authenticated/not-authenticated.component';
-import {AuthtionLoginRegisterComponent} from './login-register/login-register.component';
-import {AuthtionLoginRegisterWrapComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
+import {AuthtionLoginRegisterComponent, AuthtionLoginRegisterWrapComponent} from './login-register/login-register.component';
 import {AuthtionReqResetPassComponent} from './reset-pass/req-reset-pass/req-reset-pass.component';
 import {AuthtionResetPassComponent, AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
 
-import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
+import {AuthtionService} from './services/authtion.service';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
-import {AuthtionGuardService} from '@dwfe/modules/authtion/services/authtion-guard.service';
+import {AuthtionGuardService} from './services/authtion-guard.service';
 
-import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.module';
+import {AuthtionRoutingModule} from './authtion-routing.module';
 
 @NgModule({
   declarations: [
