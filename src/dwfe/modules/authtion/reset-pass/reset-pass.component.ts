@@ -144,7 +144,6 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   }
 
   private goToLoginPage(): void {
-    this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionLoginRegisterComponent, {
         autoFocus: false,
@@ -152,6 +151,7 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
           email: this.email
         }
       });
+    this.dialogRef.close();
   }
 }
 

@@ -161,12 +161,12 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
   }
 
   private openReqResetPasswordDialog(): void {
-    this.dialogRef.close();
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionReqResetPassComponent, {
         autoFocus: true,
         data: {email: this.controlLoginEmail.value}
       });
+    this.dialogRef.close();
   }
 }
 
