@@ -86,21 +86,21 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
 
     this.subjIsPreparingSuccessfull
       .pipe(
-        takeUntil(this.latchForUnsubscribe.asObservable())
+        takeUntil(this.latchForUnsubscribe)
       )
       .subscribe(value => {
         if (value) {
           this.controlNewPassword = this.groupNewPassword.get('password');
           this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
-          this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
-          this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+          this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+          this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
           this.focusOnDwfeInput(this.refNewPassword);
         }
       });
 
     this.subjIsReqSuccessful
       .pipe(
-        takeUntil(this.latchForUnsubscribe.asObservable())
+        takeUntil(this.latchForUnsubscribe)
       )
       .subscribe(value => {
           setTimeout(() => { // wait for the element to appear in the DOM

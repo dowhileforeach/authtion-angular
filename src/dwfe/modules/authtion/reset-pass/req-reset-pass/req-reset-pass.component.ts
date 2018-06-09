@@ -32,13 +32,13 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
 
   ngAfterViewInit(): void {
     this.isCaptchaValid$.pipe(
-      takeUntil(this.latchForUnsubscribe.asObservable()),
+      takeUntil(this.latchForUnsubscribe),
       concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
         this.controlAccountEmail = this.groupAccountEmail.get('email');
         this.controlAccountEmail.setValue(this.data.email);
-        this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+        this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
       }
     });

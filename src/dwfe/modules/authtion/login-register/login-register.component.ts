@@ -57,17 +57,17 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
       }
     }, 10); // to prevent ExpressionChangedAfterItHasBeenCheckedError
 
-    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
-    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
 
     this.isCaptchaValid$.pipe(
-      takeUntil(this.latchForUnsubscribe.asObservable()),
+      takeUntil(this.latchForUnsubscribe),
       concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
         this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
         this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
-        this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe.asObservable());
+        this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         this.focusOnInput();
       }
     });

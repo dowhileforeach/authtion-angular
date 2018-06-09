@@ -15,10 +15,15 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
 
   protected subjIsCaptchaValid = new BehaviorSubject<boolean>(false);
   protected subjIsCaptchaValidWithDelay = new BehaviorSubject<boolean>(false);
-  protected latchForUnsubscribe = new Subject();
+  private _latchForUnsubscribe = new Subject();
 
   ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
+    this._latchForUnsubscribe.next();
+  }
+
+
+  get latchForUnsubscribe(): Observable<any> {
+    return this._latchForUnsubscribe.asObservable();
   }
 
   public setLocked(value: boolean): void {
