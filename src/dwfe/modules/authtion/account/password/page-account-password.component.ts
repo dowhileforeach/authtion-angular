@@ -7,7 +7,7 @@ import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
   templateUrl: './page-account-password.component.html',
   styleUrls: ['./page-account-password.component.scss'],
 })
-export class AuthtionAccountPasswordComponent  extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
+export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
 
   private groupNewPassword = new FormGroup({});
   private controlNewPassword: AbstractControl;
@@ -21,8 +21,6 @@ export class AuthtionAccountPasswordComponent  extends AbstractExchangeableDwfe 
   private controlCurrentPassword: AbstractControl;
   @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
 
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
-
   constructor() {
     super();
   }
@@ -34,11 +32,17 @@ export class AuthtionAccountPasswordComponent  extends AbstractExchangeableDwfe 
     this.controlNewPassword = this.groupNewPassword.get('password');
     this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
     this.controlCurrentPassword = this.groupCurrentPassword.get('password');
+
+    this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlCurrentPassword', ['errorMessage'], this.latchForUnsubscribe);
   }
 
   private performChangePassword(): void {
+    if (this.controlNewPassword.value !== this.controlRepeatNewPassword.value) {
+      this.errorMessage = 'New Password and Repeat do not match';
+      return;
+    }
 
   }
-
-
 }

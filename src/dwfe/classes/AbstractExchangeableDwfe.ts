@@ -1,9 +1,8 @@
-import {OnDestroy} from '@angular/core';
+import {ElementRef, OnDestroy, ViewChild} from '@angular/core';
 
-import {Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {BehaviorSubject} from 'rxjs/index';
 
 export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDestroy {
   protected isLocked = false;
@@ -17,10 +16,11 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   protected subjIsCaptchaValidWithDelay = new BehaviorSubject<boolean>(false);
   private _latchForUnsubscribe = new Subject();
 
+  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
+
   ngOnDestroy(): void {
     this._latchForUnsubscribe.next();
   }
-
 
   get latchForUnsubscribe(): Observable<any> {
     return this._latchForUnsubscribe.asObservable();
@@ -29,6 +29,9 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   public setLocked(value: boolean): void {
     this.isLocked = value;
     this.subjIsLocked.next(value);
+    if (value) {
+      this.refPendingOverlayWrap.nativeElement.focus();
+    }
   }
 
   public getIsLocked$(): Observable<boolean> {

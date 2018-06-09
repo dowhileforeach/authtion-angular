@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -31,7 +31,6 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
   @ViewChild('refLoginEmail', {read: ElementRef}) private refLoginEmail: ElementRef;
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
   @ViewChild('refCreateAccountEmail', {read: ElementRef}) private refCreateAccountEmail: ElementRef;
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
 
   private isLoggedIn = false;
 
@@ -115,9 +114,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
   public setLocked(value: boolean): void {
     super.setLocked(value);
-    if (value) {
-      this.refPendingOverlayWrap.nativeElement.focus();
-    } else {
+    if (!value) {
       this.focusOnInput();
     }
   }

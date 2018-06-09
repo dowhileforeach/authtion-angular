@@ -38,7 +38,6 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   private controlRepeatNewPassword: AbstractControl;
   @ViewChild('refRepeatNewPassword', {read: ElementRef}) private refRepeatNewPassword: ElementRef;
 
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   @ViewChild('refGoToLoginPage', {read: ElementRef}) refGoToLoginPage: ElementRef;
 
   constructor(protected exchangeService: AuthtionExchangeService,
@@ -112,14 +111,6 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
       );
 
     this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
-  }
-
-  public setLocked(value: boolean): void {
-    super.setLocked(value);
-    if (value) {
-      this.refPendingOverlayWrap.nativeElement.focus();
-    } else {
-    }
   }
 
   private performResetPassword(): void {

@@ -20,7 +20,6 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   private groupAccountEmail = new FormGroup({});
   private controlAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
   private isReqSuccessful = false;
 
   constructor(protected exchangeService: AuthtionExchangeService,
@@ -48,9 +47,7 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
 
   public setLocked(value: boolean): void {
     super.setLocked(value);
-    if (value) {
-      this.refPendingOverlayWrap.nativeElement.focus();
-    } else if (this.refAccountEmail) {
+    if (!value && this.refAccountEmail) {
       UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
     }
   }
