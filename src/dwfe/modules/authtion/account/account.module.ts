@@ -12,6 +12,7 @@ import {AuthtionAccountPasswordComponent} from './password/page-account-password
 import {AuthtionAccountEmailComponent} from './email/account-email.component';
 
 import {AuthtionAccountRoutingModule} from './account-routing.module';
+import {DwfeModule} from '@dwfe/modules/dwfe.module';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,9 @@ import {AuthtionAccountRoutingModule} from './account-routing.module';
     AuthtionSettingsComponent,
   ],
   imports: [
-    CommonModule,
     MatTabsModule,
+
+    DwfeModule,
 
     AuthtionAccountRoutingModule,
   ]

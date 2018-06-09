@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {MatInputModule} from '@angular/material';
+import {MatButtonModule, MatDialogModule, MatDividerModule, MatInputModule} from '@angular/material';
 
 import {AlertDwfeComponent} from '../components/alert/alert.component';
 import {InputEmailDwfeComponent} from '../components/form-control/input-email/input-email.component';
@@ -22,12 +22,17 @@ import {SpinnerSharkFinCircleDwfeComponent} from '../components/spinner/spinner-
   ],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
 
+    MatButtonModule,
+    MatDialogModule,
+    MatDividerModule,
     MatInputModule,
   ],
   exports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
 
     AlertDwfeComponent,
@@ -37,6 +42,9 @@ import {SpinnerSharkFinCircleDwfeComponent} from '../components/spinner/spinner-
     SpinnerDottedHorizontalDwfeComponent,
     SpinnerSharkFinCircleDwfeComponent,
 
+    MatButtonModule,
+    MatDialogModule,
+    MatDividerModule,
     MatInputModule,
   ]
 })

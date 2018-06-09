@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
@@ -10,14 +11,13 @@ import {AuthtionExchangeService, CreateAccountExchanger} from '../services/autht
 import {AuthtionReqResetPassComponent} from '../reset-pass/req-reset-pass/req-reset-pass.component';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-login-register',
   templateUrl: './login-register.component.html',
   styleUrls: ['./login-register.component.scss']
 })
-export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
+export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe implements AfterViewInit {
 
   private isLoginSlide = true;
 

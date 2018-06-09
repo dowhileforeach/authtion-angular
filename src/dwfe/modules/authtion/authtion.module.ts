@@ -34,13 +34,9 @@ import {AuthtionRoutingModule} from './authtion-routing.module';
     AuthtionResetPassComponent,
   ],
   imports: [
-    FormsModule,
     HttpClientModule,
     RouterModule,
     RecaptchaModule.forRoot(),
-
-    MatButtonModule,
-    MatDialogModule,
 
     DwfeModule,
 

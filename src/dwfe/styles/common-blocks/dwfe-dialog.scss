@@ -20,7 +20,7 @@
 
 .dwfe-dialog__title {
   @include reset-margin-padding();
-  margin: 5px auto 35px;
+  margin: 5px auto $form-std-indent;
 
   @include fonts4($font-size-x3, $font-height-normal, $font-weight-medium, normal);
 }
@@ -37,13 +37,13 @@
 
 .dwfe-dialog__info-title-successful {
   @include reset-margin-padding();
-  margin-bottom: 35px;
+  margin-bottom: $form-std-indent;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-medium, normal, $color-japanese-laurel-approx);
 }
 
 .dwfe-dialog__info-warning {
   @include reset-margin-padding();
-  margin-bottom: 35px;
+  margin-bottom: $form-std-indent;
   @include fonts($font-size-x3, $font-height-normal, $font-weight-normal, normal, $color-warning);
 }
 
