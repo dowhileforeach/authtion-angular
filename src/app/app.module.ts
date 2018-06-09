@@ -9,7 +9,6 @@ import {BodyFooterComponent} from './body/footer/footer.component';
 import {PageHomeComponent} from './pages/home/page-home.component';
 import {AppRoutingModule} from './app-routing.module';
 
-import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
 import {AuthtionModule} from '@dwfe/modules/authtion/authtion.module';
 import {WildcardRoutingModule} from '@dwfe/modules/wildcard-routing.module';
 
@@ -20,11 +19,11 @@ import {WildcardRoutingModule} from '@dwfe/modules/wildcard-routing.module';
     BodyMainComponent,
     BodyFooterComponent,
     PageHomeComponent,
-    PageNotFoundDwfeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+
     AppRoutingModule,
     AuthtionModule,
     WildcardRoutingModule,

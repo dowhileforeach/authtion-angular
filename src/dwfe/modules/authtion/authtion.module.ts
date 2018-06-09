@@ -1,10 +1,9 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatTabsModule} from '@angular/material';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatButtonModule, MatDialogModule} from '@angular/material';
 
 import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
 
@@ -17,14 +16,6 @@ import {AuthtionLoginRegisterComponent} from './login-register/login-register.co
 import {AuthtionLoginRegisterWrapComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
 import {AuthtionReqResetPassComponent} from './reset-pass/req-reset-pass/req-reset-pass.component';
 import {AuthtionResetPassComponent, AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
-
-import {AuthtionAccountComponent} from '@dwfe/modules/authtion/account/account.component';
-import {AuthtionPaymentsComponent} from '@dwfe/modules/authtion/account/payments.component';
-import {AuthtionProfileComponent} from './account/profile.component';
-import {AuthtionPersonalComponent} from './account/personal/personal.component';
-import {AuthtionAccountEmailComponent} from '@dwfe/modules/authtion/account/email/account-email.component';
-import {AuthtionAccountPasswordComponent} from '@dwfe/modules/authtion/account/password/page-account-password.component';
-import {AuthtionSettingsComponent} from '@dwfe/modules/authtion/account/settings.component';
 
 import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
 import {AuthtionExchangeService} from './services/authtion-exchange.service';
@@ -42,29 +33,22 @@ import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.mod
     AuthtionReqResetPassComponent,
     AuthtionResetPassWrapComponent,
     AuthtionResetPassComponent,
-
-    AuthtionAccountComponent,
-    AuthtionPaymentsComponent,
-    AuthtionProfileComponent,
-    AuthtionPersonalComponent,
-    AuthtionAccountEmailComponent,
-    AuthtionAccountPasswordComponent,
-    AuthtionSettingsComponent,
   ],
   imports: [
-    CommonModule,
     FormsModule,
     HttpClientModule,
     RouterModule,
-
-    MatDialogModule,
-    MatTabsModule,
-
     RecaptchaModule.forRoot(),
+
+    MatButtonModule,
+    MatDialogModule,
 
     DwfeModule,
 
     AuthtionRoutingModule,
+  ],
+  exports: [
+    AuthtionBtnUserComponent,
   ],
   providers: [
     AuthtionService,
@@ -86,9 +70,6 @@ import {AuthtionRoutingModule} from '@dwfe/modules/authtion/authtion-routing.mod
       provide: RECAPTCHA_LANGUAGE,
       useValue: 'en'
     }
-  ],
-  exports: [
-    AuthtionBtnUserComponent,
   ],
   entryComponents: [
     AuthtionLoginRegisterComponent,
