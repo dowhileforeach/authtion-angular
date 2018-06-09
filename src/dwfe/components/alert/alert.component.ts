@@ -11,6 +11,7 @@ export class AlertDwfeComponent {
 
   // Possible values:
   //    error
+  //    success
   @Input() private alertType = 'error';
 
   @Input() private blink = false;

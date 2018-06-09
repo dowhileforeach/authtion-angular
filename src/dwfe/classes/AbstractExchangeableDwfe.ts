@@ -7,7 +7,9 @@ import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDestroy {
   protected isLocked = false;
   protected subjIsLocked = new Subject<boolean>();
+
   protected errorMessage = '';
+  protected successMessage = '';
 
   protected resetBackendError = UtilsDwfe.resetBackendError;
   protected focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;

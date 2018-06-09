@@ -37,9 +37,9 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
     this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
     this.controlCurrentPassword = this.groupCurrentPassword.get('password');
 
-    this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlCurrentPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlRepeatNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('controlCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
   }
 
   private performChangePassword(): void {
@@ -50,11 +50,14 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
 
     this.exchangeService.changePassExchanger
       .run(this,
-        `{ "oldpass": "${this.controlCurrentPassword.value}",
+        `{ "curpass": "${this.controlCurrentPassword.value}",
            "newpass": "${this.controlNewPassword.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {
-            // if success
+            this.controlNewPassword.reset();
+            this.controlRepeatNewPassword.reset();
+            this.controlCurrentPassword.reset();
+            this.successMessage = 'Your password has been changed successfully';
           } else {
             this.errorMessage = data.description;
           }

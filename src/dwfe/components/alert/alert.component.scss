@@ -16,10 +16,18 @@
     color: $color-danger;
     background-color: $color-bg-warning;
     border-color: $color-border-warning;
+    box-shadow: 0 0 0 0 $color-danger;
   }
 
-  &.alert--blink-error {
-    animation-name: blink-error;
+  &.alert--success {
+    color: $color-japanese-laurel-approx;
+    background-color: $color-bg-success;
+    border-color: $color-border-success;
+    box-shadow: 0 0 0 0 $color-japanese-laurel-approx;
+  }
+
+  &.alert--blink {
+    animation-name: blink;
     animation-duration: 1.2s;
     animation-iteration-count: 3;
     animation-timing-function: ease-in-out;
@@ -30,13 +38,13 @@
   }
 }
 
-@-webkit-keyframes blink-error { //special for Safari
+@-webkit-keyframes blink { //special for Safari
   0%,
   100% {
     box-shadow: none;
   }
   50% {
-    box-shadow: 0 0 1px 5px $color-danger;
+    box-shadow: 0 0 1px 5px;
   }
 }
 
@@ -46,6 +54,6 @@
     box-shadow: none;
   }
   50% {
-    box-shadow: 0 0 1px 5px $color-danger;
+    box-shadow: 0 0 1px 5px;
   }
 }
