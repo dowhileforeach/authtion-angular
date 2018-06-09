@@ -18,7 +18,7 @@ export abstract class AbstractExchangerDwfe {
     this.accessToken = obj.accessToken || '';
   }
 
-  public static optionsForAnonymouseReq() {
+  static optionsForAnonymouseReq() {
     return {
       headers: {
         'Content-Type': 'application/json; charset=utf-8'
@@ -26,7 +26,7 @@ export abstract class AbstractExchangerDwfe {
     };
   }
 
-  public static optionsForAuthorizedReq(accessToken: string) {
+  static optionsForAuthorizedReq(accessToken: string) {
     return {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -40,7 +40,7 @@ export abstract class AbstractExchangerDwfe {
   //
   // STAGE 1.
   //
-  public performRequest(params?: any): AbstractExchangerDwfe {
+  performRequest(params?: any): AbstractExchangerDwfe {
     this.getHttpReq$(params).subscribe(
       response => this.responseHandler(response),
       error => this.errorHandler(error)
@@ -51,11 +51,11 @@ export abstract class AbstractExchangerDwfe {
   //
   // STAGE 2.
   //
-  public get result$(): Observable<ResultWithDescription> {
+  get result$(): Observable<ResultWithDescription> {
     return this.subjResult.asObservable();
   }
 
-  public run(initiator: ExchangeableDwfe, params: any, responseHandlerFn: any): void {
+  run(initiator: ExchangeableDwfe, params: any, responseHandlerFn: any): void {
 
     initiator.setErrorMessage('');          // STAGE 0. Clear error message
     initiator.setLocked(true);              // STAGE 0. Initiator goes into standby mode

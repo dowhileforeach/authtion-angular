@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {Router} from '@angular/router';
-import {endpoints, GetAccountExchanger} from '@dwfe/modules/authtion/services/exchange.utils';
+import {endpoints, GetAccountExchanger} from '@dwfe/modules/authtion/exchange.pref';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -41,11 +41,11 @@ export class AuthtionService {
 
   public redirectUrl: string;
 
-  constructor(protected http: HttpClient,
-              protected router: Router) {
+  constructor(private http: HttpClient,
+              private router: Router) {
   }
 
-  init(): boolean {
+  private init(): boolean {
     this.auth = AuthtionCredentials.fromStorage(this);
     this._user = AuthtionAccount.fromStorage();
 
@@ -65,11 +65,11 @@ export class AuthtionService {
     return this.auth.accessToken;
   }
 
-  public get isLoggedIn$(): Observable<boolean> {
+  get isLoggedIn$(): Observable<boolean> {
     return this.subjIsLoggedIn.asObservable();
   }
 
-  public get resultSignIn$(): Observable<ResultWithDescription> {
+  get resultSignIn$(): Observable<ResultWithDescription> {
     return this.subjSignIn.asObservable();
   }
 
@@ -81,7 +81,7 @@ export class AuthtionService {
     }
   }
 
-  public logout(): void {
+  logout(): void {
     this.signOutHttpReq$(this.auth.accessToken)
       .subscribe(
         data => { // I already did everything I could
@@ -103,7 +103,7 @@ export class AuthtionService {
     AuthtionAccount.removeFromStorage();
   }
 
-  public signInHttpReq$(email: string, password: string): Observable<Object> {
+  private signInHttpReq$(email: string, password: string): Observable<Object> {
     return this.http.post(
       endpoints.signIn,
       new HttpParams()
@@ -113,7 +113,7 @@ export class AuthtionService {
       optionsAuthentificationReq);
   }
 
-  public tokenRefreshHttpReq$(refreshToken: string): Observable<Object> {
+  private tokenRefreshHttpReq$(refreshToken: string): Observable<Object> {
     return this.http.post(
       endpoints.tokenRefresh,
       new HttpParams()
@@ -122,13 +122,13 @@ export class AuthtionService {
       optionsAuthentificationReq);
   }
 
-  public signOutHttpReq$(accessToken: string): Observable<Object> {
+  private signOutHttpReq$(accessToken: string): Observable<Object> {
     return this.http.get(
       endpoints.signOut,
       AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken));
   }
 
-  public performSignIn(email: string, password: string): AuthtionService {
+  performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
         GetAccountExchanger.of(this.http)
@@ -153,7 +153,7 @@ export class AuthtionService {
     return this;
   }
 
-  public performTokenRefresh(authFromThePast: AuthtionCredentials): void {
+  performTokenRefresh(authFromThePast: AuthtionCredentials): void {
 
     // Update the token only in case:
     if (this.auth                          // 1. Is logged in

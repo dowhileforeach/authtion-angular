@@ -1,15 +1,17 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
+
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 import {of} from 'rxjs';
 import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
-import {AbstractExchangeableDwfe} from '../../../../classes/AbstractExchangeableDwfe';
-import {ResultWithDescription} from '../../../../classes/AbstractExchangerDwfe';
-import {UtilsDwfe} from '../../../../classes/UtilsDwfe';
+import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
+
 import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-req-reset-pass',
@@ -22,10 +24,10 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
   private isReqSuccessful = false;
 
-  constructor(protected exchangeService: AuthtionExchangeService,
-              protected dialogRef: MatDialogRef<AuthtionReqResetPassComponent>,
-              @Inject(MAT_DIALOG_DATA) protected data: any,
-              protected router: Router) {
+  constructor(private exchangeService: AuthtionExchangeService,
+              private dialogRef: MatDialogRef<AuthtionReqResetPassComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              private router: Router) {
     super();
   }
 
@@ -45,7 +47,7 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
     this.dialogRef.afterClosed().subscribe(() => this.router.navigate(['/']));
   }
 
-  public setLocked(value: boolean): void {
+  setLocked(value: boolean): void {
     super.setLocked(value);
     if (!value && this.refAccountEmail) {
       UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);

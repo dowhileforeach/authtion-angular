@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 import {Subject} from 'rxjs';
@@ -7,9 +9,9 @@ import {takeUntil} from 'rxjs/operators';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
-import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
-import {AuthtionLoginRegisterComponent} from '@dwfe/modules/authtion/login-register/login-register.component';
-import {ActivatedRoute, Router} from '@angular/router';
+
+import {AuthtionExchangeService} from '../services/authtion-exchange.service';
+import {AuthtionLoginRegisterComponent} from '../login-register/login-register.component';
 
 @Component({
   selector: 'app-authtion-reset-pass',
@@ -36,23 +38,23 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
 
   @ViewChild('refGoToLoginPage', {read: ElementRef}) refGoToLoginPage: ElementRef;
 
-  constructor(protected exchangeService: AuthtionExchangeService,
-              protected dialog: MatDialog,
-              protected dialogRef: MatDialogRef<AuthtionResetPassComponent>,
-              @Inject(MAT_DIALOG_DATA) protected data: any,
-              protected router: Router) {
+  constructor(private exchangeService: AuthtionExchangeService,
+              private dialog: MatDialog,
+              private dialogRef: MatDialogRef<AuthtionResetPassComponent>,
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              private router: Router) {
     super();
 
     this.key = this.data.key;
     this.setIsPreparingSuccessfull(this.key !== 'none');
   }
 
-  public setIsPreparingSuccessfull(value: boolean): void {
+  private setIsPreparingSuccessfull(value: boolean): void {
     this.isPreparingSuccessfull = value;
     this.subjIsPreparingSuccessfull.next(value);
   }
 
-  public setIsReqSuccessful(value: boolean): void {
+  private setIsReqSuccessful(value: boolean): void {
     this.isReqSuccessful = value;
     this.subjIsReqSuccessful.next(value);
   }
@@ -150,8 +152,8 @@ export class AuthtionResetPassWrapComponent implements OnInit, AfterViewInit {
 
   private key: string;
 
-  constructor(protected route: ActivatedRoute,
-              protected dialog: MatDialog) {
+  constructor(private route: ActivatedRoute,
+              private dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -172,5 +174,4 @@ export class AuthtionResetPassWrapComponent implements OnInit, AfterViewInit {
     }, 10); // to prevent error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed
             // after it was checked. Previous value: 'id: undefined'. Current value: 'id: mat-dialog-0'.
   }
-
 }

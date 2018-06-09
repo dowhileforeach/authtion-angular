@@ -18,7 +18,7 @@ import {
   GoogleCaptchaValidateExchanger,
   ReqResetPassExchanger,
   ResetPassExchanger,
-} from './exchange.utils';
+} from '../exchange.pref';
 
 @Injectable()
 export class AuthtionExchangeService {

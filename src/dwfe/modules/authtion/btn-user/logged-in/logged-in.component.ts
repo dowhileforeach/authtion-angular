@@ -26,8 +26,8 @@ export class AuthtionBtnUserLoggedInComponent {
   private isMenuOpen = false;
   private user = this.authtionService.user;
 
-  constructor(protected authtionService: AuthtionService,
-              protected router: Router) {
+  constructor(private authtionService: AuthtionService,
+              private router: Router) {
   }
 
   private myAccount(): void {

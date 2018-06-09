@@ -34,8 +34,8 @@ export class AuthtionProfileComponent implements OnInit {
     {path: 'password', label: 'Password'}, // AuthtionAccountPasswordComponent
   ];
 
-  constructor(protected router: Router,
-              protected route: ActivatedRoute) {
+  constructor(private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {

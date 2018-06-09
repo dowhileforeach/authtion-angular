@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
-import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+
+import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-account-password',
@@ -23,7 +25,7 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
   private controlCurrentPassword: AbstractControl;
   @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
 
-  constructor(protected exchangeService: AuthtionExchangeService) {
+  constructor(private exchangeService: AuthtionExchangeService) {
     super();
   }
 

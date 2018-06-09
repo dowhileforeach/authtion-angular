@@ -18,7 +18,7 @@ export class PageNotFoundDwfeComponent implements OnInit {
 
   private path: string;
 
-  constructor(protected route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit() {

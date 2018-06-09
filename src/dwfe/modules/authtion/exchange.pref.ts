@@ -1,5 +1,7 @@
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/index';
+
+import {Observable} from 'rxjs';
+
 import {AbstractExchangerDwfe} from '@dwfe/classes/AbstractExchangerDwfe';
 
 const API_VERSION = '/v1';

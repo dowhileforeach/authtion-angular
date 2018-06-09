@@ -1,16 +1,18 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {AbstractControl, FormGroup} from '@angular/forms';
+
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 import {of} from 'rxjs';
 import {concatMap, delay, takeUntil} from 'rxjs/operators';
 
+import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+
 import {AuthtionService} from '../services/authtion.service';
 import {AuthtionExchangeService} from '../services/authtion-exchange.service';
 import {AuthtionReqResetPassComponent} from '../reset-pass/req-reset-pass/req-reset-pass.component';
-import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
-import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
   selector: 'app-authtion-login-register',
@@ -34,12 +36,12 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
   private isLoggedIn = false;
 
-  constructor(protected authtionService: AuthtionService,
-              protected exchangeService: AuthtionExchangeService,
-              protected dialogRef: MatDialogRef<AuthtionLoginRegisterComponent>,
-              protected dialog: MatDialog,
-              @Inject(MAT_DIALOG_DATA) protected data: any,
-              protected router: Router) {
+  constructor(private authtionService: AuthtionService,
+              private exchangeService: AuthtionExchangeService,
+              private dialogRef: MatDialogRef<AuthtionLoginRegisterComponent>,
+              private dialog: MatDialog,
+              @Inject(MAT_DIALOG_DATA) private data: any,
+              private router: Router) {
     super();
   }
 
@@ -112,7 +114,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     }
   }
 
-  public setLocked(value: boolean): void {
+  setLocked(value: boolean): void {
     super.setLocked(value);
     if (!value) {
       this.focusOnInput();
@@ -173,7 +175,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 })
 export class AuthtionLoginRegisterWrapComponent implements OnInit {
 
-  constructor(protected dialog: MatDialog) {
+  constructor(private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -185,10 +187,4 @@ export class AuthtionLoginRegisterWrapComponent implements OnInit {
         });
     }, 10);
   }
-
 }
-
-
-
-
-

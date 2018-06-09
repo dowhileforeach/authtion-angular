@@ -30,7 +30,7 @@ export class AuthtionAccountComponent implements OnInit {
     {path: 'settings', label: 'Settings'}, // AuthtionSettingsComponent
   ];
 
-  constructor(protected router: Router) {
+  constructor() {
   }
 
   ngOnInit() {

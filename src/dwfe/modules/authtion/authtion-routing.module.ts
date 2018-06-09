@@ -3,7 +3,6 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {AuthtionLoginRegisterWrapComponent} from './login-register/login-register.component';
 import {AuthtionResetPassWrapComponent} from './reset-pass/reset-pass.component';
-
 import {AuthtionGuardService} from './services/authtion-guard.service';
 
 const authtionRoutes: Routes = [

@@ -2,9 +2,10 @@ import {ElementRef} from '@angular/core';
 import {AbstractControl, FormControl, FormGroupDirective, NgForm} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 
+import {ErrorStateMatcher} from '@angular/material';
+
 import {Observable, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {ErrorStateMatcher} from '@angular/material';
 
 const dwfeAuthtionErrorCodesMap = {
   'confirm-key-not-exist': 'Confirm key does not exist',
@@ -57,14 +58,14 @@ const dwfeServerErrorsMap = {
 
 export class UtilsDwfe {
 
-  public static isEmpty(value: string): boolean {
+  static isEmpty(value: string): boolean {
     if (value) {
       return value.trim().length === 0;
     }
     return true;
   }
 
-  public static formControlHasError(control: AbstractControl, errorName: string, isDirtyTouchedCheckMode = true) {
+  static formControlHasError(control: AbstractControl, errorName: string, isDirtyTouchedCheckMode = true) {
 
     if (isDirtyTouchedCheckMode && !(control.dirty || control.touched)) {
       return false;
@@ -74,15 +75,15 @@ export class UtilsDwfe {
       && control.errors.hasOwnProperty(errorName);
   }
 
-  public static getErrorOnFormControl(control: AbstractControl, errorName: string) {
+  static getErrorOnFormControl(control: AbstractControl, errorName: string) {
     return control.errors[errorName];
   }
 
-  public static focusOnDwfeInput(elementRef: ElementRef) {
+  static focusOnDwfeInput(elementRef: ElementRef) {
     elementRef.nativeElement.querySelector('.dwfe-form-group-material input').focus();
   }
 
-  public static resetBackendError(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
+  static resetBackendError(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
     return this[controlFieldName].valueChanges
       .pipe(takeUntil(notifier))
       .subscribe(() => {
@@ -95,9 +96,9 @@ export class UtilsDwfe {
   }
 
   // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  public static randomStr(requiredStringLength,
-                          prefix = '',
-                          postfix = ''): string {
+  static randomStr(requiredStringLength,
+                   prefix = '',
+                   postfix = ''): string {
     let result = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
     for (let i = 0; i < requiredStringLength; i++) {
@@ -106,7 +107,7 @@ export class UtilsDwfe {
     return prefix + result + postfix;
   }
 
-  public static getReadableErrorFromDwfeServer(data): string {
+  static getReadableErrorFromDwfeServer(data): string {
     let result = '';
     if (data.hasOwnProperty('error-codes')) {
       const errorCodes = data['error-codes'];
@@ -125,7 +126,7 @@ export class UtilsDwfe {
     return result;
   }
 
-  public static getReadableExchangeError(obj: HttpErrorResponse): string {
+  static getReadableExchangeError(obj: HttpErrorResponse): string {
 
     let result = '';
     const error = obj.error;
@@ -169,7 +170,7 @@ export class UtilsDwfe {
     return result;
   }
 
-  public static isInvalidGrantError(obj: HttpErrorResponse): boolean {
+  static isInvalidGrantError(obj: HttpErrorResponse): boolean {
     const error = obj.error;
     if (error && error.hasOwnProperty('error')) {
       return error['error'] === 'invalid_grant';
