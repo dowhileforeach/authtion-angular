@@ -16,6 +16,7 @@ import {Router} from '@angular/router';
           {{link.label}}
         </a>
       </nav>
+
       <router-outlet></router-outlet>
 
     </section>
@@ -24,9 +25,9 @@ import {Router} from '@angular/router';
 export class AuthtionAccountComponent implements OnInit {
 
   private navLinks: { path: string, label: string }[] = [
-    {path: 'payments', label: 'Payments'},        // AuthtionPaymentsComponent
-    {path: 'profile/personal', label: 'Profile'}, // AuthtionProfileComponent
-    {path: 'settings', label: 'Settings'},        // AuthtionSettingsComponent
+    {path: 'payments', label: 'Payments'}, // AuthtionPaymentsComponent
+    {path: 'profile', label: 'Profile'},   // AuthtionProfileComponent
+    {path: 'settings', label: 'Settings'}, // AuthtionSettingsComponent
   ];
 
   constructor(protected router: Router) {
