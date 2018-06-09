@@ -35,7 +35,7 @@ const dwfeAuthtionErrorCodesMap = {
   'missing-oldpass': 'Old password required',
   'missing-password': 'Password required',
   'timeout-google-captcha-gateway': 'Captcha-check gateway timeout. Try again later',
-  'wrong-oldpass': 'Wrong old password',
+  'wrong-oldpass': 'Wrong current password',
 };
 
 const dwfeServerErrorsMap = {
