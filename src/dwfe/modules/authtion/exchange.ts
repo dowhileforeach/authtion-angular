@@ -1,8 +1,7 @@
-import {HttpClient} from '@angular/common/http';
-
 import {Observable} from 'rxjs';
 
 import {AbstractExchangerDwfe} from '@dwfe/classes/AbstractExchangerDwfe';
+import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 const API_VERSION = '/v1';
 
@@ -26,7 +25,7 @@ export class GoogleCaptchaValidateExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.googleCaptchaValidate,
       body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 }
 
@@ -35,20 +34,15 @@ export class CreateAccountExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.createAccount,
       body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 }
 
 export class GetAccountExchanger extends AbstractExchangerDwfe {
-  static of(http: HttpClient): GetAccountExchanger {
-    return new GetAccountExchanger({http: http});
-  }
-
   getHttpReq$(params?: any): Observable<Object> {
-    const accessToken = params.accessToken || this.accessToken;
     return this.http.get(
       endpoints.getAccount,
-      AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken)
+      UtilsDwfe.optionsForAuthorizedReq(this.accessToken)
     );
   }
 }
@@ -58,7 +52,7 @@ export class ReqResetPassExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.reqResetPass,
       body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 }
 
@@ -67,7 +61,7 @@ export class ConfirmResetPassExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.confirmResetPass,
       body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 }
 
@@ -76,7 +70,7 @@ export class ResetPassExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.resetPass,
       body,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 }
 
@@ -85,6 +79,6 @@ export class ChangePassExchanger extends AbstractExchangerDwfe {
     return this.http.post(
       endpoints.changePass,
       body,
-      AbstractExchangerDwfe.optionsForAuthorizedReq(this.accessToken));
+      UtilsDwfe.optionsForAuthorizedReq(this.accessToken));
   }
 }

@@ -178,6 +178,23 @@ export class UtilsDwfe {
       return false;
     }
   }
+
+  static optionsForAnonymouseReq() {
+    return {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+      }
+    };
+  }
+
+  static optionsForAuthorizedReq(accessToken: string) {
+    return {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Authorization': 'Bearer ' + accessToken
+      }
+    };
+  }
 }
 
 export class MyErrorStateMatcherDwfe implements ErrorStateMatcher {

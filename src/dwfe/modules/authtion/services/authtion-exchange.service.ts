@@ -5,7 +5,7 @@ import {interval, Observable} from 'rxjs';
 import {map, switchMapTo, take} from 'rxjs/operators';
 
 import {ExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
-import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionService} from './authtion.service';
@@ -18,24 +18,20 @@ import {
   GoogleCaptchaValidateExchanger,
   ReqResetPassExchanger,
   ResetPassExchanger,
-} from '../exchange.pref';
+} from '../exchange';
 
 @Injectable()
 export class AuthtionExchangeService {
 
-  constructor(private _http: HttpClient,
+  constructor(private http: HttpClient,
               private authtionService: AuthtionService) {
-  }
-
-  get http(): HttpClient {
-    return this._http;
   }
 
   private post_checkEmail(email: string): Observable<Object> {
     return this.http.post(
       endpoints.checkEmail,
       `{ "email": "${email}" }`,
-      AbstractExchangerDwfe.optionsForAnonymouseReq());
+      UtilsDwfe.optionsForAnonymouseReq());
   }
 
   //
@@ -114,37 +110,31 @@ export class AuthtionExchangeService {
   //
 
   get googleCaptchaValidateExchanger(): GoogleCaptchaValidateExchanger {
-    return new GoogleCaptchaValidateExchanger({http: this.http});
+    return new GoogleCaptchaValidateExchanger(this.http);
   }
 
   get createAccountExchanger(): CreateAccountExchanger {
-    return new CreateAccountExchanger({http: this.http});
+    return new CreateAccountExchanger(this.http);
   }
 
   get getAccountExchanger(): GetAccountExchanger {
-    return new GetAccountExchanger({
-      http: this.http,
-      accessToken: this.authtionService.accessToken
-    });
+    return new GetAccountExchanger(this.http, {accessToken: this.authtionService.accessToken});
   }
 
   get changePassExchanger(): ChangePassExchanger {
-    return new ChangePassExchanger({
-      http: this.http,
-      accessToken: this.authtionService.accessToken
-    });
+    return new ChangePassExchanger(this.http, {accessToken: this.authtionService.accessToken});
   }
 
   get reqResetPassExchanger(): ReqResetPassExchanger {
-    return new ReqResetPassExchanger({http: this.http});
+    return new ReqResetPassExchanger(this.http);
   }
 
   get confirmResetPassExchanger(): ConfirmResetPassExchanger {
-    return new ConfirmResetPassExchanger({http: this.http});
+    return new ConfirmResetPassExchanger(this.http);
   }
 
   get resetPassExchanger(): ResetPassExchanger {
-    return new ResetPassExchanger({http: this.http});
+    return new ResetPassExchanger(this.http);
   }
 }
 

@@ -10,29 +10,10 @@ export abstract class AbstractExchangerDwfe {
 
   private subjResult = new Subject<ResultWithDescription>();
 
-  protected http: HttpClient;
   protected accessToken: string;
 
-  constructor(obj) {
-    this.http = obj.http;
-    this.accessToken = obj.accessToken || '';
-  }
-
-  static optionsForAnonymouseReq() {
-    return {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    };
-  }
-
-  static optionsForAuthorizedReq(accessToken: string) {
-    return {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'Authorization': 'Bearer ' + accessToken
-      }
-    };
+  constructor(protected http: HttpClient, options?: any) {
+    this.accessToken = options.accessToken || '';
   }
 
   abstract getHttpReq$(something?: any): Observable<Object>;

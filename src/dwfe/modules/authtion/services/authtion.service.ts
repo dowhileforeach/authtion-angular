@@ -4,9 +4,10 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
-import {AbstractExchangerDwfe, ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
-import {endpoints, GetAccountExchanger} from '@dwfe/modules/authtion/exchange.pref';
+
+import {endpoints, GetAccountExchanger} from '../exchange';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -125,14 +126,14 @@ export class AuthtionService {
   private signOutHttpReq$(accessToken: string): Observable<Object> {
     return this.http.get(
       endpoints.signOut,
-      AbstractExchangerDwfe.optionsForAuthorizedReq(accessToken));
+      UtilsDwfe.optionsForAuthorizedReq(accessToken));
   }
 
   performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        GetAccountExchanger.of(this.http)
-          .performRequest({accessToken: response['access_token']})
+        new GetAccountExchanger(this.http, {accessToken: response['access_token']})
+          .performRequest()
           .result$.subscribe(
           (data: ResultWithDescription) => {
             if (data.result) {
