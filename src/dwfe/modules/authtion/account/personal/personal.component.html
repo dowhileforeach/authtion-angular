@@ -6,12 +6,60 @@
     <div class="authtion-personal__group">
       <app-input-text-dwfe class="authtion-personal__group-control"
                            [labelText]="'Email'"
-                           (takeTextGroup)="groupEmail=$event">
+                           (takeTextGroup)="gEmail=$event">
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                              [currentValue]="!this.user.emailNonPublic"
-                             (takeValue)="isEmailPublic=$event">
+                             (takeValue)="tEmail=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-input-text-dwfe class="authtion-personal__group-control"
+                           [labelText]="'Nick Name'"
+                           (takeTextGroup)="gNickName=$event">
+      </app-input-text-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!this.user.nickNameNonPublic"
+                             (takeValue)="tNickName=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-input-text-dwfe class="authtion-personal__group-control"
+                           [labelText]="'First Name'"
+                           (takeTextGroup)="gFirstName=$event">
+      </app-input-text-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!this.user.firstNameNonPublic"
+                             (takeValue)="tFirstName=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-input-text-dwfe class="authtion-personal__group-control"
+                           [labelText]="'Middle Name'"
+                           (takeTextGroup)="gMiddleName=$event">
+      </app-input-text-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!this.user.middleNameNonPublic"
+                             (takeValue)="tMiddleName=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-input-text-dwfe class="authtion-personal__group-control"
+                           [labelText]="'Last Name'"
+                           (takeTextGroup)="gLastName=$event">
+      </app-input-text-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!this.user.lastNameNonPublic"
+                             (takeValue)="tLastName=$event">
       </app-slide-toggle-dwfe>
     </div>
 

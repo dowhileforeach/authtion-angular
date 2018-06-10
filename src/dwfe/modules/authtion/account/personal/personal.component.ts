@@ -14,9 +14,25 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   private user: AuthtionAccount;
 
-  private groupEmail = new FormGroup({});
-  private controlEmail: AbstractControl;
-  private isEmailPublic: boolean;
+  private gEmail = new FormGroup({});
+  private cEmail: AbstractControl;
+  private tEmail: boolean;
+
+  private gNickName = new FormGroup({});
+  private cNickName: AbstractControl;
+  private tNickName: boolean;
+
+  private gFirstName = new FormGroup({});
+  private cFirstName: AbstractControl;
+  private tFirstName: boolean;
+
+  private gMiddleName = new FormGroup({});
+  private cMiddleName: AbstractControl;
+  private tMiddleName: boolean;
+
+  private gLastName = new FormGroup({});
+  private cLastName: AbstractControl;
+  private tLastName: boolean;
 
   constructor(private authtionService: AuthtionService) {
     super();
@@ -28,11 +44,23 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.controlEmail = this.groupEmail.get('txt');
-      this.controlEmail.setValue(this.user.email);
-      this.controlEmail.disable();
+      this.cEmail = this.gEmail.get('txt');
+      this.cEmail.setValue(this.user.email);
+      this.cEmail.disable();
 
-      this.resetBackendError('controlEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.cNickName = this.gNickName.get('txt');
+      this.cNickName.setValue(this.user.nickName);
+
+      this.cFirstName = this.gFirstName.get('txt');
+      this.cFirstName.setValue(this.user.firstName);
+
+      this.cMiddleName = this.gMiddleName.get('txt');
+      this.cMiddleName.setValue(this.user.middleName);
+
+      this.cLastName = this.gLastName.get('txt');
+      this.cLastName.setValue(this.user.lastName);
+
+      this.resetBackendError('cEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
   }
 }
