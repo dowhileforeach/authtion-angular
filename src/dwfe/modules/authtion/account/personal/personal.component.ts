@@ -34,6 +34,14 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private cLastName: AbstractControl;
   private tLastName: boolean;
 
+  private gender: string;
+  private tGender: boolean;
+  private genders = [
+    {value: null, viewValue: 'Not selected'},
+    {value: 'M', viewValue: 'Male'},
+    {value: 'F', viewValue: 'Female'},
+  ];
+
   constructor(private authtionService: AuthtionService) {
     super();
   }

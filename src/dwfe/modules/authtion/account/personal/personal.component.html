@@ -10,7 +10,7 @@
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                             [currentValue]="!this.user.emailNonPublic"
+                             [currentValue]="!user.emailNonPublic"
                              (takeValue)="tEmail=$event">
       </app-slide-toggle-dwfe>
     </div>
@@ -22,7 +22,7 @@
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                             [currentValue]="!this.user.nickNameNonPublic"
+                             [currentValue]="!user.nickNameNonPublic"
                              (takeValue)="tNickName=$event">
       </app-slide-toggle-dwfe>
     </div>
@@ -34,7 +34,7 @@
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                             [currentValue]="!this.user.firstNameNonPublic"
+                             [currentValue]="!user.firstNameNonPublic"
                              (takeValue)="tFirstName=$event">
       </app-slide-toggle-dwfe>
     </div>
@@ -46,7 +46,7 @@
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                             [currentValue]="!this.user.middleNameNonPublic"
+                             [currentValue]="!user.middleNameNonPublic"
                              (takeValue)="tMiddleName=$event">
       </app-slide-toggle-dwfe>
     </div>
@@ -58,8 +58,22 @@
       </app-input-text-dwfe>
 
       <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                             [currentValue]="!this.user.lastNameNonPublic"
+                             [currentValue]="!user.lastNameNonPublic"
                              (takeValue)="tLastName=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-select-dwfe class="authtion-personal__group-control"
+                       [labelText]="'Gender'"
+                       [items]="genders"
+                       [selectedValue]="user.gender"
+                       (takeValue)="gender=$event">
+      </app-select-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!user.genderNonPublic"
+                             (takeValue)="tGender=$event">
       </app-slide-toggle-dwfe>
     </div>
 

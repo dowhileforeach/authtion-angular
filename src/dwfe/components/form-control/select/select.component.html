@@ -1,0 +1,13 @@
+<mat-form-field class="dwfe-form-group-material" appearance="standard">
+
+  <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}"
+              [placeholder]="labelText"
+              (selectionChange)="onSelect()">
+
+    <mat-option *ngFor="let item of items" [value]="item.value">
+      {{item.viewValue}}
+    </mat-option>
+
+  </mat-select>
+
+</mat-form-field>
