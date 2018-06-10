@@ -18,6 +18,14 @@
   }
 }
 
+mat-tooltip-component {
+  .mat-tooltip-handset {
+    margin: 10px;
+    padding: 7px 10px;
+    font-size: $font-size-x1;
+  }
+}
+
 .authtion-btn-user {
   &.mat-button {
     border-radius: 0;

@@ -1,0 +1,35 @@
+@import "../../../../styles/common-blocks/dwfe-pref";
+
+.authtion-personal {
+}
+
+.authtion-personal__group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.authtion-personal__group-control{
+  flex-grow: 1;
+  margin-right: 15px;
+}
+
+.authtion-personal__group-vis-checker{
+  margin-top: 20px;
+  margin-left: auto;
+}
+
+.dwfe-form {
+  width: 100%;
+  margin: 0 0 $form-std-indent;
+}
+
+//
+// ADAPTIVE
+//
+@include media-tablet {
+  .dwfe-form {
+    width: $dialog-width + 40px;
+  }
+}

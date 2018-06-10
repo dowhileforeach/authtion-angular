@@ -1,3 +1,22 @@
 <section class="authtion-personal">
   <h2>Personal information</h2>
+
+  <form class="dwfe-form" spellcheck="false">
+
+    <div class="authtion-personal__group">
+      <app-input-text-dwfe class="authtion-personal__group-control"
+                           [labelText]="'Email'"
+                           (takeTextGroup)="groupEmail=$event">
+      </app-input-text-dwfe>
+
+      <mat-slide-toggle class="authtion-personal__group-vis-checker" [color]="'primary'"
+                        [(ngModel)]="isEmailPublic" [ngModelOptions]="{standalone: true}"
+                        [matTooltip]="tTxt(isEmailPublic)"
+                        matTooltipPosition="above">
+      </mat-slide-toggle>
+    </div>
+
+  </form>
+
+
 </section>

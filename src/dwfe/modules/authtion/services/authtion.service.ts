@@ -473,33 +473,33 @@ class AuthtionAccount {
 
         obj._createdOn = new Date(parsed._createdOn);
         obj._updatedOn = new Date(parsed._updatedOn);
-        obj._hasRoleAdmin = parsed._hasRoleAdmin === 'true';
-        obj._hasRoleUser = parsed._hasRoleUser === 'true';
+        obj._hasRoleAdmin = parsed._hasRoleAdmin;
+        obj._hasRoleUser = parsed._hasRoleUser;
 
         obj._email = parsed._email;
-        obj._emailConfirmed = parsed._emailConfirmed === 'true';
-        obj._emailNonPublic = parsed._emailNonPublic === 'true';
+        obj._emailConfirmed = parsed._emailConfirmed;
+        obj._emailNonPublic = parsed._emailNonPublic;
 
         obj._nickName = parsed._nickName;
-        obj._nickNameNonPublic = parsed._nickNameNonPublic === 'true';
+        obj._nickNameNonPublic = parsed._nickNameNonPublic;
 
         obj._firstName = parsed._firstName;
-        obj._firstNameNonPublic = parsed._firstNameNonPublic === 'true';
+        obj._firstNameNonPublic = parsed._firstNameNonPublic;
 
         obj._middleName = parsed._middleName;
-        obj._middleNameNonPublic = parsed._middleNameNonPublic === 'true';
+        obj._middleNameNonPublic = parsed._middleNameNonPublic;
 
         obj._lastName = parsed._lastName;
-        obj._lastNameNonPublic = parsed._lastNameNonPublic === 'true';
+        obj._lastNameNonPublic = parsed._lastNameNonPublic;
 
         obj._gender = parsed._gender;
-        obj._genderNonPublic = parsed._genderNonPublic === 'true';
+        obj._genderNonPublic = parsed._genderNonPublic;
 
         obj._dateOfBirth = new Date(parsed._dateOfBirth);
-        obj._dateOfBirthNonPublic = parsed._dateOfBirthNonPublic === 'true';
+        obj._dateOfBirthNonPublic = parsed._dateOfBirthNonPublic;
 
         obj._country = parsed._country;
-        obj._countryNonPublic = parsed._countryNonPublic === 'true';
+        obj._countryNonPublic = parsed._countryNonPublic;
       }
     } catch (e) {
       return null;
