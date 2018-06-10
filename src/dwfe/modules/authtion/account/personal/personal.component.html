@@ -9,11 +9,10 @@
                            (takeTextGroup)="groupEmail=$event">
       </app-input-text-dwfe>
 
-      <mat-slide-toggle class="authtion-personal__group-vis-checker" [color]="'primary'"
-                        [(ngModel)]="isEmailPublic" [ngModelOptions]="{standalone: true}"
-                        [matTooltip]="tTxt(isEmailPublic)"
-                        matTooltipPosition="above">
-      </mat-slide-toggle>
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!this.user.emailNonPublic"
+                             (takeValue)="isEmailPublic=$event">
+      </app-slide-toggle-dwfe>
     </div>
 
   </form>

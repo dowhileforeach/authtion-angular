@@ -1,0 +1,9 @@
+<mat-slide-toggle [(ngModel)]="currentValue"
+                  [ngModelOptions]="{standalone: true}"
+                  [matTooltip]="tooltipTxt()"
+                  [color]="color"
+                  [matTooltipPosition]="position"
+                  [matTooltipHideDelay]=310
+                  #thisTooltip="matTooltip"
+                  (click)="onClick(); thisTooltip.show();">
+</mat-slide-toggle>

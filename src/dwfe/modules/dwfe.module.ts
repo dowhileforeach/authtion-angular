@@ -18,6 +18,7 @@ import {InputTextDwfeComponent} from '@dwfe/components/form-control/input-text/i
 import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
+import {SlideToggleDwfeComponent} from '@dwfe/components/form-control/slide-toggle/slide-toggle.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinn
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
     InputTextDwfeComponent,
+    SlideToggleDwfeComponent,
     PageNotFoundDwfeComponent,
     SpinnerDottedHorizontalDwfeComponent,
     SpinnerSharkFinCircleDwfeComponent,
@@ -50,6 +52,7 @@ import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinn
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
     InputTextDwfeComponent,
+    SlideToggleDwfeComponent,
     PageNotFoundDwfeComponent,
     SpinnerDottedHorizontalDwfeComponent,
     SpinnerSharkFinCircleDwfeComponent,

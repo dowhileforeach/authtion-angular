@@ -8,10 +8,8 @@
 }
 
 .authtion-account-email__current-email {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: $color-scorpion-approx;
-  font-size: $font-size-x3;
+  margin-top: 20px;
+  margin-bottom: -15px;
 }
 
 .authtion-account-email__note {
@@ -31,6 +29,10 @@
 @include media-tablet {
   .dwfe-form {
     width: $dialog-width;
+  }
+
+  .authtion-account-email__current-email {
+    margin-bottom: -20px;
   }
 }
 

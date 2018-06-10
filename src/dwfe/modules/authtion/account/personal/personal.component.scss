@@ -10,12 +10,12 @@
   align-items: flex-start;
 }
 
-.authtion-personal__group-control{
+.authtion-personal__group-control {
   flex-grow: 1;
   margin-right: 15px;
 }
 
-.authtion-personal__group-vis-checker{
+.authtion-personal__group-vis-checker {
   margin-top: 20px;
   margin-left: auto;
 }
@@ -30,6 +30,6 @@
 //
 @include media-tablet {
   .dwfe-form {
-    width: $dialog-width + 40px;
+    width: $dialog-width + 50px;
   }
 }

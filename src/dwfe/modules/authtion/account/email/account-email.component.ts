@@ -13,6 +13,9 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
 })
 export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
 
+  private groupCurrentEmail = new FormGroup({});
+  private controlCurrentEmail: AbstractControl;
+
   private groupNewEmail = new FormGroup({});
   private controlNewEmail: AbstractControl;
   @ViewChild('refNewEmail', {read: ElementRef}) private refNewEmail: ElementRef;
@@ -30,6 +33,13 @@ export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe impl
   }
 
   ngAfterViewInit(): void {
+    this.controlCurrentEmail = this.groupCurrentEmail.get('txt');
+
+    setTimeout(() => {
+      this.controlCurrentEmail.setValue(this.authtionService.user.email);
+      this.controlCurrentEmail.disable();
+    }, 10);
+
     this.controlNewEmail = this.groupNewEmail.get('email');
     this.controlCurrentPassword = this.groupCurrentPassword.get('password');
 

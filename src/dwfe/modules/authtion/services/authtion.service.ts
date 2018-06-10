@@ -287,7 +287,7 @@ class AuthtionCredentials {
   }
 }
 
-class AuthtionAccount {
+export class AuthtionAccount {
   private _id: number;
 
   private _createdOn: Date;

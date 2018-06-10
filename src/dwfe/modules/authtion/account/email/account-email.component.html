@@ -1,12 +1,13 @@
 <section class="authtion-account-email">
 
-  <h2>Your Current Email Address</h2>
-  <p class="authtion-account-email__current-email">
-    {{authtionService.user.email}}
-  </p>
-
-  <h2>Change Email</h2>
   <form class="dwfe-form" spellcheck="false">
+
+    <app-input-text-dwfe class="authtion-account-email__current-email"
+                         [labelText]="'Email'"
+                         (takeTextGroup)="groupCurrentEmail=$event">
+    </app-input-text-dwfe>
+
+    <h2>Change Email</h2>
 
     <app-input-email-dwfe class="dwfe-form__item"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
