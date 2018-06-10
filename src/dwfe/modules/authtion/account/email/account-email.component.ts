@@ -1,8 +1,10 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthtionService} from '@dwfe/modules/authtion/services/authtion.service';
-import {AuthtionExchangeService} from '@dwfe/modules/authtion/services/authtion-exchange.service';
 import {AbstractControl, FormGroup} from '@angular/forms';
+
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
+
+import {AuthtionService} from '../../services/authtion.service';
+import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-account-email',
