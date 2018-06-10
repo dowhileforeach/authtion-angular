@@ -1,4 +1,43 @@
-<section class="authtion-account-email  grid-column">
-  <h2>Change email</h2>
+<section class="authtion-account-email">
+  <h2>Your Current Email Address</h2>
+  <p class="authtion-account-email__current-email">{{authtionService.user.email}}</p>
+  <h2>Change Email</h2>
+  <form class="dwfe-form" spellcheck="false">
+
+    <app-input-email-dwfe class="dwfe-form__item"
+                          [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
+                          [labelText]="'New Email'"
+                          (takeEmailGroup)="groupNewEmail=$event"
+                          #refNewEmail>
+    </app-input-email-dwfe>
+
+    <app-input-password-dwfe class="dwfe-form__item"
+                             [labelText]="'Your Current Password'"
+                             (takePasswordGroup)="groupCurrentPassword=$event"
+                             #refCurrentPassword>
+    </app-input-password-dwfe>
+
+    <p class="authtion-account-email__note">Please note that after a successful email change, you will automatically logout</p>
+
+    <button class="dwfe-form__btn  dwfe-form__btn--standard"
+            mat-raised-button
+            (click)="performChangePassword()"
+            [disabled]="!(groupNewEmail.valid && groupCurrentPassword.valid) || isLocked"
+            aria-label="Perform 'Change Email'">
+      OK
+      <app-alert-dwfe *ngIf="errorMessage !== ''"
+                      class="dwfe-form__alert-over"
+                      [message]="errorMessage"
+                      [blink]="true">
+      </app-alert-dwfe>
+      <app-alert-dwfe *ngIf="successMessage !== ''"
+                      class="dwfe-form__alert-over"
+                      [message]="successMessage"
+                      [alertType]="'success'"
+                      [blink]="true">
+      </app-alert-dwfe>
+    </button>
+
+  </form>
 
 </section>

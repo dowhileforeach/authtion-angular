@@ -19,7 +19,7 @@
   <mat-error *ngIf="emailControl.hasError('pattern')">
     Please enter a valid email
   </mat-error>
-  <mat-error *ngIf="emailControl.hasError('maxlength')">
+  <mat-error *ngIf="!emailControl.hasError('pattern') && emailControl.hasError('maxlength')">
     Length must be <= {{maxLength}}
   </mat-error>
   <mat-error *ngIf="emailControl.hasError('backendHttp')">

@@ -1,10 +1,23 @@
 @import "../../../../styles/common-blocks/dwfe-pref";
 
-.authtion-account-password {
+.authtion-account-email {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.authtion-account-email__current-email {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $color-scorpion-approx;
+  font-size: $font-size-x3;
+}
+
+.authtion-account-email__note {
+  margin-top: 0;
+  margin-bottom: $form-std-indent;
+  font-style: italic;
 }
 
 .dwfe-form {
@@ -20,3 +33,4 @@
     width: $dialog-width;
   }
 }
+

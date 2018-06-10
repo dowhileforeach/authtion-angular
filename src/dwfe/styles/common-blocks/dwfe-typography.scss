@@ -7,8 +7,8 @@ body {
 
 h2 {
   @include reset-margin-padding();
-  margin-top: 25px;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   @include fonts4($font-size-x4, $font-height-normal, $font-weight-bold, normal);
 }
 
@@ -22,7 +22,7 @@ strong {
 //
 @include media-tablet {
   h2 {
-    margin-top: $form-std-indent;
+    margin-top: 30px;
     font-size: $font-size-x5;
   }
 }
