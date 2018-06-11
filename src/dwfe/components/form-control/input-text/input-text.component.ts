@@ -1,9 +1,10 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
+
+import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
-import {Subject} from 'rxjs/index';
 
 @Component({
   selector: 'app-input-text-dwfe',

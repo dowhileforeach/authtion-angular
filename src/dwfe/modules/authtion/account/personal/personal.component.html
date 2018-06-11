@@ -97,6 +97,7 @@
 
       <div class="authtion-personal__group">
         <app-date-picker-dwfe [labelText]="'Date of Birth'"
+                              [markIfChanged]="true"
                               (takeDateGroup)="gDateOfBirth=$event">
         </app-date-picker-dwfe>
         <!--<br>-->
@@ -155,6 +156,5 @@
     </div>
 
   </form>
-
 
 </section>

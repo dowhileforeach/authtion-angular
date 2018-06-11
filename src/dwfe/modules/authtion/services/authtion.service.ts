@@ -449,8 +449,8 @@ export class AuthtionAccount {
 
     obj._id = data['id'];
 
-    obj._createdOn = new Date(data['createdOn']);
-    obj._updatedOn = new Date(data['updatedOn']);
+    obj._createdOn = data['createdOn'] ? new Date(data['createdOn']) : null;
+    obj._updatedOn = data['updatedOn'] ? new Date(data['updatedOn']) : null;
     obj._hasRoleAdmin = hasRoleAdmin;
     obj._hasRoleUser = hasRoleUser;
 
@@ -499,8 +499,8 @@ export class AuthtionAccount {
 
         obj._id = +parsed._id;
 
-        obj._createdOn = new Date(parsed._createdOn);
-        obj._updatedOn = new Date(parsed._updatedOn);
+        obj._createdOn = parsed._createdOn ? new Date(parsed._createdOn) : null;
+        obj._updatedOn = parsed._updatedOn ? new Date(parsed._updatedOn) : null;
         obj._hasRoleAdmin = parsed._hasRoleAdmin;
         obj._hasRoleUser = parsed._hasRoleUser;
 
@@ -523,7 +523,7 @@ export class AuthtionAccount {
         obj._gender = parsed._gender;
         obj._genderNonPublic = parsed._genderNonPublic;
 
-        obj._dateOfBirth = new Date(parsed._dateOfBirth);
+        obj._dateOfBirth = parsed._dateOfBirth ? new Date(parsed._dateOfBirth) : null;
         obj._dateOfBirthNonPublic = parsed._dateOfBirthNonPublic;
 
         obj._country = parsed._country;

@@ -1,4 +1,6 @@
-<mat-form-field class="dwfe-form-group-material" [formGroup]="group">
+<mat-form-field class="dwfe-form-group-material"
+                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
+                [formGroup]="group">
 
   <input matInput [formControlName]="'date'"
          [matDatepicker]="picker"
@@ -6,7 +8,6 @@
 
   <mat-datepicker-toggle matSuffix
                          [for]="picker">
-    click
   </mat-datepicker-toggle>
 
   <mat-datepicker [touchUi]="true"

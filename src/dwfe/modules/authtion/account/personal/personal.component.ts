@@ -5,6 +5,7 @@ import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {countries, genders} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionAccount, AuthtionService} from '../../services/authtion.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-personal',
@@ -55,7 +56,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private cCompany: AbstractControl;
   private tCompany: boolean;
 
-  constructor(private authtionService: AuthtionService) {
+  constructor(private authtionService: AuthtionService,
+              private router: Router) {
     super();
   }
 
@@ -82,6 +84,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.cLastName.setValue(this.user.lastName);
 
       this.cDateOfBirth = this.gDateOfBirth.get('date');
+      this.cDateOfBirth.setValue(this.user.dateOfBirth);
 
       this.cCity = this.gCity.get('txt');
       this.cCity.setValue(this.user.city);
@@ -98,5 +101,12 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.resetBackendError('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
       this.resetBackendError('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
+  }
+
+  click() {
+    console.log('ddd');
+    this.router.navigate(['/account/profile']);
+    setTimeout(() => this.router.navigate(['/account/profile/personal']), 100);
+
   }
 }
