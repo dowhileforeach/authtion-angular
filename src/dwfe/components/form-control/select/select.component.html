@@ -4,7 +4,7 @@
 
   <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}"
               [placeholder]="labelText"
-              (valueChange)="valueChange()">
+              (valueChange)="onValueChange()">
 
     <mat-option *ngFor="let item of items" [value]="item.value">
       {{item.viewValue}}

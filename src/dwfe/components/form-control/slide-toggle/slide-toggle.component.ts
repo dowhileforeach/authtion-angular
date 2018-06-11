@@ -27,7 +27,7 @@ export class SlideToggleDwfeComponent implements OnInit {
     return this.currentValue ? this.tooltipText : 'not ' + this.tooltipText;
   }
 
-  private onClick(): void {
+  onChange() {
     setTimeout(() => {
       this.takeValue.emit(this.currentValue);
       this.hasBeenChanged = this.currentValue !== this.initValue;

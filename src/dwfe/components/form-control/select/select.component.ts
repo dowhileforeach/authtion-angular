@@ -22,7 +22,7 @@ export class SelectDwfeComponent implements OnInit {
     this.initValue = this.selectedValue;
   }
 
-  private valueChange(): void {
+  private onValueChange(): void {
     setTimeout(() => {
       this.takeValue.emit(this.selectedValue);
       this.hasBeenChanged = this.selectedValue !== this.initValue;

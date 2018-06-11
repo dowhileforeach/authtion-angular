@@ -29,10 +29,8 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.control = new FormControl();
     if (this.inputDisabled) {
-      // this.control.disable();
+      this.control.disable();
     }
-
-    console.log(`control = ${JSON.stringify(this.control)}`);
 
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe.asObservable()))
       .subscribe(value => {

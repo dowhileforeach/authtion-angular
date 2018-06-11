@@ -1,10 +1,9 @@
-<mat-slide-toggle [(ngModel)]="currentValue"
-                  [ngModelOptions]="{standalone: true}"
+<mat-slide-toggle [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
+                  [(ngModel)]="currentValue" [ngModelOptions]="{standalone: true}"
                   [matTooltip]="tooltipTxt()"
                   [color]="color"
                   [matTooltipPosition]="position"
                   [matTooltipHideDelay]=310
                   #thisTooltip="matTooltip"
-                  (click)="onClick(); thisTooltip.show();"
-                  [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }">
+                  (change)="onChange(); thisTooltip.show()">
 </mat-slide-toggle>
