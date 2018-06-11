@@ -1,0 +1,17 @@
+<mat-form-field class="dwfe-form-group-material" [formGroup]="group">
+
+  <input matInput [formControlName]="'date'"
+         [matDatepicker]="picker"
+         [placeholder]="labelText">
+
+  <mat-datepicker-toggle matSuffix
+                         [for]="picker">
+    click
+  </mat-datepicker-toggle>
+
+  <mat-datepicker [touchUi]="true"
+                  [disabled]="false"
+                  #picker>
+  </mat-datepicker>
+
+</mat-form-field>

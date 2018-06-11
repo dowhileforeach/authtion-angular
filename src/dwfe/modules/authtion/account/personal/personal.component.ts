@@ -42,6 +42,10 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
     {value: 'F', viewValue: 'Female'},
   ];
 
+  private gDateOfBirth = new FormGroup({});
+  private cDateOfBirth: AbstractControl;
+  private tDateOfBirth: boolean;
+
   constructor(private authtionService: AuthtionService) {
     super();
   }
@@ -67,6 +71,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
       this.cLastName = this.gLastName.get('txt');
       this.cLastName.setValue(this.user.lastName);
+
+      this.cDateOfBirth = this.gDateOfBirth.get('date');
 
       this.resetBackendError('cEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);

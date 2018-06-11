@@ -77,6 +77,14 @@
       </app-slide-toggle-dwfe>
     </div>
 
+    <div class="authtion-personal__group">
+      <app-date-picker-dwfe [labelText]="'Date of Birth'"
+                            (takeDateGroup)="gDateOfBirth=$event">
+      </app-date-picker-dwfe>
+      <br>
+      {{cDateOfBirth ? cDateOfBirth.value : 'none'}}
+    </div>
+
   </form>
 
 

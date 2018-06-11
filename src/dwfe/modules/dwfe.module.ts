@@ -4,26 +4,31 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {
   MatButtonModule,
+  MatDatepickerModule,
   MatDialogModule,
   MatDividerModule,
-  MatInputModule, MatSelectModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatSelectModule,
   MatSlideToggleModule,
   MatTooltipModule
 } from '@angular/material';
 
 import {AlertDwfeComponent} from '@dwfe/components/alert/alert.component';
+import {DatePickerDwfeComponent} from '@dwfe/components/form-control/date-picker/date-picker.component';
 import {InputEmailDwfeComponent} from '@dwfe/components/form-control/input-email/input-email.component';
 import {InputPasswordDwfeComponent} from '@dwfe/components/form-control/input-password/input-password.component';
 import {InputTextDwfeComponent} from '@dwfe/components/form-control/input-text/input-text.component';
+import {SelectDwfeComponent} from '@dwfe/components/form-control/select/select.component';
 import {PageNotFoundDwfeComponent} from '@dwfe/components/page-not-found/page-not-found.component';
 import {SpinnerDottedHorizontalDwfeComponent} from '@dwfe/components/spinner/spinner-dotted-horizontal/spinner-dotted-horizontal.component';
 import {SpinnerSharkFinCircleDwfeComponent} from '@dwfe/components/spinner/spinner-shark-fin-circle/spinner-shark-fin-circle.component';
 import {SlideToggleDwfeComponent} from '@dwfe/components/form-control/slide-toggle/slide-toggle.component';
-import {SelectDwfeComponent} from '@dwfe/components/form-control/select/select.component';
 
 @NgModule({
   declarations: [
     AlertDwfeComponent,
+    DatePickerDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
     InputTextDwfeComponent,
@@ -39,6 +44,8 @@ import {SelectDwfeComponent} from '@dwfe/components/form-control/select/select.c
     ReactiveFormsModule,
 
     MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     MatDividerModule,
     MatInputModule,
@@ -52,6 +59,7 @@ import {SelectDwfeComponent} from '@dwfe/components/form-control/select/select.c
     ReactiveFormsModule,
 
     AlertDwfeComponent,
+    DatePickerDwfeComponent,
     InputEmailDwfeComponent,
     InputPasswordDwfeComponent,
     InputTextDwfeComponent,
@@ -62,6 +70,8 @@ import {SelectDwfeComponent} from '@dwfe/components/form-control/select/select.c
     SpinnerSharkFinCircleDwfeComponent,
 
     MatButtonModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatDialogModule,
     MatDividerModule,
     MatInputModule,
