@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
+import {countries, genders} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionAccount, AuthtionService} from '../../services/authtion.service';
 
@@ -36,15 +37,15 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   private gender: string;
   private tGender: boolean;
-  private genders = [
-    {value: null, viewValue: 'Not selected'},
-    {value: 'M', viewValue: 'Male'},
-    {value: 'F', viewValue: 'Female'},
-  ];
+  private genders = genders;
 
   private gDateOfBirth = new FormGroup({});
   private cDateOfBirth: AbstractControl;
   private tDateOfBirth: boolean;
+
+  private country: string;
+  private tCountry: boolean;
+  private countries = countries;
 
   constructor(private authtionService: AuthtionService) {
     super();

@@ -81,8 +81,26 @@
       <app-date-picker-dwfe [labelText]="'Date of Birth'"
                             (takeDateGroup)="gDateOfBirth=$event">
       </app-date-picker-dwfe>
-      <br>
-      {{cDateOfBirth ? cDateOfBirth.value : 'none'}}
+      <!--<br>-->
+      <!--{{cDateOfBirth ? cDateOfBirth.value : 'none'}}-->
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!user.dateOfBirthNonPublic"
+                             (takeValue)="tDateOfBirth=$event">
+      </app-slide-toggle-dwfe>
+    </div>
+
+    <div class="authtion-personal__group">
+      <app-select-dwfe class="authtion-personal__group-control"
+                       [labelText]="'Country'"
+                       [items]="countries"
+                       [selectedValue]="user.country"
+                       (takeValue)="country=$event">
+      </app-select-dwfe>
+
+      <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
+                             [currentValue]="!user.countryNonPublic"
+                             (takeValue)="tCountry=$event">
+      </app-slide-toggle-dwfe>
     </div>
 
   </form>

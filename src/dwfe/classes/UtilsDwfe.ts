@@ -56,6 +56,23 @@ const dwfeServerErrorsMap = {
   'unsupported_response_type': 'Unsupported response type',
 };
 
+export const genders: { value: string, viewValue: string }[] = [
+  {value: null, viewValue: 'Not selected'},
+  {value: 'M', viewValue: 'Male'},
+  {value: 'F', viewValue: 'Female'},
+];
+
+export const countries: { value: string, viewValue: string, alpha3: string, phoneCode: string }[] = [
+  {value: null, viewValue: 'Not selected', alpha3: '', phoneCode: ''},
+  {value: 'RU', viewValue: 'Russia', alpha3: 'RUS', phoneCode: '7'},
+  {value: 'UA', viewValue: 'Ukraine', alpha3: 'UKR', phoneCode: '380'},
+  {value: 'DE', viewValue: 'Germany', alpha3: 'DEU', phoneCode: '49'},
+  {value: 'US', viewValue: 'United States', alpha3: 'USA', phoneCode: '1'},
+  {value: 'GB', viewValue: 'United Kingdom', alpha3: 'GBR', phoneCode: '44'},
+  {value: 'JP', viewValue: 'Japan', alpha3: 'JPN', phoneCode: '81'},
+];
+
+
 export class UtilsDwfe {
 
   static isEmpty(value: string): boolean {
