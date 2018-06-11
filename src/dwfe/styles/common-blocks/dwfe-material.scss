@@ -77,6 +77,12 @@ mat-tooltip-component {
     }
   }
 
+  mat-tooltip-component {
+    .mat-tooltip {
+      font-size: $font-size-x1;
+    }
+  }
+
   .authtion-account {
     .mat-tab-link {
       height: 48px;
