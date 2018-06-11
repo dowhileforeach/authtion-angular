@@ -72,6 +72,7 @@
       <div class="authtion-personal__group">
         <app-select-dwfe class="authtion-personal__group-control"
                          [labelText]="'Gender'"
+                         [markIfChanged]="true"
                          [items]="genders"
                          [selectedValue]="user.gender"
                          (takeValue)="gender=$event">
@@ -98,6 +99,7 @@
       <div class="authtion-personal__group">
         <app-select-dwfe class="authtion-personal__group-control"
                          [labelText]="'Country'"
+                         [markIfChanged]="true"
                          [items]="countries"
                          [selectedValue]="user.country"
                          (takeValue)="country=$event">

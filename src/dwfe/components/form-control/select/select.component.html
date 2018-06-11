@@ -1,8 +1,10 @@
-<mat-form-field class="dwfe-form-group-material" [appearance]="appearanceValue">
+<mat-form-field class="dwfe-form-group-material"
+                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
+                [appearance]="appearanceValue">
 
   <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}"
               [placeholder]="labelText"
-              (selectionChange)="onSelect()">
+              (valueChange)="valueChange()">
 
     <mat-option *ngFor="let item of items" [value]="item.value">
       {{item.viewValue}}

@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-select-dwfe',
   templateUrl: './select.component.html'
 })
-export class SelectDwfeComponent {
+export class SelectDwfeComponent implements OnInit {
 
   @Input() private selectedValue: string;
   @Input() private appearanceValue = ''; // 'fill', 'standard', 'outline', and ''
@@ -13,7 +13,19 @@ export class SelectDwfeComponent {
 
   @Output() private takeValue = new EventEmitter<string>();
 
-  private onSelect(): void {
-    this.takeValue.emit(this.selectedValue);
+  @Input() private markIfChanged = false;
+  private initValue: string;
+  private hasBeenChanged = false;
+  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
+
+  ngOnInit(): void {
+    this.initValue = this.selectedValue;
+  }
+
+  private valueChange(): void {
+    setTimeout(() => {
+      this.takeValue.emit(this.selectedValue);
+      this.hasBeenChanged = this.selectedValue !== this.initValue;
+    }, 10);
   }
 }

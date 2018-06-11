@@ -1,7 +1,10 @@
-<mat-form-field class="dwfe-form-group-material" [appearance]="appearanceValue" [formGroup]="group">
+<mat-form-field class="dwfe-form-group-material"
+                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
+                [appearance]="appearanceValue"
+                [formGroup]="group">
 
   <input type="text" matInput [formControlName]="'txt'"
-         [ngClass]="{ 'filled': textControl.value }"
+         [ngClass]="{ 'filled': control.value }"
          [errorStateMatcher]="matcher"
          [tabindex]="tabIndexValue">
 

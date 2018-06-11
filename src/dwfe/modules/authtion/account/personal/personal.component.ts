@@ -90,6 +90,13 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.cCompany.setValue(this.user.company);
 
       this.resetBackendError('cEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
   }
 }

@@ -65,6 +65,12 @@ mat-tooltip-component {
   }
 }
 
+.dwfe-form-group-material.hasBeenChanged {
+  .mat-form-field-flex {
+    background-color: $color-lily-white-approx;
+  }
+}
+
 //
 // ADAPTIVE
 //
