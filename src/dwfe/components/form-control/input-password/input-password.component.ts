@@ -16,6 +16,7 @@ export class InputPasswordDwfeComponent implements OnInit {
   @Output() private takePasswordGroup = new EventEmitter<FormGroup>();
   private passwordControl: FormControl;
 
+  @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Password';
   @Input() private hintText = '';
 

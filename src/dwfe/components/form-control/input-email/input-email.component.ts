@@ -17,6 +17,7 @@ export class InputEmailDwfeComponent implements OnInit {
   @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
   private emailControl: FormControl;
 
+  @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Email';
   @Input() private hintText = '';
 

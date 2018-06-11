@@ -320,6 +320,12 @@ export class AuthtionAccount {
   private _country: string;
   private _countryNonPublic: boolean;
 
+  private _city: string;
+  private _cityNonPublic: boolean;
+
+  private _company: string;
+  private _companyNonPublic: boolean;
+
   static get storageKey(): string {
     return 'accountData';
   }
@@ -412,6 +418,22 @@ export class AuthtionAccount {
     return this._countryNonPublic;
   }
 
+  get city(): string {
+    return this._city;
+  }
+
+  get cityNonPublic(): boolean {
+    return this._cityNonPublic;
+  }
+
+  get company(): string {
+    return this._company;
+  }
+
+  get companyNonPublic(): boolean {
+    return this._companyNonPublic;
+  }
+
   public static of(data): AuthtionAccount {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
@@ -457,6 +479,12 @@ export class AuthtionAccount {
     obj._country = data['country'];
     obj._countryNonPublic = data['countryNonPublic'];
 
+    obj._city = data['city'];
+    obj._cityNonPublic = data['cityNonPublic'];
+
+    obj._company = data['company'];
+    obj._companyNonPublic = data['companyNonPublic'];
+
     obj.saveInStorage();
     return obj;
   }
@@ -500,6 +528,12 @@ export class AuthtionAccount {
 
         obj._country = parsed._country;
         obj._countryNonPublic = parsed._countryNonPublic;
+
+        obj._city = parsed._city;
+        obj._cityNonPublic = parsed._cityNonPublic;
+
+        obj._company = parsed._company;
+        obj._companyNonPublic = parsed._companyNonPublic;
       }
     } catch (e) {
       return null;

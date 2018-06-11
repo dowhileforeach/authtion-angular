@@ -7,6 +7,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class SelectDwfeComponent {
 
   @Input() private selectedValue: string;
+  @Input() private appearanceValue = ''; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = '';
   @Input() private items: { value: string, viewValue: string }[];
 

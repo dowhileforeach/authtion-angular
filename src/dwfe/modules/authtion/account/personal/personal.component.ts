@@ -47,6 +47,14 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private tCountry: boolean;
   private countries = countries;
 
+  private gCity = new FormGroup({});
+  private cCity: AbstractControl;
+  private tCity: boolean;
+
+  private gCompany = new FormGroup({});
+  private cCompany: AbstractControl;
+  private tCompany: boolean;
+
   constructor(private authtionService: AuthtionService) {
     super();
   }
@@ -74,6 +82,12 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.cLastName.setValue(this.user.lastName);
 
       this.cDateOfBirth = this.gDateOfBirth.get('date');
+
+      this.cCity = this.gCity.get('txt');
+      this.cCity.setValue(this.user.city);
+
+      this.cCompany = this.gCompany.get('txt');
+      this.cCompany.setValue(this.user.company);
 
       this.resetBackendError('cEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);

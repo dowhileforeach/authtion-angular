@@ -1,4 +1,4 @@
-<mat-form-field class="dwfe-form-group-material" appearance="fill" [formGroup]="group">
+<mat-form-field class="dwfe-form-group-material" [appearance]="appearanceValue" [formGroup]="group">
 
   <input type="email" matInput [formControlName]="'email'"
          [ngClass]="{ 'filled': emailControl.value }"

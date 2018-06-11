@@ -13,6 +13,7 @@ export class InputTextDwfeComponent implements OnInit {
   @Output() private takeTextGroup = new EventEmitter<FormGroup>();
   private textControl: FormControl;
 
+  @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Just text field';
 
   @Input() private tabIndexValue = 0;
