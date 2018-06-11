@@ -1,6 +1,14 @@
 @import "../../../../styles/common-blocks/dwfe-pref";
 
 .authtion-personal {
+  h2 {
+    margin-bottom: 17px;
+  }
+}
+
+.dwfe-form {
+  width: 100%;
+  margin: 0 0 $form-std-indent;
 }
 
 .authtion-personal__group {
@@ -12,7 +20,7 @@
 
 .authtion-personal__group-control {
   flex-grow: 1;
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 .authtion-personal__group-vis-checker {
@@ -20,16 +28,30 @@
   margin-left: auto;
 }
 
-.dwfe-form {
-  width: 100%;
-  margin: 0 0 $form-std-indent;
-}
-
 //
 // ADAPTIVE
 //
 @include media-tablet {
-  .dwfe-form {
-    width: $dialog-width + 50px;
+  .authtion-personal {
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+
+  .authtion-personal__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .authtion-personal__form-wrap-left {
+    margin-right: 110px;
+  }
+}
+
+@include media-desktop {
+  .authtion-personal__form-wrap-left {
+    margin-right: 125px;
   }
 }
