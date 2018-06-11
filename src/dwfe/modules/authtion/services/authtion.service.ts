@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
@@ -473,7 +473,7 @@ export class AuthtionAccount {
     obj._gender = data['gender'];
     obj._genderNonPublic = data['genderNonPublic'];
 
-    obj._dateOfBirth = data['dateOfBirth'];
+    obj._dateOfBirth = data['dateOfBirth'] ? new Date(data['dateOfBirth']) : null;
     obj._dateOfBirthNonPublic = data['dateOfBirthNonPublic'];
 
     obj._country = data['country'];

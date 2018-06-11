@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
+import {Router} from '@angular/router';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {countries, genders} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionAccount, AuthtionService} from '../../services/authtion.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-authtion-personal',
