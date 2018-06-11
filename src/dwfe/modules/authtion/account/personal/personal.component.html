@@ -8,11 +8,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'Email'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gEmail=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.emailNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tEmail=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -20,11 +22,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'Nick Name'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gNickName=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.nickNameNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tNickName=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -32,11 +36,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'First Name'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gFirstName=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.firstNameNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tFirstName=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -44,11 +50,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'Middle Name'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gMiddleName=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.middleNameNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tMiddleName=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -56,11 +64,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'Last Name'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gLastName=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.lastNameNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tLastName=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -80,6 +90,7 @@
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.genderNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tGender=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -92,6 +103,7 @@
         <!--{{cDateOfBirth ? cDateOfBirth.value : 'none'}}-->
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.dateOfBirthNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tDateOfBirth=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -107,6 +119,7 @@
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.countryNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tCountry=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -114,11 +127,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'City'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gCity=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.cityNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tCity=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -126,11 +141,13 @@
       <div class="authtion-personal__group">
         <app-input-text-dwfe class="authtion-personal__group-control" [appearanceValue]="'outline'"
                              [labelText]="'Company'"
+                             [markIfChanged]="true"
                              (takeTextGroup)="gCompany=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
                                [currentValue]="!user.companyNonPublic"
+                               [markIfChanged]="true"
                                (takeValue)="tCompany=$event">
         </app-slide-toggle-dwfe>
       </div>

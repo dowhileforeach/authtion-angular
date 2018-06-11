@@ -15,7 +15,7 @@ export class InputTextDwfeComponent implements OnInit, OnDestroy {
   @Output() private takeTextGroup = new EventEmitter<FormGroup>();
   private control: FormControl;
 
-  @Input() private markIfChanged = true;
+  @Input() private markIfChanged = false;
   private isFirstChange = true;
   private initValue: string;
   private hasBeenChanged = false;

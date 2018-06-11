@@ -26,6 +26,7 @@ export class SelectDwfeComponent implements OnInit {
     setTimeout(() => {
       this.takeValue.emit(this.selectedValue);
       this.hasBeenChanged = this.selectedValue !== this.initValue;
+      this.takeHasBeenChanged.emit(this.hasBeenChanged);
     }, 10);
   }
 }

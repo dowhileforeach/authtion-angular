@@ -13,8 +13,14 @@ export class SlideToggleDwfeComponent implements OnInit {
 
   @Output() private takeValue = new EventEmitter<boolean>();
 
+  @Input() private markIfChanged = false;
+  private initValue: boolean;
+  private hasBeenChanged = false;
+  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
+
   ngOnInit(): void {
     this.takeValue.emit(this.currentValue);
+    this.initValue = this.currentValue;
   }
 
   private tooltipTxt(): string {
@@ -22,8 +28,10 @@ export class SlideToggleDwfeComponent implements OnInit {
   }
 
   private onClick(): void {
-    setTimeout(() =>
-        this.takeValue.emit(this.currentValue)
-      , 10); // https://stackoverflow.com/questions/42793095/angular2-md-slide-toggle-displays-the-wrong-value#42794060
+    setTimeout(() => {
+      this.takeValue.emit(this.currentValue);
+      this.hasBeenChanged = this.currentValue !== this.initValue;
+      this.takeHasBeenChanged.emit(this.hasBeenChanged);
+    }, 10); // https://stackoverflow.com/questions/42793095/angular2-md-slide-toggle-displays-the-wrong-value#42794060
   }
 }

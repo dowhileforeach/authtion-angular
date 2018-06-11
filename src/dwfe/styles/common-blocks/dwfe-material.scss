@@ -67,8 +67,12 @@ mat-tooltip-component {
 
 .dwfe-form-group-material.hasBeenChanged {
   .mat-form-field-flex {
-    background-color: $color-lily-white-approx;
+    background-color: $color-pattence-blue-approx;
   }
+}
+
+mat-slide-toggle.hasBeenChanged{
+  background-color: $color-pattence-blue-approx;
 }
 
 //

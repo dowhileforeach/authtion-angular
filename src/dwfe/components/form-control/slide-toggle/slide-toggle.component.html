@@ -5,5 +5,6 @@
                   [matTooltipPosition]="position"
                   [matTooltipHideDelay]=310
                   #thisTooltip="matTooltip"
-                  (click)="onClick(); thisTooltip.show();">
+                  (click)="onClick(); thisTooltip.show();"
+                  [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }">
 </mat-slide-toggle>
