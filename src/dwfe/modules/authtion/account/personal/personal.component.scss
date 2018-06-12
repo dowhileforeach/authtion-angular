@@ -20,12 +20,12 @@
 
 .authtion-personal__group-control {
   flex-grow: 1;
-  margin-right: 20px;
 }
 
 .authtion-personal__group-vis-checker {
+  flex-shrink: 0;
   margin-top: 20px;
-  margin-left: auto;
+  margin-left: 20px;
 }
 
 //
@@ -45,13 +45,21 @@
     align-items: flex-start;
   }
 
-  .authtion-personal__form-wrap-left {
-    margin-right: 110px;
+  .authtion-personal__form-wrap{
+    width: 44%;
+  }
+
+  .authtion-personal__form-wrap:last-child {
+    margin-left: auto;
   }
 }
 
 @include media-desktop {
-  .authtion-personal__form-wrap-left {
-    margin-right: 125px;
+  .authtion-personal__form-wrap{
+    width: 32%;
+  }
+
+  .authtion-personal__form-wrap:last-child {
+    margin-left: 125px;
   }
 }

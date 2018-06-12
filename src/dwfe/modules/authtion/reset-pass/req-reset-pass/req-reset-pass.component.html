@@ -7,7 +7,7 @@
                           [labelText]="'Email associated with your Account'"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [reverseHandleRespFromBackend]="true"
-                          (takeEmailGroup)="groupAccountEmail=$event"
+                          (takeGroup)="groupAccountEmail=$event"
                           #refAccountEmail>
     </app-input-email-dwfe>
 

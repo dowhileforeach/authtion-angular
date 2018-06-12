@@ -13,8 +13,8 @@ export class InputPasswordDwfeComponent implements OnInit {
   private maxLength = 55;
 
   private group: FormGroup;
-  @Output() private takePasswordGroup = new EventEmitter<FormGroup>();
-  private passwordControl: FormControl;
+  private control: FormControl;
+  @Output() private takeGroup = new EventEmitter<FormGroup>();
 
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Password';
@@ -27,17 +27,17 @@ export class InputPasswordDwfeComponent implements OnInit {
   private hide = true;
 
   ngOnInit() {
-    this.passwordControl = new FormControl('', [
+    this.control = new FormControl('', [
       Validators.required,
       Validators.minLength(this.minLength),
       Validators.maxLength(this.maxLength),
     ]);
 
     this.group = new FormGroup({
-      'password': this.passwordControl
+      'password': this.control
     });
 
-    this.takePasswordGroup.emit(this.group);
+    this.takeGroup.emit(this.group);
   }
 
   private switchHide(): void {

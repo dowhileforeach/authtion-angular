@@ -67,12 +67,23 @@ mat-tooltip-component {
 
 .dwfe-form-group-material.hasBeenChanged {
   .mat-form-field-flex {
-    background-color: $color-sail-approx;
+    background-color: $color-sail-approx; // input-text.component.html, select.component.html, date-picker.component.html
   }
 }
 
 mat-slide-toggle.hasBeenChanged {
-  background-color: $color-sail-approx;
+  background-color: $color-sail-approx; // slide-toggle.component.html
+}
+
+.mat-form-field:not(.mat-form-field-appearance-legacy) {
+  .mat-form-field-suffix {
+    .mat-datepicker-toggle {
+      svg.mat-datepicker-toggle-default-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
 }
 
 //
@@ -100,5 +111,4 @@ mat-slide-toggle.hasBeenChanged {
       font-size: $font-size-x2;
     }
   }
-
 }

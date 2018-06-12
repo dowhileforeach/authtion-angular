@@ -31,12 +31,12 @@
           <app-input-email-dwfe class="dwfe-form__item"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
-                                (takeEmailGroup)="groupLoginEmail=$event"
+                                (takeGroup)="groupLoginEmail=$event"
                                 #refLoginEmail>
           </app-input-email-dwfe>
 
           <app-input-password-dwfe class="dwfe-form__item"
-                                   (takePasswordGroup)="groupLoginPassword=$event"
+                                   (takeGroup)="groupLoginPassword=$event"
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
@@ -71,7 +71,7 @@
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [tabIndexValue]="-1"
                                 [hintText]="'*Password will be sent to your email'"
-                                (takeEmailGroup)="groupCreateAccountEmail=$event"
+                                (takeGroup)="groupCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 

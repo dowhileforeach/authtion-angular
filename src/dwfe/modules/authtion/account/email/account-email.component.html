@@ -2,9 +2,9 @@
 
   <form class="dwfe-form" spellcheck="false">
 
-    <app-input-text-dwfe class="authtion-account-email__current-email" [appearanceValue]="'outline'"
+    <app-input-text-dwfe class="authtion-account-email__current-email"
                          [labelText]="'Email'"
-                         (takeTextGroup)="groupCurrentEmail=$event">
+                         (takeGroup)="groupCurrentEmail=$event">
     </app-input-text-dwfe>
 
     <h2>Change Email</h2>
@@ -12,13 +12,13 @@
     <app-input-email-dwfe class="dwfe-form__item"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [labelText]="'New Email'"
-                          (takeEmailGroup)="groupNewEmail=$event"
+                          (takeGroup)="groupNewEmail=$event"
                           #refNewEmail>
     </app-input-email-dwfe>
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'Your Current Password'"
-                             (takePasswordGroup)="groupCurrentPassword=$event"
+                             (takeGroup)="groupCurrentPassword=$event"
                              #refCurrentPassword>
     </app-input-password-dwfe>
 

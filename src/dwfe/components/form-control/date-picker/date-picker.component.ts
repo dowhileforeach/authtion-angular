@@ -11,9 +11,10 @@ import {takeUntil} from 'rxjs/operators';
 export class DatePickerDwfeComponent implements OnInit, OnDestroy {
 
   private group: FormGroup;
-  @Output() private takeDateGroup = new EventEmitter<FormGroup>();
   private control: FormControl;
+  @Output() private takeGroup = new EventEmitter<FormGroup>();
 
+  @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Choose a date';
 
   @Input() private inputDisabled = true;
@@ -47,7 +48,7 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
       'date': this.control
     });
 
-    this.takeDateGroup.emit(this.group);
+    this.takeGroup.emit(this.group);
   }
 
   ngOnDestroy(): void {

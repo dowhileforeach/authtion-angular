@@ -14,8 +14,8 @@ export class InputEmailDwfeComponent implements OnInit {
   @Input() private maxLength = 50;
 
   private group: FormGroup;
-  @Output() private takeEmailGroup = new EventEmitter<FormGroup>();
-  private emailControl: FormControl;
+  private control: FormControl;
+  @Output() private takeGroup = new EventEmitter<FormGroup>();
 
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Email';
@@ -31,7 +31,7 @@ export class InputEmailDwfeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.emailControl = new FormControl('', [
+    this.control = new FormControl('', [
       Validators.required,
       Validators.pattern(this.PATTERN),
       Validators.maxLength(this.maxLength),
@@ -40,15 +40,15 @@ export class InputEmailDwfeComponent implements OnInit {
     ]);
 
     this.group = new FormGroup({
-      'email': this.emailControl
+      'email': this.control
     });
 
-    this.takeEmailGroup.emit(this.group);
+    this.takeGroup.emit(this.group);
   }
 
   private backendValidator() {
     return this.externalBackendValidator ?
-      this.externalBackendValidator(this.emailControl.value, this.reverseHandleRespFromBackend)
+      this.externalBackendValidator(this.control.value, this.reverseHandleRespFromBackend)
       : null;
   }
 }

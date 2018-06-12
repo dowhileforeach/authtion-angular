@@ -13,8 +13,8 @@ import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
 export class InputTextDwfeComponent implements OnInit, OnDestroy {
 
   private group: FormGroup;
-  @Output() private takeTextGroup = new EventEmitter<FormGroup>();
   private control: FormControl;
+  @Output() private takeGroup = new EventEmitter<FormGroup>();
 
   @Input() private markIfChanged = false;
   private isFirstChange = true;
@@ -54,7 +54,7 @@ export class InputTextDwfeComponent implements OnInit, OnDestroy {
       'txt': this.control
     });
 
-    this.takeTextGroup.emit(this.group);
+    this.takeGroup.emit(this.group);
   }
 
   ngOnDestroy(): void {
