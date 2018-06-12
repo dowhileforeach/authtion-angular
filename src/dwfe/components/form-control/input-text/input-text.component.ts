@@ -1,26 +1,19 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
-
-import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
+import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 
 @Component({
   selector: 'app-input-text-dwfe',
   templateUrl: './input-text.component.html'
 })
-export class InputTextDwfeComponent implements OnInit, OnDestroy {
+export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
   private group: FormGroup;
   private control: FormControl;
   @Output() private takeGroup = new EventEmitter<FormGroup>();
-
-  @Input() private markIfChanged = false;
-  private isFirstChange = true;
-  private initValue: string;
-  private hasBeenChanged = false;
-  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
 
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Just text field';
@@ -29,12 +22,11 @@ export class InputTextDwfeComponent implements OnInit, OnDestroy {
 
   private matcher = new MyErrorStateMatcherDwfe();
 
-  private latchForUnsubscribe = new Subject();
-
   ngOnInit(): void {
-    this.control = new FormControl('', []);
+    super.ngOnInit();
 
-    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe.asObservable()))
+    this.control = new FormControl('', []);
+    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
       .subscribe(value => {
         if (this.isFirstChange) {
           this.isFirstChange = false;
@@ -57,7 +49,9 @@ export class InputTextDwfeComponent implements OnInit, OnDestroy {
     this.takeGroup.emit(this.group);
   }
 
-  ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
+  cancel(value): void {
+    if (value) {
+      this.control.setValue(this.initValue);
+    }
   }
 }

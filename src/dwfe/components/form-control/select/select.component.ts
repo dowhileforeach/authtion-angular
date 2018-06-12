@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 
 @Component({
   selector: 'app-select-dwfe',
   templateUrl: './select.component.html'
 })
-export class SelectDwfeComponent implements OnInit {
+export class SelectDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
   @Input() private selectedValue: string;
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
@@ -13,20 +14,27 @@ export class SelectDwfeComponent implements OnInit {
 
   @Output() private takeValue = new EventEmitter<string>();
 
-  @Input() private markIfChanged = false;
-  private initValue: string;
-  private hasBeenChanged = false;
-  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
-
   ngOnInit(): void {
+    super.ngOnInit();
     this.initValue = this.selectedValue;
   }
 
   private onValueChange(): void {
     setTimeout(() => {
       this.takeValue.emit(this.selectedValue);
-      this.hasBeenChanged = this.selectedValue !== this.initValue;
-      this.takeHasBeenChanged.emit(this.hasBeenChanged);
+      this.setHasBeenChanged(this.selectedValue !== this.initValue);
     }, 10);
+  }
+
+  private setHasBeenChanged(value): void {
+    this.hasBeenChanged = value;
+    this.takeHasBeenChanged.emit(value);
+  }
+
+  cancel(value): void {
+    if (value) {
+      this.selectedValue = this.initValue;
+      this.setHasBeenChanged(false);
+    }
   }
 }

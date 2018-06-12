@@ -1,10 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 
 @Component({
   selector: 'app-slide-toggle-dwfe',
   templateUrl: './slide-toggle.component.html',
 })
-export class SlideToggleDwfeComponent implements OnInit {
+export class SlideToggleDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
   @Input() private currentValue: boolean;
   @Input() private position = 'above';
@@ -13,12 +14,8 @@ export class SlideToggleDwfeComponent implements OnInit {
 
   @Output() private takeValue = new EventEmitter<boolean>();
 
-  @Input() private markIfChanged = false;
-  private initValue: boolean;
-  private hasBeenChanged = false;
-  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
-
   ngOnInit(): void {
+    super.ngOnInit();
     this.takeValue.emit(this.currentValue);
     this.initValue = this.currentValue;
   }
@@ -27,11 +24,22 @@ export class SlideToggleDwfeComponent implements OnInit {
     return this.currentValue ? this.tooltipText : 'not ' + this.tooltipText;
   }
 
-  onChange() {
+  private onChange() {
     setTimeout(() => {
       this.takeValue.emit(this.currentValue);
-      this.hasBeenChanged = this.currentValue !== this.initValue;
-      this.takeHasBeenChanged.emit(this.hasBeenChanged);
+      this.setHasBeenChanged(this.currentValue !== this.initValue);
     }, 10); // https://stackoverflow.com/questions/42793095/angular2-md-slide-toggle-displays-the-wrong-value#42794060
+  }
+
+  private setHasBeenChanged(value): void {
+    this.hasBeenChanged = value;
+    this.takeHasBeenChanged.emit(value);
+  }
+
+  cancel(value): void {
+    if (value) {
+      this.currentValue = this.initValue;
+      this.setHasBeenChanged(false);
+    }
   }
 }

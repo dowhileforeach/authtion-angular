@@ -1,14 +1,15 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 
-import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 
 @Component({
   selector: 'app-date-picker-dwfe',
   templateUrl: './date-picker.component.html'
 })
-export class DatePickerDwfeComponent implements OnInit, OnDestroy {
+export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
   private group: FormGroup;
   private control: FormControl;
@@ -19,21 +20,15 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
 
   @Input() private inputDisabled = false;
 
-  @Input() private markIfChanged = false;
-  private isFirstChange = true;
-  private initValue: Date;
-  private hasBeenChanged = false;
-  @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
-
-  private latchForUnsubscribe = new Subject();
-
   ngOnInit(): void {
+    super.ngOnInit();
+
     this.control = new FormControl();
     if (this.inputDisabled) {
       this.control.disable();
     }
 
-    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe.asObservable()))
+    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
       .subscribe((value: Date) => {
         if (this.isFirstChange) {
           this.isFirstChange = false;
@@ -55,7 +50,9 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
     this.takeGroup.emit(this.group);
   }
 
-  ngOnDestroy(): void {
-    this.latchForUnsubscribe.next();
+  cancel(value): void {
+    if (value) {
+      this.control.setValue(this.initValue);
+    }
   }
 }
