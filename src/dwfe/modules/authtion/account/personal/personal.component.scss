@@ -28,6 +28,20 @@
   margin-left: 20px;
 }
 
+.authtion-personal__action-wrap {
+  width: 210px;
+  margin-bottom: $form-std-indent;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.authtion-personal__action:not(:last-child) {
+  margin-right: 20px;
+}
+
 //
 // ADAPTIVE
 //
@@ -45,7 +59,7 @@
     align-items: flex-start;
   }
 
-  .authtion-personal__form-wrap{
+  .authtion-personal__form-wrap {
     width: 44%;
   }
 
@@ -55,7 +69,7 @@
 }
 
 @include media-desktop {
-  .authtion-personal__form-wrap{
+  .authtion-personal__form-wrap {
     width: 32%;
   }
 
