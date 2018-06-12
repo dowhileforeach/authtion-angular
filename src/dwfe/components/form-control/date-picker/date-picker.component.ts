@@ -21,7 +21,7 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
 
   @Input() private markIfChanged = false;
   private isFirstChange = true;
-  private initValue: string;
+  private initValue: Date;
   private hasBeenChanged = false;
   @Output() private takeHasBeenChanged = new EventEmitter<boolean>();
 
@@ -34,13 +34,17 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
     }
 
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe.asObservable()))
-      .subscribe(value => {
+      .subscribe((value: Date) => {
         if (this.isFirstChange) {
           this.isFirstChange = false;
           this.initValue = value;
           return;
         }
-        this.hasBeenChanged = value !== this.initValue;
+        if (value && this.initValue) {
+          this.hasBeenChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
+        } else {
+          this.hasBeenChanged = value !== this.initValue;
+        }
         this.takeHasBeenChanged.emit(this.hasBeenChanged);
       });
 
