@@ -17,7 +17,7 @@ export class DatePickerDwfeComponent implements OnInit, OnDestroy {
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Choose a date';
 
-  @Input() private inputDisabled = true;
+  @Input() private inputDisabled = false;
 
   @Input() private markIfChanged = false;
   private isFirstChange = true;
