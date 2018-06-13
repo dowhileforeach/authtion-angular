@@ -8,14 +8,13 @@
   @include fonts4($font-size-x3, $font-height-normal, $font-weight-normal, normal);
 
   &.mat-form-field-appearance-fill {
-    .mat-form-field-infix {
-      input { // email, password, text, date-picker
-        &.filled ~ .icon-clear-field {
-          display: inline-block;
-        }
-      }
-    }
+    //input { // email, password, text, date-picker
+    //  &.filled ~ .icon-clear-field {
+    //    display: inline-block;
+    //  }
+    //}
     &.filled {
+      input ~ .icon-clear-field,
       mat-select ~ .icon-clear-field { // select
         display: inline-block;
       }

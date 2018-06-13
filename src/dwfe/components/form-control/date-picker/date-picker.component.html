@@ -1,11 +1,10 @@
-<mat-form-field class="dwfe-form-group-material"
-                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
-                [formGroup]="group"
+<mat-form-field class="dwfe-form-group-material" [formGroup]="group"
+                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged,
+                             'filled':         control.value }"
                 [appearance]="appearanceValue">
 
   <input matInput [formControlName]="'ctrl'"
-         [matDatepicker]="picker"
-         [ngClass]="{ 'filled': control.value !==null }">
+         [matDatepicker]="picker">
 
   <mat-label>{{labelText}}</mat-label>
 
