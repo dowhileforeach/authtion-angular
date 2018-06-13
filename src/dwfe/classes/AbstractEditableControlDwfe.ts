@@ -23,6 +23,7 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   @Input() protected initValue: any;
   protected isFirstChange = true;
   protected hasBeenChanged = false;
+  protected compareAs = '';
   @Output() protected takeHasBeenChanged = new EventEmitter<boolean>();
 
   @Input() protected cancelEdit$: Observable<boolean>;
@@ -42,13 +43,32 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
       this.control.disable();
     }
 
-    this.takeGroup.emit(this.group);
-    this.takeControl.emit(this.control);
+    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe)).subscribe((value: any) => {
+      if (this.doINeedToCheck(value)) {
+
+        let hasBeenChanged = value !== this.initValue;
+
+        if (this.compareAs === 'textField') {
+          if (!this.initValue && value === '') {
+            hasBeenChanged = false; // if init=null and has been changed to ''
+          }
+        } else if (this.compareAs === 'dateField') {
+          if (value && this.initValue) {
+            hasBeenChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
+          }
+        }
+
+        this.setHasBeenChanged(hasBeenChanged);
+      }
+    });
 
     if (this.cancelEdit$) {
       this.cancelEdit$.pipe(takeUntil(this.latchForUnsubscribe))
         .subscribe(value => this.cancelEdit(value));
     }
+
+    this.takeGroup.emit(this.group);
+    this.takeControl.emit(this.control);
   }
 
   ngOnDestroy(): void {
@@ -64,5 +84,14 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     if (value) {
       this.control.setValue(this.initValue);
     }
+  }
+
+  protected doINeedToCheck(value): boolean {
+    if (this.isFirstChange) {
+      this.isFirstChange = false;
+      this.initValue = value;
+      return false;
+    }
+    return true;
   }
 }

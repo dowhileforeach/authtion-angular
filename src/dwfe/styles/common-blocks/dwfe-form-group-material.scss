@@ -9,10 +9,15 @@
 
   &.mat-form-field-appearance-fill {
     .mat-form-field-infix {
-      input {
+      input { // email, password, text, date-picker
         &.filled ~ .icon-clear-field {
           display: inline-block;
         }
+      }
+    }
+    &.filled {
+      mat-select ~ .icon-clear-field { // select
+        display: inline-block;
       }
     }
     .mat-form-field-subscript-wrapper {
@@ -24,23 +29,11 @@
 
   .icon-clear-field {
     display: none;
-    width: 13px;
-    height: 13px;
-    fill: $color-mine-shaft;
 
     position: absolute;
     z-index: 300;
     top: -20px;
     right: -7px;
-
-    user-select: none;
-    cursor: pointer;
-    transition: opacity 0.15s ease;
-    opacity: 0.3;
-
-    &:hover {
-      opacity: 0.95;
-    }
   }
 
   .icon-clear-field--password {

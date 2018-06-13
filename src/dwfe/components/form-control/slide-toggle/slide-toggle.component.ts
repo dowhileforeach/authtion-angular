@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {takeUntil} from 'rxjs/operators';
-
 import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControlDwfe';
 
 @Component({
@@ -14,17 +12,7 @@ export class SlideToggleDwfeComponent extends AbstractEditableControlDwfe implem
   @Input() private color = 'primary';
 
   ngOnInit(): void {
-    super.ngOnInit();
-
-    this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
-      .subscribe((value: boolean) => {
-        if (this.isFirstChange) {
-          this.isFirstChange = false;
-          this.initValue = value;
-          return;
-        }
-        this.setHasBeenChanged(value !== this.initValue);
-      });
+    super.ngOnInit(); // here it is just in case
   }
 
   private tooltipTxt(): string {

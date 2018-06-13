@@ -19,6 +19,8 @@ export class InputPasswordDwfeComponent extends AbstractEditableControlDwfe impl
     Validators.maxLength(this.maxLength),
   ];
 
+  protected compareAs = 'textField';
+
   private hideCharacters = true;
 
   private matcher = new MyErrorStateMatcherDwfe();

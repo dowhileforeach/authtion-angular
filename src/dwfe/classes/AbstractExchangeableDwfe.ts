@@ -53,7 +53,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
     return this.subjIsCaptchaValid.asObservable();
   }
 
-  get isCaptchaValidWithDelay$(): Observable<boolean> {
+  get isCaptchaValidWithDelay$(): Observable<boolean> {  // some workaround
     return this.subjIsCaptchaValidWithDelay.asObservable();
   }
 }

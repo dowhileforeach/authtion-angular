@@ -28,6 +28,8 @@ export class InputEmailDwfeComponent extends AbstractEditableControlDwfe impleme
     this.backendValidator.bind(this),
   ];
 
+  protected compareAs = 'textField';
+
   private matcher = new MyErrorStateMatcherDwfe();
 
   ngOnInit(): void {

@@ -1,5 +1,6 @@
 <mat-form-field class="dwfe-form-group-material" [formGroup]="group"
-                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
+                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged,
+                             'filled':         control.value }"
                 [appearance]="appearanceValue">
 
   <mat-label>{{labelText}}</mat-label>
@@ -11,5 +12,7 @@
     </mat-option>
 
   </mat-select>
+
+  <app-clear-control-dwfe class="icon-clear-field" [control]="control"></app-clear-control-dwfe>
 
 </mat-form-field>
