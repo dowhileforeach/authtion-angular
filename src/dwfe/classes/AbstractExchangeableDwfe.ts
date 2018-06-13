@@ -28,7 +28,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
     return this._latchForUnsubscribe.asObservable();
   }
 
-  public setLocked(value: boolean): void {
+  setLocked(value: boolean): void {
     this.isLocked = value;
     this.subjIsLocked.next(value);
     if (value) {
@@ -36,24 +36,24 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
     }
   }
 
-  public getIsLocked$(): Observable<boolean> {
+  isLocked$(): Observable<boolean> {
     return this.subjIsLocked.asObservable();
   }
 
-  public setErrorMessage(value: string): void {
+  setErrorMessage(value: string): void {
     this.errorMessage = value;
   }
 
-  public setCaptchaValid(value: boolean): void {
+  setCaptchaValid(value: boolean): void {
     this.subjIsCaptchaValid.next(value);
     setTimeout(() => this.subjIsCaptchaValidWithDelay.next(value), 20);
   }
 
-  public get isCaptchaValid$(): Observable<boolean> {
+  get isCaptchaValid$(): Observable<boolean> {
     return this.subjIsCaptchaValid.asObservable();
   }
 
-  public get isCaptchaValidWithDelay$(): Observable<boolean> {
+  get isCaptchaValidWithDelay$(): Observable<boolean> {
     return this.subjIsCaptchaValidWithDelay.asObservable();
   }
 }
@@ -61,7 +61,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
 export interface ExchangeableDwfe {
   setLocked(value: boolean): void;
 
-  getIsLocked$(): Observable<boolean>;
+  isLocked$(): Observable<boolean>;
 
   setErrorMessage(value: string): void;
 

@@ -40,7 +40,7 @@ export class AuthtionService {
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjSignIn = new Subject<ResultWithDescription>();
 
-  public redirectUrl: string;
+  redirectUrl: string;
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -214,7 +214,7 @@ class AuthtionCredentials {
     return this._refreshToken;
   }
 
-  public static of(authtionService: AuthtionService, data): AuthtionCredentials {
+  static of(authtionService: AuthtionService, data): AuthtionCredentials {
     const obj = new AuthtionCredentials();
     obj._instanceID = UtilsDwfe.randomStr(15);
     obj._date = new Date();
@@ -228,7 +228,7 @@ class AuthtionCredentials {
     return obj;
   }
 
-  public static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
+  static fromStorage(authtionService: AuthtionService): AuthtionCredentials {
     let obj = null;
 
     try {
@@ -256,7 +256,7 @@ class AuthtionCredentials {
     return obj;
   }
 
-  public static removeFromStorage(): void {
+  static removeFromStorage(): void {
     try {
       localStorage.removeItem(AuthtionCredentials.storageKey);
     } catch (e) {
@@ -270,15 +270,15 @@ class AuthtionCredentials {
     }
   }
 
-  public equals(obj): boolean {
+  equals(obj): boolean {
     return this.instanceID === obj.instanceID;
   }
 
-  public get90PercentFromTimeWhenTokenValid(): number {
+  get90PercentFromTimeWhenTokenValid(): number {
     return Math.round((this.expiresIn - Date.now()) * 0.9);
   }
 
-  public scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
+  scheduleTokenUpdate(authtionService: AuthtionService, time: number): void {
     if (time >= 0) {
       setTimeout(() => {
         authtionService.performTokenRefresh(this);
@@ -434,7 +434,7 @@ export class AuthtionAccount {
     return this._companyNonPublic;
   }
 
-  public static of(data): AuthtionAccount {
+  static of(data): AuthtionAccount {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
     data['authorities'].forEach(next => {
@@ -489,7 +489,7 @@ export class AuthtionAccount {
     return obj;
   }
 
-  public static fromStorage(): AuthtionAccount {
+  static fromStorage(): AuthtionAccount {
     let obj = null;
 
     try {
@@ -541,7 +541,7 @@ export class AuthtionAccount {
     return obj;
   }
 
-  public static removeFromStorage(): void {
+  static removeFromStorage(): void {
     try {
       localStorage.removeItem(AuthtionAccount.storageKey);
     } catch (e) {

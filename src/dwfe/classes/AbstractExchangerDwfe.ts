@@ -47,7 +47,7 @@ export abstract class AbstractExchangerDwfe {
       .performRequest(params)               // STAGE 1. Send request
       .result$                              // STAGE 2. Get result of exchange
       .pipe(
-        takeUntil(initiator.getIsLocked$()) // just in case, although with the current scheme it is not necessary
+        takeUntil(initiator.isLocked$()) // just in case, although with the current scheme it is not necessary
       )
       .subscribe(
         (data: ResultWithDescription) => {
@@ -94,7 +94,7 @@ export class ResultWithDescription {
     return this._description;
   }
 
-  public static of(param): ResultWithDescription {
+  static of(param): ResultWithDescription {
     const result = param.result || false;
     const description = param.description || '';
 

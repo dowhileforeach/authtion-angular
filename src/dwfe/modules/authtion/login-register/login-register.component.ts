@@ -122,7 +122,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     this.authtionService
       .performSignIn(this.cLoginEmail.value, this.cLoginPassword.value)
       .resultSignIn$
-      .pipe(takeUntil(this.getIsLocked$()))
+      .pipe(takeUntil(this.isLocked$()))
       .subscribe(
         (data: ResultWithDescription) => {
           if (data.result) { // actions on success 'Login'
