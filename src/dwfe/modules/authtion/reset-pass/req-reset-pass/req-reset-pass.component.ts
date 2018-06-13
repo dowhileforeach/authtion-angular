@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -19,6 +19,7 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
 })
 export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
+  private gAccountEmail: FormGroup;
   private cAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
   private isReqSuccessful = false;
@@ -33,9 +34,10 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   ngAfterViewInit(): void {
     this.isCaptchaValid$.pipe(
       takeUntil(this.latchForUnsubscribe),
-      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.cAccountEmail return undefined
+      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.gAccountEmail return undefined
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
+        this.cAccountEmail = this.gAccountEmail.get('ctrl');
         this.cAccountEmail.setValue(this.data.email);
         this.resetBackendError('cAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);

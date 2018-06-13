@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Validators} from '@angular/forms';
 
 import {MyErrorStateMatcherDwfe} from '@dwfe/classes/UtilsDwfe';
@@ -8,7 +8,7 @@ import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControl
   selector: 'app-input-email-dwfe',
   templateUrl: './input-email.component.html'
 })
-export class InputEmailDwfeComponent extends AbstractEditableControlDwfe {
+export class InputEmailDwfeComponent extends AbstractEditableControlDwfe implements OnInit {
 
   // http://emailregex.com/
   private PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -29,6 +29,10 @@ export class InputEmailDwfeComponent extends AbstractEditableControlDwfe {
   ];
 
   private matcher = new MyErrorStateMatcherDwfe();
+
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
 
   private backendValidator() {
     return this.externalBackendValidator ?

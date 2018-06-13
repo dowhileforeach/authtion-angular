@@ -5,13 +5,13 @@
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'New Password'"
-                             (takeCountrol)="cNewPassword=$event"
+                             (takeGroup)="gNewPassword=$event"
                              #refNewPassword>
     </app-input-password-dwfe>
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'Repeat New Password'"
-                             (takeCountrol)="cRepeatNewPassword=$event">
+                             (takeGroup)="gRepeatNewPassword=$event">
     </app-input-password-dwfe>
 
     <button class="dwfe-form__btn  dwfe-form__btn--standard"

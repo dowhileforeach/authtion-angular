@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -28,9 +28,11 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   private isReqSuccessful = false;
   private subjIsReqSuccessful = new Subject();
 
+  private gNewPassword: FormGroup;
   private cNewPassword: AbstractControl;
   @ViewChild('refNewPassword', {read: ElementRef}) private refNewPassword: ElementRef;
 
+  private gRepeatNewPassword: FormGroup;
   private cRepeatNewPassword: AbstractControl;
 
   @ViewChild('refGoToLoginPage', {read: ElementRef}) refGoToLoginPage: ElementRef;
@@ -58,7 +60,6 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
 
   ngAfterViewInit(): void {
     setTimeout(() => { // to prevent multiple ExpressionChangedAfterItHasBeenCheckedError
-
       if (this.isPreparingSuccessfull) {
         this.exchangeService.confirmResetPassExchanger
           .run(this,
@@ -84,6 +85,9 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
       )
       .subscribe(value => {
         if (value) {
+          this.cNewPassword = this.gNewPassword.get('ctrl');
+          this.cRepeatNewPassword = this.gRepeatNewPassword.get('ctrl');
+
           this.resetBackendError('cNewPassword', ['errorMessage'], this.latchForUnsubscribe);
           this.resetBackendError('cRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
           this.focusOnDwfeInput(this.refNewPassword);

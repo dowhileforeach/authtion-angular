@@ -3,11 +3,11 @@
 
   <form class="dwfe-form" spellcheck="false" *ngIf="!isReqSuccessful">
 
-    <app-input-email-dwfe class="dwfe-form__item" *ngIf="isCaptchaValid$ | async"
+    <app-input-email-dwfe class="dwfe-form__item" *ngIf="(isCaptchaValid$ | async)"
                           [labelText]="'Email associated with your Account'"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [reverseHandleRespFromBackend]="true"
-                          (takeCountrol)="cAccountEmail=$event"
+                          (takeGroup)="gAccountEmail=$event"
                           #refAccountEmail>
     </app-input-email-dwfe>
 
