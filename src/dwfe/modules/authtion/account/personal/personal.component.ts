@@ -48,7 +48,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private lastName_changed: boolean;
   private lastNameNonPublic_changed: boolean;
 
-  private gender: string;
+  private gGender = new FormGroup({});
+  private cGender: AbstractControl;
   private tGender: boolean;
   private genders = genders;
   private gender_changed: boolean;
@@ -60,7 +61,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private dateOfBirth_changed: boolean;
   private dateOfBirthNonPublic_changed: boolean;
 
-  private country: string;
+  private gCountry = new FormGroup({});
+  private cCountry: AbstractControl;
   private tCountry: boolean;
   private countries = countries;
   private country_changed: boolean;
@@ -105,27 +107,26 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.cLastName = this.gLastName.get('txt');
       this.cLastName.setValue(this.user.lastName);
 
+      this.cGender = this.gGender.get('select');
+      this.cGender.setValue(this.user.gender);
+
       this.cDateOfBirth = this.gDateOfBirth.get('date');
       this.cDateOfBirth.setValue(this.user.dateOfBirth);
+
+      this.cCountry = this.gCountry.get('select');
+      this.cCountry.setValue(this.user.country);
 
       this.cCity = this.gCity.get('txt');
       this.cCity.setValue(this.user.city);
 
       this.cCompany = this.gCompany.get('txt');
       this.cCompany.setValue(this.user.company);
-
-      this.resetBackendError('cEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
   }
 
   private hasPageBeenChanged(): boolean {
+    this.errorMessage = '';
+    this.successMessage = '';
     return this.emailNonPublic_changed
       || this.nickName_changed || this.nickNameNonPublic_changed
       || this.firstName_changed || this.firstNameNonPublic_changed

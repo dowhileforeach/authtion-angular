@@ -35,12 +35,11 @@ export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnI
           this.initValue = value;
           return;
         }
+        let hasBeenChanged = value !== this.initValue;
         if (value && this.initValue) {
-          this.hasBeenChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
-        } else {
-          this.hasBeenChanged = value !== this.initValue;
+          hasBeenChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
         }
-        this.takeHasBeenChanged.emit(this.hasBeenChanged);
+        this.setHasBeenChanged(hasBeenChanged);
       });
 
     this.group = new FormGroup({

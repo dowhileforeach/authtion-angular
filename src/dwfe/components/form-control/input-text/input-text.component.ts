@@ -18,14 +18,15 @@ export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnIn
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Just text field';
 
-  @Input() private tabIndexValue = 0;
-
   private matcher = new MyErrorStateMatcherDwfe();
 
   ngOnInit(): void {
     super.ngOnInit();
 
     this.control = new FormControl('', []);
+    this.group = new FormGroup({
+      'txt': this.control
+    });
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
       .subscribe(value => {
         if (this.isFirstChange) {
@@ -33,19 +34,12 @@ export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnIn
           this.initValue = value;
           return;
         }
-        this.hasBeenChanged = value !== this.initValue;
-
+        let hasBeenChanged = value !== this.initValue;
         if (!this.initValue && value === '') {
-          this.hasBeenChanged = false; // if init=null and has been changed to ''
+          hasBeenChanged = false; // if init=null and has been changed to ''
         }
-
-        this.takeHasBeenChanged.emit(this.hasBeenChanged);
+        this.setHasBeenChanged(hasBeenChanged);
       });
-
-    this.group = new FormGroup({
-      'txt': this.control
-    });
-
     this.takeGroup.emit(this.group);
   }
 

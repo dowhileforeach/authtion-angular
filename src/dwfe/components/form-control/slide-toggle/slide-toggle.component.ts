@@ -7,7 +7,6 @@ import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 })
 export class SlideToggleDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
-  @Input() private currentValue: boolean;
   @Input() private position = 'above';
   @Input() private color = 'primary';
   @Input() private tooltipText = 'public';
@@ -16,29 +15,24 @@ export class SlideToggleDwfeComponent extends AbstractEditableDwfe implements On
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.takeValue.emit(this.currentValue);
-    this.initValue = this.currentValue;
+    this.currValue = this.initValue;
+    this.takeValue.emit(this.initValue);
   }
 
   private tooltipTxt(): string {
-    return this.currentValue ? this.tooltipText : 'not ' + this.tooltipText;
+    return this.currValue ? this.tooltipText : 'not ' + this.tooltipText;
   }
 
   private onChange() {
     setTimeout(() => {
-      this.takeValue.emit(this.currentValue);
-      this.setHasBeenChanged(this.currentValue !== this.initValue);
+      this.takeValue.emit(this.currValue);
+      this.setHasBeenChanged(this.currValue !== this.initValue);
     }, 10); // https://stackoverflow.com/questions/42793095/angular2-md-slide-toggle-displays-the-wrong-value#42794060
-  }
-
-  private setHasBeenChanged(value): void {
-    this.hasBeenChanged = value;
-    this.takeHasBeenChanged.emit(value);
   }
 
   cancel(value): void {
     if (value) {
-      this.currentValue = this.initValue;
+      this.currValue = this.initValue;
       this.setHasBeenChanged(false);
     }
   }
