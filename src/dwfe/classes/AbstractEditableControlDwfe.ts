@@ -16,14 +16,13 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   @Input() protected labelText = '';
   @Input() protected hintText = '';
   @Input() protected appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
-  @Input() protected disableControl = false;
   @Input() protected tabIndexValue = 0;
 
   @Input() protected markIfChanged = false;
   @Input() protected initValue: any;
   protected isFirstChange = true;
   protected isChanged = false;
-  protected compareAs = '';
+  protected compareAs = ''; // 'textField', 'dateField', and ''
   @Output() protected takeIsChanged = new EventEmitter<boolean>();
 
   @Input() protected cancelEdit$: Observable<boolean>;
@@ -37,14 +36,10 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     this.group = new FormGroup({
       'ctrl': new FormControl('', this.validators, this.asyncValidators)
     });
-
     this.control = this.group.get('ctrl');
-    if (this.disableControl) {
-      this.control.disable();
-    }
 
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe)).subscribe((value: any) => {
-      if (this.doINeedToCheck(value)) {
+      if (this.doINeedToCompare(value)) {
 
         let isChanged = value !== this.initValue;
 
@@ -75,6 +70,15 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     this._latchForUnsubscribe.next();
   }
 
+  protected doINeedToCompare(value): boolean {
+    if (this.isFirstChange) {
+      this.isFirstChange = false;
+      this.initValue = value;
+      return false;
+    }
+    return true;
+  }
+
   protected setIsChanged(value): void {
     this.isChanged = value;
     this.takeIsChanged.emit(value);
@@ -84,14 +88,5 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     if (value) {
       this.control.setValue(this.initValue);
     }
-  }
-
-  protected doINeedToCheck(value): boolean {
-    if (this.isFirstChange) {
-      this.isFirstChange = false;
-      this.initValue = value;
-      return false;
-    }
-    return true;
   }
 }
