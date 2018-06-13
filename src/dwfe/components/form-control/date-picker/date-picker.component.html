@@ -1,6 +1,6 @@
 <mat-form-field class="dwfe-form-group-material" [formGroup]="group"
-                [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged,
-                             'filled':         control.value }"
+                [ngClass]="{ 'isFilled' : control.value,
+                             'isChanged': markIfChanged && isChanged }"
                 [appearance]="appearanceValue">
 
   <input matInput [formControlName]="'ctrl'"

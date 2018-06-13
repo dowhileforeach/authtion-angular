@@ -17,7 +17,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tEmail=$event"
-                               (takeHasBeenChanged)="emailNonPublic_changed=$event">
+                               (takeIsChanged)="emailNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -27,7 +27,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cNickName=$event"
-                             (takeHasBeenChanged)="nickName_changed=$event">
+                             (takeIsChanged)="nickName_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -35,7 +35,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tNickName=$event"
-                               (takeHasBeenChanged)="nickNameNonPublic_changed=$event">
+                               (takeIsChanged)="nickNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -45,7 +45,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cFirstName=$event"
-                             (takeHasBeenChanged)="firstName_changed=$event">
+                             (takeIsChanged)="firstName_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -53,7 +53,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tFirstName=$event"
-                               (takeHasBeenChanged)="firstNameNonPublic_changed=$event">
+                               (takeIsChanged)="firstNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -63,7 +63,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cMiddleName=$event"
-                             (takeHasBeenChanged)="middleName_changed=$event">
+                             (takeIsChanged)="middleName_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -71,7 +71,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tMiddleName=$event"
-                               (takeHasBeenChanged)="middleNameNonPublic_changed=$event">
+                               (takeIsChanged)="middleNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -81,7 +81,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cLastName=$event"
-                             (takeHasBeenChanged)="lastName_changed=$event">
+                             (takeIsChanged)="lastName_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -89,7 +89,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tLastName=$event"
-                               (takeHasBeenChanged)="lastNameNonPublic_changed=$event">
+                               (takeIsChanged)="lastNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -104,7 +104,7 @@
                          [items]="gendersList"
                          [cancelEdit$]="subjCancel.asObservable()"
                          (takeControl)="cGender=$event"
-                         (takeHasBeenChanged)="gender_changed=$event">
+                         (takeIsChanged)="gender_changed=$event">
         </app-select-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -112,7 +112,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tGender=$event"
-                               (takeHasBeenChanged)="genderNonPublic_changed=$event">
+                               (takeIsChanged)="genderNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -122,7 +122,7 @@
                               [markIfChanged]="true"
                               [cancelEdit$]="subjCancel.asObservable()"
                               (takeControl)="cDateOfBirth=$event"
-                              (takeHasBeenChanged)="dateOfBirth_changed=$event">
+                              (takeIsChanged)="dateOfBirth_changed=$event">
         </app-date-picker-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -130,7 +130,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tDateOfBirth=$event"
-                               (takeHasBeenChanged)="dateOfBirthNonPublic_changed=$event">
+                               (takeIsChanged)="dateOfBirthNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -141,7 +141,7 @@
                          [items]="countriesList"
                          [cancelEdit$]="subjCancel.asObservable()"
                          (takeControl)="cCountry=$event"
-                         (takeHasBeenChanged)="country_changed=$event">
+                         (takeIsChanged)="country_changed=$event">
         </app-select-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -149,7 +149,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tCountry=$event"
-                               (takeHasBeenChanged)="countryNonPublic_changed=$event">
+                               (takeIsChanged)="countryNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -159,7 +159,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cCity=$event"
-                             (takeHasBeenChanged)="city_changed=$event">
+                             (takeIsChanged)="city_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -167,7 +167,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tCity=$event"
-                               (takeHasBeenChanged)="cityNonPublic_changed=$event">
+                               (takeIsChanged)="cityNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 
@@ -177,7 +177,7 @@
                              [markIfChanged]="true"
                              [cancelEdit$]="subjCancel.asObservable()"
                              (takeControl)="cCompany=$event"
-                             (takeHasBeenChanged)="company_changed=$event">
+                             (takeIsChanged)="company_changed=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -185,7 +185,7 @@
                                [markIfChanged]="true"
                                [cancelEdit$]="subjCancel.asObservable()"
                                (takeControl)="tCompany=$event"
-                               (takeHasBeenChanged)="companyNonPublic_changed=$event">
+                               (takeIsChanged)="companyNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
 

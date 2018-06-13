@@ -1,6 +1,6 @@
 <div class="slide-toggle-dwfe" [formGroup]="group">
 
-  <mat-slide-toggle [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }" [formControlName]="'ctrl'"
+  <mat-slide-toggle [ngClass]="{ 'isChanged': markIfChanged && isChanged }" [formControlName]="'ctrl'"
                     [matTooltip]="tooltipTxt()"
                     #thisTooltip="matTooltip"
                     (change)="thisTooltip.show()"

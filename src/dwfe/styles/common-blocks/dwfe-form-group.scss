@@ -37,15 +37,15 @@
       box-shadow: 0 0.5px 0 0 rgba($color-danube, 0.6);
     }
     &:focus,
-    &.filled {
+    &.isFilled {
       background-color: $color-shalimar;
     }
     &:focus ~ label,
-    &.filled ~ label {
+    &.isFilled ~ label {
       top: $indent-vertical;
       @include fonts($font-size-x2, $font-height-normal, $font-weight-normal, normal, $color-navy-blue);
     }
-    &.filled ~ .icon-clear-field {
+    &.isFilled ~ .icon-clear-field {
       display: inline-block;
       &:hover {
         opacity: 0.95;

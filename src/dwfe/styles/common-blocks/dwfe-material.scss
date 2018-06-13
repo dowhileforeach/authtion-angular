@@ -65,13 +65,13 @@ mat-tooltip-component {
   }
 }
 
-.dwfe-form-group-material.hasBeenChanged {
+.dwfe-form-group-material.isChanged {
   .mat-form-field-flex {
     background-color: $color-sail-approx; // input-text.component.html, select.component.html, date-picker.component.html
   }
 }
 
-mat-slide-toggle.hasBeenChanged {
+mat-slide-toggle.isChanged {
   background-color: $color-sail-approx; // slide-toggle.component.html
 }
 

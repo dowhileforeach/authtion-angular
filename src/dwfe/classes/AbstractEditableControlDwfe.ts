@@ -22,9 +22,9 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   @Input() protected markIfChanged = false;
   @Input() protected initValue: any;
   protected isFirstChange = true;
-  protected hasBeenChanged = false;
+  protected isChanged = false;
   protected compareAs = '';
-  @Output() protected takeHasBeenChanged = new EventEmitter<boolean>();
+  @Output() protected takeIsChanged = new EventEmitter<boolean>();
 
   @Input() protected cancelEdit$: Observable<boolean>;
 
@@ -46,19 +46,19 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe)).subscribe((value: any) => {
       if (this.doINeedToCheck(value)) {
 
-        let hasBeenChanged = value !== this.initValue;
+        let isChanged = value !== this.initValue;
 
         if (this.compareAs === 'textField') {
           if (!this.initValue && value === '') {
-            hasBeenChanged = false; // if init=null and has been changed to ''
+            isChanged = false; // if init=null and has been changed to ''
           }
         } else if (this.compareAs === 'dateField') {
           if (value && this.initValue) {
-            hasBeenChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
+            isChanged = value.setHours(0, 0, 0, 0) !== this.initValue.setHours(0, 0, 0, 0);
           }
         }
 
-        this.setHasBeenChanged(hasBeenChanged);
+        this.setIsChanged(isChanged);
       }
     });
 
@@ -75,9 +75,9 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     this._latchForUnsubscribe.next();
   }
 
-  protected setHasBeenChanged(value): void {
-    this.hasBeenChanged = value;
-    this.takeHasBeenChanged.emit(value);
+  protected setIsChanged(value): void {
+    this.isChanged = value;
+    this.takeIsChanged.emit(value);
   }
 
   protected cancelEdit(value): void {
