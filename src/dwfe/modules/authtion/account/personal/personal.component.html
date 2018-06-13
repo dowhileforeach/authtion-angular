@@ -13,10 +13,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.emailNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tEmail=$event"
+                               (takeControl)="tEmail=$event"
                                (takeHasBeenChanged)="emailNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -31,10 +31,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.nickNameNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tNickName=$event"
+                               (takeControl)="tNickName=$event"
                                (takeHasBeenChanged)="nickNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -49,10 +49,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.firstNameNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tFirstName=$event"
+                               (takeControl)="tFirstName=$event"
                                (takeHasBeenChanged)="firstNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -67,10 +67,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.middleNameNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tMiddleName=$event"
+                               (takeControl)="tMiddleName=$event"
                                (takeHasBeenChanged)="middleNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -85,10 +85,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.lastNameNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tLastName=$event"
+                               (takeControl)="tLastName=$event"
                                (takeHasBeenChanged)="lastNameNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -101,17 +101,17 @@
         <app-select-dwfe class="authtion-personal__group-control"
                          [labelText]="'Gender'"
                          [markIfChanged]="true"
-                         [items]="genders"
+                         [items]="gendersList"
                          [cancel$]="subjCancel.asObservable()"
                          (takeControl)="cGender=$event"
                          (takeHasBeenChanged)="gender_changed=$event">
         </app-select-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.genderNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tGender=$event"
+                               (takeControl)="tGender=$event"
                                (takeHasBeenChanged)="genderNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -126,10 +126,10 @@
         </app-date-picker-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.dateOfBirthNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tDateOfBirth=$event"
+                               (takeControl)="tDateOfBirth=$event"
                                (takeHasBeenChanged)="dateOfBirthNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -138,17 +138,17 @@
         <app-select-dwfe class="authtion-personal__group-control"
                          [labelText]="'Country'"
                          [markIfChanged]="true"
-                         [items]="countries"
+                         [items]="countriesList"
                          [cancel$]="subjCancel.asObservable()"
                          (takeControl)="cCountry=$event"
                          (takeHasBeenChanged)="country_changed=$event">
         </app-select-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.countryNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tCountry=$event"
+                               (takeControl)="tCountry=$event"
                                (takeHasBeenChanged)="countryNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -163,10 +163,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.cityNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tCity=$event"
+                               (takeControl)="tCity=$event"
                                (takeHasBeenChanged)="cityNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>
@@ -181,10 +181,10 @@
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
-                               [initValue]="!user.companyNonPublic"
+                               [labelText]="'public'"
                                [markIfChanged]="true"
                                [cancel$]="subjCancel.asObservable()"
-                               (takeValue)="tCompany=$event"
+                               (takeControl)="tCompany=$event"
                                (takeHasBeenChanged)="companyNonPublic_changed=$event">
         </app-slide-toggle-dwfe>
       </div>

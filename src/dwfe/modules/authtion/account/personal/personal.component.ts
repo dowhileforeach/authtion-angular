@@ -20,53 +20,53 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private subjCancel = new BehaviorSubject<boolean>(false);
 
   private cEmail: AbstractControl;
-  private tEmail: boolean;
+  private tEmail: AbstractControl;
   private emailNonPublic_changed: boolean;
 
   private cNickName: AbstractControl;
-  private tNickName: boolean;
+  private tNickName: AbstractControl;
   private nickName_changed: boolean;
   private nickNameNonPublic_changed: boolean;
 
   private cFirstName: AbstractControl;
-  private tFirstName: boolean;
+  private tFirstName: AbstractControl;
   private firstName_changed: boolean;
   private firstNameNonPublic_changed: boolean;
 
   private cMiddleName: AbstractControl;
-  private tMiddleName: boolean;
+  private tMiddleName: AbstractControl;
   private middleName_changed: boolean;
   private middleNameNonPublic_changed: boolean;
 
   private cLastName: AbstractControl;
-  private tLastName: boolean;
+  private tLastName: AbstractControl;
   private lastName_changed: boolean;
   private lastNameNonPublic_changed: boolean;
 
   private cGender: AbstractControl;
-  private tGender: boolean;
-  private genders = genders;
+  private tGender: AbstractControl;
+  private gendersList = genders;
   private gender_changed: boolean;
   private genderNonPublic_changed: boolean;
 
   private cDateOfBirth: AbstractControl;
-  private tDateOfBirth: boolean;
+  private tDateOfBirth: AbstractControl;
   private dateOfBirth_changed: boolean;
   private dateOfBirthNonPublic_changed: boolean;
 
   private cCountry: AbstractControl;
-  private tCountry: boolean;
-  private countries = countries;
+  private tCountry: AbstractControl;
+  private countriesList = countries;
   private country_changed: boolean;
   private countryNonPublic_changed: boolean;
 
   private cCity: AbstractControl;
-  private tCity: boolean;
+  private tCity: AbstractControl;
   private city_changed: boolean;
   private cityNonPublic_changed: boolean;
 
   private cCompany: AbstractControl;
-  private tCompany: boolean;
+  private tCompany: AbstractControl;
   private company_changed: boolean;
   private companyNonPublic_changed: boolean;
 
@@ -83,15 +83,34 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
     setTimeout(() => {
       this.cEmail.setValue(this.user.email);
       this.cEmail.disable();
+      this.tEmail.setValue(!this.user.emailNonPublic);
+
       this.cNickName.setValue(this.user.nickName);
+      this.tNickName.setValue(!this.user.nickNameNonPublic);
+
       this.cFirstName.setValue(this.user.firstName);
+      this.tFirstName.setValue(!this.user.firstNameNonPublic);
+
       this.cMiddleName.setValue(this.user.middleName);
+      this.tMiddleName.setValue(!this.user.middleNameNonPublic);
+
       this.cLastName.setValue(this.user.lastName);
+      this.tLastName.setValue(!this.user.lastNameNonPublic);
+
       this.cGender.setValue(this.user.gender);
+      this.tGender.setValue(!this.user.genderNonPublic);
+
       this.cDateOfBirth.setValue(this.user.dateOfBirth);
+      this.tDateOfBirth.setValue(!this.user.dateOfBirthNonPublic);
+
       this.cCountry.setValue(this.user.country);
+      this.tCountry.setValue(!this.user.countryNonPublic);
+
       this.cCity.setValue(this.user.city);
+      this.tCity.setValue(!this.user.cityNonPublic);
+
       this.cCompany.setValue(this.user.company);
+      this.tCompany.setValue(!this.user.companyNonPublic);
     }, 10);
   }
 
@@ -112,10 +131,10 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   private performUpdateAccount(): void {
     console.log(`Email = ${this.cEmail.value}`);
+    console.log(`EmailNonPublic = ${this.tEmail.value}`);
     console.log(`FirstName = ${this.cFirstName.value}`);
     console.log(`Gender = ${this.cGender.value}`);
     console.log(`DateOfBirth = ${this.cDateOfBirth.value}`);
-    // console.log(`${}`);
   }
 
   private performCancelChanges(): void {

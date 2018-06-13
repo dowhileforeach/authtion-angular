@@ -1,9 +1,12 @@
-<mat-slide-toggle [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }"
-                  [(ngModel)]="currValue" [ngModelOptions]="{standalone: true}"
-                  [matTooltip]="tooltipTxt()"
-                  [color]="color"
-                  [matTooltipPosition]="position"
-                  [matTooltipHideDelay]=310
-                  #thisTooltip="matTooltip"
-                  (change)="onChange(); thisTooltip.show()">
-</mat-slide-toggle>
+<div class="slide-toggle-dwfe" [formGroup]="group">
+
+  <mat-slide-toggle [ngClass]="{ 'hasBeenChanged': markIfChanged && hasBeenChanged }" [formControlName]="'ctrl'"
+                    [matTooltip]="tooltipTxt()"
+                    #thisTooltip="matTooltip"
+                    (change)="thisTooltip.show()"
+                    [color]="color"
+                    [matTooltipPosition]="position"
+                    [matTooltipHideDelay]=310>
+  </mat-slide-toggle>
+
+</div>
