@@ -124,6 +124,32 @@ export class UtilsDwfe {
     return prefix + result + postfix;
   }
 
+  static getFormattedDate(date: Date) { // https://stackoverflow.com/questions/2013255/how-to-get-year-month-day-from-a-date-object
+    let yyyy = date.getFullYear() + '';
+    let mm = (date.getMonth() + 1) + '';
+    let dd = date.getDate() + '';
+
+    if (yyyy < 1000) {
+      yyyy = '0' + yyyy;
+    }
+    if (yyyy < 100) {
+      yyyy = '0' + yyyy;
+    }
+    if (yyyy < 10) {
+      yyyy = '0' + yyyy;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    return yyyy + '-' + mm + '-' + dd;
+  }
+
   static getReadableErrorFromDwfeServer(data): string {
     let result = '';
     if (data.hasOwnProperty('error-codes')) {

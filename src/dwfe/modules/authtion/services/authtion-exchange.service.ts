@@ -18,6 +18,7 @@ import {
   GoogleCaptchaValidateExchanger,
   ReqResetPassExchanger,
   ResetPassExchanger,
+  UpdateAccountExchanger,
 } from '../exchange';
 
 @Injectable()
@@ -119,6 +120,10 @@ export class AuthtionExchangeService {
 
   get getAccountExchanger(): GetAccountExchanger {
     return new GetAccountExchanger(this.http, {accessToken: this.authtionService.accessToken});
+  }
+
+  get updateAccountExchanger(): CreateAccountExchanger {
+    return new UpdateAccountExchanger(this.http, {accessToken: this.authtionService.accessToken});
   }
 
   get changePassExchanger(): ChangePassExchanger {

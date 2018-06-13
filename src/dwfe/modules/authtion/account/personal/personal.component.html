@@ -204,7 +204,7 @@
     <button class="dwfe-form__btn  dwfe-form__btn--attraction  authtion-personal__action"
             mat-raised-button
             (click)="performUpdateAccount()"
-            [disabled]="!hasPageBeenChanged() || isLocked"
+            [disabled]="!isChanged || isLocked"
             aria-label="Perform 'Update Account'">
       Save
       <app-alert-dwfe *ngIf="errorMessage !== ''"
@@ -222,9 +222,9 @@
 
     <button class="dwfe-form__btn  dwfe-form__btn--standard  authtion-personal__action"
             mat-raised-button
-            (click)="performCancelChanges()"
-            [disabled]="!hasPageBeenChanged() || isLocked"
-            aria-label="Perform 'Cancel changes'">
+            (click)="performCancelEdit()"
+            [disabled]="!isChanged || isLocked"
+            aria-label="Perform 'Cancel edit'">
       Cancel
     </button>
   </div>

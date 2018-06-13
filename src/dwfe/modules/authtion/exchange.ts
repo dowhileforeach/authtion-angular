@@ -12,8 +12,8 @@ export const endpoints = {
   signOut: `${API_VERSION}/sign-out`,
   checkEmail: `${API_VERSION}/check-email`,
   createAccount: `${API_VERSION}/create-account`,
-  updateAccount: `${API_VERSION}/update-account`,
   getAccount: `${API_VERSION}/get-account`,
+  updateAccount: `${API_VERSION}/update-account`,
   changePass: `${API_VERSION}/change-pass`,
   reqResetPass: `${API_VERSION}/req-reset-pass`,
   resetPass: `${API_VERSION}/reset-pass`,
@@ -42,6 +42,16 @@ export class GetAccountExchanger extends AbstractExchangerDwfe {
   getHttpReq$(params?: any): Observable<Object> {
     return this.http.get(
       endpoints.getAccount,
+      UtilsDwfe.optionsForAuthorizedReq(this.accessToken)
+    );
+  }
+}
+
+export class UpdateAccountExchanger extends AbstractExchangerDwfe {
+  getHttpReq$(body?: any): Observable<Object> {
+    return this.http.post(
+      endpoints.updateAccount,
+      body,
       UtilsDwfe.optionsForAuthorizedReq(this.accessToken)
     );
   }

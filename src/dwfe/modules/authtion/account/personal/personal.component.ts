@@ -5,9 +5,10 @@ import {Router} from '@angular/router';
 import {BehaviorSubject} from 'rxjs';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
-import {countries, genders} from '@dwfe/classes/UtilsDwfe';
+import {countries, genders, UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionAccount, AuthtionService} from '../../services/authtion.service';
+import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
 
 @Component({
   selector: 'app-authtion-personal',
@@ -71,6 +72,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private companyNonPublic_changed: boolean;
 
   constructor(private authtionService: AuthtionService,
+              private exchangeService: AuthtionExchangeService,
               private router: Router) {
     super();
   }
@@ -114,7 +116,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
     }, 10);
   }
 
-  private hasPageBeenChanged(): boolean {
+  private get isChanged(): boolean {
     this.errorMessage = '';
     this.successMessage = '';
     return this.emailNonPublic_changed
@@ -130,14 +132,86 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private performUpdateAccount(): void {
-    console.log(`Email = ${this.cEmail.value}`);
-    console.log(`EmailNonPublic = ${this.tEmail.value}`);
-    console.log(`FirstName = ${this.cFirstName.value}`);
-    console.log(`Gender = ${this.cGender.value}`);
-    console.log(`DateOfBirth = ${this.cDateOfBirth.value}`);
+    console.log(this.getReqBody());
+    // this.exchangeService.updateAccountExchanger
+    //   .run(this,
+    //     this.getReqBody(),
+    //     (data: ResultWithDescription) => {
+    //       if (data.result) {
+    //       } else {
+    //       }
+    //     });
   }
 
-  private performCancelChanges(): void {
+  private performCancelEdit(): void {
     this.subjCancel.next(true);
   }
+
+  private getReqBody(): string {
+    const req = new ReqUpdateAccount();
+
+    req.emailNonPublic = !this.tEmail.value;
+
+    req.nickName = this.cNickName.value;
+    req.nickNameNonPublic = !this.tNickName.value;
+
+    req.firstName = this.cFirstName.value;
+    req.firstNameNonPublic = !this.tFirstName.value;
+
+    req.middleName = this.cMiddleName.value;
+    req.middleNameNonPublic = !this.tMiddleName.value;
+
+    req.lastName = this.cLastName.value;
+    req.lastNameNonPublic = !this.tLastName.value;
+
+    req.gender = this.cGender.value;
+    req.genderNonPublic = !this.tGender.value;
+
+    const dateOfBirth = this.cDateOfBirth.value;
+    req.dateOfBirth = dateOfBirth === null ? null
+      : UtilsDwfe.getFormattedDate(dateOfBirth);
+    req.dateOfBirthNonPublic = !this.tDateOfBirth.value;
+
+    req.country = this.cCountry.value;
+    req.countryNonPublic = !this.tCountry.value;
+
+    req.city = this.cCity.value;
+    req.cityNonPublic = !this.tCity.value;
+
+    req.company = this.cCompany.value;
+    req.companyNonPublic = !this.tCompany.value;
+
+    return JSON.stringify(req);
+  }
+}
+
+class ReqUpdateAccount {
+  emailNonPublic: boolean;
+
+  nickName: string;
+  nickNameNonPublic: boolean;
+
+  firstName: string;
+  firstNameNonPublic: boolean;
+
+  middleName: string;
+  middleNameNonPublic: boolean;
+
+  lastName: string;
+  lastNameNonPublic: boolean;
+
+  gender: string;
+  genderNonPublic: boolean;
+
+  dateOfBirth: string;
+  dateOfBirthNonPublic: boolean;
+
+  country: string;
+  countryNonPublic: boolean;
+
+  city: string;
+  cityNonPublic: boolean;
+
+  company: string;
+  companyNonPublic: boolean;
 }
