@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import {BehaviorSubject} from 'rxjs';
@@ -19,62 +19,52 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   private user: AuthtionAccount;
   private subjCancel = new BehaviorSubject<boolean>(false);
 
-  private gEmail = new FormGroup({});
   private cEmail: AbstractControl;
   private tEmail: boolean;
   private emailNonPublic_changed: boolean;
 
-  private gNickName = new FormGroup({});
   private cNickName: AbstractControl;
   private tNickName: boolean;
   private nickName_changed: boolean;
   private nickNameNonPublic_changed: boolean;
 
-  private gFirstName = new FormGroup({});
   private cFirstName: AbstractControl;
   private tFirstName: boolean;
   private firstName_changed: boolean;
   private firstNameNonPublic_changed: boolean;
 
-  private gMiddleName = new FormGroup({});
   private cMiddleName: AbstractControl;
   private tMiddleName: boolean;
   private middleName_changed: boolean;
   private middleNameNonPublic_changed: boolean;
 
-  private gLastName = new FormGroup({});
   private cLastName: AbstractControl;
   private tLastName: boolean;
   private lastName_changed: boolean;
   private lastNameNonPublic_changed: boolean;
 
-  private gGender = new FormGroup({});
   private cGender: AbstractControl;
   private tGender: boolean;
   private genders = genders;
   private gender_changed: boolean;
   private genderNonPublic_changed: boolean;
 
-  private gDateOfBirth = new FormGroup({});
   private cDateOfBirth: AbstractControl;
   private tDateOfBirth: boolean;
   private dateOfBirth_changed: boolean;
   private dateOfBirthNonPublic_changed: boolean;
 
-  private gCountry = new FormGroup({});
   private cCountry: AbstractControl;
   private tCountry: boolean;
   private countries = countries;
   private country_changed: boolean;
   private countryNonPublic_changed: boolean;
 
-  private gCity = new FormGroup({});
   private cCity: AbstractControl;
   private tCity: boolean;
   private city_changed: boolean;
   private cityNonPublic_changed: boolean;
 
-  private gCompany = new FormGroup({});
   private cCompany: AbstractControl;
   private tCompany: boolean;
   private company_changed: boolean;
@@ -91,35 +81,16 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.cEmail = this.gEmail.get('txt');
       this.cEmail.setValue(this.user.email);
       this.cEmail.disable();
-
-      this.cNickName = this.gNickName.get('txt');
       this.cNickName.setValue(this.user.nickName);
-
-      this.cFirstName = this.gFirstName.get('txt');
       this.cFirstName.setValue(this.user.firstName);
-
-      this.cMiddleName = this.gMiddleName.get('txt');
       this.cMiddleName.setValue(this.user.middleName);
-
-      this.cLastName = this.gLastName.get('txt');
       this.cLastName.setValue(this.user.lastName);
-
-      this.cGender = this.gGender.get('select');
       this.cGender.setValue(this.user.gender);
-
-      this.cDateOfBirth = this.gDateOfBirth.get('date');
       this.cDateOfBirth.setValue(this.user.dateOfBirth);
-
-      this.cCountry = this.gCountry.get('select');
       this.cCountry.setValue(this.user.country);
-
-      this.cCity = this.gCity.get('txt');
       this.cCity.setValue(this.user.city);
-
-      this.cCompany = this.gCompany.get('txt');
       this.cCompany.setValue(this.user.company);
     }, 10);
   }
@@ -140,6 +111,11 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private performUpdateAccount(): void {
+    console.log(`Email = ${this.cEmail.value}`);
+    console.log(`FirstName = ${this.cFirstName.value}`);
+    console.log(`Gender = ${this.cGender.value}`);
+    console.log(`DateOfBirth = ${this.cDateOfBirth.value}`);
+    // console.log(`${}`);
   }
 
   private performCancelChanges(): void {

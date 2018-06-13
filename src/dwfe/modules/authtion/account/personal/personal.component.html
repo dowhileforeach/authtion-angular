@@ -9,7 +9,7 @@
         <app-input-text-dwfe class="authtion-personal__group-control"
                              [labelText]="'Email'"
                              [markIfChanged]="true"
-                             (takeGroup)="gEmail=$event">
+                             (takeControl)="cEmail=$event">
         </app-input-text-dwfe>
 
         <app-slide-toggle-dwfe class="authtion-personal__group-vis-checker"
@@ -26,7 +26,7 @@
                              [labelText]="'Nick Name'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gNickName=$event"
+                             (takeControl)="cNickName=$event"
                              (takeHasBeenChanged)="nickName_changed=$event">
         </app-input-text-dwfe>
 
@@ -44,7 +44,7 @@
                              [labelText]="'First Name'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gFirstName=$event"
+                             (takeControl)="cFirstName=$event"
                              (takeHasBeenChanged)="firstName_changed=$event">
         </app-input-text-dwfe>
 
@@ -62,7 +62,7 @@
                              [labelText]="'Middle Name'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gMiddleName=$event"
+                             (takeControl)="cMiddleName=$event"
                              (takeHasBeenChanged)="middleName_changed=$event">
         </app-input-text-dwfe>
 
@@ -80,7 +80,7 @@
                              [labelText]="'Last Name'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gLastName=$event"
+                             (takeControl)="cLastName=$event"
                              (takeHasBeenChanged)="lastName_changed=$event">
         </app-input-text-dwfe>
 
@@ -103,7 +103,7 @@
                          [markIfChanged]="true"
                          [items]="genders"
                          [cancel$]="subjCancel.asObservable()"
-                         (takeGroup)="gGender=$event"
+                         (takeControl)="cGender=$event"
                          (takeHasBeenChanged)="gender_changed=$event">
         </app-select-dwfe>
 
@@ -121,7 +121,7 @@
                               [labelText]="'Date of Birth'"
                               [markIfChanged]="true"
                               [cancel$]="subjCancel.asObservable()"
-                              (takeGroup)="gDateOfBirth=$event"
+                              (takeControl)="cDateOfBirth=$event"
                               (takeHasBeenChanged)="dateOfBirth_changed=$event">
         </app-date-picker-dwfe>
 
@@ -140,7 +140,7 @@
                          [markIfChanged]="true"
                          [items]="countries"
                          [cancel$]="subjCancel.asObservable()"
-                         (takeGroup)="gCountry=$event"
+                         (takeControl)="cCountry=$event"
                          (takeHasBeenChanged)="country_changed=$event">
         </app-select-dwfe>
 
@@ -158,7 +158,7 @@
                              [labelText]="'City'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gCity=$event"
+                             (takeControl)="cCity=$event"
                              (takeHasBeenChanged)="city_changed=$event">
         </app-input-text-dwfe>
 
@@ -176,7 +176,7 @@
                              [labelText]="'Company'"
                              [markIfChanged]="true"
                              [cancel$]="subjCancel.asObservable()"
-                             (takeGroup)="gCompany=$event"
+                             (takeControl)="cCompany=$event"
                              (takeHasBeenChanged)="company_changed=$event">
         </app-input-text-dwfe>
 

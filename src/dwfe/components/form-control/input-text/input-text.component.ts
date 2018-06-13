@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {takeUntil} from 'rxjs/operators';
 
@@ -11,10 +11,6 @@ import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 })
 export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
-  private group: FormGroup;
-  private control: FormControl;
-  @Output() private takeGroup = new EventEmitter<FormGroup>();
-
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Just text field';
 
@@ -23,10 +19,11 @@ export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnIn
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.control = new FormControl('', []);
     this.group = new FormGroup({
-      'txt': this.control
+      'txt': new FormControl('', [])
     });
+    this.control = this.group.get('txt');
+
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
       .subscribe(value => {
         if (this.isFirstChange) {
@@ -41,6 +38,7 @@ export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnIn
         this.setHasBeenChanged(hasBeenChanged);
       });
     this.takeGroup.emit(this.group);
+    this.takeControl.emit(this.control);
   }
 
   cancel(value): void {

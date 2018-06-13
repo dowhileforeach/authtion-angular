@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 
 import {takeUntil} from 'rxjs/operators';
@@ -11,10 +11,6 @@ import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
 })
 export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnInit {
 
-  private group: FormGroup;
-  private control: FormControl;
-  @Output() private takeGroup = new EventEmitter<FormGroup>();
-
   @Input() private appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() private labelText = 'Choose a date';
 
@@ -23,7 +19,10 @@ export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnI
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.control = new FormControl();
+    this.group = new FormGroup({
+      'date': new FormControl()
+    });
+    this.control = this.group.get('date');
     if (this.inputDisabled) {
       this.control.disable();
     }
@@ -41,12 +40,8 @@ export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnI
         }
         this.setHasBeenChanged(hasBeenChanged);
       });
-
-    this.group = new FormGroup({
-      'date': this.control
-    });
-
     this.takeGroup.emit(this.group);
+    this.takeControl.emit(this.control);
   }
 
   cancel(value): void {
