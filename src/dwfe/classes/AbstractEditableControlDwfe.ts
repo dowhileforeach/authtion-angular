@@ -16,7 +16,7 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   @Input() protected labelText = '';
   @Input() protected hintText = '';
   @Input() protected appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
-  @Input() protected controlIsDisabled = false;
+  @Input() protected disableControl = false;
   @Input() protected tabIndexValue = 0;
 
   @Input() protected markIfChanged = false;
@@ -25,7 +25,7 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   protected hasBeenChanged = false;
   @Output() protected takeHasBeenChanged = new EventEmitter<boolean>();
 
-  @Input() protected cancel$: Observable<boolean>;
+  @Input() protected cancelEdit$: Observable<boolean>;
 
   private _latchForUnsubscribe = new Subject();
   protected get latchForUnsubscribe(): Observable<any> {
@@ -38,16 +38,16 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     });
 
     this.control = this.group.get('ctrl');
-    if (this.controlIsDisabled) {
+    if (this.disableControl) {
       this.control.disable();
     }
 
     this.takeGroup.emit(this.group);
     this.takeControl.emit(this.control);
 
-    if (this.cancel$) {
-      this.cancel$.pipe(takeUntil(this.latchForUnsubscribe))
-        .subscribe(value => this.cancel(value));
+    if (this.cancelEdit$) {
+      this.cancelEdit$.pipe(takeUntil(this.latchForUnsubscribe))
+        .subscribe(value => this.cancelEdit(value));
     }
   }
 
@@ -60,7 +60,7 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
     this.takeHasBeenChanged.emit(value);
   }
 
-  protected cancel(value): void {
+  protected cancelEdit(value): void {
     if (value) {
       this.control.setValue(this.initValue);
     }

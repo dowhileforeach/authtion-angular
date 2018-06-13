@@ -24,7 +24,7 @@ export class InputPasswordDwfeComponent extends AbstractEditableControlDwfe impl
   private matcher = new MyErrorStateMatcherDwfe();
 
   ngOnInit(): void {
-    super.ngOnInit();
+    super.ngOnInit(); // here it is just in case
   }
 
   private switchHide(): void {
