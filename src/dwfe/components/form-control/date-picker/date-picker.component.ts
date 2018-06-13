@@ -2,20 +2,16 @@ import {Component, OnInit} from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
+import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControlDwfe';
 
 @Component({
   selector: 'app-date-picker-dwfe',
   templateUrl: './date-picker.component.html'
 })
-export class DatePickerDwfeComponent extends AbstractEditableDwfe implements OnInit {
+export class DatePickerDwfeComponent extends AbstractEditableControlDwfe implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-
-    if (this.controlIsDisabled) {
-      this.control.disable();
-    }
 
     this.control.valueChanges.pipe(takeUntil(this.latchForUnsubscribe))
       .subscribe((value: Date) => {

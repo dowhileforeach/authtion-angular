@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AfterViewInit, Component} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
@@ -11,52 +11,37 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
   templateUrl: './page-account-password.component.html',
   styleUrls: ['./page-account-password.component.scss'],
 })
-export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
+export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe implements AfterViewInit {
 
-  private groupNewPassword = new FormGroup({});
-  private controlNewPassword: AbstractControl;
-  @ViewChild('refNewPassword', {read: ElementRef}) private refNewPassword: ElementRef;
-
-  private groupRepeatNewPassword = new FormGroup({});
-  private controlRepeatNewPassword: AbstractControl;
-  @ViewChild('refRepeatNewPassword', {read: ElementRef}) private refRepeatNewPassword: ElementRef;
-
-  private groupCurrentPassword = new FormGroup({});
-  private controlCurrentPassword: AbstractControl;
-  @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
+  private cNewPassword: AbstractControl;
+  private cRepeatNewPassword: AbstractControl;
+  private cCurrentPassword: AbstractControl;
 
   constructor(private exchangeService: AuthtionExchangeService) {
     super();
   }
 
-  ngOnInit() {
-  }
-
   ngAfterViewInit(): void {
-    this.controlNewPassword = this.groupNewPassword.get('password');
-    this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
-    this.controlCurrentPassword = this.groupCurrentPassword.get('password');
-
-    this.resetBackendError('controlNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlRepeatNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cRepeatNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
   }
 
   private performChangePassword(): void {
-    if (this.controlNewPassword.value !== this.controlRepeatNewPassword.value) {
+    if (this.cNewPassword.value !== this.cRepeatNewPassword.value) {
       this.errorMessage = 'New Password and Repeat do not match';
       return;
     }
 
     this.exchangeService.changePassExchanger
       .run(this,
-        `{ "curpass": "${this.controlCurrentPassword.value}",
-           "newpass": "${this.controlNewPassword.value}" }`,
+        `{ "curpass": "${this.cCurrentPassword.value}",
+           "newpass": "${this.cNewPassword.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {
-            this.controlNewPassword.reset();
-            this.controlRepeatNewPassword.reset();
-            this.controlCurrentPassword.reset();
+            this.cNewPassword.reset();
+            this.cRepeatNewPassword.reset();
+            this.cCurrentPassword.reset();
             this.successMessage = 'Your password has been changed successfully';
           } else {
             this.errorMessage = data.description;

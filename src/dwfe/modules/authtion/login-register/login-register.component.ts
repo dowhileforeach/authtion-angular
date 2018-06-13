@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
@@ -23,12 +23,9 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
   private isLoginSlide = true;
 
-  private groupLoginEmail = new FormGroup({});
-  private groupLoginPassword = new FormGroup({});
-  private groupCreateAccountEmail = new FormGroup({});
-  private controlLoginEmail: AbstractControl;
-  private controlLoginPassword: AbstractControl;
-  private controlCreateAccountEmail: AbstractControl;
+  private cLoginEmail: AbstractControl;
+  private cLoginPassword: AbstractControl;
+  private cCreateAccountEmail: AbstractControl;
 
   @ViewChild('refLoginEmail', {read: ElementRef}) private refLoginEmail: ElementRef;
   @ViewChild('refLoginPassword', {read: ElementRef}) private refLoginPassword: ElementRef;
@@ -46,29 +43,25 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
   }
 
   ngAfterViewInit(): void {
-    this.controlLoginEmail = this.groupLoginEmail.get('email');
-    this.controlLoginPassword = this.groupLoginPassword.get('password');
-
     setTimeout(() => {
       if (this.data.email) {
-        this.controlLoginEmail.setValue(this.data.email);
+        this.cLoginEmail.setValue(this.data.email);
         this.focusOnDwfeInput(this.refLoginPassword);
       } else {
         this.focusOnDwfeInput(this.refLoginEmail);
       }
     }, 10); // to prevent ExpressionChangedAfterItHasBeenCheckedError
 
-    this.resetBackendError('controlLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
 
     this.isCaptchaValid$.pipe(
       takeUntil(this.latchForUnsubscribe),
-      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
+      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.cCreateAccountEmail return undefined
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
-        this.controlCreateAccountEmail = this.groupCreateAccountEmail.get('email');
-        this.controlCreateAccountEmail.setValue(this.controlLoginEmail.value);
-        this.resetBackendError('controlCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+        this.cCreateAccountEmail.setValue(this.cLoginEmail.value);
+        this.resetBackendError('cCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         this.focusOnInput();
       }
     });
@@ -87,8 +80,8 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     this.errorMessage = '';
 
     setTimeout(() => {
-        if (this.isLoginSlide && this.controlCreateAccountEmail) {
-          this.controlLoginEmail.setValue(this.controlCreateAccountEmail.value);
+        if (this.isLoginSlide && this.cCreateAccountEmail) {
+          this.cLoginEmail.setValue(this.cCreateAccountEmail.value);
           this.focusOnInput();
         }
         this.subjIsCaptchaValid.next(false);
@@ -100,9 +93,9 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
   private focusOnInput(): void {
     if (this.isLoginSlide) {
-      if (this.controlLoginEmail.invalid) {
+      if (this.cLoginEmail.invalid) {
         this.focusOnDwfeInput(this.refLoginEmail);
-      } else if (this.controlLoginPassword.invalid) {
+      } else if (this.cLoginPassword.invalid) {
         this.focusOnDwfeInput(this.refLoginPassword);
       } else if (this.errorMessage !== '') {
         this.focusOnDwfeInput(this.refLoginPassword);
@@ -127,7 +120,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     this.setLocked(true);
 
     this.authtionService
-      .performSignIn(this.controlLoginEmail.value, this.controlLoginPassword.value)
+      .performSignIn(this.cLoginEmail.value, this.cLoginPassword.value)
       .resultSignIn$
       .pipe(takeUntil(this.getIsLocked$()))
       .subscribe(
@@ -147,11 +140,11 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
 
     this.exchangeService.createAccountExchanger
       .run(this,
-        `{ "email": "${this.controlCreateAccountEmail.value}" }`,
+        `{ "email": "${this.cCreateAccountEmail.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {    // actions on success 'Create account'
             this.changeSlide(); // go to 'Login' slide
-            this.controlLoginPassword.setValue('');
+            this.cLoginPassword.setValue('');
           } else {
             this.errorMessage = data.description;
           }
@@ -163,7 +156,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     this.dialog.open( // https://material.angular.io/components/dialog/api
       AuthtionReqResetPassComponent, {
         autoFocus: true,
-        data: {email: this.controlLoginEmail.value}
+        data: {email: this.cLoginEmail.value}
       });
     this.dialogRef.close();
   }

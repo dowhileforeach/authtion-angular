@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 
@@ -11,17 +11,13 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
   templateUrl: './account-email.component.html',
   styleUrls: ['./account-email.component.scss'],
 })
-export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
+export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe implements AfterViewInit {
 
-  private groupCurrentEmail = new FormGroup({});
-  private controlCurrentEmail: AbstractControl;
-
-  private groupNewEmail = new FormGroup({});
-  private controlNewEmail: AbstractControl;
+  private cCurrentEmail: AbstractControl;
+  private cNewEmail: AbstractControl;
   @ViewChild('refNewEmail', {read: ElementRef}) private refNewEmail: ElementRef;
 
-  private groupCurrentPassword = new FormGroup({});
-  private controlCurrentPassword: AbstractControl;
+  private cCurrentPassword: AbstractControl;
   @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
 
   constructor(private authtionService: AuthtionService,
@@ -29,22 +25,14 @@ export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe impl
     super();
   }
 
-  ngOnInit() {
-  }
-
   ngAfterViewInit(): void {
-    this.controlCurrentEmail = this.groupCurrentEmail.get('txt');
-
     setTimeout(() => {
-      this.controlCurrentEmail.setValue(this.authtionService.user.email);
-      this.controlCurrentEmail.disable();
+      this.cCurrentEmail.setValue(this.authtionService.user.email);
+      this.cCurrentEmail.disable();
     }, 10);
 
-    this.controlNewEmail = this.groupNewEmail.get('email');
-    this.controlCurrentPassword = this.groupCurrentPassword.get('password');
-
-    this.resetBackendError('controlNewEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('controlCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cNewEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendError('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
   }
 
   private performChangeEmail(): void {

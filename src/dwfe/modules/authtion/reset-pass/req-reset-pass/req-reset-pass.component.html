@@ -7,7 +7,7 @@
                           [labelText]="'Email associated with your Account'"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [reverseHandleRespFromBackend]="true"
-                          (takeGroup)="groupAccountEmail=$event"
+                          (takeCountrol)="cAccountEmail=$event"
                           #refAccountEmail>
     </app-input-email-dwfe>
 
@@ -28,7 +28,7 @@
     <button class="dwfe-form__btn  dwfe-form__btn--standard" *ngIf="isCaptchaValid$ | async"
             mat-raised-button
             (click)="performReqResetPass()"
-            [disabled]="!groupAccountEmail.valid || isLocked"
+            [disabled]="!(cAccountEmail && cAccountEmail.valid) || isLocked"
             aria-label="Perform 'Reset password request'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"

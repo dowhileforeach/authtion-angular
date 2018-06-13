@@ -12,8 +12,10 @@ export abstract class AbstractExchangerDwfe {
 
   protected accessToken: string;
 
-  constructor(protected http: HttpClient, options?: any) {
-    this.accessToken = options.accessToken || '';
+  constructor(protected http: HttpClient, private options?: any) {
+    if (this.options) {
+      this.accessToken = this.options['accessToken'] || '';
+    }
   }
 
   abstract getHttpReq$(something?: any): Observable<Object>;

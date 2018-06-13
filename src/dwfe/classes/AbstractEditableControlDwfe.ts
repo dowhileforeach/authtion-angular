@@ -4,14 +4,17 @@ import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-export abstract class AbstractEditableDwfe implements OnInit, OnDestroy {
+export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
 
   protected group: FormGroup;
   protected control: AbstractControl;
+  protected validators: any[];
+  protected asyncValidators: any[];
   @Output() protected takeGroup = new EventEmitter<FormGroup>();
   @Output() protected takeControl = new EventEmitter<AbstractControl>();
 
   @Input() protected labelText = '';
+  @Input() protected hintText = '';
   @Input() protected appearanceValue = 'fill'; // 'fill', 'standard', 'outline', and ''
   @Input() protected controlIsDisabled = false;
   @Input() protected tabIndexValue = 0;
@@ -31,9 +34,14 @@ export abstract class AbstractEditableDwfe implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.group = new FormGroup({
-      'ctrl': new FormControl()
+      'ctrl': new FormControl('', this.validators, this.asyncValidators)
     });
+
     this.control = this.group.get('ctrl');
+    if (this.controlIsDisabled) {
+      this.control.disable();
+    }
+
     this.takeGroup.emit(this.group);
     this.takeControl.emit(this.control);
 

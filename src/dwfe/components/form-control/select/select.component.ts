@@ -2,13 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
+import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControlDwfe';
 
 @Component({
   selector: 'app-select-dwfe',
   templateUrl: './select.component.html'
 })
-export class SelectDwfeComponent extends AbstractEditableDwfe implements OnInit {
+export class SelectDwfeComponent extends AbstractEditableControlDwfe implements OnInit {
 
   @Input() private items: { value: string, viewValue: string }[];
 

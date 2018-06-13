@@ -5,20 +5,19 @@
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'New Password'"
-                             (takeGroup)="groupNewPassword=$event"
+                             (takeCountrol)="cNewPassword=$event"
                              #refNewPassword>
     </app-input-password-dwfe>
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'Repeat New Password'"
-                             (takeGroup)="groupRepeatNewPassword=$event"
-                             #refRepeatNewPassword>
+                             (takeCountrol)="cRepeatNewPassword=$event">
     </app-input-password-dwfe>
 
     <button class="dwfe-form__btn  dwfe-form__btn--standard"
             mat-raised-button
             (click)="performResetPassword()"
-            [disabled]="!(groupNewPassword.valid && groupRepeatNewPassword.valid) || isLocked"
+            [disabled]="!(cNewPassword && cRepeatNewPassword && cNewPassword.valid && cRepeatNewPassword.valid) || isLocked"
             aria-label="Perform 'Reset Password'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"

@@ -29,14 +29,16 @@
         <form class="dwfe-form" spellcheck="false">
 
           <app-input-email-dwfe class="dwfe-form__item"
+                                [labelText]="'Email'"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [reverseHandleRespFromBackend]="true"
-                                (takeGroup)="groupLoginEmail=$event"
+                                (takeControl)="cLoginEmail=$event"
                                 #refLoginEmail>
           </app-input-email-dwfe>
 
           <app-input-password-dwfe class="dwfe-form__item"
-                                   (takeGroup)="groupLoginPassword=$event"
+                                   [labelText]="'Password'"
+                                   (takeControl)="cLoginPassword=$event"
                                    #refLoginPassword>
           </app-input-password-dwfe>
 
@@ -45,7 +47,7 @@
             <button class="dwfe-form__btn  dwfe-form__btn--standard"
                     mat-raised-button
                     (click)="performLogin()"
-                    [disabled]="!(groupLoginEmail.valid && groupLoginPassword.valid) || isLocked"
+                    [disabled]="!(cLoginEmail && cLoginPassword && cLoginEmail.valid && cLoginPassword.valid) || isLocked"
                     aria-label="Perform 'Login'">
               OK
             </button>
@@ -68,10 +70,11 @@
         <form class="dwfe-form" spellcheck="false">
 
           <app-input-email-dwfe class="dwfe-form__item" *ngIf="isCaptchaValid$ | async"
+                                [labelText]="'Email'"
                                 [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                                 [tabIndexValue]="-1"
                                 [hintText]="'*Password will be sent to your email'"
-                                (takeGroup)="groupCreateAccountEmail=$event"
+                                (takeControl)="cCreateAccountEmail=$event"
                                 #refCreateAccountEmail>
           </app-input-email-dwfe>
 
@@ -93,7 +96,7 @@
           <button class="dwfe-form__btn  dwfe-form__btn--standard" *ngIf="isCaptchaValid$ | async"
                   mat-raised-button
                   (click)="performCreateAccount()"
-                  [disabled]="!groupCreateAccountEmail.valid || isLocked"
+                  [disabled]="!(cCreateAccountEmail && cCreateAccountEmail.valid) || isLocked"
                   tabindex="-1"
                   aria-label="Perform 'Create account'">
             OK

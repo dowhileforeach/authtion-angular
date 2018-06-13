@@ -4,7 +4,7 @@
 
     <app-input-text-dwfe class="authtion-account-email__current-email"
                          [labelText]="'Email'"
-                         (takeGroup)="groupCurrentEmail=$event">
+                         (takeControl)="cCurrentEmail=$event">
     </app-input-text-dwfe>
 
     <h2>Change Email</h2>
@@ -12,13 +12,13 @@
     <app-input-email-dwfe class="dwfe-form__item"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [labelText]="'New Email'"
-                          (takeGroup)="groupNewEmail=$event"
+                          (takeControl)="cNewEmail=$event"
                           #refNewEmail>
     </app-input-email-dwfe>
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'Your Current Password'"
-                             (takeGroup)="groupCurrentPassword=$event"
+                             (takeControl)="cCurrentPassword=$event"
                              #refCurrentPassword>
     </app-input-password-dwfe>
 
@@ -29,7 +29,7 @@
     <button class="dwfe-form__btn  dwfe-form__btn--standard"
             mat-raised-button
             (click)="performChangeEmail()"
-            [disabled]="!(groupNewEmail.valid && groupCurrentPassword.valid) || isLocked"
+            [disabled]="!(cEmail && cCurrentPassword && cEmail.valid && cCurrentPassword.valid) || isLocked"
             aria-label="Perform 'Change Email'">
       OK
       <app-alert-dwfe *ngIf="errorMessage !== ''"

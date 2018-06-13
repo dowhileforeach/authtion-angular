@@ -2,13 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
+import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControlDwfe';
 
 @Component({
   selector: 'app-slide-toggle-dwfe',
   templateUrl: './slide-toggle.component.html',
 })
-export class SlideToggleDwfeComponent extends AbstractEditableDwfe implements OnInit {
+export class SlideToggleDwfeComponent extends AbstractEditableControlDwfe implements OnInit {
 
   @Input() private position = 'above';
   @Input() private color = 'primary';

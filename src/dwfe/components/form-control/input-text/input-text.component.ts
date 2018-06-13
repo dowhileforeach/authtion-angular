@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 
 import {takeUntil} from 'rxjs/operators';
 
-import {AbstractEditableDwfe} from '@dwfe/classes/AbstractEditableDwfe';
+import {AbstractEditableControlDwfe} from '@dwfe/classes/AbstractEditableControlDwfe';
 
 @Component({
   selector: 'app-input-text-dwfe',
   templateUrl: './input-text.component.html'
 })
-export class InputTextDwfeComponent extends AbstractEditableDwfe implements OnInit {
+export class InputTextDwfeComponent extends AbstractEditableControlDwfe implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();

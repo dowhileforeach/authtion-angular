@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, ViewChild} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -19,8 +19,7 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
 })
 export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe implements AfterViewInit, OnDestroy {
 
-  private groupAccountEmail = new FormGroup({});
-  private controlAccountEmail: AbstractControl;
+  private cAccountEmail: AbstractControl;
   @ViewChild('refAccountEmail', {read: ElementRef}) private refAccountEmail: ElementRef;
   private isReqSuccessful = false;
 
@@ -34,12 +33,11 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   ngAfterViewInit(): void {
     this.isCaptchaValid$.pipe(
       takeUntil(this.latchForUnsubscribe),
-      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.groupCreateAccountEmail.get('email') return undefined
+      concatMap(x => of(x).pipe(delay(20))) // otherwise below this.cAccountEmail return undefined
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
-        this.controlAccountEmail = this.groupAccountEmail.get('email');
-        this.controlAccountEmail.setValue(this.data.email);
-        this.resetBackendError('controlAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+        this.cAccountEmail.setValue(this.data.email);
+        this.resetBackendError('cAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
       }
     });
@@ -57,7 +55,7 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
   private performReqResetPass(): void {
     this.exchangeService.reqResetPassExchanger
       .run(this,
-        `{ "email": "${this.controlAccountEmail.value}" }`,
+        `{ "email": "${this.cAccountEmail.value}" }`,
         (data: ResultWithDescription) => { // response handler
           if (data.result) { // actions on success 'Password reset request'
             this.isReqSuccessful = true;

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {AbstractControl, FormGroup} from '@angular/forms';
+import {AbstractControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -28,13 +28,10 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   private isReqSuccessful = false;
   private subjIsReqSuccessful = new Subject();
 
-  private groupNewPassword = new FormGroup({});
-  private controlNewPassword: AbstractControl;
+  private cNewPassword: AbstractControl;
   @ViewChild('refNewPassword', {read: ElementRef}) private refNewPassword: ElementRef;
 
-  private groupRepeatNewPassword = new FormGroup({});
-  private controlRepeatNewPassword: AbstractControl;
-  @ViewChild('refRepeatNewPassword', {read: ElementRef}) private refRepeatNewPassword: ElementRef;
+  private cRepeatNewPassword: AbstractControl;
 
   @ViewChild('refGoToLoginPage', {read: ElementRef}) refGoToLoginPage: ElementRef;
 
@@ -87,10 +84,8 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
       )
       .subscribe(value => {
         if (value) {
-          this.controlNewPassword = this.groupNewPassword.get('password');
-          this.controlRepeatNewPassword = this.groupRepeatNewPassword.get('password');
-          this.resetBackendError('controlNewPassword', ['errorMessage'], this.latchForUnsubscribe);
-          this.resetBackendError('controlRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+          this.resetBackendError('cNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+          this.resetBackendError('cRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
           this.focusOnDwfeInput(this.refNewPassword);
         }
       });
@@ -112,7 +107,7 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
   }
 
   private performResetPassword(): void {
-    if (this.controlNewPassword.value !== this.controlRepeatNewPassword.value) {
+    if (this.cNewPassword.value !== this.cRepeatNewPassword.value) {
       this.errorMessage = 'New Password and Repeat do not match';
       return;
     }
@@ -121,7 +116,7 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
       .run(this,
         `{ "email": "${this.email}",
            "key": "${this.key}",
-           "newpass": "${this.controlNewPassword.value}" }`,
+           "newpass": "${this.cNewPassword.value}" }`,
         (data: ResultWithDescription) => {
           if (data.result) {
             this.setIsReqSuccessful(true);
