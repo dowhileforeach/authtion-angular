@@ -11,7 +11,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   protected errorMessage = '';
   protected successMessage = '';
 
-  protected resetBackendError = UtilsDwfe.resetBackendError;
+  protected resetBackendMessage = UtilsDwfe.resetBackendMessage;
   protected focusOnDwfeInput = UtilsDwfe.focusOnDwfeInput;
 
   protected subjIsCaptchaValid = new BehaviorSubject<boolean>(false);

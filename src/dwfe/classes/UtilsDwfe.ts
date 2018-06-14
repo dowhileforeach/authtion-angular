@@ -100,7 +100,7 @@ export class UtilsDwfe {
     elementRef.nativeElement.querySelector('.dwfe-form-group-material input').focus();
   }
 
-  static resetBackendError(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
+  static resetBackendMessage(controlFieldName, fieldsArr, notifier: Observable<any>): Subscription {
     return this[controlFieldName].valueChanges
       .pipe(takeUntil(notifier))
       .subscribe(() => {

@@ -52,8 +52,8 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
       }
     }, 10); // to prevent ExpressionChangedAfterItHasBeenCheckedError
 
-    this.resetBackendError('cLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('cLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cLoginEmail', ['errorMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cLoginPassword', ['errorMessage'], this.latchForUnsubscribe);
 
     this.isCaptchaValid$.pipe(
       takeUntil(this.latchForUnsubscribe),
@@ -61,7 +61,7 @@ export class AuthtionLoginRegisterComponent extends AbstractExchangeableDwfe imp
     ).subscribe(isCaptchaValid => {
       if (isCaptchaValid) {
         this.cCreateAccountEmail.setValue(this.cLoginEmail.value);
-        this.resetBackendError('cCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+        this.resetBackendMessage('cCreateAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         this.focusOnInput();
       }
     });

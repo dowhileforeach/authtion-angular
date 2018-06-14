@@ -39,7 +39,7 @@ export class AuthtionReqResetPassComponent extends AbstractExchangeableDwfe impl
       if (isCaptchaValid) {
         this.cAccountEmail = this.gAccountEmail.get('ctrl');
         this.cAccountEmail.setValue(this.data.email);
-        this.resetBackendError('cAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
+        this.resetBackendMessage('cAccountEmail', ['errorMessage'], this.latchForUnsubscribe);
         UtilsDwfe.focusOnDwfeInput(this.refAccountEmail);
       }
     });

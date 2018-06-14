@@ -22,9 +22,9 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
   }
 
   ngAfterViewInit(): void {
-    this.resetBackendError('cNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('cRepeatNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cRepeatNewPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
   }
 
   private performChangePassword(): void {

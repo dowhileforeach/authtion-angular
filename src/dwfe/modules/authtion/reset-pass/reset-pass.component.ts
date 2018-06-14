@@ -88,8 +88,8 @@ export class AuthtionResetPassComponent extends AbstractExchangeableDwfe impleme
           this.cNewPassword = this.gNewPassword.get('ctrl');
           this.cRepeatNewPassword = this.gRepeatNewPassword.get('ctrl');
 
-          this.resetBackendError('cNewPassword', ['errorMessage'], this.latchForUnsubscribe);
-          this.resetBackendError('cRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+          this.resetBackendMessage('cNewPassword', ['errorMessage'], this.latchForUnsubscribe);
+          this.resetBackendMessage('cRepeatNewPassword', ['errorMessage'], this.latchForUnsubscribe);
           this.focusOnDwfeInput(this.refNewPassword);
         }
       });

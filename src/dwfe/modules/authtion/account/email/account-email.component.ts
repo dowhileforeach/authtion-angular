@@ -31,8 +31,8 @@ export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe impl
       this.cCurrentEmail.disable();
     }, 10);
 
-    this.resetBackendError('cNewEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-    this.resetBackendError('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cNewEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+    this.resetBackendMessage('cCurrentPassword', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
   }
 
   private performChangeEmail(): void {

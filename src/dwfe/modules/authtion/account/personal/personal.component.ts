@@ -115,25 +115,25 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
       this.cCompany.setValue(this.userPersonal.company);
       this.tCompany.setValue(!this.userPersonal.companyNonPublic);
 
-      this.resetBackendError('tEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
-      this.resetBackendError('tCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendMessage('tCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
   }
 
@@ -156,6 +156,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
         this.getReqBody(),
         (data: ResultWithDescription) => {
           if (data.result) {
+            // update local userPersonal
+            // saveEdit event
             this.successMessage = 'Personal info has been successfully updated';
           } else {
             this.errorMessage = data.description;
