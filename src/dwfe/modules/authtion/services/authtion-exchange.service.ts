@@ -14,11 +14,11 @@ import {
   ConfirmResetPassExchanger,
   CreateAccountExchanger,
   endpoints,
-  GetAccountExchanger,
+  GetUserPersonalExchanger,
   GoogleCaptchaValidateExchanger,
   ReqResetPassExchanger,
   ResetPassExchanger,
-  UpdateAccountExchanger,
+  UpdateUserPersonalExchanger,
 } from '../exchange';
 
 @Injectable()
@@ -118,12 +118,12 @@ export class AuthtionExchangeService {
     return new CreateAccountExchanger(this.http);
   }
 
-  get getAccountExchanger(): GetAccountExchanger {
-    return new GetAccountExchanger(this.http, {accessToken: this.authtionService.accessToken});
+  get getAccountExchanger(): GetUserPersonalExchanger {
+    return new GetUserPersonalExchanger(this.http, {accessToken: this.authtionService.accessToken});
   }
 
   get updateAccountExchanger(): CreateAccountExchanger {
-    return new UpdateAccountExchanger(this.http, {accessToken: this.authtionService.accessToken});
+    return new UpdateUserPersonalExchanger(this.http, {accessToken: this.authtionService.accessToken});
   }
 
   get changePassExchanger(): ChangePassExchanger {

@@ -7,7 +7,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 import {UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
-import {endpoints, GetAccountExchanger} from '../exchange';
+import {endpoints, GetUserPersonalExchanger} from '../exchange';
 
 const credentials = {
   trusted: {   // issued token is valid for a long time, e.g. 20 days
@@ -35,7 +35,7 @@ const optionsAuthentificationReq = {
 export class AuthtionService {
 
   private auth: AuthtionCredentials;
-  private _user: AuthtionAccount;
+  private _userPersonal: AuthtionUserPersonal;
 
   private subjIsLoggedIn = new BehaviorSubject<boolean>(this.init());
   private subjSignIn = new Subject<ResultWithDescription>();
@@ -48,9 +48,9 @@ export class AuthtionService {
 
   private init(): boolean {
     this.auth = AuthtionCredentials.fromStorage(this);
-    this._user = AuthtionAccount.fromStorage();
+    this._userPersonal = AuthtionUserPersonal.fromStorage();
 
-    if (this.auth && this._user) {
+    if (this.auth && this._userPersonal) {
       return true;
     } else {
       this.coverUpOnesTraces();
@@ -58,8 +58,8 @@ export class AuthtionService {
     }
   }
 
-  get user(): AuthtionAccount {
-    return this._user;
+  get userPersonal(): AuthtionUserPersonal {
+    return this._userPersonal;
   }
 
   get accessToken(): string {
@@ -99,9 +99,9 @@ export class AuthtionService {
 
   private coverUpOnesTraces() {
     this.auth = null;
-    this._user = null;
+    this._userPersonal = null;
     AuthtionCredentials.removeFromStorage();
-    AuthtionAccount.removeFromStorage();
+    AuthtionUserPersonal.removeFromStorage();
   }
 
   private signInHttpReq$(email: string, password: string): Observable<Object> {
@@ -132,13 +132,13 @@ export class AuthtionService {
   performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
-        new GetAccountExchanger(this.http, {accessToken: response['access_token']})
+        new GetUserPersonalExchanger(this.http, {accessToken: response['access_token']})
           .performRequest()
           .result$.subscribe(
           (data: ResultWithDescription) => {
             if (data.result) {
               this.auth = AuthtionCredentials.of(this, response);
-              this._user = AuthtionAccount.of(data.data);
+              this._userPersonal = AuthtionUserPersonal.of(data.data);
               this.login();
               this.subjSignIn.next(ResultWithDescription.of({result: true}));
             } else {
@@ -287,11 +287,10 @@ class AuthtionCredentials {
   }
 }
 
-export class AuthtionAccount {
+export class AuthtionUserPersonal {
   private _id: number;
 
   private _createdOn: Date;
-  private _updatedOn: Date;
   private _hasRoleAdmin: boolean;
   private _hasRoleUser: boolean;
 
@@ -336,10 +335,6 @@ export class AuthtionAccount {
 
   get createdOn(): Date {
     return this._createdOn;
-  }
-
-  get updatedOn(): Date {
-    return this._updatedOn;
   }
 
   get hasRoleAdmin(): boolean {
@@ -434,7 +429,7 @@ export class AuthtionAccount {
     return this._companyNonPublic;
   }
 
-  static of(data): AuthtionAccount {
+  static of(data): AuthtionUserPersonal {
     let hasRoleAdmin = false;
     let hasRoleUser = false;
     data['authorities'].forEach(next => {
@@ -445,12 +440,11 @@ export class AuthtionAccount {
       }
     });
 
-    const obj = new AuthtionAccount();
+    const obj = new AuthtionUserPersonal();
 
     obj._id = data['id'];
 
     obj._createdOn = data['createdOn'] ? new Date(data['createdOn']) : null;
-    obj._updatedOn = data['updatedOn'] ? new Date(data['updatedOn']) : null;
     obj._hasRoleAdmin = hasRoleAdmin;
     obj._hasRoleUser = hasRoleUser;
 
@@ -489,18 +483,17 @@ export class AuthtionAccount {
     return obj;
   }
 
-  static fromStorage(): AuthtionAccount {
+  static fromStorage(): AuthtionUserPersonal {
     let obj = null;
 
     try {
-      const parsed = JSON.parse(localStorage.getItem(AuthtionAccount.storageKey));
+      const parsed = JSON.parse(localStorage.getItem(AuthtionUserPersonal.storageKey));
       if (parsed) {
-        obj = new AuthtionAccount();
+        obj = new AuthtionUserPersonal();
 
         obj._id = +parsed._id;
 
         obj._createdOn = parsed._createdOn ? new Date(parsed._createdOn) : null;
-        obj._updatedOn = parsed._updatedOn ? new Date(parsed._updatedOn) : null;
         obj._hasRoleAdmin = parsed._hasRoleAdmin;
         obj._hasRoleUser = parsed._hasRoleUser;
 
@@ -543,14 +536,14 @@ export class AuthtionAccount {
 
   static removeFromStorage(): void {
     try {
-      localStorage.removeItem(AuthtionAccount.storageKey);
+      localStorage.removeItem(AuthtionUserPersonal.storageKey);
     } catch (e) {
     }
   }
 
   private saveInStorage(): void {
     try {
-      localStorage.setItem(AuthtionAccount.storageKey, JSON.stringify(this));
+      localStorage.setItem(AuthtionUserPersonal.storageKey, JSON.stringify(this));
     } catch (e) {
     }
   }

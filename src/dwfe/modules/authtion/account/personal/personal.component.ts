@@ -7,7 +7,7 @@ import {BehaviorSubject} from 'rxjs';
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {countries, genders, UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
-import {AuthtionAccount, AuthtionService} from '../../services/authtion.service';
+import {AuthtionService, AuthtionUserPersonal} from '../../services/authtion.service';
 import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
 
 @Component({
@@ -17,7 +17,7 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
 })
 export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
 
-  private user: AuthtionAccount;
+  private user: AuthtionUserPersonal;
   private subjCancel = new BehaviorSubject<boolean>(false);
 
   private cEmail: AbstractControl;
@@ -78,7 +78,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   ngOnInit() {
-    this.user = this.authtionService.user;
+    this.user = this.authtionService.userPersonal;
   }
 
   ngAfterViewInit(): void {

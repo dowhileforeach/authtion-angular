@@ -51,7 +51,7 @@ const dwfeServerErrorsMap = {
   'server_error': 'Server error',
   'unauthorized': 'Unauthorized',
   'unauthorized_client': 'Unauthorized client',
-  'unauthorized_user': 'Unauthorized user',
+  'unauthorized_user': 'Unauthorized userPersonal',
   'unsupported_grant_type': 'Unsupported grant type',
   'unsupported_response_type': 'Unsupported response type',
 };
@@ -125,25 +125,28 @@ export class UtilsDwfe {
   }
 
   static getFormattedDate(date: Date) { // https://stackoverflow.com/questions/2013255/how-to-get-year-month-day-from-a-date-object
-    let yyyy = date.getFullYear() + '';
-    let mm = (date.getMonth() + 1) + '';
-    let dd = date.getDate() + '';
+    const yyyyD = date.getFullYear();
+    const mmD = (date.getMonth() + 1);
+    const ddD = date.getDate();
+    let yyyy = yyyyD + '';
+    let mm = mmD + '';
+    let dd = ddD + '';
 
-    if (yyyy < 1000) {
+    if (yyyyD < 1000) {
       yyyy = '0' + yyyy;
     }
-    if (yyyy < 100) {
+    if (yyyyD < 100) {
       yyyy = '0' + yyyy;
     }
-    if (yyyy < 10) {
+    if (yyyyD < 10) {
       yyyy = '0' + yyyy;
     }
 
-    if (mm < 10) {
+    if (mmD < 10) {
       mm = '0' + mm;
     }
 
-    if (dd < 10) {
+    if (ddD < 10) {
       dd = '0' + dd;
     }
 

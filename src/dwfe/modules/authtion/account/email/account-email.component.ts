@@ -27,7 +27,7 @@ export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe impl
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.cCurrentEmail.setValue(this.authtionService.user.email);
+      this.cCurrentEmail.setValue(this.authtionService.userPersonal.email);
       this.cCurrentEmail.disable();
     }, 10);
 

@@ -24,7 +24,7 @@ import {AuthtionService} from '../../services/authtion.service';
 export class AuthtionBtnUserLoggedInComponent {
 
   private isMenuOpen = false;
-  private user = this.authtionService.user;
+  private user = this.authtionService.userPersonal;
 
   constructor(private authtionService: AuthtionService,
               private router: Router) {
