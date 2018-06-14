@@ -42,7 +42,7 @@ export class AuthtionAccountPasswordComponent extends AbstractExchangeableDwfe i
             this.cNewPassword.reset();
             this.cRepeatNewPassword.reset();
             this.cCurrentPassword.reset();
-            this.successMessage = 'Your password has been changed successfully';
+            this.successMessage = 'Your password has been successfully changed';
           } else {
             this.errorMessage = data.description;
           }

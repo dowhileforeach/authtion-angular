@@ -191,7 +191,7 @@
 
     </div>
 
-    <div class="dwfe-pending-overlay__wrap" tabindex="-1" #refPendingOverlayWrap *ngIf="isLocked">
+    <div class="dwfe-pending-overlay__wrap" tabindex="-1" *ngIf="isLocked" #refPendingOverlayWrap>
       <div class="dwfe-pending-overlay" *ngIf="isLocked">
         <app-spinner-shark-fin-circle-dwfe></app-spinner-shark-fin-circle-dwfe>
       </div>

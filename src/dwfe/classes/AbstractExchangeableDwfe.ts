@@ -18,7 +18,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   protected subjIsCaptchaValidWithDelay = new BehaviorSubject<boolean>(false);
   private _latchForUnsubscribe = new Subject();
 
-  @ViewChild('refPendingOverlayWrap') private refPendingOverlayWrap: ElementRef;
+  @ViewChild('refPendingOverlayWrap') protected refPendingOverlayWrap: ElementRef;
 
   ngOnDestroy(): void {
     this._latchForUnsubscribe.next();
@@ -31,7 +31,7 @@ export abstract class AbstractExchangeableDwfe implements ExchangeableDwfe, OnDe
   setLocked(value: boolean): void {
     this.isLocked = value;
     this.subjIsLocked.next(value);
-    if (value) {
+    if (value && this.refPendingOverlayWrap) {
       this.refPendingOverlayWrap.nativeElement.focus();
     }
   }

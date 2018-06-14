@@ -47,7 +47,7 @@ export abstract class AbstractExchangerDwfe {
       .performRequest(params)               // STAGE 1. Send request
       .result$                              // STAGE 2. Get result of exchange
       .pipe(
-        takeUntil(initiator.isLocked$()) // just in case, although with the current scheme it is not necessary
+        takeUntil(initiator.isLocked$())    // just in case, although with the current scheme it is not necessary
       )
       .subscribe(
         (data: ResultWithDescription) => {

@@ -9,6 +9,7 @@ import {countries, genders, UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
 
 import {AuthtionService, AuthtionUserPersonal} from '../../services/authtion.service';
 import {AuthtionExchangeService} from '../../services/authtion-exchange.service';
+import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 
 @Component({
   selector: 'app-authtion-personal',
@@ -17,7 +18,7 @@ import {AuthtionExchangeService} from '../../services/authtion-exchange.service'
 })
 export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
 
-  private user: AuthtionUserPersonal;
+  private userPersonal: AuthtionUserPersonal;
   private subjCancel = new BehaviorSubject<boolean>(false);
 
   private cEmail: AbstractControl;
@@ -78,47 +79,65 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   ngOnInit() {
-    this.user = this.authtionService.userPersonal;
+    this.userPersonal = this.authtionService.userPersonal;
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.cEmail.setValue(this.user.email);
+      this.cEmail.setValue(this.userPersonal.email);
       this.cEmail.disable();
-      this.tEmail.setValue(!this.user.emailNonPublic);
+      this.tEmail.setValue(!this.userPersonal.emailNonPublic);
 
-      this.cNickName.setValue(this.user.nickName);
-      this.tNickName.setValue(!this.user.nickNameNonPublic);
+      this.cNickName.setValue(this.userPersonal.nickName);
+      this.tNickName.setValue(!this.userPersonal.nickNameNonPublic);
 
-      this.cFirstName.setValue(this.user.firstName);
-      this.tFirstName.setValue(!this.user.firstNameNonPublic);
+      this.cFirstName.setValue(this.userPersonal.firstName);
+      this.tFirstName.setValue(!this.userPersonal.firstNameNonPublic);
 
-      this.cMiddleName.setValue(this.user.middleName);
-      this.tMiddleName.setValue(!this.user.middleNameNonPublic);
+      this.cMiddleName.setValue(this.userPersonal.middleName);
+      this.tMiddleName.setValue(!this.userPersonal.middleNameNonPublic);
 
-      this.cLastName.setValue(this.user.lastName);
-      this.tLastName.setValue(!this.user.lastNameNonPublic);
+      this.cLastName.setValue(this.userPersonal.lastName);
+      this.tLastName.setValue(!this.userPersonal.lastNameNonPublic);
 
-      this.cGender.setValue(this.user.gender);
-      this.tGender.setValue(!this.user.genderNonPublic);
+      this.cGender.setValue(this.userPersonal.gender);
+      this.tGender.setValue(!this.userPersonal.genderNonPublic);
 
-      this.cDateOfBirth.setValue(this.user.dateOfBirth);
-      this.tDateOfBirth.setValue(!this.user.dateOfBirthNonPublic);
+      this.cDateOfBirth.setValue(this.userPersonal.dateOfBirth);
+      this.tDateOfBirth.setValue(!this.userPersonal.dateOfBirthNonPublic);
 
-      this.cCountry.setValue(this.user.country);
-      this.tCountry.setValue(!this.user.countryNonPublic);
+      this.cCountry.setValue(this.userPersonal.country);
+      this.tCountry.setValue(!this.userPersonal.countryNonPublic);
 
-      this.cCity.setValue(this.user.city);
-      this.tCity.setValue(!this.user.cityNonPublic);
+      this.cCity.setValue(this.userPersonal.city);
+      this.tCity.setValue(!this.userPersonal.cityNonPublic);
 
-      this.cCompany.setValue(this.user.company);
-      this.tCompany.setValue(!this.user.companyNonPublic);
+      this.cCompany.setValue(this.userPersonal.company);
+      this.tCompany.setValue(!this.userPersonal.companyNonPublic);
+
+      this.resetBackendError('tEmail', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tNickName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tFirstName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tMiddleName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tLastName', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tGender', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tDateOfBirth', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tCountry', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tCity', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('cCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
+      this.resetBackendError('tCompany', ['errorMessage', 'successMessage'], this.latchForUnsubscribe);
     }, 10);
   }
 
   private get isChanged(): boolean {
-    this.errorMessage = '';
-    this.successMessage = '';
     return this.emailNonPublic_changed
       || this.nickName_changed || this.nickNameNonPublic_changed
       || this.firstName_changed || this.firstNameNonPublic_changed
@@ -132,15 +151,17 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private performUpdateAccount(): void {
-    console.log(this.getReqBody());
-    // this.exchangeService.updateAccountExchanger
-    //   .run(this,
-    //     this.getReqBody(),
-    //     (data: ResultWithDescription) => {
-    //       if (data.result) {
-    //       } else {
-    //       }
-    //     });
+    // console.log(this.getReqBody());
+    this.exchangeService.updateAccountExchanger
+      .run(this,
+        this.getReqBody(),
+        (data: ResultWithDescription) => {
+          if (data.result) {
+            this.successMessage = 'Personal info has been successfully updated';
+          } else {
+            this.errorMessage = data.description;
+          }
+        });
   }
 
   private performCancelEdit(): void {
@@ -148,70 +169,46 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private getReqBody(): string {
-    const req = new ReqUpdateAccount();
+    const req = {};
 
-    req.emailNonPublic = !this.tEmail.value;
+    this.addField('emailNonPublic', !this.tEmail.value, req);
 
-    req.nickName = this.cNickName.value;
-    req.nickNameNonPublic = !this.tNickName.value;
+    this.addField('nickName', this.cNickName.value, req);
+    this.addField('nickNameNonPublic', !this.tNickName.value, req);
 
-    req.firstName = this.cFirstName.value;
-    req.firstNameNonPublic = !this.tFirstName.value;
+    this.addField('firstName', this.cFirstName.value, req);
+    this.addField('firstNameNonPublic', !this.tFirstName.value, req);
 
-    req.middleName = this.cMiddleName.value;
-    req.middleNameNonPublic = !this.tMiddleName.value;
+    this.addField('middleName', this.cMiddleName.value, req);
+    this.addField('middleNameNonPublic', !this.tMiddleName.value, req);
 
-    req.lastName = this.cLastName.value;
-    req.lastNameNonPublic = !this.tLastName.value;
+    this.addField('lastName', this.cLastName.value, req);
+    this.addField('lastNameNonPublic', !this.tLastName.value, req);
 
-    req.gender = this.cGender.value;
-    req.genderNonPublic = !this.tGender.value;
+    this.addField('gender', this.cGender.value, req);
+    this.addField('genderNonPublic', !this.tGender.value, req);
 
-    const dateOfBirth = this.cDateOfBirth.value;
-    req.dateOfBirth = dateOfBirth === null ? null
+    let dateOfBirth = this.cDateOfBirth.value;
+    dateOfBirth = dateOfBirth === null ? null
       : UtilsDwfe.getFormattedDate(dateOfBirth);
-    req.dateOfBirthNonPublic = !this.tDateOfBirth.value;
+    this.addField('dateOfBirth', dateOfBirth, req);
+    this.addField('dateOfBirthNonPublic', !this.tDateOfBirth.value, req);
 
-    req.country = this.cCountry.value;
-    req.countryNonPublic = !this.tCountry.value;
+    this.addField('country', this.cCountry.value, req);
+    this.addField('countryNonPublic', !this.tCountry.value, req);
 
-    req.city = this.cCity.value;
-    req.cityNonPublic = !this.tCity.value;
+    this.addField('city', this.cCity.value, req);
+    this.addField('cityNonPublic', !this.tCity.value, req);
 
-    req.company = this.cCompany.value;
-    req.companyNonPublic = !this.tCompany.value;
+    this.addField('company', this.cCompany.value, req);
+    this.addField('companyNonPublic', !this.tCompany.value, req);
 
     return JSON.stringify(req);
   }
-}
 
-class ReqUpdateAccount {
-  emailNonPublic: boolean;
-
-  nickName: string;
-  nickNameNonPublic: boolean;
-
-  firstName: string;
-  firstNameNonPublic: boolean;
-
-  middleName: string;
-  middleNameNonPublic: boolean;
-
-  lastName: string;
-  lastNameNonPublic: boolean;
-
-  gender: string;
-  genderNonPublic: boolean;
-
-  dateOfBirth: string;
-  dateOfBirthNonPublic: boolean;
-
-  country: string;
-  countryNonPublic: boolean;
-
-  city: string;
-  cityNonPublic: boolean;
-
-  company: string;
-  companyNonPublic: boolean;
+  private addField(name, value, req): void {
+    if (this[name + '_changed']) {
+      req[name] = value;
+    }
+  }
 }
