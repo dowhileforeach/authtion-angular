@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import {BehaviorSubject} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {AbstractExchangeableDwfe} from '@dwfe/classes/AbstractExchangeableDwfe';
 import {countries, genders, UtilsDwfe} from '@dwfe/classes/UtilsDwfe';
@@ -19,7 +19,11 @@ import {ResultWithDescription} from '@dwfe/classes/AbstractExchangerDwfe';
 export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implements OnInit, AfterViewInit {
 
   private userPersonal: AuthtionUserPersonal;
-  private subjCancel = new BehaviorSubject<boolean>(false);
+  private subjCancelEdit = new Subject<boolean>();
+  private subjSaveEdit = new Subject<boolean>();
+
+  private cId: AbstractControl;
+  private cCreatedOn: AbstractControl;
 
   private cEmail: AbstractControl;
   private tEmail: AbstractControl;
@@ -84,6 +88,12 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
 
   ngAfterViewInit(): void {
     setTimeout(() => {
+      this.cId.setValue(this.userPersonal.id);
+      this.cId.disable();
+
+      this.cCreatedOn.setValue(UtilsDwfe.getFormattedDate(this.userPersonal.createdOn));
+      this.cCreatedOn.disable();
+
       this.cEmail.setValue(this.userPersonal.email);
       this.cEmail.disable();
       this.tEmail.setValue(!this.userPersonal.emailNonPublic);
@@ -156,8 +166,8 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
         this.getReqBody(),
         (data: ResultWithDescription) => {
           if (data.result) {
-            // update local userPersonal
-            // saveEdit event
+            this.authtionService.setUserPersonalFromResp(data.data);
+            this.subjSaveEdit.next(true);
             this.successMessage = 'Personal info has been successfully updated';
           } else {
             this.errorMessage = data.description;
@@ -166,7 +176,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private performCancelEdit(): void {
-    this.subjCancel.next(true);
+    this.subjCancelEdit.next(true);
   }
 
   private getReqBody(): string {

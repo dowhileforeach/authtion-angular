@@ -6,9 +6,13 @@
   }
 }
 
+.authtion-personal__divider {
+  margin-bottom: $form-half-indent;
+}
+
 .authtion-personal__form {
   width: 100%;
-  margin: 0 0 $form-std-indent;
+  margin: 0 0 $form-half-indent;
 }
 
 .authtion-personal__group {
@@ -40,6 +44,10 @@
   align-items: flex-start;
 }
 
+.authtion-personal__action {
+  margin-bottom: 0;
+}
+
 .authtion-personal__action--save {
   margin-right: 20px;
 }
@@ -59,6 +67,21 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+  }
+
+  .authtion-personal__top-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .authtion-personal__top-wrap-item {
+    flex-grow: 0;
+  }
+
+  .authtion-personal__top-wrap-item:not(:last-child) {
+    margin-right: 20px;
   }
 
   .authtion-personal__form-wrap {

@@ -129,6 +129,10 @@ export class AuthtionService {
       UtilsDwfe.optionsForAuthorizedReq(accessToken));
   }
 
+  setUserPersonalFromResp(data): void {
+    this._userPersonal = AuthtionUserPersonal.of(data);
+  }
+
   performSignIn(email: string, password: string): AuthtionService {
     this.signInHttpReq$(email, password).subscribe(
       response => {
@@ -138,7 +142,7 @@ export class AuthtionService {
           (data: ResultWithDescription) => {
             if (data.result) {
               this.auth = AuthtionCredentials.of(this, response);
-              this._userPersonal = AuthtionUserPersonal.of(data.data);
+              this.setUserPersonalFromResp(data.data);
               this.login();
               this.subjSignIn.next(ResultWithDescription.of({result: true}));
             } else {
@@ -289,8 +293,8 @@ class AuthtionCredentials {
 
 export class AuthtionUserPersonal {
   private _id: number;
-
   private _createdOn: Date;
+
   private _hasRoleAdmin: boolean;
   private _hasRoleUser: boolean;
 

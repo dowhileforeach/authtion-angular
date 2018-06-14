@@ -54,6 +54,7 @@ import {ClearControlDwfeComponent} from '@dwfe/components/form-control/clear-con
     MatSelectModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatDividerModule,
   ],
   exports: [
     CommonModule,
@@ -81,6 +82,7 @@ import {ClearControlDwfeComponent} from '@dwfe/components/form-control/clear-con
     MatSelectModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatDividerModule,
   ]
 })
 export class DwfeModule {

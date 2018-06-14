@@ -8,14 +8,14 @@ import {AuthtionService} from './authtion.service';
 @Injectable()
 export class AuthtionGuardService implements CanActivate {
 
-  constructor(protected auth: AuthtionService,
+  constructor(protected authtionService: AuthtionService,
               protected router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     const loginPath = '/login';
     return new Promise((resolve) => {
-      const subscription = this.auth.isLoggedIn$.subscribe(isLoggedIn => {
+      const subscription = this.authtionService.isLoggedIn$.subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (state.url === loginPath) {
             this.router.navigate(['/']);
@@ -25,7 +25,7 @@ export class AuthtionGuardService implements CanActivate {
           if (state.url === loginPath) {
             resolve(true);
           } else {
-            this.auth.redirectUrl = state.url;
+            this.authtionService.redirectUrl = state.url;
             this.router.navigate([loginPath]);
             resolve(false);
           }

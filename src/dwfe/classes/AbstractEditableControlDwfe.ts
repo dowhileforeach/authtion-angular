@@ -26,6 +26,7 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
   @Output() protected takeIsChanged = new EventEmitter<boolean>();
 
   @Input() protected cancelEdit$: Observable<boolean>;
+  @Input() protected saveEdit$: Observable<boolean>;
 
   private _latchForUnsubscribe = new Subject();
   protected get latchForUnsubscribe(): Observable<any> {
@@ -62,6 +63,11 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
         .subscribe(value => this.cancelEdit(value));
     }
 
+    if (this.saveEdit$) {
+      this.saveEdit$.pipe(takeUntil(this.latchForUnsubscribe))
+        .subscribe(value => this.saveEdit(value));
+    }
+
     this.takeGroup.emit(this.group);
     this.takeControl.emit(this.control);
   }
@@ -86,6 +92,13 @@ export abstract class AbstractEditableControlDwfe implements OnInit, OnDestroy {
 
   protected cancelEdit(value): void {
     if (value) {
+      this.control.setValue(this.initValue);
+    }
+  }
+
+  protected saveEdit(value): void {
+    if (value) {
+      this.initValue = this.control.value;
       this.control.setValue(this.initValue);
     }
   }
