@@ -29,8 +29,10 @@
 }
 
 .authtion-personal__action-wrap {
-  width: 210px;
+  width: 284px;
   margin-bottom: $form-std-indent;
+
+  position: relative;
 
   display: flex;
   flex-direction: row;
@@ -38,7 +40,7 @@
   align-items: flex-start;
 }
 
-.authtion-personal__action:not(:last-child) {
+.authtion-personal__action--save {
   margin-right: 20px;
 }
 

@@ -151,7 +151,6 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
   }
 
   private performUpdateAccount(): void {
-    // console.log(this.getReqBody());
     this.exchangeService.updateAccountExchanger
       .run(this,
         this.getReqBody(),
@@ -189,8 +188,7 @@ export class AuthtionPersonalComponent extends AbstractExchangeableDwfe implemen
     this.addField('genderNonPublic', !this.tGender.value, req);
 
     let dateOfBirth = this.cDateOfBirth.value;
-    dateOfBirth = dateOfBirth === null ? null
-      : UtilsDwfe.getFormattedDate(dateOfBirth);
+    dateOfBirth = dateOfBirth === null ? null : UtilsDwfe.getFormattedDate(dateOfBirth);
     this.addField('dateOfBirth', dateOfBirth, req);
     this.addField('dateOfBirthNonPublic', !this.tDateOfBirth.value, req);
 

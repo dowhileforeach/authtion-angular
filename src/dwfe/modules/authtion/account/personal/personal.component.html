@@ -201,23 +201,12 @@
 
 
   <div class="authtion-personal__action-wrap">
-    <button class="dwfe-form__btn  dwfe-form__btn--attraction  authtion-personal__action"
+    <button class="dwfe-form__btn  dwfe-form__btn--attraction  authtion-personal__action  authtion-personal__action--save"
             mat-raised-button
             (click)="performUpdateAccount()"
             [disabled]="!isChanged || isLocked"
             aria-label="Perform 'Update Account'">
       Save
-      <app-alert-dwfe *ngIf="errorMessage !== ''"
-                      class="dwfe-form__alert-over"
-                      [message]="errorMessage"
-                      [blink]="true">
-      </app-alert-dwfe>
-      <app-alert-dwfe *ngIf="successMessage !== ''"
-                      class="dwfe-form__alert-over"
-                      [message]="successMessage"
-                      [alertType]="'success'"
-                      [blink]="true">
-      </app-alert-dwfe>
     </button>
 
     <button class="dwfe-form__btn  dwfe-form__btn--standard  authtion-personal__action"
@@ -227,6 +216,18 @@
             aria-label="Perform 'Cancel edit'">
       Cancel
     </button>
+
+    <app-alert-dwfe *ngIf="errorMessage !== ''"
+                    class="dwfe-form__alert-over"
+                    [message]="errorMessage"
+                    [blink]="true">
+    </app-alert-dwfe>
+    <app-alert-dwfe *ngIf="successMessage !== ''"
+                    class="dwfe-form__alert-over"
+                    [message]="successMessage"
+                    [alertType]="'success'"
+                    [blink]="true">
+    </app-alert-dwfe>
   </div>
 
 </section>
