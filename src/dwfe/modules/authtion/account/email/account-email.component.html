@@ -12,14 +12,12 @@
     <app-input-email-dwfe class="dwfe-form__item"
                           [externalBackendValidator]="exchangeService.backendValidatorEmail.bind(exchangeService)"
                           [labelText]="'New Email'"
-                          (takeControl)="cNewEmail=$event"
-                          #refNewEmail>
+                          (takeControl)="cNewEmail=$event">
     </app-input-email-dwfe>
 
     <app-input-password-dwfe class="dwfe-form__item"
                              [labelText]="'Your Current Password'"
-                             (takeControl)="cCurrentPassword=$event"
-                             #refCurrentPassword>
+                             (takeControl)="cCurrentPassword=$event">
     </app-input-password-dwfe>
 
     <p class="authtion-account-email__note">

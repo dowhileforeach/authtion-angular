@@ -15,10 +15,8 @@ export class AuthtionAccountEmailComponent extends AbstractExchangeableDwfe impl
 
   private cCurrentEmail: AbstractControl;
   private cNewEmail: AbstractControl;
-  @ViewChild('refNewEmail', {read: ElementRef}) private refNewEmail: ElementRef;
 
   private cCurrentPassword: AbstractControl;
-  @ViewChild('refCurrentPassword', {read: ElementRef}) private refCurrentPassword: ElementRef;
 
   constructor(private authtionService: AuthtionService,
               private exchangeService: AuthtionExchangeService) {
