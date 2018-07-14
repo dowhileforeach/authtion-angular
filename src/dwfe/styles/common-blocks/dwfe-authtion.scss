@@ -6,7 +6,7 @@
 .authtion-btn-user {
   border: none;
 
-  @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-silver);
+  @include fonts($font-size-x2, $font-size-x2, $font-weight-light, normal, $color-indigo-approx);
 
   user-select: none;
   transition: all 0.12s ease;
@@ -54,7 +54,7 @@
   max-width: 100%;
   height: auto;
 
-  fill: $color-silver;
+  fill: $color-indigo-approx;
 }
 
 //
