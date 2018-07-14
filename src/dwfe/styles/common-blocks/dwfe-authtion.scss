@@ -6,7 +6,7 @@
 .authtion-btn-user {
   border: none;
 
-  @include fonts($font-size-x2, $font-size-x2, $font-weight-normal, normal, $color-indigo-approx);
+  @include fonts($font-size-x2, $font-size-x2, $font-weight-normal, italic, $color-indigo-approx);
 
   user-select: none;
   transition: all 0.12s ease;
