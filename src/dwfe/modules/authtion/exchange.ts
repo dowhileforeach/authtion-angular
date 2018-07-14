@@ -12,7 +12,7 @@ export const endpoints = {
   signOut: `${API_VERSION}/sign-out`,
   checkEmail: `${API_VERSION}/check-email`,
   createAccount: `${API_VERSION}/create-account`,
-  getUserPersonal: `${API_VERSION}/get-user-personal`,
+  getUserPersonal: `${API_VERSION}/get-account`,
   updateUserPersonal: `${API_VERSION}/update-user-personal`,
   changePass: `${API_VERSION}/change-pass`,
   reqResetPass: `${API_VERSION}/req-reset-pass`,
